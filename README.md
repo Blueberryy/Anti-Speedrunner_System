@@ -44,7 +44,9 @@ The Anti-Speedrunner System was developed against SourceMod 1.8+.
 
 ### Disabling
 1. Move anti-speedrunner_system.smx to plugins/disabled folder.
-2. ```sm_rcon sm plugins unload anti-speedrunner_system```
+2. Unload the Anti-Speedrunner System.
+  - Type ```sm_rcon sm plugins unload anti-speedrunner_system``` in console.
+  - OR restart the server.
 
 ## Features
 1. Automatic mode - Provides the option to run a timer at the start of each map to keep track of who is speedrunning.
