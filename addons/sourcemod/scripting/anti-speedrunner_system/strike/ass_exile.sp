@@ -63,7 +63,7 @@ public Action cmdASSExile(int client, int args)
 	}
 	else if (toggle > 1 || args > 3)
 	{
-		ReplyToCommand(client, "%s Usage: ass_exile <optional - #userid|name> <optional - 0: kick|1: ban> <optional - duration>", ASS_PREFIX01);
+		ReplyToCommand(client, "%s Usage: ass_exile <optional - #userid|name> <optional - 0: kick|1: ban> <optional - duration >= 1>", ASS_PREFIX01);
 		return Plugin_Handled;
 	}
 	char sTarget[32];

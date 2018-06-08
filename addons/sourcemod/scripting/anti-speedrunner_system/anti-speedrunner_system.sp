@@ -193,7 +193,7 @@ public void OnPluginStart()
 		LoadTranslations("anti-speedrunner_system.phrases");
 	}
 	RegAdminCmd("ass_acid", cmdASSAcid, ADMFLAG_KICK, "Spawn an acid puddle under a player for speedrunning.");
-	RegAdminCmd("ass_ammo", cmdASSAmmo, ADMFLAG_KICK, "Set a player's ammunition count to 0 for speedrunning.");
+	RegAdminCmd("ass_ammo", cmdASSAmmo, ADMFLAG_KICK, "Set a player's ammunition count for speedrunning.");
 	RegAdminCmd("ass_blind", cmdASSBlind, ADMFLAG_KICK, "Blind a player for speedrunning.");
 	RegAdminCmd("ass_charge", cmdASSCharge, ADMFLAG_KICK, "Charge at a player for speedrunning.");
 	RegAdminCmd("ass_chase", cmdASSChase, ADMFLAG_KICK, "Spawn a special infected to chase a player for speedrunning.");

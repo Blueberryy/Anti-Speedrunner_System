@@ -190,7 +190,7 @@ void vAmmoSpeedrunners(int target, int client, int toggle, bool log = true, int 
 				}
 				else
 				{
-					if (count > 0 || timer == 0)
+					if (timer == 0)
 					{
 						vSetAmmo(target, count);
 					}
