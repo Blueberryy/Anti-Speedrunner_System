@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 29.7 (June 8, 2018)
+
+1. Updated translation file.
+
 ## Version 29.6 (June 8, 2018)
 
 1. Edited the default values of the assstrike_systemoptions and assfilter_blockoptions convars.
