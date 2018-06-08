@@ -246,41 +246,75 @@ Warps a player back to the nearest teammate.
 
 ## Commands
 ```
-[Commands]			[Flags]		[Description]
-ass_acid			Kick (c)	Spawn an acid puddle under a player for speedrunning
-ass_ammo			Kick (c)	Set a player's ammunition count to 0 for speedrunning.
-ass_blind			Kick (c)	Blind a player for speedrunning.
-ass_charge			Kick (c)	Charge at a player for speedrunning.
-ass_chase			Kick (c)	Spawn a special infected to chase a player for speedrunning.
-ass_check			Kick (c)	Run a timer on a player to check for speedrunning.
-ass_config			Root (z)	Create a custom config in-game.
-ass_disarm			Kick (c)	Disarm a player for speedrunning.
-ass_door			Kick (c)	Manually lock/unlock saferoom doors.
-ass_drug			Kick (c)	Drug a player for speedrunning.
-ass_entry			Root (z)	Warp all survivors inside the saferoom.
-ass_exile			Ban (d)		Exile a player for speedrunning.
-ass_explode			Slay (f)	Cause an explosion on a player for speedrunning.
-ass_fire			Kick (c)	Set a player on fire for speedrunning.
-ass_freeze			Kick (c)	Freeze a player for speedrunning.
-ass_heal			Kick (c)	Set a player to black and white with temporary health for speedrunning.
-ass_hurt			Kick (c)	Hurt a player for speedrunning.
-ass_idle			Slay (f)	Force a player to go idle for speedrunning.
-ass_incap			Kick (c)	Incapacitate a player for speedrunning.
-ass_invert			Kick (c)	Invert a player's movement keys for speedrunning.
-ass_key				Kick (c)	Choose a new Keyman.
-ass_mirror			Kick (c)	Mirror a player's damage for speedrunning.
-ass_null			Root (z)	Give a player immunity.
-ass_puke			Kick (c)	Puke on a player for speedrunning.
-ass_restart			Kick (c)	Cause a player to restart at the spawn area for speedrunning.
-ass_rocket			Slay (f)	Send a player into space for speedrunning.
-ass_room			Root (z)	Manually set the entry method for ending saferoom doors.
-ass_shake			Kick (c)	Shake a player's screen for speedrunning.
-ass_shock			Slay (f)	Shock a player for speedrunning.
-ass_shove			Kick (c)	Shove a player for speedrunning.
-ass_slow			Kick (c)	Slow a player down for speedrunning.
-ass_strike			Root (z)	Give a player a strike for speedrunning.
-ass_vision			Kick (c)	Change a player's vision for speedrunning.
-ass_warp			Kick (c)	Warp a player to your position for speedrunning.
+[Commands]		[Flags]		[Description]
+ass_acid		Kick (c)	Spawn an acid puddle under a player for speedrunning.
+Usage: ass_acid <#userid|name> <0: off|1: on> <0: once|1: repeat>
+ass_ammo		Kick (c)	Set a player's ammunition count for speedrunning.
+Usage: ass_ammo <#userid|name> <0: off|1: on> <count >= 0> <0: once|1: repeat>
+ass_blind		Kick (c)	Blind a player for speedrunning.
+Usage: ass_blind <#userid|name> <0: off|1: on>
+ass_charge		Kick (c)	Charge at a player for speedrunning.
+Usage: ass_charge <#userid|name> <0: off|1: on> <0: once|1: repeat>
+ass_chase		Kick (c)	Spawn a special infected to chase a player for speedrunning.
+Usage: ass_chase <#userid|name> <1: hunter|2: smoker|3: jockey|4: charger>
+ass_check		Kick (c)	Run a timer on a player to check for speedrunning.
+Usage: ass_check <#userid|name> <0: off|1: on> <0: once|1: repeat>
+ass_config		Root (z)	Create a custom config in-game.
+Usage: ass_config <0: create|1: execute> <0: difficulty|1: map|2: game mode|3: day|4: player count> "filename"
+ass_disarm		Kick (c)	Disarm a player for speedrunning.
+Usage: ass_disarm <#userid|name> <0: off|1: on> <1: 1st slot|2: 2nd slot|3: 3rd slot|4: 4th slot|5: 5th slot> <0: once|1: repeat>
+ass_door		Kick (c)	Manually lock/unlock saferoom doors.
+Usage: ass_door <#userid|name> <0: starting door|1: ending door> <0: unlock|1: lock>
+ass_drug		Kick (c)	Drug a player for speedrunning.
+Usage: ass_drug <#userid|name> <0: off|1: on>
+ass_entry		Root (z)	Warp all survivors inside the saferoom.
+Usage: ass_entry
+ass_exile		Ban (d)		Exile a player for speedrunning.
+Usage: ass_exile <optional - #userid|name> <optional - 0: kick|1: ban> <optional - duration >= 1>
+ass_explode		Slay (f)	Cause an explosion on a player for speedrunning.
+Usage: ass_explode <#userid|name> <radius> <power>
+ass_fire		Kick (c)	Set a player on fire for speedrunning.
+Usage: ass_fire <#userid|name> <0: off|1: on> <0: once|1: repeat>
+ass_freeze		Kick (c)	Freeze a player for speedrunning.
+Usage: ass_freeze <#userid|name> <0: off|1: on>
+ass_heal		Kick (c)	Set a player to black and white with temporary health for speedrunning.
+Usage: ass_heal <#userid|name>
+ass_hurt		Kick (c)	Hurt a player for speedrunning.
+Usage: ass_fire <#userid|name> <0: off|1: on> <damage >= 1> <0: once|1: repeat>
+ass_idle		Slay (f)	Force a player to go idle for speedrunning.
+Usage: ass_idle <#userid|name>
+ass_incap		Kick (c)	Incapacitate a player for speedrunning.
+Usage: ass_incap <#userid|name> <0: off|1: on> <radius> <0: once|1: repeat>
+ass_invert		Kick (c)	Invert a player's movement keys for speedrunning.
+Usage: ass_invert <#userid|name> <0: off|1: on>
+ass_key			Kick (c)	Choose a new Keyman.
+Usage: ass_key <#userid|name> <0: off|1: on>
+ass_mirror		Kick (c)	Mirror a player's damage for speedrunning.
+Usage: ass_mirror <#userid|name> <0: off|1: on>
+ass_null		Root (z)	Give a player immunity.
+Usage: ass_null <#userid|name> <0: off|1: on>
+ass_puke		Kick (c)	Puke on a player for speedrunning.
+Usage: ass_puke <#userid|name> <0: off|1: on> <0: once|1: repeat>
+ass_restart		Kick (c)	Cause a player to restart at the spawn area for speedrunning.
+Usage: ass_restart <#userid|name> <0: off|1: on> "item1,item2,item3,item4,item5"
+ass_rocket		Slay (f)	Send a player into space for speedrunning.
+Usage: ass_rocket <#userid|name> <launch delay> <detonation delay>
+ass_room		Root (z)	Manually set the entry method for ending saferoom doors.
+Usage: ass_room <0: none|1: boss|2: filter|3: group|4: keyman|5: lockdown>
+ass_shake		Kick (c)	Shake a player's screen for speedrunning.
+Usage: ass_shake <#userid|name> <0: off|1: on> <0: once|1: repeat>
+ass_shock		Slay (f)	Shock a player for speedrunning.
+Usage: ass_shock <#userid|name>
+ass_shove		Kick (c)	Shove a player for speedrunning.
+Usage: ass_shove <#userid|name> <0: off|1: on> <0: once|1: repeat>
+ass_slow		Kick (c)	Slow a player down for speedrunning.
+Usage: ass_slow <#userid|name> <0: off|1: on> <speed>
+ass_strike		Root (z)	Give a player a strike for speedrunning.
+Usage: ass_strike <#userid|name> <amount >= 1>
+ass_vision		Kick (c)	Change a player's vision for speedrunning.
+Usage: ass_vision <#userid|name> <0: off|1: on> <fov <= 160> <0: once|1: repeat>
+ass_warp		Kick (c)	Warp a player to your position for speedrunning.
+Usage: ass_warp <#userid|name>
 ```
 
 ## Overrides
