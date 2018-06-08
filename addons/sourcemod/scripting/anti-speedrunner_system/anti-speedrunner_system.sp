@@ -916,7 +916,7 @@ public Action eEventRoundStart(Event event, const char[] name, bool dontBroadcas
 	{
 		g_iIdGoal = -1;
 		g_iIdGoal2 = -1;
-		vKillReset();
+		vResetVoteCounts();
 		g_cvASSSaferoomSystemOptions.GetString(g_sSaferoomOption, sizeof(g_sSaferoomOption));
 		g_cvASSLockdownDoorType.GetString(g_sLockdownType, sizeof(g_sLockdownType));
 		if (g_cvASSSaferoomEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
@@ -928,13 +928,21 @@ public Action eEventRoundStart(Event event, const char[] name, bool dontBroadcas
 			if ((StrContains(g_sSaferoomOption, "b", false) != -1 || StrContains(g_sSaferoomOption, "f", false) != -1 || StrContains(g_sSaferoomOption, "g", false) != -1 || StrContains(g_sSaferoomOption, "k", false) != -1 || (StrContains(g_sSaferoomOption, "l", false) != -1 && StrContains(g_sLockdownType, "2", false) != -1)) && !bIsFinaleMap() && !bIsBuggedMap())
 			{
 				vEInitializeDoor();
-				if (StrContains(g_sSaferoomOption, "k", false) != -1)
+				vResetGroupCounts();
+				vResetVoteMenus();
+ 				if (StrContains(g_sSaferoomOption, "k", false) != -1)
 				{
 					vKeymanStats();
 				}
 			}
 		}
 		g_sWeapon[0] = '\0';
+		for (int iPlayer= 1; iPlayer <= MaxClients; iPlayer++)
+		{
+			g_bHeadshot[iPlayer] = false;
+			g_bMirror[iPlayer] = false;
+			vResetPlayerMenu(iPlayer);
+		}
 		CreateTimer(10.0, tTimerRestartCoordinates);
 	}
 	return Plugin_Continue;
@@ -1367,7 +1375,6 @@ void vKillReset()
 	for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer++)
 	{
 		g_bAdminMenu[iPlayer] = false;
-		g_bHeadshot[iPlayer] = false;
 		g_bNull[iPlayer] = false;
 		vKillCheckTimer(iPlayer);
 		vResetPlayerMenu(iPlayer);
@@ -1385,6 +1392,7 @@ void vResetPlayerStats(int client)
 	vKillDrugTimer(client);
 	vKillFireTimer(client);
 	vKillFreezeTimer(client);
+	g_bHeadshot[client] = false;
 	vKillHurtTimer(client);
 	g_bIdle[client] = false;
 	vKillIncapTimer(client);
