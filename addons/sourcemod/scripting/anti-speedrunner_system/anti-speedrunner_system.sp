@@ -25,18 +25,19 @@ bool g_bDrug[MAXPLAYERS + 1];
 bool g_bExileMode[MAXPLAYERS + 1];
 bool g_bFire[MAXPLAYERS + 1];
 bool g_bFreeze[MAXPLAYERS + 1];
+bool g_bHeadshot[MAXPLAYERS + 1];
 bool g_bHurt[MAXPLAYERS + 1];
 bool g_bIdle[MAXPLAYERS + 1];
-bool g_bImmune[MAXPLAYERS + 1];
 bool g_bIncap[MAXPLAYERS + 1];
 bool g_bInvert[MAXPLAYERS + 1];
 bool g_bKeyman[MAXPLAYERS + 1];
+bool g_bMirror[MAXPLAYERS + 1];
+bool g_bNull[MAXPLAYERS + 1];
 bool g_bPuke[MAXPLAYERS + 1];
 bool g_bRestart[MAXPLAYERS + 1];
 bool g_bShake[MAXPLAYERS + 1];
 bool g_bShove[MAXPLAYERS + 1];
 bool g_bSlow[MAXPLAYERS + 1];
-bool g_bThirdperson[MAXPLAYERS + 1];
 bool g_bVision[MAXPLAYERS + 1];
 bool g_bWarp[MAXPLAYERS + 1];
 bool g_bAdminMenu[MAXPLAYERS + 1];
@@ -58,6 +59,7 @@ bool g_bIdleMenu[MAXPLAYERS + 1];
 bool g_bIncapMenu[MAXPLAYERS + 1];
 bool g_bInvertMenu[MAXPLAYERS + 1];
 bool g_bKeymanMenu[MAXPLAYERS + 1];
+bool g_bMirrorMenu[MAXPLAYERS + 1];
 bool g_bNullMenu[MAXPLAYERS + 1];
 bool g_bPukeMenu[MAXPLAYERS + 1];
 bool g_bRestartMenu[MAXPLAYERS + 1];
@@ -67,7 +69,6 @@ bool g_bShockMenu[MAXPLAYERS + 1];
 bool g_bShoveMenu[MAXPLAYERS + 1];
 bool g_bSlowMenu[MAXPLAYERS + 1];
 bool g_bStrikeMenu[MAXPLAYERS + 1];
-bool g_bThirdpersonMenu[MAXPLAYERS + 1];
 bool g_bVisionMenu[MAXPLAYERS + 1];
 bool g_bWarpMenu[MAXPLAYERS + 1];
 bool g_bAutoCheck;
@@ -89,6 +90,7 @@ char g_sPropName[64];
 char g_sSaferoomOption[21];
 char g_sStrikeOption[53];
 char g_sString[MAXPLAYERS + 1][512];
+char g_sWeapon[32];
 ConVar g_cvASSAdminImmunity;
 ConVar g_cvASSAutoMode;
 ConVar g_cvASSCommandOverride;
@@ -156,6 +158,7 @@ UserMsg g_umFadeUserMsgId;
 #include "anti-speedrunner_system/strike/ass_idle.sp"
 #include "anti-speedrunner_system/strike/ass_incapacitation.sp"
 #include "anti-speedrunner_system/strike/ass_inversion.sp"
+#include "anti-speedrunner_system/strike/ass_mirror.sp"
 #include "anti-speedrunner_system/strike/ass_puke.sp"
 #include "anti-speedrunner_system/strike/ass_restart.sp"
 #include "anti-speedrunner_system/strike/ass_rocket.sp"
@@ -164,7 +167,6 @@ UserMsg g_umFadeUserMsgId;
 #include "anti-speedrunner_system/strike/ass_shove.sp"
 #include "anti-speedrunner_system/strike/ass_slow.sp"
 #include "anti-speedrunner_system/strike/ass_vision.sp"
-#include "anti-speedrunner_system/strike/ass_thirdperson.sp"
 #include "anti-speedrunner_system/strike/ass_warp.sp"
 #include "anti-speedrunner_system/ass_configuration_system.sp"
 #include "anti-speedrunner_system/ass_menu_system.sp"
@@ -211,6 +213,7 @@ public void OnPluginStart()
 	RegAdminCmd("ass_incap", cmdASSIncap, ADMFLAG_KICK, "Incapacitate a player for speedrunning.");
 	RegAdminCmd("ass_invert", cmdASSInvert, ADMFLAG_KICK, "Invert a player's movement keys for speedrunning.");
 	RegAdminCmd("ass_key", cmdASSKey, ADMFLAG_KICK, "Choose a new Keyman.");
+	RegAdminCmd("ass_mirror", cmdASSMirror, ADMFLAG_KICK, "Mirror a player's damage for speedrunning.");
 	RegAdminCmd("ass_null", cmdASSNull, ADMFLAG_ROOT, "Give a player immunity.");
 	RegAdminCmd("ass_puke", cmdASSPuke, ADMFLAG_KICK, "Puke on a player for speedrunning.");
 	RegAdminCmd("ass_restart", cmdASSRestart, ADMFLAG_KICK, "Cause a player to restart at the spawn area for speedrunning.");
@@ -221,7 +224,6 @@ public void OnPluginStart()
 	RegAdminCmd("ass_shove", cmdASSShove, ADMFLAG_KICK, "Shove a player for speedrunning.");
 	RegAdminCmd("ass_slow", cmdASSSlow, ADMFLAG_KICK, "Slow a player down for speedrunning.");
 	RegAdminCmd("ass_strike", cmdASSStrike, ADMFLAG_ROOT, "Give a player a strike for speedrunning.");
-	RegAdminCmd("ass_third", cmdASSThirdperson, ADMFLAG_KICK, "Force a player to switch between firstperson and thirdperson for speedrunning.");
 	RegAdminCmd("ass_vision", cmdASSVision, ADMFLAG_KICK, "Change a player's vision for speedrunning.");
 	RegAdminCmd("ass_warp", cmdASSWarp, ADMFLAG_KICK, "Warp a player to your position for speedrunning.");
 	ASS_CreateConfig(true);
@@ -283,14 +285,14 @@ public void OnPluginStart()
 	HookEvent("player_ledge_grab", eEventPlayerIncapacitated);
 	HookEvent("player_spawn", eEventPlayerSpawnDeath);
 	HookEvent("player_death", eEventPlayerSpawnDeath);
-	HookEvent("player_death", eEventPlayerDeath);
+	HookEvent("player_death", eEventPlayerDeath, EventHookMode_Pre);
 	HookEvent("player_use", eEventSDPlayerUse);
 	HookEvent("player_use", eEventEDPlayerUse);
 	HookEvent("player_use", eEventSPlayerUse, EventHookMode_Pre);
 	HookEvent("player_use", eEventEPlayerUse, EventHookMode_Pre);
 	HookEvent("player_team", eEventJoinTeam, EventHookMode_Post);
 	HookEvent("player_left_checkpoint", eEventLeftCheckpoint, EventHookMode_Post);
-	HookEvent("round_start", eEventRoundStart, EventHookMode_Post);
+	HookEvent("round_start", eEventRoundStart, EventHookMode_PostNoCopy);
 	HookEvent("round_start", eEventStartTimer);
 	HookEvent("round_end", eEventServerEnd, EventHookMode_PostNoCopy);
 	HookEvent("round_end", eEventRoundEnd);
@@ -344,12 +346,18 @@ public void OnMapStart()
 	}
 }
 
+public void OnClientPutInServer(int client)
+{
+	SDKHook(client, SDKHook_TraceAttack, aTraceAttack);
+}
+
 public void OnClientPostAdminCheck(int client)
 {
 	vResetPlayerStats(client);
 	g_bAdminMenu[client] = false;
 	g_bAFK[client] = false;
-	g_bImmune[client] = false;
+	g_bHeadshot[client] = false;
+	g_bNull[client] = false;
 	g_iStrikeCount[client] = 0;
 }
 
@@ -359,7 +367,8 @@ public void OnClientDisconnect(int client)
 	vResetPlayerStats(client);
 	g_bAdminMenu[client] = false;
 	g_bAFK[client] = false;
-	g_bImmune[client] = false;
+	g_bHeadshot[client] = false;
+	g_bNull[client] = false;
 	g_iStrikeCount[client] = 0;
 	if (g_cvASSEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
 	{
@@ -449,6 +458,7 @@ public void OnAdminMenuReady(Handle topmenu)
 		g_tmASSMenu.AddItem("ass_incap", vIncapMenu, ass_commands, "ass_incap", ADMFLAG_KICK);
 		g_tmASSMenu.AddItem("ass_invert", vInvertMenu, ass_commands, "ass_invert", ADMFLAG_KICK);
 		g_tmASSMenu.AddItem("ass_key", vKeymanMenu, ass_commands, "ass_key", ADMFLAG_KICK);
+		g_tmASSMenu.AddItem("ass_mirror", vMirrorMenu, ass_commands, "ass_mirror", ADMFLAG_KICK);
 		g_tmASSMenu.AddItem("ass_null", vNullMenu, ass_commands, "ass_null", ADMFLAG_ROOT);
 		g_tmASSMenu.AddItem("ass_puke", vPukeMenu, ass_commands, "ass_puke", ADMFLAG_KICK);
 		g_tmASSMenu.AddItem("ass_restart", vRestartMenu, ass_commands, "ass_restart", ADMFLAG_KICK);
@@ -459,7 +469,6 @@ public void OnAdminMenuReady(Handle topmenu)
 		g_tmASSMenu.AddItem("ass_shove", vShoveMenu, ass_commands, "ass_shove", ADMFLAG_KICK);
 		g_tmASSMenu.AddItem("ass_slow", vSlowMenu, ass_commands, "ass_slow", ADMFLAG_KICK);
 		g_tmASSMenu.AddItem("ass_strike", vStrikeMenu, ass_commands, "ass_strike", ADMFLAG_ROOT);
-		g_tmASSMenu.AddItem("ass_third", vThirdpersonMenu, ass_commands, "ass_third", ADMFLAG_KICK);
 		g_tmASSMenu.AddItem("ass_vision", vVisionMenu, ass_commands, "ass_vision", ADMFLAG_KICK);
 		g_tmASSMenu.AddItem("ass_warp", vWarpMenu, ass_commands, "ass_warp", ADMFLAG_KICK);
 	}
@@ -545,6 +554,7 @@ public Action eEventPlayerIncapacitated(Event event, const char[] name, bool don
 
 public Action eEventPlayerDeath(Event event, const char[] name, bool dontBroadcast)
 {
+	int iAttacker = GetClientOfUserId(event.GetInt("attacker"));
 	int iDead = GetClientOfUserId(event.GetInt("userid"));
 	if (g_cvASSEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
 	{
@@ -563,6 +573,18 @@ public Action eEventPlayerDeath(Event event, const char[] name, bool dontBroadca
 				}
 				CreateTimer(1.0, tTimerChooseKeyman);
 			}
+		}
+		if (g_bMirror[iAttacker] && iAttacker != iDead)
+		{
+			event.SetInt("attacker", GetClientOfUserId(iDead));
+			event.SetString("weapon", g_sWeapon);
+			event.SetInt("userid", GetClientOfUserId(iAttacker));
+			if (g_bHeadshot[iAttacker])
+			{
+				event.SetBool("headshot", true);
+			}
+			SetEntProp(iDead, Prop_Data, "m_iFrags", GetClientFrags(iDead) + 1);
+			SetEntProp(iAttacker, Prop_Data, "m_iFrags", GetClientFrags(iAttacker) + 1);
 		}
 	}
 	return Plugin_Continue;
@@ -606,12 +628,12 @@ public Action eEventSDPlayerUse(Event event, const char[] name, bool dontBroadca
 						return Plugin_Continue;
 					}
 				}
-				if (!g_bImmune[iDoorUser] && (!g_cvASSAdminImmunity.BoolValue || (g_cvASSAdminImmunity.BoolValue && !bIsAdminAllowed(iDoorUser))))
+				if (!g_bNull[iDoorUser] && (!g_cvASSAdminImmunity.BoolValue || (g_cvASSAdminImmunity.BoolValue && !bIsAdminAllowed(iDoorUser))))
 				{
 					HookSingleEntityOutput(iDoorEntity, "OnFullyOpen", vStartAntiSpamDoor);
 					HookSingleEntityOutput(iDoorEntity, "OnFullyClose", vStartAntiSpamDoor);
 				}
-				else if (g_bImmune[iDoorUser] || (g_cvASSAdminImmunity && bIsAdminAllowed(iDoorUser)))
+				else if (g_bNull[iDoorUser] || (g_cvASSAdminImmunity && bIsAdminAllowed(iDoorUser)))
 				{
 					UnhookSingleEntityOutput(iDoorEntity, "OnFullyOpen", vStartAntiSpamDoor);
 					UnhookSingleEntityOutput(iDoorEntity, "OnFullyClose", vStartAntiSpamDoor);
@@ -647,12 +669,12 @@ public Action eEventEDPlayerUse(Event event, const char[] name, bool dontBroadca
 						return Plugin_Continue;
 					}
 				}
-				if (!g_bImmune[iDoorUser] && (!g_cvASSAdminImmunity.BoolValue || (g_cvASSAdminImmunity.BoolValue && !bIsAdminAllowed(iDoorUser))))
+				if (!g_bNull[iDoorUser] && (!g_cvASSAdminImmunity.BoolValue || (g_cvASSAdminImmunity.BoolValue && !bIsAdminAllowed(iDoorUser))))
 				{
 					HookSingleEntityOutput(iDoorEntity, "OnFullyOpen", vStartAntiSpamDoor);
 					HookSingleEntityOutput(iDoorEntity, "OnFullyClose", vStartAntiSpamDoor);
 				}
-				else if (g_bImmune[iDoorUser] || (g_cvASSAdminImmunity && bIsAdminAllowed(iDoorUser)))
+				else if (g_bNull[iDoorUser] || (g_cvASSAdminImmunity && bIsAdminAllowed(iDoorUser)))
 				{
 					UnhookSingleEntityOutput(iDoorEntity, "OnFullyOpen", vStartAntiSpamDoor);
 					UnhookSingleEntityOutput(iDoorEntity, "OnFullyClose", vStartAntiSpamDoor);
@@ -711,7 +733,7 @@ public Action eEventSPlayerUse(Event event, const char[] name, bool dontBroadcas
 						}
 						return Plugin_Continue;
 					}
-					if (g_bImmune[iDoorUser] || (g_cvASSAdminImmunity.BoolValue && bIsAdminAllowed(iDoorUser)) || (g_cvASSCountBots.BoolValue && bIsBotSurvivor(iDoorUser)))
+					if (g_bNull[iDoorUser] || (g_cvASSAdminImmunity.BoolValue && bIsAdminAllowed(iDoorUser)) || (g_cvASSCountBots.BoolValue && bIsBotSurvivor(iDoorUser)))
 					{
 						vNoneOption(iDoorEntity, false);
 						if (g_cvASSAutoMode.BoolValue)
@@ -794,7 +816,7 @@ public Action eEventEPlayerUse(Event event, const char[] name, bool dontBroadcas
 						}
 						return Plugin_Continue;
 					}
-					if (g_bImmune[iDoorUser] || (g_cvASSAdminImmunity.BoolValue && bIsAdminAllowed(iDoorUser)) || (g_cvASSCountBots.BoolValue && bIsBotSurvivor(iDoorUser)))
+					if (g_bNull[iDoorUser] || (g_cvASSAdminImmunity.BoolValue && bIsAdminAllowed(iDoorUser)) || (g_cvASSCountBots.BoolValue && bIsBotSurvivor(iDoorUser)))
 					{
 						vNoneOption(iDoorEntity, true);
 						if (g_cvASSAutoMode.BoolValue)
@@ -894,7 +916,7 @@ public Action eEventRoundStart(Event event, const char[] name, bool dontBroadcas
 	{
 		g_iIdGoal = -1;
 		g_iIdGoal2 = -1;
-		vResetVoteCounts();
+		vKillReset();
 		g_cvASSSaferoomSystemOptions.GetString(g_sSaferoomOption, sizeof(g_sSaferoomOption));
 		g_cvASSLockdownDoorType.GetString(g_sLockdownType, sizeof(g_sLockdownType));
 		if (g_cvASSSaferoomEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
@@ -906,18 +928,13 @@ public Action eEventRoundStart(Event event, const char[] name, bool dontBroadcas
 			if ((StrContains(g_sSaferoomOption, "b", false) != -1 || StrContains(g_sSaferoomOption, "f", false) != -1 || StrContains(g_sSaferoomOption, "g", false) != -1 || StrContains(g_sSaferoomOption, "k", false) != -1 || (StrContains(g_sSaferoomOption, "l", false) != -1 && StrContains(g_sLockdownType, "2", false) != -1)) && !bIsFinaleMap() && !bIsBuggedMap())
 			{
 				vEInitializeDoor();
-				vResetGroupCounts();
-				vResetVoteMenus();
 				if (StrContains(g_sSaferoomOption, "k", false) != -1)
 				{
 					vKeymanStats();
 				}
 			}
 		}
-		for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer++)
-		{
-			vResetPlayerMenu(iPlayer);
-		}
+		g_sWeapon[0] = '\0';
 		CreateTimer(10.0, tTimerRestartCoordinates);
 	}
 	return Plugin_Continue;
@@ -1213,19 +1230,19 @@ void vStrikeOptions(int mode, int target, int client, ConVar convar)
 				case 'J', 'j': vAmmoSpeedrunners(target, client, 1, false, 0, 1);
 				case 'K', 'k': vDisarmSpeedrunners(target, client, 1, false, g_iWeaponSlot[target], 1);
 				case 'L', 'l': vHurtSpeedrunners(target, client, 1, false, g_cvASSHurtDamageAmount.IntValue, 1);
-				case 'M', 'm': vFireSpeedrunners(target, client, 1, false, 1);
-				case 'N', 'n': vHealSpeedrunners(target, client, false);
-				case 'O', 'o': vVisionSpeedrunners(target, client, 1, false, 160, 1);
-				case 'P', 'p': vIncapSpeedrunners(target, client, 1, false, 500.0, 1);
-				case 'Q', 'q': vRocketSpeedrunners(target, client, false);
-				case 'R', 'r': vShockSpeedrunners(target, client, false);
-				case 'S', 's': vExplodeSpeedrunners(target, client, false);
-				case 'T', 't': vPukeSpeedrunners(target, client, 1, false);
-				case 'U', 'u': vChaseSpeedrunners(target, client, false);
-				case 'V', 'v': bIsL4D2Game() ? vAcidSpeedrunners(target, client, 1, false, 1) : vPukeSpeedrunners(target, client, 1, false);
-				case 'W', 'w': bIsL4D2Game() ? vChargeSpeedrunners(target, client, 1, false, 1) : vChaseSpeedrunners(target, client, false);
-				case 'X', 'x': vIdleSpeedrunners(target, client, false);
-				case 'Y', 'y': bIsL4D2Game() ? vThirdpersonSpeedrunners(target, client, 1, false, 1) : vIdleSpeedrunners(target, client, false);
+				case 'M', 'm': vMirrorSpeedrunners(target, client, 1, false);
+				case 'N', 'n': vFireSpeedrunners(target, client, 1, false, 1);
+				case 'O', 'o': vHealSpeedrunners(target, client, false);
+				case 'P', 'p': vVisionSpeedrunners(target, client, 1, false, 160, 1);
+				case 'Q', 'q': vIncapSpeedrunners(target, client, 1, false, 500.0, 1);
+				case 'R', 'r': vRocketSpeedrunners(target, client, false);
+				case 'S', 's': vShockSpeedrunners(target, client, false);
+				case 'T', 't': vExplodeSpeedrunners(target, client, false);
+				case 'U', 'u': vPukeSpeedrunners(target, client, 1, false);
+				case 'V', 'v': vChaseSpeedrunners(target, client, false);
+				case 'W', 'w': bIsL4D2Game() ? vAcidSpeedrunners(target, client, 1, false, 1) : vPukeSpeedrunners(target, client, 1, false);
+				case 'X', 'x': bIsL4D2Game() ? vChargeSpeedrunners(target, client, 1, false, 1) : vChaseSpeedrunners(target, client, false);
+				case 'Y', 'y': vIdleSpeedrunners(target, client, false);
 				case 'Z', 'z': !g_cvASSExileMode.BoolValue ? vExileSpeedrunners(target, client, 0, false) : vExileSpeedrunners(target, client, 1, false);
 				default: vWarpSpeedrunners(target, client, false);
 			}
@@ -1282,55 +1299,55 @@ void vStrikeOptions(int mode, int target, int client, ConVar convar)
 			}
 			if (StrContains(g_sStrikeOption, "m", false) != -1)
 			{
-				vFireSpeedrunners(target, client, 1, false, 1);
+				vMirrorSpeedrunners(target, client, 1, false);
 			}
 			if (StrContains(g_sStrikeOption, "n", false) != -1)
 			{
-				vHealSpeedrunners(target, client, false);
+				vFireSpeedrunners(target, client, 1, false, 1);
 			}
 			if (StrContains(g_sStrikeOption, "o", false) != -1)
 			{
-				vVisionSpeedrunners(target, client, 1, false, 160, 1);
+				vHealSpeedrunners(target, client, false);
 			}
 			if (StrContains(g_sStrikeOption, "p", false) != -1)
 			{
-				vIncapSpeedrunners(target, client, 1, false, 500.0, 1);
+				vVisionSpeedrunners(target, client, 1, false, 160, 1);
 			}
 			if (StrContains(g_sStrikeOption, "q", false) != -1)
 			{
-				vRocketSpeedrunners(target, client, false);
+				vIncapSpeedrunners(target, client, 1, false, 500.0, 1);
 			}
 			if (StrContains(g_sStrikeOption, "r", false) != -1)
 			{
-				vShockSpeedrunners(target, client, false);
+				vRocketSpeedrunners(target, client, false);
 			}
 			if (StrContains(g_sStrikeOption, "s", false) != -1)
 			{
-				vExplodeSpeedrunners(target, client, false);
+				vShockSpeedrunners(target, client, false);
 			}
 			if (StrContains(g_sStrikeOption, "t", false) != -1)
 			{
-				vPukeSpeedrunners(target, client, 1, false);
+				vExplodeSpeedrunners(target, client, false);
 			}
 			if (StrContains(g_sStrikeOption, "u", false) != -1)
 			{
-				vChaseSpeedrunners(target, client, false);
+				vPukeSpeedrunners(target, client, 1, false);
 			}
 			if (StrContains(g_sStrikeOption, "v", false) != -1)
 			{
-				bIsL4D2Game() ? vAcidSpeedrunners(target, client, 1, false, 1) : vPukeSpeedrunners(target, client, 1, false);
+				vChaseSpeedrunners(target, client, false);
 			}
 			if (StrContains(g_sStrikeOption, "w", false) != -1)
 			{
-				bIsL4D2Game() ? vChargeSpeedrunners(target, client, 1, false, 1) : vChaseSpeedrunners(target, client, false);
+				bIsL4D2Game() ? vAcidSpeedrunners(target, client, 1, false, 1) : vPukeSpeedrunners(target, client, 1, false);
 			}
 			if (StrContains(g_sStrikeOption, "x", false) != -1)
 			{
-				vIdleSpeedrunners(target, client, false);
+				bIsL4D2Game() ? vChargeSpeedrunners(target, client, 1, false, 1) : vChaseSpeedrunners(target, client, false);
 			}
 			if (StrContains(g_sStrikeOption, "y", false) != -1)
 			{
-				bIsL4D2Game() ? vThirdpersonSpeedrunners(target, client, 1, false, 1) : vIdleSpeedrunners(target, client, false);
+				vIdleSpeedrunners(target, client, false);
 			}
 			if (StrContains(g_sStrikeOption, "z", false) != -1)
 			{
@@ -1350,7 +1367,8 @@ void vKillReset()
 	for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer++)
 	{
 		g_bAdminMenu[iPlayer] = false;
-		g_bImmune[iPlayer] = false;
+		g_bHeadshot[iPlayer] = false;
+		g_bNull[iPlayer] = false;
 		vKillCheckTimer(iPlayer);
 		vResetPlayerMenu(iPlayer);
 		vResetPlayerStats(iPlayer);
@@ -1371,12 +1389,12 @@ void vResetPlayerStats(int client)
 	g_bIdle[client] = false;
 	vKillIncapTimer(client);
 	g_bInvert[client] = false;
+	g_bMirror[client] = false;
 	vKillPukeTimer(client);
 	g_bRestart[client] = false;
 	vKillShakeTimer(client);
 	vKillShoveTimer(client);
 	g_bSlow[client] = false;
-	vKillThirdpersonTimer(client);
 	vKillVisionTimer(client);
 }
 
@@ -1400,6 +1418,7 @@ void vResetPlayerMenu(int client)
 	g_bIncapMenu[client] = false;
 	g_bInvertMenu[client] = false;
 	g_bKeymanMenu[client] = false;
+	g_bMirrorMenu[client] = false;
 	g_bNullMenu[client] = false;
 	g_bPukeMenu[client] = false;
 	g_bRestartMenu[client] = false;
@@ -1409,7 +1428,6 @@ void vResetPlayerMenu(int client)
 	g_bShoveMenu[client] = false;
 	g_bSlowMenu[client] = false;
 	g_bStrikeMenu[client] = false;
-	g_bThirdpersonMenu[client] = false;
 	g_bVisionMenu[client] = false;
 	g_bWarpMenu[client] = false;
 }

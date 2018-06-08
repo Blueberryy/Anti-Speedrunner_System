@@ -1,12 +1,14 @@
-// Vision Option
-Handle g_hVisionTimers[MAXPLAYERS + 1];
-int g_iFov[MAXPLAYERS + 1];
-
-public Action cmdASSVision(int client, int args)
+// Mirror Option
+public Action cmdASSMirror(int client, int args)
 {
 	if (!g_cvASSEnable.BoolValue)
 	{
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "ASSOff") : ReplyToCommand(client, "%s The Anti-Speedrunner System is disabled.", ASS_PREFIX01);
+		return Plugin_Handled;
+	}
+	if (!bIsL4D2Game())
+	{
+		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "NotL4D2") : ReplyToCommand(client, "%s Available in Left 4 Dead 2 only.", ASS_PREFIX01);
 		return Plugin_Handled;
 	}
 	if (g_cvASSAutoMode.BoolValue && !g_cvASSCommandOverride.BoolValue)
@@ -35,12 +37,6 @@ public Action cmdASSVision(int client, int args)
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "WrongTeam") : ReplyToCommand(client, "%s You must be on the survivor team to use this command.", ASS_PREFIX01);
 		return Plugin_Handled;
 	}
-	char arg4[32];
-	GetCmdArg(4, arg4, sizeof(arg4));
-	int timer = StringToInt(arg4);
-	char arg3[32];
-	GetCmdArg(3, arg3, sizeof(arg3));
-	int fov = StringToInt(arg3);
 	char arg2[32];
 	GetCmdArg(2, arg2, sizeof(arg2));
 	int toggle = StringToInt(arg2);
@@ -52,20 +48,20 @@ public Action cmdASSVision(int client, int args)
 		}
 		else
 		{
-			g_bVisionMenu[client] = true;
+			g_bMirrorMenu[client] = true;
 			g_bAdminMenu[client] = false;
 			vPlayerMenu(client);
 		}
 		return Plugin_Handled;
 	}
-	else if (timer > 1 || fov > 160 || toggle > 1 || args > 4)
+	else if (toggle > 1 || args > 2)
 	{
-		ReplyToCommand(client, "%s Usage: ass_vision <optional - #userid|name> <optional - 0: off|1: on> <optional - fov <= 160> <optional - 0: once|1: repeat>", ASS_PREFIX01);
+		ReplyToCommand(client, "%s Usage: ass_mirror <optional - #userid|name> <optional - 0: off|1: on>", ASS_PREFIX01);
 		return Plugin_Handled;
 	}
 	char sTarget[32];
 	GetCmdArg(1, sTarget, sizeof(sTarget));
-	if (!bSelectTarget(sTarget, client, toggle, fov, timer, 0.0, 0.0, ""))
+	if (!bSelectTarget(sTarget, client, toggle, 0, 0, 0.0, 0.0, ""))
 	{
 		char target_name[32];
 		int target_list[MAXPLAYERS];
@@ -78,28 +74,18 @@ public Action cmdASSVision(int client, int args)
 		}
 		for (int iPlayer = 0; iPlayer < target_count; iPlayer++)
 		{
-			vVisionSpeedrunners(target_list[iPlayer], client, toggle, true, fov, timer);
+			vMirrorSpeedrunners(target_list[iPlayer], client, toggle);
 		}
-		ShowActivity2(client, ASS_PREFIX2, "Used \"ass_vision\" on %s.", target_name);
+		ShowActivity2(client, ASS_PREFIX2, "Used \"ass_mirror\" on %s.", target_name);
 	}
-	g_bVisionMenu[client] = true;
+	g_bMirrorMenu[client] = true;
 	g_bAdminMenu[client] = false;
 	return Plugin_Handled;
 }
 
-void vVision(int client)
+void vMirrorSpeedrunners(int target, int client, int toggle, bool log = true)
 {
-	if (IsValidEntity(client))
-	{
-		SetEntData(client, FindSendPropInfo("CBasePlayer", "m_iFOV"), g_iFov[client], 4, true);
-		SetEntData(client, FindSendPropInfo("CBasePlayer", "m_iDefaultFOV"), g_iFov[client], 4, true);
-	}
-}
-
-void vVisionSpeedrunners(int target, int client, int toggle, bool log = true, int fov = 0, int timer = 0)
-{
-	fov == 0 ? (g_iFov[target] = 160) : (g_iFov[target] = fov);
-	if (bIsInfected(target))
+	if (bIsInfected(target) || !bIsL4D2Game())
 	{
 		return;
 	}
@@ -109,16 +95,16 @@ void vVisionSpeedrunners(int target, int client, int toggle, bool log = true, in
 		{
 			case 0:
 			{
-				vKillVisionTimer(target);
+				g_bMirror[target] = false;
 				if (bIsHumanSurvivor(target) && log)
 				{
-					bHasTranslationFile() ? PrintHintText(target, "%s %t", ASS_PREFIX, "VisionInform") : PrintHintText(target, "%s Your vision has changed!", ASS_PREFIX);
+					bHasTranslationFile() ? PrintHintText(target, "%s %t", ASS_PREFIX, "MirrorNoInform") : PrintHintText(target, "%s Your damage is not mirrored anymore!", ASS_PREFIX);
 				}
 				for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer++)
 				{
 					if (bIsHumanSurvivor(iPlayer) && log)
 					{
-						bHasTranslationFile() ? PrintToChat(iPlayer, "%s %t", ASS_PREFIX01, "VisionAnnounce", target) : PrintToChat(iPlayer, "%s %N's vision has changed!", ASS_PREFIX01, target);
+						bHasTranslationFile() ? PrintToChat(iPlayer, "%s %t", ASS_PREFIX01, "MirrorNoAnnounce", target) : PrintToChat(iPlayer, "%s %N's damage is not mirrored anymore!", ASS_PREFIX01, target);
 					}
 				}
 			}
@@ -126,7 +112,6 @@ void vVisionSpeedrunners(int target, int client, int toggle, bool log = true, in
 			{
 				if (g_bNull[target] || (g_cvASSAdminImmunity.BoolValue && bIsAdminAllowed(target)))
 				{
-					vKillVisionTimer(target);
 					if (!g_bCheck[target] && !g_bAutoCheck)
 					{
 						if (bIsHumanSurvivor(client) && bIsAdminAllowed(client))
@@ -137,30 +122,19 @@ void vVisionSpeedrunners(int target, int client, int toggle, bool log = true, in
 				}
 				else
 				{
-					if (timer == 0)
+					if (!g_bMirror[target])
 					{
-						vVision(target);
-					}
-					else
-					{
-						if (!g_bVision[target])
+						g_bMirror[target] = true;
+						if (bIsHumanSurvivor(target) && log)
 						{
-							g_bVision[target] = true;
-							if (g_hVisionTimers[target] == null)
-							{
-								g_hVisionTimers[target] = CreateTimer(0.1, tTimerVisionSpeedrunners, target, TIMER_REPEAT);
-							}
+							bHasTranslationFile() ? PrintHintText(target, "%s %t", ASS_PREFIX, "MirrorInform") : PrintHintText(target, "%s Your damage is mirrored!", ASS_PREFIX);
 						}
-					}
-					if (bIsHumanSurvivor(target) && log)
-					{
-						bHasTranslationFile() ? PrintHintText(target, "%s %t", ASS_PREFIX, "VisionInform") : PrintHintText(target, "%s Your vision has changed!", ASS_PREFIX);
-					}
-					for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer++)
-					{
-						if (bIsHumanSurvivor(iPlayer) && log)
+						for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer++)
 						{
-							bHasTranslationFile() ? PrintToChat(iPlayer, "%s %t", ASS_PREFIX01, "VisionAnnounce", target) : PrintToChat(iPlayer, "%s %N's vision has changed!", ASS_PREFIX01, target);
+							if (bIsHumanSurvivor(iPlayer) && log)
+							{
+								bHasTranslationFile() ? PrintToChat(iPlayer, "%s %t", ASS_PREFIX01, "MirrorAnnounce", target) : PrintToChat(iPlayer, "%s %N's damage is mirrored!", ASS_PREFIX01, target);
+							}
 						}
 					}
 				}
@@ -168,33 +142,50 @@ void vVisionSpeedrunners(int target, int client, int toggle, bool log = true, in
 		}
 		if (g_cvASSLogCommands.BoolValue && log)
 		{
-			LogAction(client, target, "%s \"%L\" used \"ass_vision\" on \"%L\".", ASS_PREFIX, client, target);
+			LogAction(client, target, "%s \"%L\" used \"ass_mirror\" on \"%L\".", ASS_PREFIX, client, target);
 		}
 	}
 }
 
-void vKillVisionTimer(int client)
+public Action aTraceAttack(int victim, int &attacker, int &inflictor, float &damage, int &damagetype, int &ammotype, int hitbox, int hitgroup)
 {
-	g_bVision[client] = false;
-	if (g_hVisionTimers[client] != null)
+	if (g_bMirror[attacker] && attacker > 0)
 	{
-		if (IsValidEntity(client))
+		if (attacker != victim)
 		{
-			SetEntData(client, FindSendPropInfo("CBasePlayer", "m_iFOV"), 90, 4, true);
-			SetEntData(client, FindSendPropInfo("CBasePlayer", "m_iDefaultFOV"), 90, 4, true);
+			if (GetClientTeam(attacker) != GetClientTeam(victim))
+			{
+				int iHealth = GetClientHealth(attacker);
+				int iDamage = RoundFloat(damage);
+				if (iHealth > 0 && iHealth > iDamage)
+				{
+					SetEntityHealth(attacker, iHealth - iDamage);
+					iDamage *= 0.0;
+					return Plugin_Changed;
+				}
+				else
+				{
+					attacker = victim;
+					GetEntityClassname(inflictor, g_sWeapon, sizeof(g_sWeapon));
+					if (StrContains(g_sWeapon, "_projectile") > 0)
+					{
+						ReplaceString(g_sWeapon, sizeof(g_sWeapon), "_projectile", "", false);
+						ForcePlayerSuicide(attacker);
+						iDamage *= 0.0;
+						return Plugin_Changed;
+					}
+					else
+					{
+						GetClientWeapon(attacker, g_sWeapon, sizeof(g_sWeapon));
+						ReplaceString(g_sWeapon, sizeof(g_sWeapon), "weapon_", "", false);
+						hitgroup == 1 ? (g_bHeadshot[attacker] = true) : (g_bHeadshot[attacker] = false);
+						ForcePlayerSuicide(attacker);
+						iDamage *= 0.0;
+						return Plugin_Changed;
+					}
+				}
+			}
 		}
-		KillTimer(g_hVisionTimers[client]);
-		g_hVisionTimers[client] = null;
 	}
-}
-
-public Action tTimerVisionSpeedrunners(Handle timer, any client)
-{
-	if (!IsClientInGame(client) || !IsPlayerAlive(client) || bIsPlayerIncapacitated(client))
-	{
-		vKillVisionTimer(client);
-		return Plugin_Handled;
-	}
-	vVision(client);
 	return Plugin_Continue;
 }

@@ -1119,6 +1119,14 @@
 		"es"		"Patada"
 		"chi"		"踢出"
 	}
+	"Mirror"
+	{
+		"en"		"Mirror"
+		"pt"		""
+		"hu"		""
+		"es"		"Espejo"
+		"chi"		"镜子"
+	}
 	"Null"
 	{
 		"en"		"Null"
@@ -1198,14 +1206,6 @@
 		"hu"		"Csapás"
 		"es"		"Huelga"
 		"chi"		"撞击"
-	}
-	"Thirdperson"
-	{
-		"en"		"Thirdperson"
-		"pt"		"Terceira pessoa"
-		"hu"		"Külső nézet"
-		"es"		"Tercera persona"
-		"chi"		"第三人称"
 	}
 	"Vision"
 	{
@@ -1408,6 +1408,40 @@
 		"hu"		"Egyik sem"
 		"es"		"Ninguna"
 		"chi"		"没有"
+	}
+	"MirrorInform"
+	{
+		"en"		"Your damage is mirrored!"
+		"pt"		""
+		"hu"		""
+		"es"		"¡Tu daño está reflejado!"
+		"chi"		"你的伤害是镜像的！"
+	}
+	"MirrorAnnounce"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1}'s damage is mirrored!"
+		"pt"		""
+		"hu"		""
+		"es"		"¡El daño de {1} se refleja!"
+		"chi"		"{1}的伤害是镜像的！"
+	}
+	"MirrorNoInform"
+	{
+		"en"		"Your damage is not mirrored anymore!"
+		"pt"		""
+		"hu"		""
+		"es"		"¡Tu daño ya no se refleja!"
+		"chi"		"你的伤害不再被镜像！"
+	}
+	"MirrorNoAnnounce"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1}'s damage is not mirrored anymore!"
+		"pt"		""
+		"hu"		""
+		"es"		"¡El daño de {1} ya no se refleja!"
+		"chi"		"{1}的伤害不再被镜像！"
 	}
 	"PukeSignature"
 	{
@@ -1810,40 +1844,6 @@
 		"hu"		"Maradj a csapattársaiddal vagy meg leszel büntetve!"
 		"es"		"¡Quédate con tus compañeros de equipo o serás castigado!"
 		"chi"		"和你的队友呆在一起，否则你会受到惩罚！"
-	}
-	"ThirdpersonInform"
-	{
-		"en"		"You are switching between firstperson and thirdperson!"
-		"pt"		"Voce esta alternando entre primeira e terceira pessoa!"
-		"hu"		"Váltakozol belső és külső nézet között!"
-		"es"		"¡Estás cambiando entre primera persona y tercera persona!"
-		"chi"		"你正在切换第一人称和第三人称！"
-	}
-	"ThirdpersonAnnounce"
-	{
-		"#format"	"{1:N}"
-		"en"		"{1} is switching between firstperson and thirdperson!"
-		"pt"		"{1} esta alternando entre primeira e terceira pessoa!"
-		"hu"		"{1} váltakozik belső és külső nézet között!"
-		"es"		"¡{1} está cambiando entre primera persona y tercera persona!"
-		"chi"		"{1}正在切换第一人称和第三人称！"
-	}
-	"ThirdpersonNoInform"
-	{
-		"en"		"You are not switching between firstperson and thirdperson anymore!"
-		"pt"		"Voce nao esta mais alternando entre primeira e terceira pessoa!"
-		"hu"		"Többé nem váltakozol belső és külső nézet között!"
-		"es"		"¡Ya no estás cambiando entre primera persona y tercera persona!"
-		"chi"		"你不再在第一人称和第三人之间切换！"
-	}
-	"ThirdpersonNoAnnounce"
-	{
-		"#format"	"{1:N}"
-		"en"		"{1} is not switching between firstperson and thirdperson anymore!"
-		"pt"		"{1} nao esta mais alternando entre primeira e terceira pessoa!"
-		"hu"		"{1} nem váltakozik belső és külső nézet között!"
-		"es"		"¡{1} ya no cambia entre la primera persona y la tercera persona!"
-		"chi"		"{1}不再在第一人称和第三人之间切换！"
 	}
 	"VisionInform"
 	{

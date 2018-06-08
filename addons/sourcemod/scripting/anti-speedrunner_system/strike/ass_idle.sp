@@ -138,7 +138,7 @@ void vIdleSpeedrunners(int target, int client, bool log = true)
 	}
 	if (bIsHumanSurvivor(target))
 	{
-		if (g_bImmune[target] || (g_cvASSAdminImmunity.BoolValue && bIsAdminAllowed(target)))
+		if (g_bNull[target] || (g_cvASSAdminImmunity.BoolValue && bIsAdminAllowed(target)))
 		{
 			if (!g_bCheck[target] && !g_bAutoCheck)
 			{

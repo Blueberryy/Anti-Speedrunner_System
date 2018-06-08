@@ -12,11 +12,11 @@ void vDelayCvars()
 
 void vDoorSpeed(int client, int entity)
 {
-	if (!g_bImmune[client] && (!g_cvASSAdminImmunity.BoolValue || (g_cvASSAdminImmunity.BoolValue && !bIsAdminAllowed(client))))
+	if (!g_bNull[client] && (!g_cvASSAdminImmunity.BoolValue || (g_cvASSAdminImmunity.BoolValue && !bIsAdminAllowed(client))))
 	{
 		SetEntPropFloat(entity, Prop_Data, "m_flSpeed", g_cvASSDelayDoorSpeed.FloatValue);
 	}
-	else if (g_bImmune[client] || (g_cvASSAdminImmunity && bIsAdminAllowed(client)))
+	else if (g_bNull[client] || (g_cvASSAdminImmunity && bIsAdminAllowed(client)))
 	{
 		SetEntPropFloat(entity, Prop_Data, "m_flSpeed", 200.0);
 	}

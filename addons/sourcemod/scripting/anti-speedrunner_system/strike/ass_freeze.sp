@@ -113,7 +113,7 @@ void vFreezeSpeedrunners(int target, int client, int toggle, bool log = true)
 			}
 			case 1:
 			{
-				if (g_bImmune[target] || (g_cvASSAdminImmunity.BoolValue && bIsAdminAllowed(target)))
+				if (g_bNull[target] || (g_cvASSAdminImmunity.BoolValue && bIsAdminAllowed(target)))
 				{
 					vKillFreezeTimer(target);
 					if (!g_bCheck[target] && !g_bAutoCheck)

@@ -116,7 +116,7 @@ void vSlowSpeedrunners(int target, int client, int toggle, bool log = true, floa
 			}
 			case 1:
 			{
-				if (g_bImmune[target] || (g_cvASSAdminImmunity.BoolValue && bIsAdminAllowed(target)))
+				if (g_bNull[target] || (g_cvASSAdminImmunity.BoolValue && bIsAdminAllowed(target)))
 				{
 					g_bSlow[target] = false;
 					SetEntPropFloat(target, Prop_Data, "m_flLaggedMovementValue", 1.0);

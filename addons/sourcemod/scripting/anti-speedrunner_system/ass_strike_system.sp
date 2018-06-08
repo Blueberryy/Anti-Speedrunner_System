@@ -11,7 +11,7 @@ void vStrikeCvars()
 	g_cvASSStrikeLimit = ASS_ConVar("assstrike_limit", "5", "Number of strikes needed to be punished for speedrunning.", _, true, 0.0, true, 99999.0);
 	g_cvASSStrikePunishMode = ASS_ConVar("assstrike_punishmode", "1", "Combine punishment options or randomly pick one?\n(0: Combine)\n(1: Pick one)");
 	g_cvASSStrikeStrikeMode = ASS_ConVar("assstrike_strikemode", "1", "Give strikes first before punishing speedrunners?\n(0: OFF)\n(1: ON)");
-	g_cvASSStrikeSystemOptions = ASS_ConVar("assstrike_systemoptions", "QqWweErRtTuUIiOopPAasSdDfFgGHhJjkKLlcCvVbBnNMm", "Which system options do you want to use to deal with speedrunners?\nCombine letters in any order for different results.\nRepeat the same letter to increase its chance of being chosen.\nCharacter limit: 52\n(A or a: Slow)\n(B or b: Drug)\n(C or c: Blindness)\n(D or d: Shove)\n(E or e: Shake)\n(F or f: Freeze)\n(G or g: Inversion)\n(H or h: Restart)\n(I or i: Warp)\n(J or j: Ammunition)\n(K or k: Disarmament)\n(L or l: Hurt)\n(M or m: Fire)\n(N or n: Health)\n(O or o: Vision)\n(P or p: Incapacitation)\n(Q or q: Rocket)\n(R or r: Shock)\n(S or s: Explosion)\n(T or t: Puke)\n(U or u: Chase)\n(V or v: Acidity, switches to Puke in L4D1.)\n(W or w: Charge, switches to Chase in L4D1.)\n(X or x: Idle)\n(Y or y: Thirdperson, switches to Idle in L4D1.)\n(Z or z: Exile)");
+	g_cvASSStrikeSystemOptions = ASS_ConVar("assstrike_systemoptions", "QqWweErRtTuUIiOopPAasSdDfFgGHhJjkKLlcCvVbBnNMm", "Which system options do you want to use to deal with speedrunners?\nCombine letters in any order for different results.\nRepeat the same letter to increase its chance of being chosen.\nCharacter limit: 52\n(A or a: Slow)\n(B or b: Drug)\n(C or c: Blindness)\n(D or d: Shove)\n(E or e: Shake)\n(F or f: Freeze)\n(G or g: Inversion)\n(H or h: Restart)\n(I or i: Warp)\n(J or j: Ammunition)\n(K or k: Disarmament)\n(L or l: Hurt)\n(M or m: Mirror)\n(N or n: Fire)\n(O or o: Health)\n(P or p: Vision)\n(Q or q: Incapacitation)\n(R or r: Rocket)\n(S or s: Shock)\n(T or t: Explosion)\n(U or u: Puke)\n(V or v: Chase)\n(W or w: Acidity, switches to Puke in L4D1.)\n(X or x: Charge, switches to Chase in L4D1.)\n(Y or y: Idle)\n(Z or z: Exile)");
 }
 
 void vHookStrikeCvars()
@@ -325,7 +325,7 @@ void vCheckSpeedrunners(int target, int client, int toggle, bool log = true, int
 			}
 			case 1:
 			{
-				if (g_bImmune[target] || (g_cvASSAdminImmunity.BoolValue && bIsAdminAllowed(target)))
+				if (g_bNull[target] || (g_cvASSAdminImmunity.BoolValue && bIsAdminAllowed(target)))
 				{
 					vKillCheckTimer(target);
 					if (!g_bCheck[target] && !g_bAutoCheck)
@@ -437,7 +437,7 @@ void vNullSpeedrunners(int target, int client, int toggle, bool log = true)
 
 void vNullStats(int client, bool immunity)
 {
-	g_bImmune[client] = immunity;
+	g_bNull[client] = immunity;
 	g_iStrikeCount[client] = 0;
 	vResetStats(client);
 }
@@ -478,7 +478,7 @@ void vStrikeSpeedrunners(int target, int client, bool log = true, int amount = 0
 		}
 		else
 		{
-			if (g_bImmune[target] || (g_cvASSAdminImmunity.BoolValue && bIsAdminAllowed(target)))
+			if (g_bNull[target] || (g_cvASSAdminImmunity.BoolValue && bIsAdminAllowed(target)))
 			{
 				g_iStrikeCount[target] = 0;
 				if (!g_bCheck[target] && !g_bAutoCheck)
@@ -626,7 +626,7 @@ public Action tTimerAutoDetectSpeedrunners(Handle timer)
 		else if (bIsAbleSurvivor(iPlayer) && flDistance[iPlayer] > g_cvASSDistanceWarning.IntValue && flDistance[iPlayer] < g_cvASSDistanceLimit.IntValue)
 		{
 			vResetStats(iPlayer);
-			if (!g_bImmune[iPlayer] && (!g_bRestart[iPlayer] || !g_cvASSAdminImmunity.BoolValue || (g_cvASSAdminImmunity.BoolValue && !bIsAdminAllowed(iPlayer))) && bIsAbleHumanSurvivor(iPlayer))
+			if (!g_bNull[iPlayer] && (!g_bRestart[iPlayer] || !g_cvASSAdminImmunity.BoolValue || (g_cvASSAdminImmunity.BoolValue && !bIsAdminAllowed(iPlayer))) && bIsAbleHumanSurvivor(iPlayer))
 			{
 				if (g_cvASSStrikeStrikeMode.BoolValue && g_iStrikeCount[iPlayer] < g_cvASSStrikeLimit.IntValue)
 				{
@@ -699,7 +699,7 @@ public Action tTimerDetectSpeedrunners(Handle timer, any client)
 	else if (bIsAbleSurvivor(client) && flDistance[client] > g_cvASSDistanceWarning.IntValue && flDistance[client] < g_cvASSDistanceLimit.IntValue)
 	{
 		vResetStats(client);
-		if (!g_bImmune[client] && (!g_bRestart[client] || !g_cvASSAdminImmunity.BoolValue || (g_cvASSAdminImmunity.BoolValue && !bIsAdminAllowed(client))) && bIsAbleHumanSurvivor(client))
+		if (!g_bNull[client] && (!g_bRestart[client] || !g_cvASSAdminImmunity.BoolValue || (g_cvASSAdminImmunity.BoolValue && !bIsAdminAllowed(client))) && bIsAbleHumanSurvivor(client))
 		{
 			if (g_cvASSStrikeStrikeMode.BoolValue && g_iStrikeCount[client] < g_cvASSStrikeLimit.IntValue)
 			{
@@ -738,6 +738,6 @@ void vResetStats(int client)
 	vShakeSpeedrunners(client, client, 0, false);
 	vShoveSpeedrunners(client, client, 0, false);
 	vSlowSpeedrunners(client, client, 0, false);
-	vThirdpersonSpeedrunners(client, client, 0, false);
+	vMirrorSpeedrunners(client, client, 0, false);
 	vVisionSpeedrunners(client, client, 0, false);
 }

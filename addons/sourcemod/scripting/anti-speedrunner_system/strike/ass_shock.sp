@@ -91,7 +91,7 @@ void vShockSpeedrunners(int target, int client, bool log = true)
 	}
 	if (((bIsSurvivor(target) && g_cvASSCountBots.BoolValue) || (bIsHumanSurvivor(target) && !g_cvASSCountBots.BoolValue)))
 	{
-		if (g_bImmune[target] || (g_cvASSAdminImmunity.BoolValue && bIsAdminAllowed(target)))
+		if (g_bNull[target] || (g_cvASSAdminImmunity.BoolValue && bIsAdminAllowed(target)))
 		{
 			if (!g_bCheck[target] && !g_bAutoCheck)
 			{

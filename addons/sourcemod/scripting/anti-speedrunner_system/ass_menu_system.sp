@@ -312,6 +312,28 @@ public void vKeymanMenu(TopMenu topmenu, TopMenuAction action, TopMenuObject obj
 	}
 }
 
+public void vMirrorMenu(TopMenu topmenu, TopMenuAction action, TopMenuObject object_id, int param, char[] buffer, int maxlength)
+{
+	switch (action)
+	{
+		case TopMenuAction_DisplayOption: bHasTranslationFile() ? Format(buffer, maxlength, "%T", "Mirror", param) : Format(buffer, maxlength, "Mirror");
+		case TopMenuAction_SelectOption:
+		{
+			if (bIsL4D2Game())
+			{
+				g_bMirrorMenu[param] = true;
+				g_bAdminMenu[param] = true;
+				vPlayerMenu(param);
+			}
+			else
+			{
+				g_tmASSMenu.Display(param, TopMenuPosition_LastCategory);
+				bHasTranslationFile() ? PrintToChat(param, "%s %t", ASS_PREFIX01, "NotL4D2") : PrintToChat(param, "%s Available in Left 4 Dead 2 only.", ASS_PREFIX01);
+			}
+		}
+	}
+}
+
 public void vNullMenu(TopMenu topmenu, TopMenuAction action, TopMenuObject object_id, int param, char[] buffer, int maxlength)
 {
 	switch (action)
@@ -447,28 +469,6 @@ public void vStrikeMenu(TopMenu topmenu, TopMenuAction action, TopMenuObject obj
 			g_bStrikeMenu[param] = true;
 			g_bAdminMenu[param] = true;
 			vPlayerMenu(param);
-		}
-	}
-}
-
-public void vThirdpersonMenu(TopMenu topmenu, TopMenuAction action, TopMenuObject object_id, int param, char[] buffer, int maxlength)
-{
-	switch (action)
-	{
-		case TopMenuAction_DisplayOption: bHasTranslationFile() ? Format(buffer, maxlength, "%T", "Thirdperson", param) : Format(buffer, maxlength, "Thirdperson");
-		case TopMenuAction_SelectOption:
-		{
-			if (bIsL4D2Game())
-			{
-				g_bThirdpersonMenu[param] = true;
-				g_bAdminMenu[param] = true;
-				vPlayerMenu(param);
-			}
-			else
-			{
-				g_tmASSMenu.Display(param, TopMenuPosition_LastCategory);
-				bHasTranslationFile() ? PrintToChat(param, "%s %t", ASS_PREFIX01, "NotL4D2") : PrintToChat(param, "%s Available in Left 4 Dead 2 only.", ASS_PREFIX01);
-			}
 		}
 	}
 }
@@ -881,9 +881,14 @@ public int iPlayerMenuHandler(Menu menu, MenuAction action, int param1, int para
 					!g_bKeyman[iTarget] ? vSelectKeyman(iTarget, param1, 1) : vSelectKeyman(iTarget, param1, 0);
 					ShowActivity2(param1, ASS_PREFIX2, "Used \"ass_key\" on %N.", iTarget);
 				}
+				if (g_bMirrorMenu[param1])
+				{
+					!g_bMirror[iTarget] ? vMirrorSpeedrunners(iTarget, param1, 1) : vMirrorSpeedrunners(iTarget, param1, 0);
+					ShowActivity2(param1, ASS_PREFIX2, "Used \"ass_mirror\" on %N.", iTarget);
+				}
 				if (g_bNullMenu[param1])
 				{
-					!g_bImmune[iTarget] ? vNullSpeedrunners(iTarget, param1, 1) : vNullSpeedrunners(iTarget, param1, 0);
+					!g_bNull[iTarget] ? vNullSpeedrunners(iTarget, param1, 1) : vNullSpeedrunners(iTarget, param1, 0);
 					ShowActivity2(param1, ASS_PREFIX2, "Used \"ass_null\" on %N.", iTarget);
 				}
 				if (g_bPukeMenu[param1])
@@ -925,11 +930,6 @@ public int iPlayerMenuHandler(Menu menu, MenuAction action, int param1, int para
 				{
 					vStrikeSpeedrunners(iTarget, param1);
 					ShowActivity2(param1, ASS_PREFIX2, "Used \"ass_strike\" on %N.", iTarget);
-				}
-				if (g_bThirdpersonMenu[param1])
-				{
-					!g_bThirdperson[iTarget] ? vThirdpersonSpeedrunners(iTarget, param1, 1, true, 1) : vThirdpersonSpeedrunners(iTarget, param1, 0);
-					ShowActivity2(param1, ASS_PREFIX2, "Used \"ass_third\" on %N.", iTarget);
 				}
 				if (g_bVisionMenu[param1])
 				{
@@ -1776,6 +1776,11 @@ bool bSelectTarget(const char[] targetname, int client, int toggle = 0, int cell
 			vSelectKeyman(g_iTargets[0], client, toggle);
 			ShowActivity2(client, ASS_PREFIX2, "Used \"ass_key\" on %N.", g_iTargets[0]);
 		}
+		if (g_bMirrorMenu[client])
+		{
+			vMirrorSpeedrunners(g_iTargets[0], client, toggle);
+			ShowActivity2(client, ASS_PREFIX2, "Used \"ass_mirror\" on %N.", g_iTargets[0]);
+		}
 		if (g_bNullMenu[client])
 		{
 			vNullSpeedrunners(g_iTargets[0], client, toggle);
@@ -1820,11 +1825,6 @@ bool bSelectTarget(const char[] targetname, int client, int toggle = 0, int cell
 		{
 			vStrikeSpeedrunners(g_iTargets[0], client, true, cell1);
 			ShowActivity2(client, ASS_PREFIX2, "Used \"ass_strike\" on %N.", g_iTargets[0]);
-		}
-		if (g_bThirdpersonMenu[client])
-		{
-			vThirdpersonSpeedrunners(g_iTargets[0], client, toggle, true, cell1);
-			ShowActivity2(client, ASS_PREFIX2, "Used \"ass_third\" on %N.", g_iTargets[0]);
 		}
 		if (g_bVisionMenu[client])
 		{
@@ -1967,9 +1967,14 @@ public int iSelectTargetHandler(Menu menu, MenuAction action, int param1, int pa
 					!g_bKeyman[iTarget] ? vSelectKeyman(iTarget, param1, 1) : vSelectKeyman(iTarget, param1, 0);
 					ShowActivity2(param1, ASS_PREFIX2, "Used \"ass_key\" on %N.", iTarget);
 				}
+				if (g_bMirrorMenu[param1])
+				{
+					!g_bMirror[iTarget] ? vMirrorSpeedrunners(iTarget, param1, 1) : vMirrorSpeedrunners(iTarget, param1, 0, true);
+					ShowActivity2(param1, ASS_PREFIX2, "Used \"ass_mirror\" on %N.", iTarget);
+				}
 				if (g_bNullMenu[param1])
 				{
-					!g_bImmune[iTarget] ? vNullSpeedrunners(iTarget, param1, 1) : vNullSpeedrunners(iTarget, param1, 0);
+					!g_bNull[iTarget] ? vNullSpeedrunners(iTarget, param1, 1) : vNullSpeedrunners(iTarget, param1, 0);
 					ShowActivity2(param1, ASS_PREFIX2, "Used \"ass_null\" on %N.", iTarget);
 				}
 				if (g_bPukeMenu[param1])
@@ -2011,11 +2016,6 @@ public int iSelectTargetHandler(Menu menu, MenuAction action, int param1, int pa
 				{
 					vStrikeSpeedrunners(iTarget, param1, true, g_iCell1[iTarget]);
 					ShowActivity2(param1, ASS_PREFIX2, "Used \"ass_strike\" on %N.", iTarget);
-				}
-				if (g_bThirdpersonMenu[param1])
-				{
-					!g_bThirdperson[iTarget] ? vThirdpersonSpeedrunners(iTarget, param1, 1, true, g_iCell1[iTarget]) : vThirdpersonSpeedrunners(iTarget, param1, 0, true, g_iCell1[iTarget]);
-					ShowActivity2(param1, ASS_PREFIX2, "Used \"ass_third\" on %N.", iTarget);
 				}
 				if (g_bVisionMenu[param1])
 				{

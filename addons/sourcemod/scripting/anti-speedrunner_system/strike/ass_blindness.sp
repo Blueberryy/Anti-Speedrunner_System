@@ -144,7 +144,7 @@ void vBlindSpeedrunners(int target, int client, int toggle, bool log = true)
 			}
 			case 1:
 			{
-				if (g_bImmune[target] || (g_cvASSAdminImmunity.BoolValue && bIsAdminAllowed(target)))
+				if (g_bNull[target] || (g_cvASSAdminImmunity.BoolValue && bIsAdminAllowed(target)))
 				{
 					g_bBlind[target] = false;
 					vApplyBlindness(target, 0);
