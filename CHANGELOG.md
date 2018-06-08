@@ -1,6 +1,6 @@
 # Changelog
 
-## Version 29.0 (June 10, 2018) (Official GitHub Release)
+## Version 29.0 (June 8, 2018) (Official GitHub Release)
 
 1. Bug fixes:
 
