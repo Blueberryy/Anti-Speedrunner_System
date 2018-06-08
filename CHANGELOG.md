@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 29.4 (June 8, 2018)
+
+1. Updated translation file.
+
 ## Version 29.3 (June 8, 2018)
 
 1. Bug fixes:
