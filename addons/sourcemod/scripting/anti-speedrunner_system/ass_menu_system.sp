@@ -319,17 +319,9 @@ public void vMirrorMenu(TopMenu topmenu, TopMenuAction action, TopMenuObject obj
 		case TopMenuAction_DisplayOption: bHasTranslationFile() ? Format(buffer, maxlength, "%T", "Mirror", param) : Format(buffer, maxlength, "Mirror");
 		case TopMenuAction_SelectOption:
 		{
-			if (bIsL4D2Game())
-			{
-				g_bMirrorMenu[param] = true;
-				g_bAdminMenu[param] = true;
-				vPlayerMenu(param);
-			}
-			else
-			{
-				g_tmASSMenu.Display(param, TopMenuPosition_LastCategory);
-				bHasTranslationFile() ? PrintToChat(param, "%s %t", ASS_PREFIX01, "NotL4D2") : PrintToChat(param, "%s Available in Left 4 Dead 2 only.", ASS_PREFIX01);
-			}
+			g_bMirrorMenu[param] = true;
+			g_bAdminMenu[param] = true;
+			vPlayerMenu(param);
 		}
 	}
 }
