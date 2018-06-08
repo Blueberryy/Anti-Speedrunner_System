@@ -93,6 +93,7 @@ ass_idle			Slay (f)	Force a player to go idle for speedrunning.
 ass_incap			Kick (c)	Incapacitate a player for speedrunning.
 ass_invert			Kick (c)	Invert a player's movement keys for speedrunning.
 ass_key				Kick (c)	Choose a new Keyman.
+ass_mirror			Kick (c)	Mirror a player's damage for speedrunning.
 ass_null			Root (z)	Give a player immunity.
 ass_puke			Kick (c)	Puke on a player for speedrunning.
 ass_restart			Kick (c)	Cause a player to restart at the spawn area for speedrunning.
@@ -103,7 +104,6 @@ ass_shock			Slay (f)	Shock a player for speedrunning.
 ass_shove			Kick (c)	Shove a player for speedrunning.
 ass_slow			Kick (c)	Slow a player down for speedrunning.
 ass_strike			Root (z)	Give a player a strike for speedrunning.
-ass_third			Kick (c)	Force a player to switch between firstperson and thirdperson for speedrunning.
 ass_vision			Kick (c)	Change a player's vision for speedrunning.
 ass_warp			Kick (c)	Warp a player to your position for speedrunning.
 ```
