@@ -588,7 +588,7 @@ By default, the A.S.S can create and execute the following types of configuratio
 6. Automatically generate config files for all days.
 7. Automatically generate config files for up to 66 players.
 
-# Credits
+## Credits
 **ztar, Pescoxa, raziEil (disawar)** - For the [Anti-Runner System - REMAKE (Keyman system)](https://forums.alliedmods.net/showthread.php?p=2552450#post2552450).
 
 **panxiaohai** - For the [We Can Not Survive Alone (Group and Chase systems)](https://forums.alliedmods.net/showthread.php?t=167389).
