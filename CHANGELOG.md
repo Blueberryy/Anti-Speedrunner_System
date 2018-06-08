@@ -1,6 +1,6 @@
 # Changelog
 
-## Version 29.0 (June 10, 2018) [Official GitHub Release]
+## Version 29.0 (June 10, 2018) (Official GitHub Release)
 
 1. Bug fixes:
 
@@ -34,6 +34,7 @@
 
 3. Changes:
 
+- The ass_null command now requires root flag.
 - The Boss option's boss spawner no longer uses a fake client to spawn a boss.
 - The Lockdown option's mob spawner no longer uses a fake client to spawn a mob.
 - The Chase option's special infected spawner no longer uses a fake client to spawn a special infected.
