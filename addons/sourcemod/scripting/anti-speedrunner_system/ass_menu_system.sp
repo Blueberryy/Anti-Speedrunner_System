@@ -1969,7 +1969,7 @@ public int iSelectTargetHandler(Menu menu, MenuAction action, int param1, int pa
 				}
 				if (g_bMirrorMenu[param1])
 				{
-					!g_bMirror[iTarget] ? vMirrorSpeedrunners(iTarget, param1, 1) : vMirrorSpeedrunners(iTarget, param1, 0, true);
+					!g_bMirror[iTarget] ? vMirrorSpeedrunners(iTarget, param1, 1) : vMirrorSpeedrunners(iTarget, param1, 0);
 					ShowActivity2(param1, ASS_PREFIX2, "Used \"ass_mirror\" on %N.", iTarget);
 				}
 				if (g_bNullMenu[param1])
