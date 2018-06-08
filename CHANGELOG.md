@@ -1,5 +1,12 @@
 # Changelog
 
+## Version 29.2 (June 8, 2018)
+
+1. Bug fixes:
+
+- Fixed the Mirror option returning an error when the attacker disconnects.
+- Fixed the Mirror option instantly killing any victim of the attacker.
+
 ## Version 29.0 (June 8, 2018) (Official GitHub Release)
 
 1. Bug fixes:
@@ -60,7 +67,7 @@
 - Updated include file.
 - Updated translation file.
 
-## Version 28.0 #3 (June 1, 2018)
+## Version 28.3 (June 1, 2018)
 
 1. The function for choosing a new Keyman is now triggered when a player returns from idle mode.
 2. Optimized code a bit.
@@ -72,7 +79,7 @@
 - Updated anti-speedrunner_system.sp.
 - Updated include file.
 
-## Version 28.0 #2 (May 31, 2018)
+## Version 28.2 (May 31, 2018)
 
 1. Fixed the issue with a new Keyman not being chosen when a Keyman is incapacitated, killed, disconnected, or switched to another team.
 2. Fixed the issue with a new set of Keymen not being chosen when the Keyman countdown ends.
@@ -106,7 +113,7 @@
 17. Updated include file.
 18. Updated translation file.
 
-## Version 27.0 #2 (May 25, 2018)
+## Version 27.2 (May 25, 2018)
 
 1. Fixed map configs not generating properly for the L4D2 version.
 
@@ -206,7 +213,7 @@ Teleportation = Warp
 7. The plugin now requires and uses anti-speedrunner_system.inc to create/update the autoconfig file.
 8. The autoconfig file was moved from cfg/sourcemod to cfg/sourcemod/anti-speedrunner_system.
 
-## Version 22.0 #2 (April 7, 2018)
+## Version 22.2 (April 7, 2018)
 
 1. Fixed the plugin not generating the assdelay_finalemaps cvar in the custom config files, and instead generating 2 asshealth_finalemaps cvars.
 
@@ -221,7 +228,7 @@ Teleportation = Warp
 7. Hid the ass_pluginversion cvar.
 8. Updated translation file with KasperH's changes.
 
-## Version 21.0 #2 (March 22, 2018)
+## Version 21.2 (March 22, 2018)
 
 1. Fixed the Keyman system choosing a new Keyman when certain events are fired.
 2. Possibly fixed a problem regarding the Shake system that caused crashes. (Thanks Lux and KasperH!)
@@ -235,11 +242,11 @@ Teleportation = Warp
 5. Divided the ass_announcesystems and ass_announcetimer into 10 different cvars each for more options.
 6. Users without the gamedata file can still use the plugin but the Bile system will automatically disable itself until the gamedata file is present.
 
-## Version 20.0 #3 (February 1, 2018)
+## Version 20.3 (February 1, 2018)
 
 1. Fixed automode for Companion, Keyman, and Lockdown systems not resetting upon map transition. (Before: The plugin would still break after choosing a random method.)
 
-## Version 20.0 #2 (January 24, 2018)
+## Version 20.2 (January 24, 2018)
 
 1. Companion and Keyman systems will properly shut off on disabled game modes. (Before: they would still activate and thus could cause issues for certain config settings.)
 2. On automated mode, once a method has been randomly chosen, it will stay that way. (Before: some of the methods overlapped.)
