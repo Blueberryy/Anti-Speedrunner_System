@@ -1,7 +1,7 @@
 # Changelog
 
 ## Version 29.5 (June 8, 2018)
-1. Bug Fixes
+1. Bug fixes:
 
 - Fixed the Fire option returning errors on round_start event.
 
