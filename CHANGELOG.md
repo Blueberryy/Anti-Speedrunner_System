@@ -24,7 +24,7 @@
 - Added an option to trigger the Lockdown option for the starting saferoom door.
 - Added a check on OnConfigsExecuted() to change the Restart option to Warp option if the plugin is reloaded.
 - Added a check to only get the position of survivors for the Restart option.
-- Added the [B]ass_mirror[/B] command that mirrors a player's damage.
+- Added the ass_mirror command that mirrors a player's damage.
 - Added the ass_entry command that warps all survivors inside the saferoom.
 - Added the assexile_exilemode convar to decide which form of exile to punish players with.
 - Added the assfilter_blockenable convar to decide whether or not to punish blocked door users.
