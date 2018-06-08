@@ -160,7 +160,6 @@ public Action aTraceAttack(int victim, int &attacker, int &inflictor, float &dam
 				}
 				else
 				{
-					attacker = victim;
 					GetEntityClassname(inflictor, g_sWeapon, sizeof(g_sWeapon));
 					if (StrContains(g_sWeapon, "_projectile") > 0)
 					{

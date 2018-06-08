@@ -574,7 +574,7 @@ public Action eEventPlayerDeath(Event event, const char[] name, bool dontBroadca
 				CreateTimer(1.0, tTimerChooseKeyman);
 			}
 		}
-		if (g_bMirror[iAttacker] && iAttacker != iDead)
+		if (g_bMirror[iAttacker] && iDead > 0 && iAttacker != iDead)
 		{
 			event.SetInt("attacker", GetClientOfUserId(iDead));
 			event.SetString("weapon", g_sWeapon);
