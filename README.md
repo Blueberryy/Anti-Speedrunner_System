@@ -40,7 +40,7 @@ The Anti-Speedrunner System was developed against SourceMod 1.8+.
 4. Delete anti-speedrunner_system folder from addons/sourcemod/scripting folder.
 5. Delete anti-speedrunner_system.inc from addons/sourcemod/scripting/include folder.
 6. Delete anti-speedrunner_system folder from cfg/sourcemod folder.
-7. Follow the Installation guide above.
+7. Follow the Installation guide above. (Only for upgrading to newer versions.)
 
 ### Disabling
 1. Move anti-speedrunner_system.smx to plugins/disabled folder.
