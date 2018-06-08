@@ -87,7 +87,7 @@
 ## Version 28.0 (May 31, 2018)
 
 1. Fixed ShowActivity2() not working properly.
-2. Changed how ass_config works. (Before: ass_config <1: map|2: mode|3: day> <filename> | After: ass_config <0: create|1: execute> <0: map|1: mode|2: day> <filename>)
+2. Changed how ass_config works. (Before: ass_config <1: map|2: mode|3: day> "filename" | After: ass_config <0: create|1: execute> <0: map|1: mode|2: day> "filename")
 3. Fixed Lockdown countdown sometimes opening the door too early or too late.
 4. Fixed Lockdown countdown not resetting when a lockdown is re-activated.
 5. Lockdown system now continuously spawns mobs of zombies until lockdown is over.
@@ -185,9 +185,13 @@
 3. Renamed the following systems:
 
 Bile = Puke
+
 Companion = Group
+
 Health = Hurt
+
 Punishment = Chase
+
 Teleportation = Warp
 
 ## Version 23.0 (April 14, 2018)
