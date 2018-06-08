@@ -356,19 +356,19 @@ assfilter_blockmode "1"
 // (J or j: Ammunition)
 // (K or k: Disarmament)
 // (L or l: Hurt)
-// (M or m: Fire)
-// (N or n: Health)
-// (O or o: Vision)
-// (P or p: Incapacitation)
-// (Q or q: Rocket)
-// (R or r: Shock)
-// (S or s: Explosion)
-// (T or t: Puke)
-// (U or u: Chase)
-// (V or v: Acidity, switches to Puke in L4D1.)
-// (W or w: Charge, switches to Chase in L4D1.)
-// (X or x: Idle)
-// (Y or y: Thirdperson, switches to Idle in L4D1.)
+// (M or m: Mirror)
+// (N or n: Fire)
+// (O or o: Health)
+// (P or p: Vision)
+// (Q or q: Incapacitation)
+// (R or r: Rocket)
+// (S or s: Shock)
+// (T or t: Explosion)
+// (U or u: Puke)
+// (V or v: Chase)
+// (W or w: Acidity, switches to Puke in L4D1.)
+// (X or x: Charge, switches to Chase in L4D1.)
+// (Y or y: Idle)
 // (Z or z: Exile)
 // -
 // Default: "QqWweErRtTuUIiOopPAasSdDfFgGHhJjkKLlcCvVbBnNMm"
@@ -550,19 +550,19 @@ assstrike_strikemode "1"
 // (J or j: Ammunition)
 // (K or k: Disarmament)
 // (L or l: Hurt)
-// (M or m: Fire)
-// (N or n: Health)
-// (O or o: Vision)
-// (P or p: Incapacitation)
-// (Q or q: Rocket)
-// (R or r: Shock)
-// (S or s: Explosion)
-// (T or t: Puke)
-// (U or u: Chase)
-// (V or v: Acidity, switches to Puke in L4D1.)
-// (W or w: Charge, switches to Chase in L4D1.)
-// (X or x: Idle)
-// (Y or y: Thirdperson, switches to Idle in L4D1.)
+// (M or m: Mirror)
+// (N or n: Fire)
+// (O or o: Health)
+// (P or p: Vision)
+// (Q or q: Incapacitation)
+// (R or r: Rocket)
+// (S or s: Shock)
+// (T or t: Explosion)
+// (U or u: Puke)
+// (V or v: Chase)
+// (W or w: Acidity, switches to Puke in L4D1.)
+// (X or x: Charge, switches to Chase in L4D1.)
+// (Y or y: Idle)
 // (Z or z: Exile)
 // -
 // Default: "QqWweErRtTuUIiOopPAasSdDfFgGHhJjkKLlcCvVbBnNMm"
@@ -622,7 +622,7 @@ By default, the A.S.S can create and execute the following types of configuratio
 
 **honorcode** - For the L4D2 signatures for the gamedata file found in the L4D2 New Custom Commands' gamedata file and the codes to spawn spitter acid puddles, to charge at players, to cause explosions, to ignite players, to set players to black and white, to incapacitate players, to puke on players, to shake players' screens, and to shove players.
 
-**strontiumdog** - For the [Evil Admin: Rocket](https://forums.alliedmods.net/showthread.php?t=79617) and [Evil Admin: Vision](https://forums.alliedmods.net/showthread.php?p=702918).
+**strontiumdog** - For the [Evil Admin: Mirror Damage](https://forums.alliedmods.net/showthread.php?p=702913), [Evil Admin: Rocket](https://forums.alliedmods.net/showthread.php?t=79617), and [Evil Admin: Vision](https://forums.alliedmods.net/showthread.php?p=702918).
 
 **Marcus101RR** - For the code to set a player's weapon's ammo.
 
