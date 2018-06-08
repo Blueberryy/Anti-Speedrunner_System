@@ -1,5 +1,15 @@
 # Changelog
 
+## Version 29.8 (June 8, 2018)
+
+1. Bug fixes:
+
+- Grammar fixes.
+
+2. Changes:
+
+- Modified the ass_ammo command to allow for no 3rd argument to count as 0.
+
 ## Version 29.7 (June 8, 2018)
 
 1. Updated translation file.
@@ -9,6 +19,7 @@
 1. Edited the default values of the assstrike_systemoptions and assfilter_blockoptions convars.
 
 ## Version 29.5 (June 8, 2018)
+
 1. Bug fixes:
 
 - Fixed the Fire option returning errors on round_start event.
