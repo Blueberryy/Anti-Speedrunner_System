@@ -337,7 +337,7 @@
 	{
 		"en"		"No \"z_difficulty\" convar found."
 		"pt"		"\"z_difficulty\" convar nao encontrado."
-		"hu"		""
+		"hu"		"Nem található \"z_difficulty\" konzol változó."
 		"es"		"No se encontró convar \"z_difficulty\"."
 		"chi"		"没有发现\"z_difficulty\"convar。"
 	}
@@ -346,7 +346,7 @@
 		"#format"	"{1:s},{2:s}"
 		"en"		"Saved {1}.cfg to {2}."
 		"pt"		"Salvo {1}.cfg para {2}."
-		"hu"		""
+		"hu"		"Mentettük a {1}.cfg a {2}-be."
 		"es"		"Guardado {1}.cfg en {2}."
 		"chi"		"已将{1}.cfg保存到{2}。"
 	}
@@ -355,7 +355,7 @@
 		"#format"	"{1:s},{2:s}"
 		"en"		"{1}.cfg already found in {2}."
 		"pt"		"{1}.cfg encontrado em {2}."
-		"hu"		""
+		"hu"		"{1}.cfg már megtalálható a {2}-ben."
 		"es"		"{1}.cfg ya se encontró en {2}."
 		"chi"		"{1}.cfg已经在{2}中找到。"
 	}
@@ -364,7 +364,7 @@
 		"#format"	"{1:s},{2:s}"
 		"en"		"Executed {1}.cfg from {2}."
 		"pt"		"Executou {1}.cfg de {2}."
-		"hu"		""
+		"hu"		"Végrehajtva a {1}.cfg a {2}-ből."
 		"es"		"Ejecutado {1}.cfg desde {2}."
 		"chi"		"从{2}中执行{1}.cfg。"
 	}
@@ -373,7 +373,7 @@
 		"#format"	"{1:s},{2:s}"
 		"en"		"{1}.cfg not found in {2}."
 		"pt"		"{1}.cfg nao encontrado em {2}."
-		"hu"		""
+		"hu"		"{1}.cfg nem található a {2}-ben."
 		"es"		"{1}.cfg no encontrado en {2}."
 		"chi"		"在{2}中找不到{1}.cfg。"
 	}
@@ -1123,7 +1123,7 @@
 	{
 		"en"		"Mirror"
 		"pt"		""
-		"hu"		""
+		"hu"		"Tükör"
 		"es"		"Espejo"
 		"chi"		"镜子"
 	}
@@ -1413,7 +1413,7 @@
 	{
 		"en"		"Your damage is mirrored!"
 		"pt"		""
-		"hu"		""
+		"hu"		"A sebzésed visszatükrözve!"
 		"es"		"¡Tu daño está reflejado!"
 		"chi"		"你的伤害是镜像的！"
 	}
@@ -1422,7 +1422,7 @@
 		"#format"	"{1:N}"
 		"en"		"{1}'s damage is mirrored!"
 		"pt"		""
-		"hu"		""
+		"hu"		"{1} sebzése visszatükrözve!"
 		"es"		"¡El daño de {1} se refleja!"
 		"chi"		"{1}的伤害是镜像的！"
 	}
@@ -1430,7 +1430,7 @@
 	{
 		"en"		"Your damage is not mirrored anymore!"
 		"pt"		""
-		"hu"		""
+		"hu"		"A sebzésed nincs visszatükrözve többé!"
 		"es"		"¡Tu daño ya no se refleja!"
 		"chi"		"你的伤害不再被镜像！"
 	}
@@ -1439,7 +1439,7 @@
 		"#format"	"{1:N}"
 		"en"		"{1}'s damage is not mirrored anymore!"
 		"pt"		""
-		"hu"		""
+		"hu"		"{1} sebzése nincs visszatükrözve többé!"
 		"es"		"¡El daño de {1} ya no se refleja!"
 		"chi"		"{1}的伤害不再被镜像！"
 	}
