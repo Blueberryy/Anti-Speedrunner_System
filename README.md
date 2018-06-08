@@ -93,7 +93,7 @@ ass_idle			Slay (f)	Force a player to go idle for speedrunning.
 ass_incap			Kick (c)	Incapacitate a player for speedrunning.
 ass_invert			Kick (c)	Invert a player's movement keys for speedrunning.
 ass_key				Kick (c)	Choose a new Keyman.
-ass_null			Kick (c)	Give a player immunity.
+ass_null			Root (z)	Give a player immunity.
 ass_puke			Kick (c)	Puke on a player for speedrunning.
 ass_restart			Kick (c)	Cause a player to restart at the spawn area for speedrunning.
 ass_rocket			Slay (f)	Send a player into space for speedrunning.
