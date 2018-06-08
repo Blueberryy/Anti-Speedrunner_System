@@ -622,7 +622,7 @@ By default, the A.S.S can create and execute the following types of configuratio
 
 **honorcode** - For the L4D2 signatures for the gamedata file found in the L4D2 New Custom Commands' gamedata file and the codes to spawn spitter acid puddles, to charge at players, to cause explosions, to ignite players, to set players to black and white, to incapacitate players, to puke on players, to shake players' screens, and to shove players.
 
-**strontiumdog** - For the Evil Admin: Rocket and Evil Admin: Vision.
+**strontiumdog** - For the [Evil Admin: Rocket](https://forums.alliedmods.net/showthread.php?t=79617) and [Evil Admin: Vision](https://forums.alliedmods.net/showthread.php?p=702918).
 
 **Marcus101RR** - For the code to set a player's weapon's ammo.
 
