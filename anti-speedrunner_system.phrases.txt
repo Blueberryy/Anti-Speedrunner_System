@@ -1122,7 +1122,7 @@
 	"Mirror"
 	{
 		"en"		"Mirror"
-		"pt"		""
+		"pt"		"Espelho"
 		"hu"		"Tükör"
 		"es"		"Espejo"
 		"chi"		"镜子"
@@ -1412,7 +1412,7 @@
 	"MirrorInform"
 	{
 		"en"		"Your damage is mirrored!"
-		"pt"		""
+		"pt"		"Seu dano esta espelhado!"
 		"hu"		"A sebzésed visszatükrözve!"
 		"es"		"¡Tu daño está reflejado!"
 		"chi"		"你的伤害是镜像的！"
@@ -1421,7 +1421,7 @@
 	{
 		"#format"	"{1:N}"
 		"en"		"{1}'s damage is mirrored!"
-		"pt"		""
+		"pt"		"{1} esta com dano espelhado!"
 		"hu"		"{1} sebzése visszatükrözve!"
 		"es"		"¡El daño de {1} se refleja!"
 		"chi"		"{1}的伤害是镜像的！"
@@ -1429,7 +1429,7 @@
 	"MirrorNoInform"
 	{
 		"en"		"Your damage is not mirrored anymore!"
-		"pt"		""
+		"pt"		"Seu dano não é mais espelhado!"
 		"hu"		"A sebzésed nincs visszatükrözve többé!"
 		"es"		"¡Tu daño ya no se refleja!"
 		"chi"		"你的伤害不再被镜像！"
@@ -1438,7 +1438,7 @@
 	{
 		"#format"	"{1:N}"
 		"en"		"{1}'s damage is not mirrored anymore!"
-		"pt"		""
+		"pt"		"{1} não esta mais com dano espelhado!"
 		"hu"		"{1} sebzése nincs visszatükrözve többé!"
 		"es"		"¡El daño de {1} ya no se refleja!"
 		"chi"		"{1}的伤害不再被镜像！"
