@@ -637,3 +637,11 @@ By default, the A.S.S can create and execute the following types of configuratio
 **hmmmmm** - For showing me how to pick a random character out of a dynamic string and for his [Menu Targeting](https://forums.alliedmods.net/showthread.php?t=306954).
 
 **SourceMod Team** - For the beacon, blind, drug, and ice source codes.
+
+# Contact Me
+If you wish to contact me for any questions, concerns, suggestions, or criticism, I can be found here:
+- [AlliedModders Forum](https://forums.alliedmods.net/member.php?u=181166)
+- [Steam](https://steamcommunity.com/profiles/76561198056665335)
+
+# 3rd-Party Revisions Notice
+If you would like to share your own revisions of this plugin, please rename the files! I do not want to create confusion for end-users and it will avoid conflict and negative feedback on the official versions of my work. If you choose to keep the same file names for your revisions, it will cause users to assume that the official versions are the source of any problems your revisions may have. This is to protect you (the reviser) and me (the developer)! Thank you!
