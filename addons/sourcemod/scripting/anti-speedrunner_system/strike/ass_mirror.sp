@@ -148,40 +148,37 @@ public Action aTraceAttack(int victim, int &attacker, int &inflictor, float &dam
 	{
 		if (attacker != victim)
 		{
-			if (GetClientTeam(attacker) != GetClientTeam(victim))
+			int iDamage = RoundFloat(damage);
+			if (!IsClientConnected(attacker))
 			{
-				int iDamage = RoundFloat(damage);
-				if (!IsClientConnected(attacker))
+				iDamage *= 0.0;
+				return Plugin_Changed;
+			}
+			int iHealth = GetClientHealth(attacker);
+			if (iHealth > 0 && iHealth > iDamage)
+			{
+				SetEntityHealth(attacker, iHealth - iDamage);
+				iDamage *= 0.0;
+				return Plugin_Changed;
+			}
+			else
+			{
+				GetEntityClassname(inflictor, g_sWeapon, sizeof(g_sWeapon));
+				if (StrContains(g_sWeapon, "_projectile") > 0)
 				{
-					iDamage *= 0.0;
-					return Plugin_Changed;
-				}
-				int iHealth = GetClientHealth(attacker);
-				if (iHealth > 0 && iHealth > iDamage)
-				{
-					SetEntityHealth(attacker, iHealth - iDamage);
+					ReplaceString(g_sWeapon, sizeof(g_sWeapon), "_projectile", "", false);
+					ForcePlayerSuicide(attacker);
 					iDamage *= 0.0;
 					return Plugin_Changed;
 				}
 				else
 				{
-					GetEntityClassname(inflictor, g_sWeapon, sizeof(g_sWeapon));
-					if (StrContains(g_sWeapon, "_projectile") > 0)
-					{
-						ReplaceString(g_sWeapon, sizeof(g_sWeapon), "_projectile", "", false);
-						ForcePlayerSuicide(attacker);
-						iDamage *= 0.0;
-						return Plugin_Changed;
-					}
-					else
-					{
-						GetClientWeapon(attacker, g_sWeapon, sizeof(g_sWeapon));
-						ReplaceString(g_sWeapon, sizeof(g_sWeapon), "weapon_", "", false);
-						hitgroup == 1 ? (g_bHeadshot[attacker] = true) : (g_bHeadshot[attacker] = false);
-						ForcePlayerSuicide(attacker);
-						iDamage *= 0.0;
-						return Plugin_Changed;
-					}
+					GetClientWeapon(attacker, g_sWeapon, sizeof(g_sWeapon));
+					ReplaceString(g_sWeapon, sizeof(g_sWeapon), "weapon_", "", false);
+					hitgroup == 1 ? (g_bHeadshot[attacker] = true) : (g_bHeadshot[attacker] = false);
+					ForcePlayerSuicide(attacker);
+					iDamage *= 0.0;
+					return Plugin_Changed;
 				}
 			}
 		}
