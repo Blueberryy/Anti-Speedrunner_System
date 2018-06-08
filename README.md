@@ -19,27 +19,6 @@ The Anti-Speedrunner System provides various options for dealing with players th
 ### What makes the Anti-Speedrunner System viable in Left 4 Dead/Left 4 Dead 2?
 Well, it's simple. The system provides various options for making sure that survivors stick together. Whether you're the kind of admin that wants to brutally punish players that rush, or just give them a little slap on the wrist, the Anti-Speedrunner System will have an option that you'll find useful/ideal for many situations.
 
-## Features
-1. Automatic mode - Provides the option to run a timer at the start of each map to keep track of who is speedrunning.
-2. Admin commands - Provides a variety of commands to manipulate the different system options.
-3. Admin immunity - Provides the option to give admins with the generic flag or the "ass_override" command immunity.
-4. Admin menu - Provides a category on the admin menu for the plugin.
-5. Player immunity - Provides a command to give players temporary immunity per map.
-6. Finale exception - Provides the option to automatically disable all systems on finale maps.
-7. Count bots as players - Provides the option to decide whether bots are affected by the system.
-8. Tank detection - Provides the option to keep the plugin enabled/disabled during Tank fights.
-9. Failsafe function - Provides the option to keep the plugin enabled/disabled after a certain amount of survivors are incapacitated/revived.
-10. Supports multiple game modes - Provides the option to enable/disable the plugin in certain game modes.
-11. Custom configurations - Provides support for custom configurations, whether per difficulty, per map, per game mode, per day, or per player count.
-12. Automatic config updater - Provides the ability to update the main config file when new convars are added.
-13. Menus - Provides menus for admin commands.
-14. Custom target list - Provides a menu list of players with similar names when one of them is targeted.
-14. Lock saferoom doors - Provides options for unlocking ending saferoom doors. If an invalid option or no option is chosen, the door immediately opens.
-15. Track speedrunners - Provides options for dealing with speedrunners. If an invalid option or no option is chosen, speedrunners will be warped back to the nearest teammate.
-16. Survivor and Infected target filters - Provides custom target filters. (Use @survivors for survivors and @infected for infected.)
-17. Log command usage - Provides the option to log command usage.
-18. Supports multiple languages - Provides support for translations. [Click here to add support for your language!](http://translator.mitchdempsey.com/sourcemod_plugins/310) (I check everyday so I can update the translation file attached to this post, but you can private message me as well to make sure.)
-
 ### Requirements
 The Anti-Speedrunner System was developed against SourceMod 1.8+.
 
@@ -68,6 +47,202 @@ The Anti-Speedrunner System was developed against SourceMod 1.8+.
 2. Unload the Anti-Speedrunner System.
   - Type ```sm_rcon sm plugins unload anti-speedrunner_system``` in console.
   - OR restart the server.
+
+## Features
+1. Automatic mode - Provides the option to run a timer at the start of each map to keep track of who is speedrunning.
+2. Admin commands - Provides a variety of commands to manipulate the different system options.
+3. Admin immunity - Provides the option to give admins with the generic flag or the "ass_override" command immunity.
+4. Admin menu - Provides a category on the admin menu for the plugin.
+5. Player immunity - Provides a command to give players temporary immunity per map.
+6. Finale exception - Provides the option to automatically disable all systems on finale maps.
+7. Count bots as players - Provides the option to decide whether bots are affected by the system.
+8. Tank detection - Provides the option to keep the plugin enabled/disabled during Tank fights.
+9. Failsafe function - Provides the option to keep the plugin enabled/disabled after a certain amount of survivors are incapacitated/revived.
+10. Supports multiple game modes - Provides the option to enable/disable the plugin in certain game modes.
+11. Custom configurations - Provides support for custom configurations, whether per difficulty, per map, per game mode, per day, or per player count.
+12. Automatic config updater - Provides the ability to update the main config file when new convars are added.
+13. Menus - Provides menus for admin commands.
+14. Custom target list - Provides a menu list of players with similar names when one of them is targeted.
+14. Lock saferoom doors - Provides options for unlocking ending saferoom doors. If an invalid option or no option is chosen, the door immediately opens.
+15. Track speedrunners - Provides options for dealing with speedrunners. If an invalid option or no option is chosen, speedrunners will be warped back to the nearest teammate.
+16. Survivor and Infected target filters - Provides custom target filters. (Use @survivors for survivors and @infected for infected.)
+17. Log command usage - Provides the option to log command usage.
+18. Supports multiple languages - Provides support for translations. [Click here to add support for your language!](http://translator.mitchdempsey.com/sourcemod_plugins/310) (I check everyday so I can update the translation file attached to this post, but you can private message me as well to make sure.)
+
+## System Options
+The Anti-Speedrunner System mainly consists of 2 systems.
+
+### Saferoom
+- Boss
+```
+Spawns a Tank behind the player who initially touched the ending saferoom door and it must be defeated first before the door can be unlocked.
+```
+
+- Delay
+```
+Adds a delay to saferoom doors to prevent spam.
+```
+
+- Filter
+```
+Only players that haven't met the strike limit are allowed to open the ending saferoom door.
+```
+
+- Group
+```
+Keeps the ending saferoom door locked until enough survivors are near it.
+```
+
+- Keyman
+```
+Assigns a random player to be the Keyman that will unlock the ending saferoom door.
+```
+
+- Lockdown
+```
+Keeps the saferoom doors locked until the lockdown ends.
+```
+
+### Strike
+- Acidity
+```
+Spawns a puddle of acid under a player.
+```
+
+- Ammunition
+```
+Sets a player's ammunition count.
+```
+
+- Blindness
+```
+Blinds a player.
+```
+
+- Charge
+```
+Launches a player in the air as if the player were attacked by a Charger.
+```
+
+- Chase
+```
+Spawns a special infected behind a player.
+```
+
+- Disarmament
+```
+Causes a player to drop all their items.
+```
+
+- Drug
+```
+Drugs a player.
+```
+
+- Exile
+```
+Mode 0: Kicks a player with the following reason:
+
+"You have been kicked for passing the distance limit many times"
+
+Mode 1: Bans a player with the following reason:
+
+"Banned for passing the distance limit many times."
+
+Message to player:
+
+"You have been banned for passing the distance limit many times"
+```
+
+- Explosion
+```
+Causes an explosion within a small radius around where a player is standing.
+```
+
+- Fire
+```
+Sets a player on fire.
+```
+
+- Freeze
+```
+Stops a player on the spot from moving.
+```
+
+- Health
+```
+Sets a player to black and white with temporary health.
+```
+
+- Hurt
+```
+Damages a player every second.
+```
+
+- Idle
+```
+Forces a player into idle mode.
+```
+
+- Incapacitation
+```
+Incapacitates a player and sends a white beacon from their position.
+```
+
+- Inversion
+```
+Inverts a player's movement keys.
+```
+
+- Mirror
+```
+Mirrors a player's damage.
+```
+
+- Puke
+```
+Covers a player in vomit.
+```
+
+- Restart
+```
+Causes a player to restart at the spawn area with a set of items/weapons.
+```
+
+- Rocket
+```
+Forces a player to lift off into space and explode.
+```
+
+- Shake
+```
+Shakes a player's screen continuously.
+```
+
+- Shock
+```
+Shocks and kills a player.
+```
+
+- Shove
+```
+Shoves a player continuously.
+```
+
+- Slow
+```
+Slows a player's run speed down.
+```
+
+- Vision
+```
+Changes a player's field of view to 160 while forced to scope in.
+```
+
+- Warp
+```
+Warps a player back to the nearest teammate.
+```
 
 ## Commands
 ```
