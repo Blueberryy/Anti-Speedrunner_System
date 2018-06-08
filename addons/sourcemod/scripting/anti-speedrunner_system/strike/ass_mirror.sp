@@ -150,8 +150,13 @@ public Action aTraceAttack(int victim, int &attacker, int &inflictor, float &dam
 		{
 			if (GetClientTeam(attacker) != GetClientTeam(victim))
 			{
-				int iHealth = GetClientHealth(attacker);
 				int iDamage = RoundFloat(damage);
+				if (!IsClientConnected(attacker))
+				{
+					iDamage *= 0.0;
+					return Plugin_Changed;
+				}
+				int iHealth = GetClientHealth(attacker);
 				if (iHealth > 0 && iHealth > iDamage)
 				{
 					SetEntityHealth(attacker, iHealth - iDamage);
