@@ -6,11 +6,6 @@ public Action cmdASSMirror(int client, int args)
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "ASSOff") : ReplyToCommand(client, "%s The Anti-Speedrunner System is disabled.", ASS_PREFIX01);
 		return Plugin_Handled;
 	}
-	if (!bIsL4D2Game())
-	{
-		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "NotL4D2") : ReplyToCommand(client, "%s Available in Left 4 Dead 2 only.", ASS_PREFIX01);
-		return Plugin_Handled;
-	}
 	if (g_cvASSAutoMode.BoolValue && !g_cvASSCommandOverride.BoolValue)
 	{
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "CommandOff") : ReplyToCommand(client, "%s This command is disabled.", ASS_PREFIX01);
@@ -85,7 +80,7 @@ public Action cmdASSMirror(int client, int args)
 
 void vMirrorSpeedrunners(int target, int client, int toggle, bool log = true)
 {
-	if (bIsInfected(target) || !bIsL4D2Game())
+	if (bIsInfected(target))
 	{
 		return;
 	}
