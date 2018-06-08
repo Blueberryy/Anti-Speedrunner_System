@@ -211,7 +211,7 @@ public void OnPluginStart()
 	RegAdminCmd("ass_incap", cmdASSIncap, ADMFLAG_KICK, "Incapacitate a player for speedrunning.");
 	RegAdminCmd("ass_invert", cmdASSInvert, ADMFLAG_KICK, "Invert a player's movement keys for speedrunning.");
 	RegAdminCmd("ass_key", cmdASSKey, ADMFLAG_KICK, "Choose a new Keyman.");
-	RegAdminCmd("ass_null", cmdASSNull, ADMFLAG_KICK, "Give a player immunity.");
+	RegAdminCmd("ass_null", cmdASSNull, ADMFLAG_ROOT, "Give a player immunity.");
 	RegAdminCmd("ass_puke", cmdASSPuke, ADMFLAG_KICK, "Puke on a player for speedrunning.");
 	RegAdminCmd("ass_restart", cmdASSRestart, ADMFLAG_KICK, "Cause a player to restart at the spawn area for speedrunning.");
 	RegAdminCmd("ass_rocket", cmdASSRocket, ADMFLAG_SLAY, "Send a player into space for speedrunning.");
@@ -449,7 +449,7 @@ public void OnAdminMenuReady(Handle topmenu)
 		g_tmASSMenu.AddItem("ass_incap", vIncapMenu, ass_commands, "ass_incap", ADMFLAG_KICK);
 		g_tmASSMenu.AddItem("ass_invert", vInvertMenu, ass_commands, "ass_invert", ADMFLAG_KICK);
 		g_tmASSMenu.AddItem("ass_key", vKeymanMenu, ass_commands, "ass_key", ADMFLAG_KICK);
-		g_tmASSMenu.AddItem("ass_null", vNullMenu, ass_commands, "ass_null", ADMFLAG_KICK);
+		g_tmASSMenu.AddItem("ass_null", vNullMenu, ass_commands, "ass_null", ADMFLAG_ROOT);
 		g_tmASSMenu.AddItem("ass_puke", vPukeMenu, ass_commands, "ass_puke", ADMFLAG_KICK);
 		g_tmASSMenu.AddItem("ass_restart", vRestartMenu, ass_commands, "ass_restart", ADMFLAG_KICK);
 		g_tmASSMenu.AddItem("ass_rocket", vRocketMenu, ass_commands, "ass_rocket", ADMFLAG_SLAY);
