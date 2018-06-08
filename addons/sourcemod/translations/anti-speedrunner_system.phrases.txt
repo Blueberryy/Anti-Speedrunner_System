@@ -1,0 +1,1882 @@
+﻿"Phrases"
+{
+	"NotL4D2"
+	{
+		"en"		"Available in Left 4 Dead 2 only."
+		"pt"		"Disponivel em Left 4 Dead 2 somente."
+		"hu"		"Csak a Left 4 Dead 2-ben érhető el."
+		"es"		"Disponible solo en Left 4 Dead 2."
+		"chi"		"只适用于Left4Dead2。"
+	}
+	"TankAlive"
+	{
+		"en"		"There is a Tank alive."
+		"pt"		"Existe um Tank vivo."
+		"hu"		"A Tank még életben van."
+		"es"		"Hay un Tanque vivo."
+		"chi"		"坦克还活着。"
+	}
+	"CommandOff"
+	{
+		"en"		"This command is disabled."
+		"pt"		"Este comando esta desabilitado."
+		"hu"		"Ez a parancs le van tiltva."
+		"es"		"Este comando está deshabilitado."
+		"chi"		"本命令被禁用。"
+	}
+	"InGame"
+	{
+		"en"		"This command is to be used only in-game."
+		"pt"		"Este comando deve ser usado apenas em jogo."
+		"hu"		"Ez a parancs csak játékon belül használható."
+		"es"		"Este comando debe usarse solo en el juego."
+		"chi"		"这个命令只能在游戏中使用。"
+	}
+	"MapModeNotSupported"
+	{
+		"en"		"Map or game mode not supported."
+		"pt"		"Mapa ou modo de jogo nao suportado."
+		"hu"		"A térkép vagy játékmód nem támogatott."
+		"es"		"Mapa o modo de juego no admitido."
+		"chi"		"不支持的地图或游戏模式。"
+	}
+	"WrongTeam"
+	{
+		"en"		"You must be on the survivor team to use this command."
+		"pt"		"Voce deve estar na equipe de sobreviventes para usar este comando."
+		"hu"		"A parancs használatához a túlélõk csapatában kell lenned."
+		"es"		"Debe estar en el equipo de sobrevivientes para usar este comando."
+		"chi"		"您必须在幸存者队伍中使用此命令。"
+	}
+	"ASSOff"
+	{
+		"en"		"The Anti-Speedrunner System is disabled."
+		"pt"		"O Sistema Anti-Speedrunner esta desabilitado."
+		"hu"		"Az Anti-Speedrunner Rendszer tiltva van."
+		"es"		"El Sistema Anti-Speedrunner está deshabilitado."
+		"chi"		"该防跑图系统是禁用的。"
+	}
+	"AdminImmune"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1} is immune."
+		"pt"		"{1} esta imune."
+		"hu"		"{1} immúnis."
+		"es"		"{1} es inmune."
+		"chi"		"{1}是免疫的。"
+	}
+	"AdminNotImmune"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1} is not immune anymore."
+		"pt"		"{1} nao esta mais imune."
+		"hu"		"{1} többé már nem immúnis."
+		"es"		"{1} ya no es inmune."
+		"chi"		"{1}不再是免疫的。"
+	}
+	"AcidSignature"
+	{
+		"en"		"Your \"CSpitterProjectile_Detonate\" signature is outdated."
+		"pt"		"Sua \"CSpitterProjectile_Detonate\" assinatura esta desatualizada."
+		"hu"		"A \"CSpitterProjectile_Detonate\" aláírásod elavult."
+		"es"		"Su firma \"CSpitterProjectile_Detonate\" está desactualizada."
+		"chi"		"你的\"CSpitterProjectile_Detonate\"签名已经过时了。"
+	}
+	"AcidInform"
+	{
+		"en"		"You are being spat on!"
+		"pt"		"Voce esta sendo cuspido!"
+		"hu"		"Le lettél köpve!"
+		"es"		"¡Estás siendo escupido!"
+		"chi"		"你正在吐口水！"
+	}
+	"AcidAnnounce"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1} is being spat on!"
+		"pt"		"{1} esta sendo cuspido!"
+		"hu"		"{1} le lett köpve!"
+		"es"		"¡{1} está siendo escupido!"
+		"chi"		"{1}正在被唾弃！"
+	}
+	"AcidNoInform"
+	{
+		"en"		"You are not being spat on anymore!"
+		"pt"		"Voce não esta mais sendo cuspido!"
+		"hu"		"Nem köpünk le többé!"
+		"es"		"¡Ya no te escupirán!"
+		"chi"		"你不再被唾弃了！"
+	}
+	"AcidNoAnnounce"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1} is not being spat on anymore!"
+		"pt"		"{1} nao esta mais sendo cuspido!"
+		"hu"		"{1} többé már nem lesz leköpve!"
+		"es"		"¡{1} ya no se escupió!"
+		"chi"		"{1}不再被唾弃！"
+	}
+	"AmmoInform"
+	{
+		"en"		"You are losing all of your ammo!"
+		"pt"		"Voce esta perdendo toda sua munição!"
+		"hu"		"Elveszted az összes lőszered!"
+		"es"		"¡Estás perdiendo toda tu munición!"
+		"chi"		"你失去了所有的弹药！"
+	}
+	"AmmoAnnounce"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1} is losing all of their ammo!"
+		"pt"		"{1} esta perdendo toda munição dele!"
+		"hu"		"{1} elveszti az összes lőszerét!"
+		"es"		"{1} está perdiendo toda su munición!"
+		"chi"		"{1}正在失去他们所有的弹药！"
+	}
+	"AmmoNoInform"
+	{
+		"en"		"You are not losing all of your ammo anymore!"
+		"pt"		"Voce nao esta mais perdendo toda sua munição!"
+		"hu"		"Többé már nem veszted el az összes lőszeredet!"
+		"es"		"¡Ya no estás perdiendo toda tu munición!"
+		"chi"		"你不会失去所有的弹药！"
+	}
+	"AmmoNoAnnounce"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1} is not losing all of their ammo anymore!"
+		"pt"		"{1} nao esta mais perdendo munição!"
+		"hu"		"{1} többé már nem veszti el az összes lőszerét!"
+		"es"		"¡{1} ya no está perdiendo todas sus municiones!"
+		"chi"		"{1}不再失去他们所有的弹药了！"
+	}
+	"BlindInform"
+	{
+		"en"		"You are blind!"
+		"pt"		"Voce esta cego!"
+		"hu"		"Megvakultál!"
+		"es"		"¡Estas ciego!"
+		"chi"		"你失明了！"
+	}
+	"BlindAnnounce"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1} is blind!"
+		"pt"		"{1} esta cego!"
+		"hu"		"{1} vak lett!"
+		"es"		"{1} está ciego!"
+		"chi"		"{1}是盲目的！"
+	}
+	"BlindNoInform"
+	{
+		"en"		"You are not blind anymore!"
+		"pt"		"Voce nao esta mais cego!"
+		"hu"		"Többé már nem vagy vak!"
+		"es"		"¡Ya no estás ciego!"
+		"chi"		"你不再失明了！"
+	}
+	"BlindNoAnnounce"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1} is not blind anymore!"
+		"pt"		"{1} nao esta mais cego!"
+		"hu"		"{1} többé már nem vak!"
+		"es"		"¡{1} ya no está ciego!"
+		"chi"		"{1}不再失明！"
+	}
+	"BossOff"
+	{
+		"en"		"Boss disabled."
+		"pt"		"Boss desabilitado."
+		"hu"		"Főnök tiltva."
+		"es"		"Jefe deshabilitado."
+		"chi"		"主子已禁用。"
+	}
+	"BossRequired"
+	{
+		"en"		"We need to defeat the boss!"
+		"pt"		"Nos precisamos derrotar o boss!"
+		"hu"		"Le kell gyõznünk a fõnököt!"
+		"es"		"¡Necesitamos derrotar al jefe!"
+		"chi"		"我们需要击败主子！"
+	}
+	"BossDefeated"
+	{
+		"en"		"The boss has been defeated!"
+		"pt"		"O boss foi derrotado!"
+		"hu"		"A fõnököt legyõzték!"
+		"es"		"¡El jefe ha sido derrotado!"
+		"chi"		"主子已被击败！"
+	}
+	"ChargeSignature"
+	{
+		"en"		"Your \"CTerrorPlayer_Fling\" signature is outdated."
+		"pt"		"Sua \"CTerrorPlayer_Fling\" assinatura esta desatualizada."
+		"hu"		"A \"CTerrorPlayer_Fling\" aláírásod elavult."
+		"es"		"Su firma \"CTerrorPlayer_Fling\" está desactualizada."
+		"chi"		"你的\"CTerrorPlayer_Fling\"签名已经过时了。"
+	}
+	"ChargeInform"
+	{
+		"en"		"You are being charged at!"
+		"pt"		"Voce esta sendo carregado!"
+		"hu"		"Le lettél rohanva!"
+		"es"		"¡Le están cargando!"
+		"chi"		"您正在收费！"
+	}
+	"ChargeAnnounce"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1} is being charged at!"
+		"pt"		"{1} esta sendo carregado!"
+		"hu"		"{1} le lett rohanva!"
+		"es"		"¡{1} está siendo acusado!"
+		"chi"		"{1}正在收取费用！"
+	}
+	"ChargeNoInform"
+	{
+		"en"		"You are not being charged at anymore!"
+		"pt"		"Voce nao esta mais sendo verificado!"
+		"hu"		"Nem ellenőrzünk többé!"
+		"es"		"¡Ya no te cobraremos!"
+		"chi"		"你不再被收费！"
+	}
+	"ChargeNoAnnounce"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1} is not being charged at anymore!"
+		"pt"		"{1} nao esta mais sendo verificado!"
+		"hu"		"{1} többé nem lesz ellenőrizve!"
+		"es"		"¡{1} ya no se le cobra!"
+		"chi"		"{1}不再被收取费用！"
+	}
+	"ChaseInform"
+	{
+		"#format"	"{1:s}"
+		"en"		"A {1} is after you now!"
+		"pt"		"Um {1} esta atras de voce agora!"
+		"hu"		"Egy {1} megy utánad ezentúl!"
+		"es"		"¡A {1} está detrás de ti ahora!"
+		"chi"		"一个{1}在您的后面！"
+	}
+	"ChaseAnnounce"
+	{
+		"#format"	"{1:N},{2:s}"
+		"en"		"{1} is being chased by a {2}!"
+		"pt"		"{1} esta sendo perseguido por um {2}!"
+		"hu"		"{1} -t üldözõbe vette egy {2}!"
+		"es"		"¡{1} está siendo perseguido por un {2}!"
+		"chi"		"{1}正在被一个{2}追逐！"
+	}
+	"ConfigHeader"
+	{
+		"#format"	"{1:s},{2:s}"
+		"en"		"// This config file was auto-generated by the Anti-Speedrunner System v{1} ({2})"
+		"pt"		"// Este arquivo de configuração foi gerado automaticamente pelo Anti-Speedrunner System v{1} ({2})"
+		"hu"		"// Ez a konfig fájl automatikusan lett generálva az Anti-Speedrunner Rendszer által v{1} ({2})"
+		"es"		"// Este archivo de configuración fue generado automáticamente por el Sistema Anti-Speedrunner v{1} ({2})"
+		"chi"		"// 此反拉什系统v{1} ({2})自动生成此配置文件"
+	}
+	"Difficulty"
+	{
+		"en"		"Difficulty"
+		"pt"		"Dificuldade"
+		"hu"		"Nehézség"
+		"es"		"Dificultad"
+		"chi"		"困难"
+	}
+	"Map"
+	{
+		"en"		"Map"
+		"pt"		"Mapa"
+		"hu"		"A Térkép"
+		"es"		"Mapa"
+		"chi"		"地图"
+	}
+	"GameMode"
+	{
+		"en"		"Game mode"
+		"pt"		"Modo de jogo"
+		"hu"		"Játékmód"
+		"es"		"Modo de juego"
+		"chi"		"游戏模式"
+	}
+	"Daily"
+	{
+		"en"		"Daily"
+		"pt"		"Diariamente"
+		"hu"		"Naponta"
+		"es"		"Diario"
+		"chi"		"日常"
+	}
+	"PlayerCount"
+	{
+		"en"		"Player count"
+		"pt"		"Contagem de jogadores"
+		"hu"		"Játékos szám"
+		"es"		"Recuento de jugadores"
+		"chi"		"球员数量"
+	}
+	"Create"
+	{
+		"en"		"Create"
+		"pt"		"Criar"
+		"hu"		"Létrehoz"
+		"es"		"Crear"
+		"chi"		"创建"
+	}
+	"Execute"
+	{
+		"en"		"Execute"
+		"pt"		"Executar"
+		"hu"		"Végrehajt"
+		"es"		"Ejecutar"
+		"chi"		"执行"
+	}
+	"NoDifficulty"
+	{
+		"en"		"No \"z_difficulty\" convar found."
+		"pt"		"\"z_difficulty\" convar nao encontrado."
+		"hu"		"Nem található \"z_difficulty\" konzol változó."
+		"es"		"No se encontró convar \"z_difficulty\"."
+		"chi"		"没有发现\"z_difficulty\"convar。"
+	}
+	"ConfigSaved"
+	{
+		"#format"	"{1:s},{2:s}"
+		"en"		"Saved {1}.cfg to {2}."
+		"pt"		"Salvo {1}.cfg para {2}."
+		"hu"		"Mentettük a {1}.cfg a {2}-be."
+		"es"		"Guardado {1}.cfg en {2}."
+		"chi"		"已将{1}.cfg保存到{2}。"
+	}
+	"ConfigExists"
+	{
+		"#format"	"{1:s},{2:s}"
+		"en"		"{1}.cfg already found in {2}."
+		"pt"		"{1}.cfg encontrado em {2}."
+		"hu"		"{1}.cfg már megtalálható a {2}-ben."
+		"es"		"{1}.cfg ya se encontró en {2}."
+		"chi"		"{1}.cfg已经在{2}中找到。"
+	}
+	"ConfigExecuted"
+	{
+		"#format"	"{1:s},{2:s}"
+		"en"		"Executed {1}.cfg from {2}."
+		"pt"		"Executou {1}.cfg de {2}."
+		"hu"		"Végrehajtva a {1}.cfg a {2}-ből."
+		"es"		"Ejecutado {1}.cfg desde {2}."
+		"chi"		"从{2}中执行{1}.cfg。"
+	}
+	"ConfigNotFound"
+	{
+		"#format"	"{1:s},{2:s}"
+		"en"		"{1}.cfg not found in {2}."
+		"pt"		"{1}.cfg nao encontrado em {2}."
+		"hu"		"{1}.cfg nem található a {2}-ben."
+		"es"		"{1}.cfg no encontrado en {2}."
+		"chi"		"在{2}中找不到{1}.cfg。"
+	}
+	"DisarmInform"
+	{
+		"en"		"You are being disarmed!"
+		"pt"		"Voce esta desarmado!"
+		"hu"		"Le lettél fegyverezve!"
+		"es"		"¡Estás siendo desarmado!"
+		"chi"		"你正在被解除武装！"
+	}
+	"DisarmAnnounce"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1} is being disarmed!"
+		"pt"		"{1} esta sendo desarmado!"
+		"hu"		"{1} le lett fegyverezve!"
+		"es"		"¡{1} fue desarmado!"
+		"chi"		"{1}正在被解除武装！"
+	}
+	"DisarmNoInform"
+	{
+		"en"		"You are not being disarmed anymore!"
+		"pt"		"Voce nao esta mais sendo desarmado!"
+		"hu"		"Többé már nem leszel fegyvertelen!"
+		"es"		"¡Ya no estás siendo desarmado!"
+		"chi"		"你不再被解除武装！"
+	}
+	"DisarmNoAnnounce"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1} is not being disarmed anymore!"
+		"pt"		"{1} nao esta mais sendo desarmado!"
+		"hu"		"{1} nem lesz fegyvertelen többé!"
+		"es"		"¡{1} ya no está siendo desarmado!"
+		"chi"		"{1}不再被解除武装！"
+	}
+	"DrugInform"
+	{
+		"en"		"You are drugged!"
+		"pt"		"Voce esta drogado!"
+		"hu"		"Bedrogoztak!"
+		"es"		"¡Estás drogado!"
+		"chi"		"你被麻醉了！"
+	}
+	"DrugAnnounce"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1} is drugged!"
+		"pt"		"{1} esta drogado!"
+		"hu"		"{1} -t bedrogozták!"
+		"es"		"¡{1} está drogado!"
+		"chi"		"{1}服下麻醉剂！"
+	}
+	"DrugNoInform"
+	{
+		"en"		"You are not drugged anymore!"
+		"pt"		"Voce nao esta mais drogado!"
+		"hu"		"Nem vagy bedrogozva többé!"
+		"es"		"¡Ya no estás drogado!"
+		"chi"		"你不再麻醉了！"
+	}
+	"DrugNoAnnounce"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1} is not drugged anymore!"
+		"pt"		"{1} nao esta mais drogado!"
+		"hu"		"{1} nincs bedrogozva többé!"
+		"es"		"¡{1} ya no está drogado!"
+		"chi"		"{1}不再被麻醉了！"
+	}
+	"KickAnnounce"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1} was kicked off the server!"
+		"pt"		"{1} foi expulso do servidor!"
+		"hu"		"{1} ki lett rúgva a szerverrõl!"
+		"es"		"¡{1} fue expulsado del servidor!"
+		"chi"		"{1}被踢出服务器！"
+	}
+	"BanAnnounce"
+	{
+		"#format"	"{1:N},{2:d}"
+		"en"		"{1} was banned for {2} minutes!"
+		"pt"		"{1} foi banido por {2} minutos!"
+		"hu"		"{1} bannolva {2} percre!"
+		"es"		"¡{1} fue prohibido durante {2} minutos!"
+		"chi"		"{1}被禁止游戏{2}分钟！"
+	}
+	"ExplodeInform"
+	{
+		"en"		"You were caught in an explosion!"
+		"pt"		"Voce foi pego por uma explosão!"
+		"hu"		"Robbanásba kerültél!"
+		"es"		"¡Fuiste atrapado en una explosión!"
+		"chi"		"你在爆炸中被困了！"
+	}
+	"ExplodeAnnounce"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1} was caught in an explosion!"
+		"pt"		"{1} foi pego por uma explosao!"
+		"hu"		"{1} robbanásba került!"
+		"es"		"¡{1} fue atrapado en una explosión!"
+		"chi"		"{1}在爆炸中被困了！"
+	}
+	"FilterOff"
+	{
+		"en"		"Filter disabled."
+		"pt"		"Filtro desabilitado."
+		"hu"		"Szűrő tiltva."
+		"es"		"Filtro deshabilitado."
+		"chi"		"过滤器禁用。"
+	}
+	"FilteredOut"
+	{
+		"#format"	"{1:d},{2:d}"
+		"en"		"You have {1}/{2} strikes and cannot open the door!"
+		"pt"		"Voce tem {1}/{2} punimentos e nao pode abrir a porta!"
+		"hu"		"Van {1}/{2} csapásod és nem nyithatod ki az ajtót!"
+		"es"		"¡Tienes {1}/{2} golpes y no puedes abrir la puerta!"
+		"chi"		"你有{1}/{2}罢工, 不能打开门！"
+	}
+	"NoFilter"
+	{
+		"#format"	"{1:N},{2:d},{3:d}"
+		"en"		"{1} has {2}/{3} strikes and opened the saferoom door!"
+		"pt"		"{1} tem {2}/{3} punimentos e abriu a porta da saferoom!"
+		"hu"		"{1} -nak van {2}/{3} csapása és kinyitotta a menedékszoba ajtaját!"
+		"es"		"¡{1} tiene {2}/{3} golpes y ¡abrió la puerta!"
+		"chi"		"{1}有{2}/{3}罢工, 并打开了安全的房间门！"
+	}
+	"FireInform"
+	{
+		"en"		"You are on fire!"
+		"pt"		"Voce esta queimando!"
+		"hu"		"Fel vagy gyújtva!"
+		"es"		"¡Estás a fuego!"
+		"chi"		"你着火了！"
+	}
+	"FireAnnounce"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1} is on fire!"
+		"pt"		"{1} esta queimando!"
+		"hu"		"{1} fel van gyújtva!"
+		"es"		"¡{1} está en fuego!"
+		"chi"		"{1}已着火！"
+	}
+	"FireNoInform"
+	{
+		"en"		"You are not on fire anymore!"
+		"pt"		"Voce nao esta mais em chamas!"
+		"hu"		"Nem vagy felgyújtva többé!"
+		"es"		"¡Ya no estás en llamas!"
+		"chi"		"你不再起火了！"
+	}
+	"FireNoAnnounce"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1} is not on fire anymore!"
+		"pt"		"{1} nao esta mais se queimando!"
+		"hu"		"{1} nincs felgyújtva többé!"
+		"es"		"¡{1} ya no está en llamas!"
+		"chi"		"{1}不再着火！"
+	}
+	"FreezeInform"
+	{
+		"en"		"You are frozen!"
+		"pt"		"Voce esta congelado!"
+		"hu"		"Megfagytál!"
+		"es"		"¡Estás congelado!"
+		"chi"		"你被冻住了！"
+	}
+	"FreezeAnnounce"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1} is frozen!"
+		"pt"		"{1} esta congelado!"
+		"hu"		"{1} megfagyott!"
+		"es"		"¡{1} está congelado!"
+		"chi"		"{1}已冻结!！"
+	}
+	"FreezeNoInform"
+	{
+		"en"		"You are not frozen anymore!"
+		"pt"		"Voce não esta mais congelado!"
+		"hu"		"Nem vagy megfagyva többé!"
+		"es"		"¡Ya no estás congelado!"
+		"chi"		"你不再冻结！"
+	}
+	"FreezeNoAnnounce"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1} is not frozen anymore!"
+		"pt"		"{1} nao esta mais congelado!"
+		"hu"		"{1} többé nincs megfagyva!"
+		"es"		"¡{1} ya no está congelado!"
+		"chi"		"{1}不再被冻结！"
+	}
+	"GroupOff"
+	{
+		"en"		"Group disabled."
+		"pt"		"Grupo desabilitado."
+		"hu"		"Csoport tiltva."
+		"es"		"Grupo deshabilitado."
+		"chi"		"团队已禁用。"
+	}
+	"GroupRequired"
+	{
+		"#format"	"{1:d}"
+		"en"		"We need at least {1} nearby survivors to operate the saferoom door!"
+		"pt"		"Precisamos de pelo menos {1} sobreviventes para operar a porta da saferoom!"
+		"hu"		"Legalább {1} túlélõnek kell közel lennie hogy mûködjön a menedékszoba ajtaja!"
+		"es"		"¡We need at least{1} nearby survivors to operate the saferoom door!"
+		"chi"		"我们至少需要附近的{1}个幸存者来操作保险箱的门！"
+	}
+	"GroupEnough"
+	{
+		"en"		"The power of friendship opened the saferoom door!"
+		"pt"		"O poder da amizade abriu a porta da saferoom!"
+		"hu"		"A barátság ereje kinyította a menedékszoba ajtaját!"
+		"es"		"¡El poder de la amistad abrió la puerta de seguridad!"
+		"chi"		"友谊的力量打开了安全室间门！"
+	}
+	"HealSignature"
+	{
+		"en"		"Your \"CTerrorPlayer_SetHealthBuffer\" signature is outdated."
+		"pt"		"Sua \"CTerrorPlayer_SetHealthBuffer\" assinatura esta desatualizada."
+		"hu"		"A \"CTerrorPlayer_SetHealthBuffer\" aláírásod elavult."
+		"es"		"Su firma \"CTerrorPlayer_SetHealthBuffer\" está desactualizada."
+		"chi"		"你的\"CTerrorPlayer_SetHealthBuffer\"签名已经过时了。"
+	}
+	"HealSignature2"
+	{
+		"en"		"Your \"CTerrorPlayer_OnRevived\" signature is outdated."
+		"pt"		"Sua \"CTerrorPlayer_OnRevived\" assinatura esta desatualizada."
+		"hu"		"A \"CTerrorPlayer_OnRevived\" aláírásod elavult."
+		"es"		"Su firma \"CTerrorPlayer_OnRevived\" está desactualizada."
+		"chi"		"你的\"CTerrorPlayer_OnRevived\"签名已经过时了。"
+	}
+	"HealInform"
+	{
+		"en"		"You have temporary health!"
+		"pt"		"Voce tem saude temporaria!"
+		"hu"		"Ideiglenes életerõd van!"
+		"es"		"¡Tienes salud temporal!"
+		"chi"		"你有临时的健康！"
+	}
+	"HealAnnounce"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1} has temporary health!"
+		"pt"		"{1} tem saude temporaria!"
+		"hu"		"{1} -nak ideiglenes életereje van!"
+		"es"		"¡{1} tiene salud temporal!"
+		"chi"		"{1}有临时健康！"
+	}
+	"HurtInform"
+	{
+		"en"		"You are losing health!"
+		"pt"		"Voce esta perdendo saude!"
+		"hu"		"Az életerõd csökken!"
+		"es"		"¡Estás perdiendo salud!"
+		"chi"		"你正在失去健康！"
+	}
+	"HurtAnnounce"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1} is losing health!"
+		"pt"		"{1} esta perdendo saude!"
+		"hu"		"{1} életereje csökken!"
+		"es"		"¡{1} está perdiendo salud!"
+		"chi"		"{1}正在失去健康！"
+	}
+	"HurtNoInform"
+	{
+		"en"		"You are not losing health anymore!"
+		"pt"		"Voce nao esta mais perdendo saude!"
+		"hu"		"Nem csökken az életerőd többé!"
+		"es"		"¡Ya no estás perdiendo la salud!"
+		"chi"		"你不再失去健康！"
+	}
+	"HurtNoAnnounce"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1} is not losing health anymore!"
+		"pt"		"{1} nao esta mais perdendo saude!"
+		"hu"		"{1} életereje nem csökken többé!"
+		"es"		"¡{1} ya no está perdiendo la salud!"
+		"chi"		"{1}不再失去健康！"
+	}
+	"IdleSignature"
+	{
+		"en"		"Your \"CTerrorPlayer::GoAwayFromKeyboard\" signature is outdated."
+		"pt"		"Sua \"CTerrorPlayer::GoAwayFromKeyboard\" assinatura esta desatualizada."
+		"hu"		"A \"CTerrorPlayer::GoAwayFromKeyboard\" aláírásod elavult."
+		"es"		"Su firma \"CTerrorPlayer::GoAwayFromKeyboard\" está desactualizada."
+		"chi"		"你的\"CTerrorPlayer::GoAwayFromKeyboard\"签名已经过时了。"
+	}
+	"IdleSignature2"
+	{
+		"en"		"Your \"SetHumanSpec\" signature is outdated."
+		"pt"		"Sua \"SetHumanSpec\" assinatura esta desatualizada."
+		"hu"		"A \"SetHumanSpec\" aláírásod elavult."
+		"es"		"Su firma \"SetHumanSpec\" está desactualizada."
+		"chi"		"你的\"SetHumanSpec\"签名已经过时了。"
+	}
+	"IdleInform"
+	{
+		"en"		"You are now idle!"
+		"pt"		"Voce esta ausente agora!"
+		"hu"		"Mostantól tétlen vagy!"
+		"es"		"¡Ahora estás inactivo!"
+		"chi"		"你现在闲置！"
+	}
+	"IdleAnnounce"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1} is now idle!"
+		"pt"		"{1} esta agora ausente!"
+		"hu"		"{1} mostantól tétlen!"
+		"es"		"{1} ahora está inactivo!"
+		"chi"		"{1}现在闲置！"
+	}
+	"IncapInform"
+	{
+		"en"		"You are incapacitated!"
+		"pt"		"Voce esta incapacitado!"
+		"hu"		"Mozgásképtelen lettél!"
+		"es"		"¡Estás incapacitado!"
+		"chi"		"你丧失行动能力,已倒地！"
+	}
+	"IncapAnnounce"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1} is incapacitated!"
+		"pt"		"{1} esta incapacitado!"
+		"hu"		"{1} mozgásképtelen!"
+		"es"		"¡{1} está incapacitado!"
+		"chi"		"{1}丧失能力倒地！"
+	}
+	"InvertInform"
+	{
+		"en"		"Your movement keys are inverted!"
+		"pt"		"Suas teclas de movimento estão invertidas!"
+		"hu"		"A mozgás billentyűparancsaidat felcseréltük!"
+		"es"		"¡Tus teclas de movimiento están invertidas!"
+		"chi"		"你的移动键被颠倒了！"
+	}
+	"InvertAnnounce"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1}'s movement keys are inverted!"
+		"pt"		"{1}'s teclas de movimento estão invertidas!"
+		"hu"		"{1}'s mozgás billentyűi fel lettek cserélve!"
+		"es"		"¡Las teclas de movimiento de {1} están invertidas!"
+		"chi"		"{1}的移动键被反转了！"
+	}
+	"InvertNoInform"
+	{
+		"en"		"Your movement keys are not inverted anymore!"
+		"pt"		"Suas teclas nao estão mais invertidas!"
+		"hu"		"A mozgás billentyűid nincsenek felcserélve többé!"
+		"es"		"¡Tus teclas de movimiento ya no están invertidas!"
+		"chi"		"你的运动钥匙不再倒立！"
+	}
+	"InvertNoAnnounce"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1}'s movement keys are not inverted anymore!"
+		"pt"		"{1} as teclas de movimento nao estao mais invertidas!"
+		"hu"		"{1} mozgás billentyűi nincsenek felcserélve többé!"
+		"es"		"¡Las teclas de movimiento de {1} ya no están invertidas!"
+		"chi"		"{1}的移动键不会倒转！"
+	}
+	"KeymanOff"
+	{
+		"en"		"Keyman disabled."
+		"pt"		"Homem Chave desabilitado."
+		"hu"		"Kulcsember tiltva."
+		"es"		"Hombre Clave deshabilitado."
+		"chi"		"关键人物禁用。"
+	}
+	"PlayerLeftSafeArea"
+	{
+		"#format"	"{1:N}"
+		"en"		"The player {1} left the safe area!"
+		"pt"		"O jogador {1} deixou a area segura!"
+		"hu"		"A játékos {1} elhagyta a biztonságos területet!"
+		"es"		"¡El jugador {1} salió de la zona segura!"
+		"chi"		"玩家{1}离开安全区！"
+	}
+	"BOTLeftSafeArea"
+	{
+		"#format"	"{1:N}"
+		"en"		"The BOT {1} left the safe area!"
+		"pt"		"O BOT {1} deixou a area segura!"
+		"hu"		"A BOT {1} elhagyta a biztonságos területet!"
+		"es"		"¡El BOT {1} salió de la zona segura!"
+		"chi"		"BOT{1}离开安全区！"
+	}
+	"KeymanDisconnected"
+	{
+		"en"		"A Keyman disconnected! Selecting new Keyman..."
+		"pt"		"Um Homem Chave desconectou! Selecionando novo Homem Chave..."
+		"hu"		"Egy Kulcsember kilépett! Új Kulcsember választása..."
+		"es"		"¡A Hombre Clave desconectado! Seleccionando nuevo Hombre Clave..."
+		"chi"		"关键人物断开连接！ 选择新的关键人物。。。"
+	}
+	"KeymanIncapacitated"
+	{
+		"en"		"A Keyman is incapacitated! Selecting new Keyman..."
+		"pt"		"Um Homem Chave esta incapacitado! Selecione novo Homem Chave..."
+		"hu"		"Egy Kulcsember mozgásképtelen! Új Kulcsember választása..."
+		"es"		"¡A Hombre Clave está incapacitado! Seleccionando nuevo Hombre Clave..."
+		"chi"		"关键人物倒地！ 选择新的关键人物。。。"
+	}
+	"KeymanDead"
+	{
+		"en"		"A Keyman is dead! Selecting new Keyman..."
+		"pt"		"Um Homem Chave esta morto! Selecionando novo Homem Chave..."
+		"hu"		"Egy Kulcsember halott! Új Kulcsember választása..."
+		"es"		"¡A Hombre Clave está muerto! Seleccionando nuevo Hombre Clave..."
+		"chi"		"关键人物死了！ 选择新的关键人物。。。"
+	}
+	"KeymanReset"
+	{
+		"en"		"Resetting Keymen..."
+		"pt"		"Resetando Homens Chave..."
+		"hu"		"Kulcsember újraválasztása..."
+		"es"		"Restableciendo Hombres Clave..."
+		"chi"		"重置关键人物。。。"
+	}
+	"KeymanTeam"
+	{
+		"en"		"A Keyman has changed their team! Selecting new Keyman..."
+		"pt"		"Um Homem Chave mudou de time! Selecionando novo Homem Chave..."
+		"hu"		"Egy Kulcsember csapatott váltott! Új Kulcsember választása..."
+		"es"		"¡A Hombre Clave ha cambiado su equipo! Seleccionando nuevo Hombre Clave..."
+		"chi"		"关键人物已经改变了他们的队伍！ 选择新的关键人物。。。"
+	}
+	"KeymanCountdown"
+	{
+		"#format"	"{1:d}"
+		"en"		"Selecting new Keymen in {1}."
+		"pt"		"Selecionando novo Homens Chave em {1}."
+		"hu"		"Új Kulcsember választása ekkor {1}."
+		"es"		"Seleccionar nuevo Hombres Clave en {1}."
+		"chi"		"选择新的关键人物{1}。"
+	}
+	"KeymanSelect"
+	{
+		"en"		"Selecting new Keymen..."
+		"pt"		"Selcionando novo Homens Chave..."
+		"hu"		"Új Kulcsember választása..."
+		"es"		"Seleccionando nuevo Hombres Clave..."
+		"chi"		"选择新的关键人物。。。"
+	}
+	"KeymanChosen"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1} is a Keyman."
+		"pt"		"{1} é um Homem Chave."
+		"hu"		"{1} egy Kulcsember."
+		"es"		"{1} es un Hombre Clave."
+		"chi"		"{1}是一个关键人物。"
+	}
+	"KeymanNotChosen"
+	{
+		"en"		"A Keyman was not chosen."
+		"pt"		"Um Homem Chave nao foi escolhido."
+		"hu"		"Egy Kulcsember nem lett kiválasztva."
+		"es"		"A Hombre Clave no fue elegido."
+		"chi"		"关键人物没有被选中。"
+	}
+	"KeymanSame"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1} is still a Keyman."
+		"pt"		"{1} ainda é um Homem Chave."
+		"hu"		"{1} még mindig egy Kulcsember."
+		"es"		"{1} sigue siendo un Hombre Clave."
+		"chi"		"{1}仍然是一个关键人物。"
+	}
+	"NotKeyman"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1} is not a Keyman anymore."
+		"pt"		"{1} não é um Homem chave mais."
+		"hu"		"{1} már nem Kulcsember többé."
+		"es"		"{1} ya no es un Hombre Clave."
+		"chi"		"{1}不再是关键人物。"
+	}
+	"KeymanEnough"
+	{
+		"#format"	"{1:d},{2:d}"
+		"en"		"There are already {1}/{2} Keymen for this map."
+		"pt"		"Ja existe {1}/{2} Homens Chave para este mapa."
+		"hu"		"Már van {1}/{2} Kulcsemberünk ehhez a fejezethez."
+		"es"		"Ya hay {1}/{2} Hombres Clave para este mapa."
+		"chi"		"此地图已有{1}/{2}个关键人物。"
+	}
+	"KeymanInvalid"
+	{
+		"en"		"Invalid Keyman! Selecting new Keyman..."
+		"pt"		"Homem Chave invalido! Selecionando novo Homem Chave..."
+		"hu"		"Érvénytelen Kulcsember! Új Kulcsember választása..."
+		"es"		"¡Hombre Clave inválido! Seleccionando nuevo Keyman..."
+		"chi"		"无效的关键人物!选择新的钥匙人物。。。"
+	}
+	"KeymanDeny"
+	{
+		"en"		"Only Keymen can open the saferoom door!"
+		"pt"		"Somente Homens Chave pode abrir a porta da saferoom!"
+		"hu"		"Csak Kulcsember tudja kinyitni a menedékszoba ajtaját!"
+		"es"		"¡Solo Hombres Clave puede abrir la puerta de seguridad!"
+		"chi"		"只有关键人物才能打开安全门！"
+	}
+	"KeymanArrived"
+	{
+		"#format"	"{1:N}"
+		"en"		"The Keyman {1} arrived in the saferoom!"
+		"pt"		"Homem Chave {1} chegou na saferoom!"
+		"hu"		"A Kulcsember {1} elérte a menedékszobát!"
+		"es"		"El Hombre Clave {1} llegó al saferoom!"
+		"chi"		"关键人物{1}到达了安全室！"
+	}
+	"KeymanInform"
+	{
+		"en"		"You are a Keyman!"
+		"pt"		"Voce e um Homem Chave!"
+		"hu"		"Te vagy a Kulcsember!"
+		"es"		"¡Eres un Hombre Clave!"
+		"chi"		"你是关键人物！"
+	}
+	"LockdownOff"
+	{
+		"en"		"Lockdown disabled."
+		"pt"		"Bloqueio desabilitado."
+		"hu"		"Lezárás tiltva."
+		"es"		"Bloqueo deshabilitado."
+		"chi"		"锁定禁用。"
+	}
+	"WaitLockdown"
+	{
+		"en"		"Wait for the lockdown to end!"
+		"pt"		"Espere pelo bloqueio terminar!"
+		"hu"		"Várd meg a lezárás végét!"
+		"es"		"¡Espere a que finalice el encierro!"
+		"chi"		"等待锁定结束！"
+	}
+	"LockdownEnds"
+	{
+		"en"		"The lockdown has ended and the saferoom door has opened!"
+		"pt"		"O bloqueio terminou, a porta da saferoom abriu!"
+		"hu"		"A lezárás véget ért és a menedékszoba ajtaja kinyílt!"
+		"es"		"¡El cierre ha terminado y la puerta de saferoom se ha abierto!"
+		"chi"		"锁定已经结束，安全室的门已经打开了！"
+	}
+	"LockdownCountdown"
+	{
+		"#format"	"{1:d}"
+		"en"		"Lockdown ends in {1}."
+		"pt"		"Bloqueio termina em {1}."
+		"hu"		"A lezárás véget ér ekkor {1}."
+		"es"		"El bloqueo finaliza en {1}."
+		"chi"		"锁定在{1}结束。"
+	}
+	"Acid"
+	{
+		"en"		"Acidity"
+		"pt"		"Acidez"
+		"hu"		"Savasság"
+		"es"		"Acidez"
+		"chi"		"酸性"
+	}
+	"Ammo"
+	{
+		"en"		"Ammunition"
+		"pt"		"Munição"
+		"hu"		"Lőszer"
+		"es"		"Munición"
+		"chi"		"弹药"
+	}
+	"Ban"
+	{
+		"en"		"Banishment"
+		"pt"		"Banimento"
+		"hu"		"Száműzetés"
+		"es"		"Destierro"
+		"chi"		"驱逐"
+	}
+	"Blind"
+	{
+		"en"		"Blindness"
+		"pt"		"Cegar"
+		"hu"		"Vakság"
+		"es"		"Ceguera"
+		"chi"		"失明"
+	}
+	"Charge"
+	{
+		"en"		"Charge"
+		"pt"		"Carregar"
+		"hu"		"Rohan"
+		"es"		"Cargar"
+		"chi"		"冲锋"
+	}
+	"Chase"
+	{
+		"en"		"Chase"
+		"pt"		"Perseguição"
+		"hu"		"Üldözés"
+		"es"		"Persecución"
+		"chi"		"追逐"
+	}
+	"Check"
+	{
+		"en"		"Check"
+		"pt"		"Verificar"
+		"hu"		"Ellenőriz"
+		"es"		"Comprobar"
+		"chi"		"检查"
+	}
+	"Config"
+	{
+		"en"		"Configuration"
+		"pt"		"Configuração"
+		"hu"		"Konfiguráció"
+		"es"		"Configuración"
+		"chi"		"组态"
+	}
+	"Disarm"
+	{
+		"en"		"Disarmament"
+		"pt"		"Desarmamento"
+		"hu"		"Lefegyverzés"
+		"es"		"Desarmamiento"
+		"chi"		"解除武装"
+	}
+	"Door"
+	{
+		"en"		"Door"
+		"pt"		"Porta"
+		"hu"		"Ajtó"
+		"es"		"Puerta"
+		"chi"		"安全门"
+	}
+	"Drug"
+	{
+		"en"		"Drug"
+		"pt"		"Drogas"
+		"hu"		"Drog"
+		"es"		"Droga"
+		"chi"		"麻醉"
+	}
+	"Entry"
+	{
+		"en"		"Entry"
+		"pt"		"Entrada"
+		"hu"		"Bejárat"
+		"es"		"Entrada"
+		"chi"		"条目"
+	}
+	"Exile"
+	{
+		"en"		"Exile"
+		"pt"		"Exílio"
+		"hu"		"Száműzetés"
+		"es"		"Exilio"
+		"chi"		"流亡"
+	}
+	"Explode"
+	{
+		"en"		"Explosion"
+		"pt"		"Explosão"
+		"hu"		"Robbanás"
+		"es"		"Explosión"
+		"chi"		"爆炸"
+	}
+	"Fire"
+	{
+		"en"		"Fire"
+		"pt"		"Queimar"
+		"hu"		"Tûz"
+		"es"		"Fuego"
+		"chi"		"着火"
+	}
+	"Freeze"
+	{
+		"en"		"Freeze"
+		"pt"		"Congelamento"
+		"hu"		"Fagyás"
+		"es"		"Congelar"
+		"chi"		"冻结"
+	}
+	"Heal"
+	{
+		"en"		"Health"
+		"pt"		"Saude"
+		"hu"		"Életerõ"
+		"es"		"Salud"
+		"chi"		"健康"
+	}
+	"Hurt"
+	{
+		"en"		"Hurt"
+		"pt"		"Ferir"
+		"hu"		"Bántalmaz"
+		"es"		"Herir"
+		"chi"		"伤害"
+	}
+	"Idle"
+	{
+		"en"		"Idle"
+		"pt"		"Ausente"
+		"hu"		"Tétlen"
+		"es"		"Ocioso"
+		"chi"		"闲"
+	}
+	"Incap"
+	{
+		"en"		"Incapacitation"
+		"pt"		"Incapacitação"
+		"hu"		"Mozgásképtelenség"
+		"es"		"Incapacitación"
+		"chi"		"倒地"
+	}
+	"Invert"
+	{
+		"en"		"Inversion"
+		"pt"		"Inversão"
+		"hu"		"Felfordítás"
+		"es"		"Inversión"
+		"chi"		"倒置"
+	}
+	"Kick"
+	{
+		"en"		"Kick"
+		"pt"		"Chutar"
+		"hu"		"Kirúgás"
+		"es"		"Patada"
+		"chi"		"踢出"
+	}
+	"Mirror"
+	{
+		"en"		"Mirror"
+		"pt"		"Espelho"
+		"hu"		"Tükör"
+		"es"		"Espejo"
+		"chi"		"镜子"
+	}
+	"Null"
+	{
+		"en"		"Null"
+		"pt"		"Nulo"
+		"hu"		"Nulla"
+		"es"		"Nulo"
+		"chi"		"无效"
+	}
+	"Puke"
+	{
+		"en"		"Puke"
+		"pt"		"Vomito"
+		"hu"		"Hányás"
+		"es"		"Vómito"
+		"chi"		"呕吐"
+	}
+	"Restart"
+	{
+		"en"		"Restart"
+		"pt"		"Reiniciar"
+		"hu"		"Újraindítás"
+		"es"		"Reiniciar"
+		"chi"		"重新开始"
+	}
+	"Rocket"
+	{
+		"en"		"Rocket"
+		"pt"		"Foguete"
+		"hu"		"Rakéta"
+		"es"		"Cohete"
+		"chi"		"火箭"
+	}
+	"Saferoom"
+	{
+		"en"		"Saferoom"
+		"pt"		"Saferoom"
+		"hu"		"Menedékszoba"
+		"es"		"Cuarto seguro"
+		"chi"		"安全室"
+	}
+	"Shake"
+	{
+		"en"		"Shake"
+		"pt"		"Chacoalhar"
+		"hu"		"Rázás"
+		"es"		"Sacudir"
+		"chi"		"发抖"
+	}
+	"Shock"
+	{
+		"en"		"Shock"
+		"pt"		"Choque"
+		"hu"		"Sokk"
+		"es"		"Choque"
+		"chi"		"冲击"
+	}
+	"Shove"
+	{
+		"en"		"Shove"
+		"pt"		"Empurrao"
+		"hu"		"Lökés"
+		"es"		"Empujón"
+		"chi"		"推"
+	}
+	"Slow"
+	{
+		"en"		"Slow"
+		"pt"		"Mover-se Lentamente"
+		"hu"		"Lassú"
+		"es"		"Lento"
+		"chi"		"慢行"
+	}
+	"Strike"
+	{
+		"en"		"Strike"
+		"pt"		"Penalidade"
+		"hu"		"Csapás"
+		"es"		"Huelga"
+		"chi"		"撞击"
+	}
+	"Vision"
+	{
+		"en"		"Vision"
+		"pt"		"Visão"
+		"hu"		"Látásmód"
+		"es"		"Visión"
+		"chi"		"视力"
+	}
+	"Warp"
+	{
+		"en"		"Warp"
+		"pt"		"Teletransporte"
+		"hu"		"Visszahoz"
+		"es"		"Teleportar"
+		"chi"		"遣返"
+	}
+	"NobodyVoted"
+	{
+		"#format"	"{1:d},{2:d}"
+		"en"		"{1}/{2} voted."
+		"pt"		"{1}/{2} votam."
+		"hu"		"{1}/{2} szavazott."
+		"es"		"{1}/{2} votado."
+		"chi"		"{1}/{2}投票。"
+	}
+	"NoVotes"
+	{
+		"#format"	"{1:d},{2:d}"
+		"en"		"Only {1}/{2} players voted."
+		"pt"		"Apenas {1}/{2} jogadores votam."
+		"hu"		"Csak {1}/{2} játékos szavazott."
+		"es"		"Solo {1}/{2} jugadores votados."
+		"chi"		"只有{1}/{2}的玩家投票。"
+	}
+	"VotedYes"
+	{
+		"#format"	"{1:d},{2:d}"
+		"en"		"{1}/{2} voted Yes."
+		"pt"		"{1}/{2} votado Sim."
+		"hu"		"{1}/{2} Igennel szavazott."
+		"es"		"{1}/{2} votó Sí."
+		"chi"		"{1}/{2}投了赞同票。"
+	}
+	"VotedNo"
+	{
+		"#format"	"{1:d},{2:d}"
+		"en"		"{1}/{2} voted No."
+		"pt"		"{1}/{2} votado Não."
+		"hu"		"{1}/{2} Nemmel szavazott."
+		"es"		"{1}/{2} votó No."
+		"chi"		"{1}/{2}投了反对票。"
+	}
+	"VotedBoss"
+	{
+		"#format"	"{1:d},{2:d}"
+		"en"		"{1}/{2} voted for Boss."
+		"pt"		"{1}/{2} votado para Boss."
+		"hu"		"{1}/{2} szavazott a Fõnökre."
+		"es"		"{1}/{2} votado por Jefe."
+		"chi"		"{1}/{2}投票给主子。"
+	}
+	"VotedFilter"
+	{
+		"#format"	"{1:d},{2:d}"
+		"en"		"{1}/{2} voted for Filter."
+		"pt"		"{1}/{2} votado para Filtro."
+		"hu"		"{1}/{2} szavazott a Szűrőre."
+		"es"		"{1}/{2} votado por Filtro."
+		"chi"		"{1}/{2}投票支持过滤。"
+	}
+	"VotedGroup"
+	{
+		"#format"	"{1:d},{2:d}"
+		"en"		"{1}/{2} voted for Group."
+		"pt"		"{1}/{2} votado para Grupo."
+		"hu"		"{1}/{2} szavazott a Csoportra."
+		"es"		"{1}/{2} votado por Grupo."
+		"chi"		"{1}/{2}投票给队伍。"
+	}
+	"VotedKeyman"
+	{
+		"#format"	"{1:d},{2:d}"
+		"en"		"{1}/{2} voted for Keyman."
+		"pt"		"{1}/{2} votado para Homem Chave."
+		"hu"		"{1}/{2} szavazott a Kulcsemberre."
+		"es"		"{1}/{2} votado por Hombre Clave."
+		"chi"		"{1}/{2}投票给了关键人物。"
+	}
+	"VotedLockdown"
+	{
+		"#format"	"{1:d},{2:d}"
+		"en"		"{1}/{2} voted for Lockdown."
+		"pt"		"{1}/{2} votado para Bloqueio."
+		"hu"		"{1}/{2} szavazott a Lezárásra."
+		"es"		"{1}/{2} votado por Bloqueo."
+		"chi"		"{1}/{2}投票赞成锁定。"
+	}
+	"VotedNone"
+	{
+		"#format"	"{1:d},{2:d}"
+		"en"		"{1}/{2} voted for None."
+		"pt"		"{1}/{2} votado Nenhum."
+		"hu"		"{1}/{2} szavazott a Semmire."
+		"es"		"{1}/{2} votaron por Ninguna."
+		"chi"		"{1}/{2}投给没有。"
+	}
+	"ChooseConfigMode"
+	{
+		"en"		"Choose a configuration mode:"
+		"pt"		"Escolha um modo de configuração:"
+		"hu"		"Válassz egy konfigurációs módot:"
+		"es"		"Elija un modo de configuración:"
+		"chi"		"选择一种配置模式："
+	}
+	"ChooseConfigType"
+	{
+		"en"		"Choose a configuration type:"
+		"pt"		"Escolha um tipo de configuração:"
+		"hu"		"Válasz egy konfigurációs típust:"
+		"es"		"Elija un tipo de configuración:"
+		"chi"		"选择一种配置类型："
+	}
+	"ChoosePlayer"
+	{
+		"en"		"Choose a player:"
+		"pt"		"Escolha um jogador:"
+		"hu"		"Válassz egy játékost:"
+		"es"		"Elige un jugador:"
+		"chi"		"选择一个玩家:"
+	}
+	"ChooseExileMode"
+	{
+		"en"		"Choose an exile mode:"
+		"pt"		"Escolha um modo para exilado:"
+		"hu"		"Válassz egy száműzetési módot:"
+		"es"		"Elige un modo de exilio:"
+		"chi"		"选择流放模式："
+	}
+	"ChooseOption"
+	{
+		"en"		"Which method of entry do you prefer?"
+		"pt"		"Qual metodo de de entrada voce prefere?"
+		"hu"		"Melyik belépési módot választod?"
+		"es"		"¿Qué método de entrada prefieres?"
+		"chi"		"您喜欢哪种录入方法?"
+	}
+	"InitiateLockdown"
+	{
+		"en"		"Initiate a lockdown?"
+		"pt"		"Iniciar um bloqueio?"
+		"hu"		"Elindítsunk egy lezárást?"
+		"es"		"¿Iniciar un encierro?"
+		"chi"		"开始锁定？"
+	}
+	"Boss"
+	{
+		"en"		"Boss"
+		"pt"		"Boss"
+		"hu"		"Fõnök"
+		"es"		"Jefe"
+		"chi"		"主子"
+	}
+	"Filter"
+	{
+		"en"		"Filter"
+		"pt"		"Filtro"
+		"hu"		"Szűrő"
+		"es"		"Filtro"
+		"chi"		"过滤"
+	}
+	"Group"
+	{
+		"en"		"Group"
+		"pt"		"Grupo"
+		"hu"		"Csoport"
+		"es"		"Grupo"
+		"chi"		"队伍"
+	}
+	"Keyman"
+	{
+		"en"		"Keyman"
+		"pt"		"Homem Chave"
+		"hu"		"Kulcsember"
+		"es"		"Hombre Clave"
+		"chi"		"关键人物"
+	}
+	"Lockdown"
+	{
+		"en"		"Lockdown"
+		"pt"		"Bloqueio"
+		"hu"		"Lezárás"
+		"es"		"Bloqueo"
+		"chi"		"锁定"
+	}
+	"None"
+	{
+		"en"		"None"
+		"pt"		"Nenhum"
+		"hu"		"Egyik sem"
+		"es"		"Ninguna"
+		"chi"		"没有"
+	}
+	"MirrorInform"
+	{
+		"en"		"Your damage is mirrored!"
+		"pt"		"Seu dano esta espelhado!"
+		"hu"		"A sebzésed visszatükrözve!"
+		"es"		"¡Tu daño está reflejado!"
+		"chi"		"你的伤害是镜像的！"
+	}
+	"MirrorAnnounce"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1}'s damage is mirrored!"
+		"pt"		"{1} esta com dano espelhado!"
+		"hu"		"{1} sebzése visszatükrözve!"
+		"es"		"¡El daño de {1} se refleja!"
+		"chi"		"{1}的伤害是镜像的！"
+	}
+	"MirrorNoInform"
+	{
+		"en"		"Your damage is not mirrored anymore!"
+		"pt"		"Seu dano não é mais espelhado!"
+		"hu"		"A sebzésed nincs visszatükrözve többé!"
+		"es"		"¡Tu daño ya no se refleja!"
+		"chi"		"你的伤害不再被镜像！"
+	}
+	"MirrorNoAnnounce"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1}'s damage is not mirrored anymore!"
+		"pt"		"{1} não esta mais com dano espelhado!"
+		"hu"		"{1} sebzése nincs visszatükrözve többé!"
+		"es"		"¡El daño de {1} ya no se refleja!"
+		"chi"		"{1}的伤害不再被镜像！"
+	}
+	"PukeSignature"
+	{
+		"en"		"Your \"CTerrorPlayer_OnVomitedUpon\" signature is outdated."
+		"pt"		"Sua \"CTerrorPlayer_OnVomitedUpon\" assinatura esta desatualizada."
+		"hu"		"A \"CTerrorPlayer_OnVomitedUpon\" aláírásod elavult."
+		"es"		"Su firma \"CTerrorPlayer_OnVomitedUpon\" está desactualizada."
+		"chi"		"你的\"CTerrorPlayer_OnVomitedUpon\"签名已经过时了。"
+	}
+	"PukeInform"
+	{
+		"en"		"You are being puked on!"
+		"pt"		"Voce esta sendo vomitado!"
+		"hu"		"Le lettél hányva!"
+		"es"		"¡Estás siendo vomitado!"
+		"chi"		"你正在被呕吐！"
+	}
+	"PukeAnnounce"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1} is being puked on!"
+		"pt"		"{1} esta sendo cuspido!"
+		"hu"		"{1} le lett hányva!"
+		"es"		"¡{1} está siendo vomitado!"
+		"chi"		"{1}正在呕吐！"
+	}
+	"PukeNoInform"
+	{
+		"en"		"You are not being puked on anymore!"
+		"pt"		"Voce nao esta mais sendo vomitado!"
+		"hu"		"Többé nem hányunk le!"
+		"es"		"¡Ya no te vomitan!"
+		"chi"		"你不再被呕吐了！"
+	}
+	"PukeNoAnnounce"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1} is not being puked on anymore!"
+		"pt"		"{1} nao esta mais sendo vomitado!"
+		"hu"		"{1} nem lesz többé lehányva!"
+		"es"		"¡{1} ya no se vomita!"
+		"chi"		"{1}不再被呕吐！"
+	}
+	"RestartSignature"
+	{
+		"en"		"Your \"RoundRespawn\" signature is outdated."
+		"pt"		"Sua \"RoundRespawn\" assinatura esta desatualizada."
+		"hu"		"A \"RoundRespawn\" aláírásod elavult."
+		"es"		"Su firma \"RoundRespawn\" está desactualizada."
+		"chi"		"你的\"RoundRespawn\"签名已经过时了。"
+	}
+	"RestartInform"
+	{
+		"en"		"You restarted in the safe area!"
+		"pt"		"Você reiniciou na área segura!"
+		"hu"		"Újrakezded a biztonságos területen!"
+		"es"		"¡Reinició en el área segura!"
+		"chi"		"你在安全区域重新开始！"
+	}
+	"RestartAnnounce"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1} restarted in the safe area!"
+		"pt"		"{1} reiniciado na área segura!"
+		"hu"		"{1} újrakezdi a biztonságos területen!"
+		"es"		"¡{1} reiniciado en el área segura!"
+		"chi"		"{1}在安全区重新启动！"
+	}
+	"RocketInform"
+	{
+		"en"		"You were sent into space!"
+		"pt"		"Voce foi enviado para o espaço!"
+		"hu"		"Kiküldtünk az űrbe!"
+		"es"		"¡Fuiste enviado al espacio!"
+		"chi"		"你被送进了太空！"
+	}
+	"RocketAnnounce"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1} was sent into space!"
+		"pt"		"{1} foi enviado para espaço!"
+		"hu"		"{1} ki lett küldve az űrbe!"
+		"es"		"¡{1} fue enviado al espacio!"
+		"chi"		"{1}被送入太空！"
+	}
+	"SaferoomOff"
+	{
+		"en"		"Saferoom System disabled."
+		"pt"		"Sistema Saferoom desabilitado."
+		"hu"		"Menedékszoba Rendszer tiltva!"
+		"es"		"Sistema Saferoom deshabilitado."
+		"chi"		"更新Saferoom系统。"
+	}
+	"DoorOpened"
+	{
+		"en"		"The saferoom door has opened!"
+		"pt"		"A porta da saferoom esta aberta!"
+		"hu"		"A menedékszoba ajtaja kinyílt!"
+		"es"		"¡La puerta de seguridad ha abierto!"
+		"chi"		"安全门打开了！"
+	}
+	"Locked"
+	{
+		"en"		"Saferoom door forcefully locked."
+		"pt"		"Trava da porta da saferoom bloqueada."
+		"hu"		"A cél menedékszoba ajtaja erõvel bezárva."
+		"es"		"La puerta de seguridad cerrada."
+		"chi"		"安全门锁定。"
+	}
+	"Unlocked"
+	{
+		"en"		"Saferoom door forcefully unlocked."
+		"pt"		"Trava da porta da saferoom desbloqueada."
+		"hu"		"A cél menedékszoba ajtaja erõvel kinyitva."
+		"es"		"La puerta de seguridad desbloqueada."
+		"chi"		"安全门解锁。"
+	}
+	"DoorType"
+	{
+		"en"		"Door type"
+		"pt"		"Tipo de porta"
+		"hu"		"Ajtó típusa"
+		"es"		"Tipo de puerta"
+		"chi"		"门类型"
+	}
+	"StartDoor"
+	{
+		"en"		"Starting door"
+		"pt"		"Iniciando porta"
+		"hu"		"Kezdő ajtó"
+		"es"		"Puerta de salida"
+		"chi"		"开始"
+	}
+	"EndDoor"
+	{
+		"en"		"Ending door"
+		"pt"		"Finalizando porta"
+		"hu"		"Cél ajtó"
+		"es"		"Puerta final"
+		"chi"		"结束门"
+	}
+	"ControlDoor"
+	{
+		"en"		"Lock/Unlock"
+		"pt"		"Bloquear/Desbloquear"
+		"hu"		"Zárjuk/Kinyissuk"
+		"es"		"Bloquear/Desbloquear"
+		"chi"		"锁定/解锁"
+	}
+	"Lock"
+	{
+		"en"		"Lock"
+		"pt"		"Bloquear"
+		"hu"		"Bezár"
+		"es"		"Bloquear"
+		"chi"		"锁定"
+	}
+	"Unlock"
+	{
+		"en"		"Unlock"
+		"pt"		"Desbloquear"
+		"hu"		"Kinyit"
+		"es"		"Desbloquear"
+		"chi"		"解锁"
+	}
+	"EntryCountdown"
+	{
+		"#format"	"{1:d}"
+		"en"		"Warping survivors inside in {1}."
+		"pt"		"Teleportando sobreviventes dentro de {1}."
+		"hu"		"Túlélők bekísérése ennyi idő múlva {1}."
+		"es"		"Teletransportar a los sobrevivientes dentro de {1}."
+		"chi"		"在{1}中翘曲幸存者。"
+	}
+	"EntryInform"
+	{
+		"en"		"Warped all survivors inside the saferoom."
+		"pt"		"Teleportou todos os sobreviventes para saferoom."
+		"hu"		"Az összes túlélőt bekísértük a menedékszobába."
+		"es"		"Teletransportó a todos los sobrevivientes dentro del saferoom."
+		"chi"		"把所有幸存者都甩在了安全室内。"
+	}
+	"ShakeInform"
+	{
+		"en"		"You are shaking!"
+		"pt"		"Voce foi chacoalhado!"
+		"hu"		"Rázkódsz!"
+		"es"		"¡Estás temblando!"
+		"chi"		"你在发抖！"
+	}
+	"ShakeAnnounce"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1} is shaking!"
+		"pt"		"{1} esta chacoalhando!"
+		"hu"		"{1} rázkódik!"
+		"es"		"¡{1} está temblando!"
+		"chi"		"{1}在颤抖！"
+	}
+	"ShakeNoInform"
+	{
+		"en"		"You are not shaking anymore!"
+		"pt"		"Voce nao esta mais sacudindo!"
+		"hu"		"Többé nem rázkódsz!"
+		"es"		"¡Ya no estás temblando!"
+		"chi"		"你不再动摇了！"
+	}
+	"ShakeNoAnnounce"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1} is not shaking anymore!"
+		"pt"		"{1} nao esta mais sacudindo!"
+		"hu"		"{1} nem rázkódik többé!"
+		"es"		"¡{1} ya no está temblando!"
+		"chi"		"{1}不再动摇了！"
+	}
+	"ShockInform"
+	{
+		"en"		"You got shocked and died!"
+		"pt"		"Voce levou um Shock e morreu!"
+		"hu"		"Meg lettél sokkolva és meghaltál!"
+		"es"		"¡Te sorprendió y murió!"
+		"chi"		"你被吓死了！"
+	}
+	"ShockAnnounce"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1} got shocked and died!"
+		"pt"		"{1} levou shock e morreu!"
+		"hu"		"{1} meglett sokkolva és meghalt!"
+		"es"		"¡{1} se sorprendió y murió!"
+		"chi"		"{1}感到害怕和死亡！"
+	}
+	"ShoveSignature"
+	{
+		"en"		"Your \"CTerrorPlayer_OnStaggered\" signature is outdated."
+		"pt"		"Sua \"CTerrorPlayer_OnStaggered\" assinatura esta desatualizada."
+		"hu"		"A \"CTerrorPlayer_OnStaggered\" aláírásod elavult."
+		"es"		"Su firma \"CTerrorPlayer_OnStaggered\" está desactualizada."
+		"chi"		"你的\"CTerrorPlayer_OnStaggered\"签名已经过时了。"
+	}
+	"ShoveInform"
+	{
+		"en"		"You are being shoved!"
+		"pt"		"Voce esta sendo empurrado!"
+		"hu"		"Meg lettél sokkolva és meghaltál!"
+		"es"		"¡Estás siendo empujado!"
+		"chi"		"你正在被推！"
+	}
+	"ShoveAnnounce"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1} is being shoved!"
+		"pt"		"{1} esta sendo empurrado!"
+		"hu"		"{1} meglett sokkolva és meghalt!"
+		"es"		"¡{1} está siendo empujado!"
+		"chi"		"{1}正在被推！"
+	}
+	"ShoveNoInform"
+	{
+		"en"		"You are not being shoved anymore!"
+		"pt"		"Voce nao esta mais sendo empurrado!"
+		"hu"		"Többé nem lökünk meg!"
+		"es"		"¡Ya no te están empujando!"
+		"chi"		"你不再被推动！"
+	}
+	"ShoveNoAnnounce"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1} is not being shoved anymore!"
+		"pt"		"{1} nao esta mais sendo empurrado!"
+		"hu"		"{1} -t nem lökjük meg többé!"
+		"es"		"¡{1} ya no está siendo empujado!"
+		"chi"		"{1}不再被推动！"
+	}
+	"SlowInform"
+	{
+		"en"		"You are slowed down!"
+		"pt"		"Voce esta se movendo lentamente!"
+		"hu"		"Le lettél lassítva!"
+		"es"		"¡Estás ralentizado!"
+		"chi"		"你放慢了速度！"
+	}
+	"SlowAnnounce"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1} is slowed down!"
+		"pt"		"{1} esta se movendo lentamente!"
+		"hu"		"{1} le lett lassítva!"
+		"es"		"{1} se ralentiza!"
+		"chi"		"{1}放慢速度！"
+	}
+	"SlowNoInform"
+	{
+		"en"		"You are not slowed down anymore!"
+		"pt"		"Você nao esta mais se movendo lentamente!"
+		"hu"		"Többé nem vagy lelassítva!"
+		"es"		"¡Ya no te ralentizas!"
+		"chi"		"你不再减速！"
+	}
+	"SlowNoAnnounce"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1} is not slowed down anymore!"
+		"pt"		"{1} nao esta mais se movendo lentamente!"
+		"hu"		"{1} többé nincs lelassítva!"
+		"es"		"¡{1} no se ralentiza más!"
+		"chi"		"{1}不再变慢！"
+	}
+	"StrikeOff"
+	{
+		"en"		"Strike System disabled."
+		"pt"		"Sistema de Punição desabilitado."
+		"hu"		"Csapási Rendszer tiltva."
+		"es"		"Sistema de Huelga deshabilitado."
+		"chi"		"罢工系统被禁用。"
+	}
+	"CheckInform"
+	{
+		"en"		"You are being checked!"
+		"pt"		"Voce esta sendo verificado!"
+		"hu"		"Ellenőrzés alatt vagy!"
+		"es"		"¡Estás siendo revisado!"
+		"chi"		"你正在检查！"
+	}
+	"CheckAnnounce"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1} is being checked!"
+		"pt"		"{1} esta sendo verificado!"
+		"hu"		"{1} ellenőrzés alatt van!"
+		"es"		"¡{1} está siendo revisado!"
+		"chi"		"正在检查{1}！"
+	}
+	"CheckNoInform"
+	{
+		"en"		"You are not being checked anymore!"
+		"pt"		"Voce nao esta mais sendo verificado!"
+		"hu"		"Nem ellenőrzünk többé!"
+		"es"		"¡Ya no te están revisando!"
+		"chi"		"你不再被检查！"
+	}
+	"CheckNoAnnounce"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1} is not being checked anymore!"
+		"pt"		"{1} nao esta mais sendo verificado!"
+		"hu"		"{1} többé nem lesz ellenőrizve!"
+		"es"		"¡{1} ya no se verifica!"
+		"chi"		"{1}不再被检查！"
+	}
+	"StrikeInform"
+	{
+		"#format"	"{1:d},{2:d}"
+		"en"		"You were given {1}/{2} strikes. Stay with your teammates!"
+		"pt"		"Voce recebeu {1}/{2} penalidades. Pare de RUSHAR fique junto ao time!"
+		"hu"		"Kaptál {1}/{2} csapást. Maradj a csapattársaiddal!"
+		"es"		"Te dieron {1}/{2} golpes. ¡Quédate con tus compañeros de equipo!"
+		"chi"		"你被{1}/{2}打击。 和你的队友在一起！"
+	}
+	"StrikeAnnounce"
+	{
+		"#format"	"{1:N},{2:d},{3:d}"
+		"en"		"{1} has been given {2}/{3} strikes!"
+		"pt"		"{1} recebeu {2}/{3} penalidades por rushar!"
+		"hu"		"{1} kapott {2}/{3} csapást!"
+		"es"		"¡{1} ha recibido {2}/{3} strikes!"
+		"chi"		"{1}已得到{2}/{3}打击！"
+	}
+	"Inform"
+	{
+		"#format"	"{1:d},{2:d}"
+		"en"		"You have {1}/{2} strikes and will be punished!"
+		"pt"		"Voce tem {1}/{2} penalidades e sera punido!"
+		"hu"		"Van még {1}/{2} csapásod és meg leszel büntetve!"
+		"es"		"¡Tienes {1}/{2} golpes y te castigarán!"
+		"chi"		"您有{1}/{2}攻击，将会受到惩罚！"
+	}
+	"Announce"
+	{
+		"#format"	"{1:N},{2:d},{3:d}"
+		"en"		"{1} has {2}/{3} strikes and will be punished!"
+		"pt"		"{1} foi {2}/{3} penalizado e sera punido!"
+		"hu"		"{1} -nak van {2}/{3} csapása és meg lesz büntetve!"
+		"es"		"¡{1} tiene {2}/{3} strikes y será castigado!"
+		"chi"		"{1}有{2}/{3}攻击将会受到惩罚！"
+	}
+	"StrikeWarn"
+	{
+		"en"		"Stay with your teammates or you will be given a strike!"
+		"pt"		"Nao Rushar, fique junto ao time ou sofrera penalidades!"
+		"hu"		"Maradj a csapattársaiddal vagy csapást fogsz kapni!"
+		"es"		"¡Quédate con tus compañeros de equipo o te darán un golpe!"
+		"chi"		"和你的队友呆在一起，否则你会受到打击！"
+	}
+	"StrikeWarn2"
+	{
+		"en"		"Stay with your teammates or you will be punished!"
+		"pt"		"Nao Rushar, fique junto ao time ou será punido!"
+		"hu"		"Maradj a csapattársaiddal vagy meg leszel büntetve!"
+		"es"		"¡Quédate con tus compañeros de equipo o serás castigado!"
+		"chi"		"和你的队友呆在一起，否则你会受到惩罚！"
+	}
+	"VisionInform"
+	{
+		"en"		"Your vision has changed!"
+		"pt"		"Sua visão foi alterada!"
+		"hu"		"A látásmódod megváltozott!"
+		"es"		"¡Tu visión ha cambiado!"
+		"chi"		"你的视力已经改变了！"
+	}
+	"VisionAnnounce"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1}'s vision has changed!"
+		"pt"		"{1}'s visão mudou!"
+		"hu"		"{1}'s látásmódja megváltozott!"
+		"es"		"¡La visión de {1} ha cambiado!"
+		"chi"		"{1}的视力被改变！"
+	}
+	"WarpInform"
+	{
+		"en"		"You were warped back to the team!"
+		"pt"		"Voce sera teleportado de volta ao time!"
+		"hu"		"Visszahoztunk a csapatodhoz!"
+		"es"		"¡Estabas de vuelta al equipo!"
+		"chi"		"你被遣返回到这个队伍！"
+	}
+	"WarpAnnounce"
+	{
+		"#format"	"{1:N}"
+		"en"		"{1} was warped back to the team!"
+		"pt"		"{1} foi teleportado de volta ao time!"
+		"hu"		"{1} vissza lett hozva a csapatához!"
+		"es"		"¡{1} fue retorcido al equipo!"
+		"chi"		"{1}被遣返回到这个队伍！"
+	}
+}
