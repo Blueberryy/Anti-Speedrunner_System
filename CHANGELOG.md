@@ -265,7 +265,7 @@ Teleportation = Warp
 3. Added the command sm_asscmd to list all vote commands to players.
 4. All admin commands can now be used as overrides for their respective systems (One command override for each system is enough).
 5. Added the Shake system to annoy speedrunners.
-6. Added the commands sm_votequake/sm_vquake, sm_quake <player>/sm_fquake <player>, and sm_autoquake/sm_afquake.
+6. Added the commands sm_votequake/sm_vquake, sm_quake "player"/sm_fquake "player", and sm_autoquake/sm_afquake.
 7. Added a feature that freezes speedrunners for a certain amount of time after being teleported.
 8. Added a feature that changes speedrunners' movement speed when puked on.
 9. Added cvars to decide whether or not to inform players of commands.
@@ -314,7 +314,7 @@ Teleportation = Warp
 3. Added the Lockdown system (just half of cravenge's Lockdown System). (Currently in its experimental state so please let me know if you encounter any problems/errors.)
 4. Renamed the cvar assincap_requiredamount to assincap_incappedcount.
 5. Changed how the Incapacitation system works again adding the cvar assincap_revivedcount to decide how many non-incapped/revived survivors must be present to re-enable the other systems.
-6. Added the commands sm_vbile, sm_bile <player>, and sm_autobile.
+6. Added the commands sm_vbile, sm_bile "player", and sm_autobile.
 7. Fixed the cvar asskeyman_tankalive not working properly.
 8. Fixed the vote system not counting votes properly.
 9. Fixed the _adminimmunity cvars not working properly.
@@ -384,7 +384,7 @@ Teleportation = Warp
 
 ## Version 12.5 (December 14, 2017)
 
-1. Added the cvar l4d_ass_keyman_specify to decide whether sm_key randomly chooses a player to be the Keyman or a player's name can be specified in the 2nd parameter. (sm_key or sm_key <player>)
+1. Added the cvar l4d_ass_keyman_specify to decide whether sm_key randomly chooses a player to be the Keyman or a player's name can be specified in the 2nd parameter. (sm_key or sm_key "player")
 2. Fixed the inform message repeating 2-3 times within a 6-second period.
 3. System announcements are now only visible to admins.
 4. Added the cvar l4d_ass_keyman_auto to decide whether or not a Keyman is automatically chosen.
