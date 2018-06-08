@@ -547,7 +547,7 @@ assfilter_blockmode "1"
 // (Z or z: Exile)
 // -
 // Default: "QqWweErRtTuUIiOopPAasSdDfFgGHhJjkKLlcCvVbBnNMm"
-assfilter_blockoptions "QqWweErRtTuUIiOopPAasSdDfFgGHhJjkKLlcCvVbBnNMm"
+assfilter_blockoptions "QqWweErRtTyYuUIiOopPAasSdDfFgGHhJjkKLlXxcCvVbBnNMm"
 
 // Nearby survivors must be this close to ending saferoom doors.
 // -
@@ -741,7 +741,7 @@ assstrike_strikemode "1"
 // (Z or z: Exile)
 // -
 // Default: "QqWweErRtTuUIiOopPAasSdDfFgGHhJjkKLlcCvVbBnNMm"
-assstrike_systemoptions "QqWweErRtTuUIiOopPAasSdDfFgGHhJjkKLlcCvVbBnNMm"
+assstrike_systemoptions "QqWweErRtTyYuUIiOopPAasSdDfFgGHhJjkKLlXxcCvVbBnNMm"
 ```
 
 ### Custom Configuration Files
