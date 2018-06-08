@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 29.3 (June 8, 2018)
+
+1. Bug fixes:
+
+- Fixed the Mirror option not working when the attacker and the victim are on the same team.
+
 ## Version 29.2 (June 8, 2018)
 
 1. Bug fixes:
