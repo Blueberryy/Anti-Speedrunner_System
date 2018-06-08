@@ -65,7 +65,7 @@ The Anti-Speedrunner System was developed against SourceMod 1.8+.
 15. Track speedrunners - Provides options for dealing with speedrunners. If an invalid option or no option is chosen, speedrunners will be warped back to the nearest teammate.
 16. Survivor and Infected target filters - Provides custom target filters. (Use @survivors for survivors and @infected for infected.)
 17. Log command usage - Provides the option to log command usage.
-18. Supports multiple languages - Provides support for translations. [URL=http://translator.mitchdempsey.com/sourcemod_plugins/309]Click here to add support for your language![/URL] (I check everyday so I can update the translation file attached to this post, but you can private message me as well to make sure.)
+18. Supports multiple languages - Provides support for translations. [Click here to add support for your language!](http://translator.mitchdempsey.com/sourcemod_plugins/309) (I check everyday so I can update the translation file attached to this post, but you can private message me as well to make sure.)
 
 ## Commands
 ```
