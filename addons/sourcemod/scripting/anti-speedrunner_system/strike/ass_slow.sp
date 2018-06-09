@@ -3,7 +3,7 @@ ConVar g_cvASSSlowSpeed;
 
 void vSlowCvars()
 {
-	g_cvASSSlowSpeed = ASS_ConVar("assslow_runspeed", "0.25", "Set speedrunners' run speed to X value.", _, true, 0.0, true, 1.0);
+	vCreateConVar(g_cvASSSlowSpeed, "assslow_runspeed", "0.25", "Set speedrunners' run speed to X value.", _, true, 0.0, true, 1.0);
 }
 
 public Action cmdASSSlow(int client, int args)

@@ -12,8 +12,8 @@ int g_iSurvivorHumanCount = 0;
 
 void vGroupCvars()
 {
-	g_cvASSGroupDistance = ASS_ConVar("assgroup_groupdistance", "500.0", "Nearby survivors must be this close to ending saferoom doors.", _, true, 0.0, true, 99999.0);
-	g_cvASSGroupSurvivorCount = ASS_ConVar("assgroup_survivorcount", "3", "Amount of nearby survivors needed to operate ending saferom doors.");
+	vCreateConVar(g_cvASSGroupDistance, "assgroup_groupdistance", "500.0", "Nearby survivors must be this close to ending saferoom doors.", _, true, 0.0, true, 99999.0);
+	vCreateConVar(g_cvASSGroupSurvivorCount, "assgroup_survivorcount", "3", "Amount of nearby survivors needed to operate ending saferom doors.");
 }
 
 void vGroupStart()

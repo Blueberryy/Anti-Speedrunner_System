@@ -13,22 +13,22 @@ int g_iLockdownCountdown2;
 
 void vLockdownCvars()
 {
-	g_cvASSLockdownCountdown = ASS_ConVar("asslockdown_countdown", "60", "The starting door's lockdown will end after X second(s).");
-	g_cvASSLockdownCountdown2 = ASS_ConVar("asslockdown_countdown2", "60", "The ending door's lockdown will end after X second(s).");
-	g_cvASSLockdownDoorType = ASS_ConVar("asslockdown_doortype", "21", "Which type of saferoom door should be affected?\nCombine numbers in any order for different results.\nCharacter limit: 2\n(1: Starting saferoom doors only.)\n(2: Ending saferoom doors only.)");
-	g_cvASSLockdownSpawnMobs = ASS_ConVar("asslockdown_spawnmobs", "1", "Spawn mobs of zombies during the lockdown.\n(0: OFF)\n(1: ON)");
+	vCreateConVar(g_cvASSLockdownCountdown, "asslockdown_countdown", "60", "The starting door's lockdown will end after X second(s).");
+	vCreateConVar(g_cvASSLockdownCountdown2, "asslockdown_countdown2", "60", "The ending door's lockdown will end after X second(s).");
+	vCreateConVar(g_cvASSLockdownDoorType, "asslockdown_doortype", "21", "Which type of saferoom door should be affected?\nCombine numbers in any order for different results.\nCharacter limit: 2\n(1: Starting saferoom doors only.)\n(2: Ending saferoom doors only.)");
+	vCreateConVar(g_cvASSLockdownSpawnMobs, "asslockdown_spawnmobs", "1", "Spawn mobs of zombies during the lockdown.\n(0: OFF)\n(1: ON)");
 	g_iLockdownCountdown = g_cvASSLockdownCountdown.IntValue;
 	g_iLockdownCountdown2 = g_cvASSLockdownCountdown2.IntValue;
 }
 
 void vLockdownSettings()
 {
-	if (IsValidEntity(g_iIdGoal))
+	if (IsValidEntity(g_iDoorId))
 	{
 		g_bLockdownStarted = false;
 		g_bLockdownStarts = false;
 	}
-	if (IsValidEntity(g_iIdGoal2))
+	if (IsValidEntity(g_iDoorId2))
 	{
 		g_bLockdownStarted2 = false;
 		g_bLockdownStarts2 = false;
@@ -49,37 +49,33 @@ void vLockdownSettings()
 	g_iLockdownCountdown2 = g_cvASSLockdownCountdown2.IntValue;
 }
 
-void vLockdownOption(int client, int entity, int type)
+void vLockdownOption(int client, int entity, bool type)
 {
 	if (bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
 	{
-		switch (type)
+		if (!type)
 		{
-			case 0:
+			if (!g_bLockdownStarts)
 			{
-				if (!g_bLockdownStarts)
+				g_bLockdownStarts = true;
+				if (g_hLockdownTimer == null)
 				{
-					g_bLockdownStarts = true;
-					CreateTimer(1.0, tTimerSpawnMob, GetEngineTime() + g_cvASSLockdownCountdown.IntValue, TIMER_FLAG_NO_MAPCHANGE|TIMER_REPEAT);
-					if (g_hLockdownTimer == null)
-					{
-						g_hLockdownTimer = CreateTimer(1.0, tTimerLockdownStarts, entity, TIMER_REPEAT);
-					}
-					CreateTimer(g_cvASSLockdownCountdown.FloatValue + 1.0, tTimerLockdownEnds, entity, TIMER_FLAG_NO_MAPCHANGE);
+					g_hLockdownTimer = CreateTimer(1.0, tTimerLockdownStarts, entity, TIMER_REPEAT);
 				}
+				CreateTimer(g_cvASSLockdownCountdown.FloatValue + 1.0, tTimerLockdownEnds, entity, TIMER_FLAG_NO_MAPCHANGE);
 			}
-			case 1:
+		}
+		else
+		{
+			if (!g_bLockdownStarts2)
 			{
-				if (!g_bLockdownStarts2)
+				g_bLockdownStarts2 = true;
+				CreateTimer(1.0, tTimerSpawnMob, GetEngineTime() + g_cvASSLockdownCountdown2.IntValue, TIMER_FLAG_NO_MAPCHANGE|TIMER_REPEAT);
+				if (g_hLockdownTimer2 == null)
 				{
-					g_bLockdownStarts2 = true;
-					CreateTimer(1.0, tTimerSpawnMob, GetEngineTime() + g_cvASSLockdownCountdown2.IntValue, TIMER_FLAG_NO_MAPCHANGE|TIMER_REPEAT);
-					if (g_hLockdownTimer2 == null)
-					{
-						g_hLockdownTimer2 = CreateTimer(1.0, tTimerLockdownStarts2, entity, TIMER_REPEAT);
-					}
-					CreateTimer(g_cvASSLockdownCountdown2.FloatValue + 1.0, tTimerLockdownEnds2, entity);
+					g_hLockdownTimer2 = CreateTimer(1.0, tTimerLockdownStarts2, entity, TIMER_REPEAT);
 				}
+				CreateTimer(g_cvASSLockdownCountdown2.FloatValue + 1.0, tTimerLockdownEnds2, entity, TIMER_FLAG_NO_MAPCHANGE);
 			}
 		}
 		if (g_bLockdownStarts || g_bLockdownStarts2)

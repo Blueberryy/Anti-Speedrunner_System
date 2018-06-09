@@ -144,9 +144,9 @@ void vMirrorSpeedrunners(int target, int client, int toggle, bool log = true)
 
 public Action aTraceAttack(int victim, int &attacker, int &inflictor, float &damage, int &damagetype, int &ammotype, int hitbox, int hitgroup)
 {
-	if (g_bMirror[attacker] && attacker > 0)
+	if (bIsSurvivor(attacker))
 	{
-		if (attacker != victim)
+		if (g_bMirror[attacker] && attacker != victim)
 		{
 			int iDamage = RoundFloat(damage);
 			if (!IsClientConnected(attacker))

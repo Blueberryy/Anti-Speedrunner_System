@@ -1,9 +1,9 @@
 // Saferoom System
 void vSaferoomCvars()
 {
-	g_cvASSSaferoomDisabledGameModes = ASS_ConVar("asssaferoom_disabledgamemodes", "versus,realismversus,scavenge,survival,mutation1", "Disable the Boss, Group, Keyman, and Lockdown systems in these game modes.\nSeparate game modes with commas.\nGame mode limit: 64\nCharacter limit for each game mode: 32\n(Empty: None)\n(Not empty: Disabled only in these game modes.)");
-	g_cvASSSaferoomEnabledGameModes = ASS_ConVar("asssaferoom_enabledgamemodes", "coop,realism,mutation12", "Enable the Boss, Group, Keyman, and Lockdown systems in these game modes.\nSeparate game modes with commas.\nGame mode limit: 64\nCharacter limit for each game mode: 32\n(Empty: All)\n(Not empty: Enabled only in these game modes.)");
-	g_cvASSSaferoomSystemOptions = ASS_ConVar("asssaferoom_systemoptions", "KkKkLLllfFfFbbBBgGGg", "Which system options do you want to use to deal with speedrunners?\nCombine letters in any order for different results.\nRepeat the same letter to increase its chance of being chosen.\nCharacter limit: 20\n(B or b: Boss)\n(F or f: Filter)\n(G or g: Group)\n(K or k: Keyman)\n(L or l: Lockdown)");
+	vCreateConVar(g_cvASSSaferoomDisabledGameModes, "asssaferoom_disabledgamemodes", "versus,realismversus,scavenge,survival,mutation1", "Disable the Boss, Group, Keyman, and Lockdown systems in these game modes.\nSeparate game modes with commas.\nGame mode limit: 64\nCharacter limit for each game mode: 32\n(Empty: None)\n(Not empty: Disabled only in these game modes.)");
+	vCreateConVar(g_cvASSSaferoomEnabledGameModes, "asssaferoom_enabledgamemodes", "coop,realism,mutation12", "Enable the Boss, Group, Keyman, and Lockdown systems in these game modes.\nSeparate game modes with commas.\nGame mode limit: 64\nCharacter limit for each game mode: 32\n(Empty: All)\n(Not empty: Enabled only in these game modes.)");
+	vCreateConVar(g_cvASSSaferoomSystemOptions, "asssaferoom_systemoptions", "KkKkLLllfFfFbbBBgGGg", "Which system options do you want to use to deal with speedrunners?\nCombine letters in any order for different results.\nRepeat the same letter to increase its chance of being chosen.\nCharacter limit: 20\n(B or b: Boss)\n(F or f: Filter)\n(G or g: Group)\n(K or k: Keyman)\n(L or l: Lockdown)");
 	g_iWarpCountdown = g_cvASSSaferoomWarpCountdown.IntValue;
 }
 
@@ -217,11 +217,11 @@ void vDoorOperation(int client, int type, int toggle)
 			bHasTranslationFile() ? PrintToChat(client, "%s %t", ASS_PREFIX01, "Unlocked") : PrintToChat(client, "%s Saferoom door forcefully unlocked.", ASS_PREFIX01);
 			if (type == 0)
 			{
-				vSDoorControl(g_iIdGoal, false);
+				vSDoorControl(g_iDoorId, false);
 			}
 			else if (type == 1)
 			{
-				vEDoorControl(g_iIdGoal2, false);
+				vEDoorControl(g_iDoorId2, false);
 			}
 			vResetVoteMenus();
 		}
@@ -230,11 +230,11 @@ void vDoorOperation(int client, int type, int toggle)
 			bHasTranslationFile() ? PrintToChat(client, "%s %t", ASS_PREFIX01, "Locked") : PrintToChat(client, "%s Saferoom door forcefully locked.", ASS_PREFIX01);
 			if (type == 0)
 			{
-				vSDoorControl(g_iIdGoal, true);
+				vSDoorControl(g_iDoorId, true);
 			}
 			else if (type == 1)
 			{
-				vEDoorControl(g_iIdGoal2, true);
+				vEDoorControl(g_iDoorId2, true);
 			}
 			vResetVoteMenus();
 		}
@@ -266,13 +266,13 @@ void vSaferoomMethods(int client, int toggle)
 	g_cvASSSaferoomSystemOptions.GetString(g_sSaferoomOption, sizeof(g_sSaferoomOption));
 	switch (toggle)
 	{
-		case 0: vNoneOption(g_iIdGoal2, true);
+		case 0: vNoneOption(g_iDoorId2, true);
 		case 1:
 		{
 			if (StrContains(g_sSaferoomOption, "b", false) != -1)
 			{
 				g_bBossStarted = true;
-				vEDoorControl(g_iIdGoal2, true);
+				vEDoorControl(g_iDoorId2, true);
 			}
 			else
 			{
@@ -289,7 +289,7 @@ void vSaferoomMethods(int client, int toggle)
 			if (StrContains(g_sSaferoomOption, "f", false) != -1)
 			{
 				g_bFilterStarted = true;
-				vEDoorControl(g_iIdGoal2, true);
+				vEDoorControl(g_iDoorId2, true);
 			}
 			else
 			{
@@ -306,7 +306,7 @@ void vSaferoomMethods(int client, int toggle)
 			if (StrContains(g_sSaferoomOption, "g", false) != -1)
 			{
 				g_bGroupStarted = true;
-				vEDoorControl(g_iIdGoal2, true);
+				vEDoorControl(g_iDoorId2, true);
 			}
 			else
 			{
@@ -323,7 +323,7 @@ void vSaferoomMethods(int client, int toggle)
 			if (StrContains(g_sSaferoomOption, "k", false) != -1)
 			{
 				g_bKeymanStarted = true;
-				vEDoorControl(g_iIdGoal2, true);
+				vEDoorControl(g_iDoorId2, true);
 			}
 			else
 			{
@@ -341,7 +341,7 @@ void vSaferoomMethods(int client, int toggle)
 			if (StrContains(g_sSaferoomOption, "l", false) != -1 && StrContains(g_sLockdownType, "2", false) != -1)
 			{
 				g_bLockdownStarted2 = true;
-				vEDoorControl(g_iIdGoal2, true);
+				vEDoorControl(g_iDoorId2, true);
 			}
 			else
 			{
@@ -382,19 +382,19 @@ public void vSaferoomGameModeCvars(ConVar convar, const char[] oldValue, const c
 		{
 			if (StrContains(g_sSaferoomOption, "l", false) != -1 && StrContains(g_sLockdownType, "1", false) != -1)
 			{
-				if (g_iIdGoal != -1)
+				if (g_iDoorId != -1)
 				{
 					vResetVoteMenus();
-					vSDoorControl(g_iIdGoal, false);
+					vSDoorControl(g_iDoorId, false);
 				}
 			}
 			if (StrContains(g_sSaferoomOption, "b", false) != -1 || StrContains(g_sSaferoomOption, "f", false) != -1 || StrContains(g_sSaferoomOption, "g", false) != -1 || StrContains(g_sSaferoomOption, "k", false) != -1 || (StrContains(g_sSaferoomOption, "l", false) != -1 && StrContains(g_sLockdownType, "2", false) != -1))
 			{
-				if (g_iIdGoal2 != -1)
+				if (g_iDoorId2 != -1)
 				{
 					vResetVoteMenus();
-					vEDoorControl(g_iIdGoal2, false);
-					g_iIdGoal2 = -1;
+					vEDoorControl(g_iDoorId2, false);
+					g_iDoorId2 = -1;
 				}
 			}
 		}
@@ -402,7 +402,7 @@ public void vSaferoomGameModeCvars(ConVar convar, const char[] oldValue, const c
 		{
 			if (StrContains(g_sSaferoomOption, "l", false) != -1 && StrContains(g_sLockdownType, "1", false) != -1)
 			{
-				if (g_iIdGoal == -1)
+				if (g_iDoorId == -1)
 				{
 					vSInitializeDoor();
 					vResetVoteMenus();
@@ -410,12 +410,12 @@ public void vSaferoomGameModeCvars(ConVar convar, const char[] oldValue, const c
 				else
 				{
 					vResetVoteMenus();
-					vSDoorControl(g_iIdGoal, true);
+					vSDoorControl(g_iDoorId, true);
 				}
 			}
 			if (StrContains(g_sSaferoomOption, "b", false) != -1 || StrContains(g_sSaferoomOption, "f", false) != -1 || StrContains(g_sSaferoomOption, "g", false) != -1 || StrContains(g_sSaferoomOption, "k", false) != -1 || (StrContains(g_sSaferoomOption, "l", false) != -1 && StrContains(g_sLockdownType, "2", false) != -1))
 			{
-				if (g_iIdGoal2 == -1)
+				if (g_iDoorId2 == -1)
 				{
 					vEInitializeDoor();
 					vResetVoteMenus();
@@ -423,7 +423,7 @@ public void vSaferoomGameModeCvars(ConVar convar, const char[] oldValue, const c
 				else
 				{
 					vResetVoteMenus();
-					vEDoorControl(g_iIdGoal2, true);
+					vEDoorControl(g_iDoorId2, true);
 				}
 			}
 		}

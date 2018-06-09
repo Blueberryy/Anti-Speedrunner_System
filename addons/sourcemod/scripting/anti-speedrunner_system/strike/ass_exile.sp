@@ -4,8 +4,8 @@ ConVar g_cvASSExileBanDuration;
 
 void vExileCvars()
 {
-	g_cvASSExileMode = ASS_ConVar("assexile_exilemode", "0", "Kick or ban speedrunners?\n(0: Kick)\n(1: Ban)");
-	g_cvASSExileBanDuration = ASS_ConVar("assexile_banduration", "60", "Ban speedrunners for X minute(s).\n(0: Permanent ban.)\n(X: Ban for this many minutes.)");
+	vCreateConVar(g_cvASSExileMode, "assexile_exilemode", "0", "Kick or ban speedrunners?\n(0: Kick)\n(1: Ban)");
+	vCreateConVar(g_cvASSExileBanDuration, "assexile_banduration", "60", "Ban speedrunners for X minute(s).\n(0: Permanent ban.)\n(X: Ban for this many minutes.)");
 }
 
 public Action cmdASSExile(int client, int args)

@@ -5,7 +5,7 @@ int g_iDamage[MAXPLAYERS + 1];
 
 void vHurtCvars()
 {
-	g_cvASSHurtDamageAmount = ASS_ConVar("asshurt_damageamount", "1", "Hurt speedrunners by this much every second.");
+	vCreateConVar(g_cvASSHurtDamageAmount, "asshurt_damageamount", "1", "Hurt speedrunners by this much every second.");
 }
 
 public Action cmdASSHurt(int client, int args)

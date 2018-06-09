@@ -4,7 +4,7 @@ ConVar g_cvASSChaseInfectedType;
 
 void vChaseCvars()
 {
-	g_cvASSChaseInfectedType = ASS_ConVar("asschase_infectedtype", "3333111144442222", "Spawn this type of special infected to chase speedrunners.\nCombine numbers in any order for different results.\nRepeat the same number to increase its chance of being chosen.\nCharacter limit: 16\n(1: Hunter)\n(2: Smoker)\n(3: Jockey, switches to Hunter in L4D1.)\n(4: Charger, switches to Smoker in L4D1.)");
+	vCreateConVar(g_cvASSChaseInfectedType, "asschase_infectedtype", "3333111144442222", "Spawn this type of special infected to chase speedrunners.\nCombine numbers in any order for different results.\nRepeat the same number to increase its chance of being chosen.\nCharacter limit: 16\n(1: Hunter)\n(2: Smoker)\n(3: Jockey, switches to Hunter in L4D1.)\n(4: Charger, switches to Smoker in L4D1.)");
 }
 
 public Action cmdASSChase(int client, int args)

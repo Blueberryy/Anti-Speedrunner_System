@@ -1041,12 +1041,12 @@ public int iDoorMenuHandler(Menu menu, MenuAction action, int param1, int param2
 				bHasTranslationFile() ? PrintToChat(param1, "%s %t", ASS_PREFIX01, "Locked") : PrintToChat(param1, "%s Ending saferoom door forcefully locked.", ASS_PREFIX01);
 				if (g_bDoorType[param1])
 				{
-					vEDoorControl(g_iIdGoal2, true);
+					vEDoorControl(g_iDoorId2, true);
 					vResetVoteMenus();
 				}
 				else
 				{
-					vSDoorControl(g_iIdGoal, true);
+					vSDoorControl(g_iDoorId, true);
 				}
 				ShowActivity2(param1, ASS_PREFIX2, "Used \"ass_door\".");
 			}
@@ -1055,12 +1055,12 @@ public int iDoorMenuHandler(Menu menu, MenuAction action, int param1, int param2
 				bHasTranslationFile() ? PrintToChat(param1, "%s %t", ASS_PREFIX01, "Unlocked") : PrintToChat(param1, "%s Ending saferoom door forcefully unlocked.", ASS_PREFIX01);
 				if (g_bDoorType[param1])
 				{
-					vEDoorControl(g_iIdGoal2, false);
+					vEDoorControl(g_iDoorId2, false);
 					vResetVoteMenus();
 				}
 				else
 				{
-					vSDoorControl(g_iIdGoal, false);
+					vSDoorControl(g_iDoorId, false);
 				}
 				ShowActivity2(param1, ASS_PREFIX2, "Used \"ass_door\".");
 			}
@@ -1138,7 +1138,7 @@ public int iSaferoomMenuHandler(Menu menu, MenuAction action, int param1, int pa
 				if (StrContains(g_sSaferoomOption, "b", false) != -1)
 				{
 					g_bBossStarted = true;
-					vEDoorControl(g_iIdGoal2, true);
+					vEDoorControl(g_iDoorId2, true);
 				}
 				else
 				{
@@ -1156,7 +1156,7 @@ public int iSaferoomMenuHandler(Menu menu, MenuAction action, int param1, int pa
 				if (StrContains(g_sSaferoomOption, "f", false) != -1)
 				{
 					g_bFilterStarted = true;
-					vEDoorControl(g_iIdGoal2, true);
+					vEDoorControl(g_iDoorId2, true);
 				}
 				else
 				{
@@ -1174,7 +1174,7 @@ public int iSaferoomMenuHandler(Menu menu, MenuAction action, int param1, int pa
 				if (StrContains(g_sSaferoomOption, "g", false) != -1)
 				{
 					g_bGroupStarted = true;
-					vEDoorControl(g_iIdGoal2, true);
+					vEDoorControl(g_iDoorId2, true);
 				}
 				else
 				{
@@ -1192,7 +1192,7 @@ public int iSaferoomMenuHandler(Menu menu, MenuAction action, int param1, int pa
 				if (StrContains(g_sSaferoomOption, "k", false) != -1)
 				{
 					g_bKeymanStarted = true;
-					vEDoorControl(g_iIdGoal2, true);
+					vEDoorControl(g_iDoorId2, true);
 				}
 				else
 				{
@@ -1210,7 +1210,7 @@ public int iSaferoomMenuHandler(Menu menu, MenuAction action, int param1, int pa
 				if (StrContains(g_sSaferoomOption, "l", false) != -1 && StrContains(g_sLockdownType, "2", false) != -1)
 				{
 					g_bLockdownStarted2 = true;
-					vEDoorControl(g_iIdGoal2, true);
+					vEDoorControl(g_iDoorId2, true);
 				}
 				else
 				{
@@ -1326,7 +1326,7 @@ public int iBFGKLVoteMenuHandler(Menu menu, MenuAction action, int param1, int p
 					}
 				}
 			}
-			menu.GetItem(param2, g_sInfo, sizeof(g_sInfo));
+			menu.GetItem(param1, g_sInfo, sizeof(g_sInfo));
 			if (StrEqual(g_sInfo, "Boss"))
 			{
 				g_bBFGKLVoted = true;
@@ -1551,7 +1551,7 @@ public int iLockdownMenuHandler(Menu menu, MenuAction action, int param1, int pa
 			if (!g_bLockdownVoted)
 			{
 				vNobodyVoted(g_iVotes, g_iTotalVotes);
-				vNoneOption(g_iIdGoal, false);
+				vNoneOption(g_iDoorId, false);
 			}
 		}
 		case MenuAction_VoteEnd:
@@ -1569,7 +1569,7 @@ public int iLockdownMenuHandler(Menu menu, MenuAction action, int param1, int pa
 					}
 				}
 			}
-			menu.GetItem(param2, g_sInfo, sizeof(g_sInfo));
+			menu.GetItem(param1, g_sInfo, sizeof(g_sInfo));
 			if (StrEqual(g_sInfo, "Yes"))
 			{
 				g_bLockdownVoted = true;
@@ -1586,7 +1586,7 @@ public int iLockdownMenuHandler(Menu menu, MenuAction action, int param1, int pa
 							bHasTranslationFile() ? PrintToChat(iPlayer, "%s %t", ASS_PREFIX01, "LockdownOff") : PrintToChat(iPlayer, "%s Lockdown disabled.", ASS_PREFIX01);
 						}
 					}
-					vNoneOption(g_iIdGoal, false);
+					vNoneOption(g_iDoorId, false);
 				}
 				for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer++)
 				{
@@ -1606,7 +1606,7 @@ public int iLockdownMenuHandler(Menu menu, MenuAction action, int param1, int pa
 						bHasTranslationFile() ? PrintToChat(iPlayer, "%s %t", ASS_PREFIX01, "VotedNo", g_iVotes, g_iTotalVotes) : PrintToChat(iPlayer, "%s %d/%d voted No.", ASS_PREFIX01, g_iVotes, g_iTotalVotes);
 					}
 				}
-				vNoneOption(g_iIdGoal, false);
+				vNoneOption(g_iDoorId, false);
 			}
 		}
 		case MenuAction_Display:

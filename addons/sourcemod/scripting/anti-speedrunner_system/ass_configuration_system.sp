@@ -9,10 +9,10 @@ ConVar g_cvASSGameType;
 
 void vConfigCvars()
 {
-	g_cvASSConfigCreate = ASS_ConVar("assconfig_createtype", "31425", "Which type of custom config should the Anti-Speedrunner System create?\nCombine numbers in any order for different results.\nCharacter limit: 5\n(1: Difficulties)\n(2: Maps)\n(3: Game modes)\n(4: Days)\n(5: Player count)");
-	g_cvASSConfigEnable = ASS_ConVar("assconfig_enablesystem", "0", "Enable the Configuration system?\n(0: OFF)\n(1: ON)");
-	g_cvASSConfigExecute = ASS_ConVar("assconfig_executetype", "1", "Which type of custom config should the Anti-Speedrunner System execute?\nCombine numbers in any order for different results.\nCharacter limit: 5\n(1: Difficulties)\n(2: Maps)\n(3: Game modes)\n(4: Days)\n(5: Player count)");
-	g_cvASSConfigTimeOffset = ASS_ConVar("assconfig_timeoffset", "", "What is the time offset of the server?\n(Used for daily configs.)");
+	vCreateConVar(g_cvASSConfigCreate, "assconfig_createtype", "31425", "Which type of custom config should the Anti-Speedrunner System create?\nCombine numbers in any order for different results.\nCharacter limit: 5\n(1: Difficulties)\n(2: Maps)\n(3: Game modes)\n(4: Days)\n(5: Player count)");
+	vCreateConVar(g_cvASSConfigEnable, "assconfig_enablesystem", "0", "Enable the Configuration system?\n(0: OFF)\n(1: ON)");
+	vCreateConVar(g_cvASSConfigExecute, "assconfig_executetype", "1", "Which type of custom config should the Anti-Speedrunner System execute?\nCombine numbers in any order for different results.\nCharacter limit: 5\n(1: Difficulties)\n(2: Maps)\n(3: Game modes)\n(4: Days)\n(5: Player count)");
+	vCreateConVar(g_cvASSConfigTimeOffset, "assconfig_timeoffset", "", "What is the time offset of the server?\n(Used for daily configs.)");
 	g_cvASSGameDifficulty = FindConVar("z_difficulty");
 	g_cvASSGameType = FindConVar("sv_gametypes");
 }

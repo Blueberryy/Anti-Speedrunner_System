@@ -4,7 +4,7 @@ Handle g_hSDKRespawnPlayer;
 
 void vRestartCvars()
 {
-	g_cvASSRestartLoadout = ASS_ConVar("assrestart_loadout", "smg,pistol,pain_pills", "What loadout should speedrunners restart with?\nSeparate items with commas.\nItem limit: 5\nValid formats:\n1. \"rifle,smg,pistol,pain_pills,pipe_bomb\"\n2. \"pain_pills,molotov,first_aid_kit,autoshotgun\"\n3. \"hunting_rifle,rifle,smg\"\n4. \"autoshotgun,pistol\"\n5. \"molotov\"");
+	vCreateConVar(g_cvASSRestartLoadout, "assrestart_loadout", "smg,pistol,pain_pills", "What loadout should speedrunners restart with?\nSeparate items with commas.\nItem limit: 5\nValid formats:\n1. \"rifle,smg,pistol,pain_pills,pipe_bomb\"\n2. \"pain_pills,molotov,first_aid_kit,autoshotgun\"\n3. \"hunting_rifle,rifle,smg\"\n4. \"autoshotgun,pistol\"\n5. \"molotov\"");
 }
 
 void vRestartSDKCall()

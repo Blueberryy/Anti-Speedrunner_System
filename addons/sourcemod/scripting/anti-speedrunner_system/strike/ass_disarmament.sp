@@ -4,7 +4,7 @@ Handle g_hDisarmTimers[MAXPLAYERS + 1];
 
 void vDisarmCvars()
 {
-	g_cvASSDisarmSlot = ASS_ConVar("assdisarm_weaponslot", "34125", "Which weapon slot should be disarmed?\nCombine numbers in any order for different results.\nCharacter limit: 5\n(1: 1st slot only.)\n(2: 2nd slot only.)\n(3: 3rd slot only.)\n(4: 4th slot only.)\n(5: 5th slot only.)");
+	vCreateConVar(g_cvASSDisarmSlot, "assdisarm_weaponslot", "34125", "Which weapon slot should be disarmed?\nCombine numbers in any order for different results.\nCharacter limit: 5\n(1: 1st slot only.)\n(2: 2nd slot only.)\n(3: 3rd slot only.)\n(4: 4th slot only.)\n(5: 5th slot only.)");
 }
 
 public Action cmdASSDisarm(int client, int args)

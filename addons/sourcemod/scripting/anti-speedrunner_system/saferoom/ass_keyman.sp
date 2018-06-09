@@ -10,8 +10,8 @@ int g_iKeymanCountdown;
 
 void vKeymanCvars()
 {
-	g_cvASSKeymanCountdown = ASS_ConVar("asskeyman_countdown", "10", "The Keyman system will automatically pick a new Keyman if the current Keyman does not open the door after X second(s).");
-	g_cvASSKeymanKeymanAmount = ASS_ConVar("asskeyman_keymanamount", "2", "How many Keymen are chosen per map?");
+	vCreateConVar(g_cvASSKeymanCountdown, "asskeyman_countdown", "10", "The Keyman system will automatically pick a new Keyman if the current Keyman does not open the door after X second(s).");
+	vCreateConVar(g_cvASSKeymanKeymanAmount, "asskeyman_keymanamount", "2", "How many Keymen are chosen per map?");
 	g_iKeymanCountdown = g_cvASSKeymanCountdown.IntValue;
 }
 
@@ -106,7 +106,7 @@ public Action cmdASSKey(int client, int args)
 		return Plugin_Handled;
 	}
 	g_cvASSSaferoomSystemOptions.GetString(g_sSaferoomOption, sizeof(g_sSaferoomOption));
-	if ((g_cvASSAutoMode.BoolValue && !g_cvASSCommandOverride.BoolValue) || StrContains(g_sSaferoomOption, "k", false) == -1 || bIsFinaleMap())
+	if ((g_cvASSAutoMode.BoolValue && !g_cvASSCommandOverride.BoolValue) || StrContains(g_sSaferoomOption, "k", false) == -1 || bIsFinaleMap() || bIsBuggedMap())
 	{
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "CommandOff") : ReplyToCommand(client, "%s This command is disabled.", ASS_PREFIX01);
 		return Plugin_Handled;

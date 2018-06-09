@@ -84,6 +84,7 @@ bool g_bBFGKLVoted;
 bool g_bBFGKLVoteMenu;
 bool g_bLockdownVoted;
 bool g_bLockdownVoteMenu;
+char g_sConVars[512];
 char g_sDoorType[3];
 char g_sLockdownType[3];
 char g_sPropName[64];
@@ -125,14 +126,15 @@ Handle g_hWarpTimer;
 int g_iButtonType[MAXPLAYERS + 1];
 int g_iCell1[MAXPLAYERS + 1];
 int g_iCell2[MAXPLAYERS + 1];
-int g_iIdGoal = 0;
-int g_iIdGoal2 = 0;
+int g_iDoorId = 0;
+int g_iDoorId2 = 0;
 int g_iStrikeCount[MAXPLAYERS + 1];
 int g_iTankCount;
 int g_iTargetCount;
 int g_iTargets[MAXPLAYERS + 1];
 int g_iWarpCountdown;
 int g_iWeaponSlot[MAXPLAYERS + 1];
+StringMap g_smConVars;
 TopMenu g_tmASSMenu;
 UserMsg g_umFadeUserMsgId;
 
@@ -226,30 +228,31 @@ public void OnPluginStart()
 	RegAdminCmd("ass_strike", cmdASSStrike, ADMFLAG_ROOT, "Give a player a strike for speedrunning.");
 	RegAdminCmd("ass_vision", cmdASSVision, ADMFLAG_KICK, "Change a player's vision for speedrunning.");
 	RegAdminCmd("ass_warp", cmdASSWarp, ADMFLAG_KICK, "Warp a player to your position for speedrunning.");
-	ASS_CreateConfig(true);
-	ASS_CreateDirectory(true);
-	ASS_Config("anti-speedrunner_system");
-	g_cvASSAdminImmunity = ASS_ConVar("ass_adminimmunity", "0", "Should admins with the generic flag or \"ass_override\" override command be immune to the Anti-Speedrunner System?\n(0: OFF)\n(1: ON)");
-	g_cvASSAutoMode = ASS_ConVar("ass_automode", "1", "Enable the Anti-Speedrunner System's automatic mode?\n(0: OFF)\n(1: ON)");
-	g_cvASSCommandOverride = ASS_ConVar("ass_commandoverride", "1", "Allow the use of admin commands during automatic mode?\n(0: OFF)\n(1: ON)");
-	g_cvASSCountBots = ASS_ConVar("ass_countbots", "1", "Should the Anti-Speedrunner System count bots as players?\n(0: OFF)\n(1: ON)");
-	g_cvASSDisabledGameModes = ASS_ConVar("ass_disabledgamemodes", "", "Disable the Anti-Speedrunner System in these game modes.\nSeparate game modes with commas.\nGame mode limit: 64\nCharacter limit for each game mode: 32\n(Empty: None)\n(Not empty: Disabled only in these game modes.)");
-	g_cvASSDistanceLimit = ASS_ConVar("ass_distancelimit", "2000.0", "Distance allowed before speedrunners are dealt with.", _, true, 0.0, true, 99999.0);
-	g_cvASSDistanceWarning = ASS_ConVar("ass_distancewarning", "1000.0", "Distance allowed before speedrunners are warned to go back.", _, true, 0.0, true, 99999.0);
-	g_cvASSEnabledGameModes = ASS_ConVar("ass_enabledgamemodes", "", "Enable the Anti-Speedrunner System in these game modes.\nSeparate game modes with commas.\nGame mode limit: 64\nCharacter limit for each game mode: 32\n(Empty: All)\n(Not empty: Enabled only in these game modes.)");
-	g_cvASSEnable = ASS_ConVar("ass_enablesystem", "1", "Enable the Anti-Speedrunner System?\n(0: OFF)\n(1: ON)");
-	g_cvASSFailsafe = ASS_ConVar("ass_failsafe", "1", "Disable/re-enable the Anti-Speedrunner System's functions after X survivors are incapacitated/revived?\n(0: OFF)\n(1: ON)");
+	g_smConVars = new StringMap();
+	vASS_CreateConfig(true);
+	vASS_CreateDirectory(true);
+	bASS_Config("anti-speedrunner_system");
+	vCreateConVar(g_cvASSAdminImmunity, "ass_adminimmunity", "0", "Should admins with the generic flag or \"ass_override\" override command be immune to the Anti-Speedrunner System?\n(0: OFF)\n(1: ON)");
+	vCreateConVar(g_cvASSAutoMode, "ass_automode", "1", "Enable the Anti-Speedrunner System's automatic mode?\n(0: OFF)\n(1: ON)");
+	vCreateConVar(g_cvASSCommandOverride, "ass_commandoverride", "1", "Allow the use of admin commands during automatic mode?\n(0: OFF)\n(1: ON)");
+	vCreateConVar(g_cvASSCountBots, "ass_countbots", "1", "Should the Anti-Speedrunner System count bots as players?\n(0: OFF)\n(1: ON)");
+	vCreateConVar(g_cvASSDisabledGameModes, "ass_disabledgamemodes", "", "Disable the Anti-Speedrunner System in these game modes.\nSeparate game modes with commas.\nGame mode limit: 64\nCharacter limit for each game mode: 32\n(Empty: None)\n(Not empty: Disabled only in these game modes.)");
+	vCreateConVar(g_cvASSDistanceLimit, "ass_distancelimit", "2000.0", "Distance allowed before speedrunners are dealt with.", _, true, 0.0, true, 99999.0);
+	vCreateConVar(g_cvASSDistanceWarning, "ass_distancewarning", "1000.0", "Distance allowed before speedrunners are warned to go back.", _, true, 0.0, true, 99999.0);
+	vCreateConVar(g_cvASSEnabledGameModes, "ass_enabledgamemodes", "", "Enable the Anti-Speedrunner System in these game modes.\nSeparate game modes with commas.\nGame mode limit: 64\nCharacter limit for each game mode: 32\n(Empty: All)\n(Not empty: Enabled only in these game modes.)");
+	vCreateConVar(g_cvASSEnable, "ass_enablesystem", "1", "Enable the Anti-Speedrunner System?\n(0: OFF)\n(1: ON)");
+	vCreateConVar(g_cvASSFailsafe, "ass_failsafe", "1", "Disable/re-enable the Anti-Speedrunner System's functions after X survivors are incapacitated/revived?\n(0: OFF)\n(1: ON)");
 	g_cvASSGameMode = FindConVar("mp_gamemode");
-	g_cvASSIncapacitatedCount = ASS_ConVar("ass_incapacitatedcount", "2", "Amount of incapacitated survivors needed to turn the Anti-Speedrunner System off.\n(0: OFF, keep the Anti-Speedrunner System enabled.)\n(X: ON, disable the Anti-Speedrunner System after X survivors are incapacitated.)");
-	g_cvASSLogCommands = ASS_ConVar("ass_logcommands", "1", "Log command usage?\n(0: OFF)\n(1: ON)");
-	g_cvASSNoFinales = ASS_ConVar("ass_nofinales", "0", "Automatically disable the Anti-Speedrunner system during finale maps?\n(0: OFF)\n(1: ON)");
-	ASS_ConVar("ass_pluginversion", ASS_VERSION, "Anti-Speedrunner System version", FCVAR_NOTIFY|FCVAR_DONTRECORD);
-	g_cvASSRevivedCount = ASS_ConVar("ass_revivedcount", "2", "Amount of revived survivors needed to turn the Anti-Speedrunner System back on.\n(0: OFF, keep the Anti-Speedrunner System disabled.)\n(X: ON, re-enable the Anti-Speedrunner System after X survivors are revived.)");
-	g_cvASSSaferoomEnable = ASS_ConVar("asssaferoom_enablesystem", "1", "Enable the Saferoom system?\n(0: OFF)\n(1: ON)");
-	g_cvASSSaferoomEntryMode = ASS_ConVar("asssaferoom_entrymode", "1", "Warp survivors inside or unlock the saferoom door?\n(0: Warp)\n(1: Unlock)");
-	g_cvASSSaferoomWarpCountdown = ASS_ConVar("asssaferoom_warpcountdown", "5", "Survivors will be warped inside the saferoom after X second(s).");
-	g_cvASSStrikeEnable = ASS_ConVar("assstrike_enablesystem", "1", "Enable the Strike system?\n(0: OFF)\n(1: ON)");
-	g_cvASSTankAlive = ASS_ConVar("ass_tankalive", "1", "Keep the Anti-Speedrunner System enabled when there is a Tank alive?\n(0: OFF)\n(1: ON)");
+	vCreateConVar(g_cvASSIncapacitatedCount, "ass_incapacitatedcount", "2", "Amount of incapacitated survivors needed to turn the Anti-Speedrunner System off.\n(0: OFF, keep the Anti-Speedrunner System enabled.)\n(X: ON, disable the Anti-Speedrunner System after X survivors are incapacitated.)");
+	vCreateConVar(g_cvASSLogCommands, "ass_logcommands", "1", "Log command usage?\n(0: OFF)\n(1: ON)");
+	vCreateConVar(g_cvASSNoFinales, "ass_nofinales", "0", "Automatically disable the Anti-Speedrunner system during finale maps?\n(0: OFF)\n(1: ON)");
+	cvASS_ConVar("ass_pluginversion", ASS_VERSION, "Anti-Speedrunner System version", FCVAR_NOTIFY|FCVAR_DONTRECORD);
+	vCreateConVar(g_cvASSRevivedCount, "ass_revivedcount", "2", "Amount of revived survivors needed to turn the Anti-Speedrunner System back on.\n(0: OFF, keep the Anti-Speedrunner System disabled.)\n(X: ON, re-enable the Anti-Speedrunner System after X survivors are revived.)");
+	vCreateConVar(g_cvASSSaferoomEnable, "asssaferoom_enablesystem", "1", "Enable the Saferoom system?\n(0: OFF)\n(1: ON)");
+	vCreateConVar(g_cvASSSaferoomEntryMode, "asssaferoom_entrymode", "1", "Warp survivors inside or unlock the saferoom door?\n(0: Warp)\n(1: Unlock)");
+	vCreateConVar(g_cvASSSaferoomWarpCountdown, "asssaferoom_warpcountdown", "5", "Survivors will be warped inside the saferoom after X second(s).");
+	vCreateConVar(g_cvASSStrikeEnable, "assstrike_enablesystem", "1", "Enable the Strike system?\n(0: OFF)\n(1: ON)");
+	vCreateConVar(g_cvASSTankAlive, "ass_tankalive", "1", "Keep the Anti-Speedrunner System enabled when there is a Tank alive?\n(0: OFF)\n(1: ON)");
 	vChaseCvars();
 	vConfigCvars();
 	vDelayCvars();
@@ -265,8 +268,8 @@ public void OnPluginStart()
 	vSaferoomCvars();
 	vSlowCvars();
 	vStrikeCvars();
-	ASS_ExecConfig();
-	ASS_Clean();
+	vASS_ExecConfig();
+	iASS_Clean();
 	g_cvASSAdminImmunity.AddChangeHook(vASSAdminImmunityCvar);
 	g_cvASSAutoMode.AddChangeHook(vASSAutoModeCvar);
 	g_cvASSEnable.AddChangeHook(vASSAdminImmunityCvar);
@@ -292,7 +295,7 @@ public void OnPluginStart()
 	HookEvent("player_use", eEventEPlayerUse, EventHookMode_Pre);
 	HookEvent("player_team", eEventJoinTeam, EventHookMode_Post);
 	HookEvent("player_left_checkpoint", eEventLeftCheckpoint, EventHookMode_Post);
-	HookEvent("round_start", eEventRoundStart, EventHookMode_PostNoCopy);
+	HookEvent("round_start", eEventRoundStart, EventHookMode_Post);
 	HookEvent("round_start", eEventStartTimer);
 	HookEvent("round_end", eEventServerEnd, EventHookMode_PostNoCopy);
 	HookEvent("round_end", eEventRoundEnd);
@@ -422,7 +425,7 @@ public void OnMapEnd()
 public void OnPluginEnd()
 {
 	vMultiTargetFilters(0);
-	vEDoorControl(g_iIdGoal2, false);
+	vEDoorControl(g_iDoorId2, false);
 	vResetVoteMenus();
 }
 
@@ -696,7 +699,7 @@ public Action eEventSPlayerUse(Event event, const char[] name, bool dontBroadcas
 	{
 		return Plugin_Continue;
 	}
-	if (((bIsSurvivor(iDoorUser) && g_cvASSCountBots.BoolValue) || (bIsHumanSurvivor(iDoorUser) && !g_cvASSCountBots.BoolValue)) && g_cvASSEnable.BoolValue && g_cvASSSaferoomEnable.BoolValue && IsValidEntity(iDoorEntity) && g_bDoorLocked[iDoorEntity] && iDoorEntity == g_iIdGoal)
+	if (((bIsSurvivor(iDoorUser) && g_cvASSCountBots.BoolValue) || (bIsHumanSurvivor(iDoorUser) && !g_cvASSCountBots.BoolValue)) && g_cvASSEnable.BoolValue && g_cvASSSaferoomEnable.BoolValue && IsValidEntity(iDoorEntity) && g_bDoorLocked[iDoorEntity] && iDoorEntity == g_iDoorId)
 	{
 		GetEntityClassname(iDoorEntity, g_sPropName, sizeof(g_sPropName));
 		if (StrEqual(g_sPropName, "prop_door_rotating_checkpoint", false))
@@ -761,7 +764,7 @@ public Action eEventSPlayerUse(Event event, const char[] name, bool dontBroadcas
 				}
 				else
 				{
-					vLockdownOption(iDoorUser, iDoorEntity, 0);
+					vLockdownOption(iDoorUser, iDoorEntity, false);
 				}
 			}
 		}
@@ -901,7 +904,7 @@ public Action eEventEPlayerUse(Event event, const char[] name, bool dontBroadcas
 					}
 					if (g_bLockdownStarted2)
 					{
-						vLockdownOption(iDoorUser, iDoorEntity, 1);
+						vLockdownOption(iDoorUser, iDoorEntity, true);
 					}
 				}
 			}
@@ -914,8 +917,8 @@ public Action eEventRoundStart(Event event, const char[] name, bool dontBroadcas
 {
 	if (g_cvASSEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
 	{
-		g_iIdGoal = -1;
-		g_iIdGoal2 = -1;
+		g_iDoorId = -1;
+		g_iDoorId2 = -1;
 		vResetVoteCounts();
 		g_cvASSSaferoomSystemOptions.GetString(g_sSaferoomOption, sizeof(g_sSaferoomOption));
 		g_cvASSLockdownDoorType.GetString(g_sLockdownType, sizeof(g_sLockdownType));
@@ -952,24 +955,21 @@ public Action eEventRoundEnd(Event event, const char[] name, bool dontBroadcast)
 {
 	if (g_cvASSEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
 	{
-		g_iIdGoal = -1;
-		g_iIdGoal2 = -1;
+		g_iDoorId = -1;
+		g_iDoorId2 = -1;
 		g_cvASSSaferoomSystemOptions.GetString(g_sSaferoomOption, sizeof(g_sSaferoomOption));
-		if (g_cvASSSaferoomEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes) && !bIsFinaleMap() && !bIsBuggedMap() && (StrContains(g_sSaferoomOption, "b", false) != -1 || StrContains(g_sSaferoomOption, "f", false) != -1 || StrContains(g_sSaferoomOption, "g", false) != -1 || StrContains(g_sSaferoomOption, "k", false) != -1 || StrContains(g_sSaferoomOption, "l", false) != -1))
+		if (g_cvASSSaferoomEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes) && !bIsFinaleMap() && !bIsBuggedMap() && StrContains(g_sSaferoomOption, "k", false) != -1)
 		{
-			if (StrContains(g_sSaferoomOption, "k", false) != -1)
+			vKeymanStats();
+			for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer++)
 			{
-				vKeymanStats();
-				for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer++)
+				if (g_bKeyman[iPlayer])
 				{
-					if (g_bKeyman[iPlayer])
-					{
-						vSelectKeyman(iPlayer, iPlayer, 0, false);
-					}
-					if (bIsHumanSurvivor(iPlayer) && bIsAdminAllowed(iPlayer))
-					{
-						bHasTranslationFile() ? PrintToChat(iPlayer, "%s %t", ASS_PREFIX01, "KeymanReset") : PrintToChat(iPlayer, "%s Resetting Keymen...", ASS_PREFIX01);
-					}
+					vSelectKeyman(iPlayer, iPlayer, 0, false);
+				}
+				if (bIsHumanSurvivor(iPlayer) && bIsAdminAllowed(iPlayer))
+				{
+					bHasTranslationFile() ? PrintToChat(iPlayer, "%s %t", ASS_PREFIX01, "KeymanReset") : PrintToChat(iPlayer, "%s Resetting Keymen...", ASS_PREFIX01);
 				}
 			}
 		}
@@ -1110,11 +1110,22 @@ void vSDoorControl(int entity, bool operation)
 {
 	if (IsValidEntity(entity) && HasEntProp(entity, Prop_Data, "m_eDoorState"))
 	{
-		operation ? (g_bDoorLocked[entity] = true) : (g_bDoorLocked[entity] = false);
-		operation ? SetEntProp(entity, Prop_Data, "m_hasUnlockSequence", 1) : SetEntProp(entity, Prop_Data, "m_hasUnlockSequence", 0);
-		operation ? AcceptEntityInput(entity, "Close") : AcceptEntityInput(entity, "Unlock");
-		operation ? AcceptEntityInput(entity, "Lock") : AcceptEntityInput(entity, "ForceClosed");
-		operation ? AcceptEntityInput(entity, "ForceClosed") : AcceptEntityInput(entity, "Open");
+		if (operation)
+		{
+			g_bDoorLocked[entity] = true;
+			SetEntProp(entity, Prop_Data, "m_hasUnlockSequence", 1);
+			AcceptEntityInput(entity, "Close");
+			AcceptEntityInput(entity, "Lock");
+			AcceptEntityInput(entity, "ForceClosed");
+		}
+		else
+		{
+			g_bDoorLocked[entity] = false;
+			SetEntProp(entity, Prop_Data, "m_hasUnlockSequence", 0);
+			AcceptEntityInput(entity, "Unlock");
+			AcceptEntityInput(entity, "ForceClosed");
+			AcceptEntityInput(entity, "Open");
+		}
 	}
 }
 
@@ -1122,11 +1133,22 @@ void vEDoorControl(int entity, bool operation)
 {
 	if (IsValidEntity(entity) && HasEntProp(entity, Prop_Data, "m_hasUnlockSequence"))
 	{
-		operation ? (g_bDoorLocked2[entity] = true) : (g_bDoorLocked2[entity] = false);
-		operation ? SetEntProp(entity, Prop_Data, "m_hasUnlockSequence", 1) : SetEntProp(entity, Prop_Data, "m_hasUnlockSequence", 0);
-		operation ? AcceptEntityInput(entity, "Close") : AcceptEntityInput(entity, "Unlock");
-		operation ? AcceptEntityInput(entity, "Lock") : AcceptEntityInput(entity, "ForceClosed");
-		operation ? AcceptEntityInput(entity, "ForceClosed") : AcceptEntityInput(entity, "Open");
+		if (operation)
+		{
+			g_bDoorLocked2[entity] = true;
+			SetEntProp(entity, Prop_Data, "m_hasUnlockSequence", 1);
+			AcceptEntityInput(entity, "Close");
+			AcceptEntityInput(entity, "Lock");
+			AcceptEntityInput(entity, "ForceClosed");
+		}
+		else
+		{
+			g_bDoorLocked2[entity] = false;
+			SetEntProp(entity, Prop_Data, "m_hasUnlockSequence", 0);
+			AcceptEntityInput(entity, "Unlock");
+			AcceptEntityInput(entity, "ForceClosed");
+			AcceptEntityInput(entity, "Open");
+		}
 	}
 }
 
@@ -1159,7 +1181,7 @@ void vEntryOption()
 {
 	if (g_cvASSSaferoomEntryMode.BoolValue)
 	{
-		vNoneOption(g_iIdGoal2, true);
+		vNoneOption(g_iDoorId2, true);
 	}
 	else
 	{
@@ -1197,7 +1219,7 @@ void vSInitializeDoor()
 	{
 		if (GetEntProp(iSafeAreaEntity, Prop_Data, "m_eDoorState") == 0)
 		{
-			g_iIdGoal = iSafeAreaEntity;
+			g_iDoorId = iSafeAreaEntity;
 			vSDoorControl(iSafeAreaEntity, true);
 		}
 	}
@@ -1210,7 +1232,7 @@ void vEInitializeDoor()
 	{
 		if (GetEntProp(iCheckpointEntity, Prop_Data, "m_hasUnlockSequence") == 0)
 		{
-			g_iIdGoal2 = iCheckpointEntity;
+			g_iDoorId2 = iCheckpointEntity;
 			vEDoorControl(iCheckpointEntity, true);
 		}
 	}
@@ -1456,6 +1478,40 @@ void vResetVoteMenus()
 	vEntryModeSettings();
 	g_bLockdownVoted = false;
 	g_bBFGKLVoted = false;
+}
+
+void vCreateConVar(ConVar &convar, const char[] name, const char[] defaultValue, const char[] description = "", int flags = 0, bool hasMin = false, float min = 0.0, bool hasMax = false, float max = 0.0)
+{
+	convar = cvASS_ConVar(name, defaultValue, description, flags, hasMin, min, hasMax, max);
+	convar.AddChangeHook(vSwitchCvars);
+	vSwitchCvars(convar, defaultValue, defaultValue);
+}
+
+public void vSwitchCvars(ConVar convar, const char[] oldValue, const char[] newValue)
+{
+	convar.GetName(g_sConVars, sizeof(g_sConVars));
+	char sName[32];
+	char sValue[32];
+	Format(sName, sizeof(sName), g_sConVars);
+	Format(sValue, sizeof(sValue), "%s", newValue);
+	TrimString(sValue);
+	if (StrContains(newValue, "==") == 0)
+	{
+		strcopy(sValue, sizeof(sValue), sValue[2]);
+		TrimString(sValue);
+		g_smConVars.SetString(sName, sValue, true);
+	}
+	else if (StrContains(newValue, "!=") == 0)
+	{
+		strcopy(sValue, sizeof(sValue), sValue[2]);
+		TrimString(sValue);
+		g_smConVars.Remove(sName);
+	}
+	g_smConVars.GetString(sName, sValue, sizeof(sValue));
+	if (!StrEqual(newValue, sValue))
+	{
+		convar.SetString(sValue);
+	}
 }
 
 public void vASSAdminImmunityCvar(ConVar convar, const char[] oldValue, const char[] newValue)
