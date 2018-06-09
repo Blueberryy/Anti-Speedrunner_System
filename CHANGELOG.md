@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 29.13 (June 9, 2018)
+
+1. Bug fixes:
+
+- Fixed the Saferoom system not disabling/re-enabling properly.
+
 ## Version 29.12 (June 9, 2018)
 
 1. Changes:
