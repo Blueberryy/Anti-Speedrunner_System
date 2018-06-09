@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 29.14 (June 9, 2018)
+
+1. Updated include file.
+2. Updated anti-speedrunner_system.smx file.
+
 ## Version 29.13 (June 9, 2018)
 
 1. Bug fixes:
