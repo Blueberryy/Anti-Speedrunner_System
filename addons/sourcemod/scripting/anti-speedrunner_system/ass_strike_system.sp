@@ -36,8 +36,7 @@ public Action cmdASSCheck(int client, int args)
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "CommandOff") : ReplyToCommand(client, "%s This command is disabled.", ASS_PREFIX01);
 		return Plugin_Handled;
 	}
-	vCountTanks();
-	if (!g_cvASSTankAlive.BoolValue && g_iTankCount > 0)
+	if (!g_cvASSTankAlive.BoolValue && iGetTankCount() > 0)
 	{
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "TankAlive") : ReplyToCommand(client, "%s There is a Tank alive.", ASS_PREFIX01);
 		return Plugin_Handled;
@@ -196,8 +195,7 @@ public Action cmdASSStrike(int client, int args)
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "CommandOff") : ReplyToCommand(client, "%s This command is disabled.", ASS_PREFIX01);
 		return Plugin_Handled;
 	}
-	vCountTanks();
-	if (!g_cvASSTankAlive.BoolValue && g_iTankCount > 0)
+	if (!g_cvASSTankAlive.BoolValue && iGetTankCount() > 0)
 	{
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "TankAlive") : ReplyToCommand(client, "%s There is a Tank alive.", ASS_PREFIX01);
 		return Plugin_Handled;
@@ -590,11 +588,7 @@ public Action tTimerAutoDetectSpeedrunners(Handle timer)
 			flCount++;
 		}
 	}
-	if (!g_cvASSTankAlive.BoolValue)
-	{
-		vCountTanks();
-	}
-	if (!g_cvASSEnable.BoolValue || !g_cvASSStrikeEnable.BoolValue || (flCount < 2 && !g_cvASSCountBots.BoolValue) || (flCount < 1 && g_cvASSCountBots.BoolValue) || g_iTankCount > 0 || (g_cvASSNoFinales.BoolValue && bIsFinaleMap()) || !bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (!g_cvASSEnable.BoolValue || !g_cvASSStrikeEnable.BoolValue || (flCount < 2 && !g_cvASSCountBots.BoolValue) || (flCount < 1 && g_cvASSCountBots.BoolValue) || (!g_cvASSTankAlive.BoolValue && iGetTankCount() > 0) || (g_cvASSNoFinales.BoolValue && bIsFinaleMap()) || !bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
 	{
 		return Plugin_Continue;
 	}
@@ -665,11 +659,7 @@ public Action tTimerDetectSpeedrunners(Handle timer, any client)
 			flCount++;
 		}
 	}
-	if (!g_cvASSTankAlive.BoolValue)
-	{
-		vCountTanks();
-	}
-	if (!g_cvASSEnable.BoolValue || !g_cvASSStrikeEnable.BoolValue || (flCount < 2 && !g_cvASSCountBots.BoolValue) || (flCount < 1 && g_cvASSCountBots.BoolValue) || g_iTankCount > 0 || (g_cvASSNoFinales.BoolValue && bIsFinaleMap()) || !bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (!g_cvASSEnable.BoolValue || !g_cvASSStrikeEnable.BoolValue || (flCount < 2 && !g_cvASSCountBots.BoolValue) || (flCount < 1 && g_cvASSCountBots.BoolValue) || (!g_cvASSTankAlive.BoolValue && iGetTankCount() > 0) || (g_cvASSNoFinales.BoolValue && bIsFinaleMap()) || !bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
 	{
 		return Plugin_Continue;
 	}

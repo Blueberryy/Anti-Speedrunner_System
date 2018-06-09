@@ -46,8 +46,7 @@ void vBossOption(int client, int entity)
 		}
 		else
 		{
-			vCountTanks();
-			g_iTankCount > 0 ? (g_bBossDefeated = false) : (g_bBossDefeated = true);
+			iGetTankCount() > 0 ? (g_bBossDefeated = false) : (g_bBossDefeated = true);
 		}
 		if (!g_bBossDefeated)
 		{

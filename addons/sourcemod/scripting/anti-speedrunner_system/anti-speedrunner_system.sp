@@ -129,7 +129,6 @@ int g_iCell2[MAXPLAYERS + 1];
 int g_iDoorId = 0;
 int g_iDoorId2 = 0;
 int g_iStrikeCount[MAXPLAYERS + 1];
-int g_iTankCount;
 int g_iTargetCount;
 int g_iTargets[MAXPLAYERS + 1];
 int g_iWarpCountdown;
@@ -625,8 +624,7 @@ public Action eEventSDPlayerUse(Event event, const char[] name, bool dontBroadca
 			{
 				if (!g_cvASSTankAlive.BoolValue)
 				{
-					vCountTanks();
-					if (g_iTankCount > 0)
+					if (iGetTankCount() > 0)
 					{
 						return Plugin_Continue;
 					}
@@ -666,8 +664,7 @@ public Action eEventEDPlayerUse(Event event, const char[] name, bool dontBroadca
 			{
 				if (!g_cvASSTankAlive.BoolValue)
 				{
-					vCountTanks();
-					if (g_iTankCount > 0)
+					if (iGetTankCount() > 0)
 					{
 						return Plugin_Continue;
 					}
@@ -708,8 +705,7 @@ public Action eEventSPlayerUse(Event event, const char[] name, bool dontBroadcas
 			{
 				if (g_cvASSTankAlive.BoolValue && !g_bBossSpawned)
 				{
-					vCountTanks();
-					if (g_iTankCount > 0)
+					if (iGetTankCount() > 0)
 					{
 						EmitSoundToAll("doors/latchlocked2.wav", iDoorEntity);
 						if (bIsHumanSurvivor(iDoorUser))
@@ -791,8 +787,7 @@ public Action eEventEPlayerUse(Event event, const char[] name, bool dontBroadcas
 			{
 				if (g_cvASSTankAlive.BoolValue && !g_bBossSpawned)
 				{
-					vCountTanks();
-					if (g_iTankCount > 0)
+					if (iGetTankCount() > 0)
 					{
 						EmitSoundToAll("doors/latchlocked2.wav", iDoorEntity);
 						if (bIsHumanSurvivor(iDoorUser))
@@ -1092,18 +1087,6 @@ public Action OnPlayerRunCmd(int client, int &buttons, int &impulse, float vel[3
 		}
 	}
 	return Plugin_Continue;
-}
-
-void vCountTanks()
-{
-	g_iTankCount = 0;
-	for (int iTank = 1; iTank <= MaxClients; iTank++)
-	{
-		if (bIsTank(iTank))
-		{
-			g_iTankCount++;
-		}
-	}
 }
 
 void vSDoorControl(int entity, bool operation)

@@ -20,8 +20,7 @@ public Action cmdASSExile(int client, int args)
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "CommandOff") : ReplyToCommand(client, "%s This command is disabled.", ASS_PREFIX01);
 		return Plugin_Handled;
 	}
-	vCountTanks();
-	if (!g_cvASSTankAlive.BoolValue && g_iTankCount > 0)
+	if (!g_cvASSTankAlive.BoolValue && iGetTankCount() > 0)
 	{
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "TankAlive") : ReplyToCommand(client, "%s There is a Tank alive.", ASS_PREFIX01);
 		return Plugin_Handled;

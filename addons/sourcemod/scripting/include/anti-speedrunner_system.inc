@@ -12,7 +12,7 @@
 #define ASS_NAME "Anti-Speedrunner System"
 #define ASS_AUTHOR "Psyk0tik (Crasher_3637)"
 #define ASS_DESCRIPTION "The Anti-Speedrunner System provides various options for dealing with players that speedrun through campaigns and making sure survivors stick together!"
-#define ASS_VERSION "29.14"
+#define ASS_VERSION "29.15"
 #define ASS_URL "https://forums.alliedmods.net/showthread.php?t=302868"
 #define ASS_APPEND_BAD_FILENAME 0
 #define ASS_APPEND_FILE_NOT_FOUND 1
@@ -566,7 +566,7 @@ stock int iGetAbleSurvivorCount(bool bots)
 		{
 			continue;
 		}
-		iAbleSurvivorCount += 1;
+		iAbleSurvivorCount++;
 	}
 	return iAbleSurvivorCount;
 }
@@ -580,7 +580,7 @@ stock int iGetBadSurvivorCount(bool bots)
 		{
 			continue;
 		}
-		iBadCount += 1;
+		iBadCount++;
 	}
 	return iBadCount;
 }
@@ -604,7 +604,7 @@ stock int iGetHumanCount()
 	{
 		if (bIsHumanSurvivor(iHuman))
 		{
-			iHumanCount += 1;
+			iHumanCount++;
 		}
 	}
 	return iHumanCount;
@@ -647,7 +647,7 @@ stock int iGetIncapCount()
 	{
 		if (bIsIncapacitatedSurvivor(iPlayer))
 		{
-			iIncapacitatedCount += 1;
+			iIncapacitatedCount++;
 		}
 	}
 	return iIncapacitatedCount;
@@ -660,7 +660,7 @@ stock int iGetPlayerCount()
 	{
 		if (bIsValidClient(iPlayer))
 		{
-			iPlayerCount += 1;
+			iPlayerCount++;
 		}
 	}
 	return iPlayerCount;
@@ -673,7 +673,7 @@ stock int iGetReviveCount()
 	{
 		if (bIsAbleSurvivor(iPlayer))
 		{
-			iRevivedCount += 1;
+			iRevivedCount++;
 		}
 	}
 	return iRevivedCount;
@@ -686,10 +686,23 @@ stock int iGetSurvivorCount()
 	{
 		if (bIsSurvivor(iSurvivor))
 		{
-			iSurvivorCount += 1;
+			iSurvivorCount++;
 		}
 	}
 	return iSurvivorCount;
+}
+
+stock int iGetTankCount()
+{
+	int iTankCount;
+	for (int iTank = 1; iTank <= MaxClients; iTank++)
+	{
+		if (bIsTank(iTank))
+		{
+			iTankCount++;
+		}
+	}
+	return iTankCount;
 }
 
 stock void vCopyVector(float source[3], float target[3])
