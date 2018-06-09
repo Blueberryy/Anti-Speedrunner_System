@@ -1491,7 +1491,7 @@ public void vSwitchCvars(ConVar convar, const char[] oldValue, const char[] newV
 {
 	convar.GetName(g_sConVars, sizeof(g_sConVars));
 	char sName[32];
-	char sValue[32];
+	char sValue[2049];
 	Format(sName, sizeof(sName), g_sConVars);
 	Format(sValue, sizeof(sValue), "%s", newValue);
 	TrimString(sValue);
