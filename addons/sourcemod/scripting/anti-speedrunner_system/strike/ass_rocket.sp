@@ -65,7 +65,7 @@ public Action cmdASSRocket(int client, int args)
 	}
 	else if (args > 3)
 	{
-		ReplyToCommand(client, "%s Usage: ass_rocket <optional - #userid|name> <optional - launch delay> <optional - detonation delay>", ASS_PREFIX01);
+		ReplyToCommand(client, "%s Usage: ass_rocket <#userid|name> <launch delay> <detonation delay>", ASS_PREFIX01);
 		return Plugin_Handled;
 	}
 	char sTarget[32];
