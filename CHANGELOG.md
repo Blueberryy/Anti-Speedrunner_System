@@ -1,5 +1,12 @@
 # Changelog
 
+## Version 29.12 (June 9, 2018)
+
+1. Changes:
+
+- Raised the buffer size of the g_sConVars buffer from 32 to 2049.
+- Updated include file to exclude the bIsThirdperson boolean.
+
 ## Version 29.11 (June 9, 2018)
 
 1. Updated include file.
