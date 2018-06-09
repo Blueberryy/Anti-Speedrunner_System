@@ -84,7 +84,6 @@ bool g_bBFGKLVoted;
 bool g_bBFGKLVoteMenu;
 bool g_bLockdownVoted;
 bool g_bLockdownVoteMenu;
-char g_sConVars[512];
 char g_sDoorType[3];
 char g_sLockdownType[3];
 char g_sPropName[64];
@@ -1462,10 +1461,9 @@ void vCreateConVar(ConVar &convar, const char[] name, const char[] defaultValue,
 
 public void vSwitchCvars(ConVar convar, const char[] oldValue, const char[] newValue)
 {
-	convar.GetName(g_sConVars, sizeof(g_sConVars));
-	char sName[32];
+	char sName[64];
 	char sValue[2049];
-	Format(sName, sizeof(sName), g_sConVars);
+	convar.GetName(sName, sizeof(sName));
 	Format(sValue, sizeof(sValue), "%s", newValue);
 	TrimString(sValue);
 	if (StrContains(newValue, "==") == 0)

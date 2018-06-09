@@ -598,10 +598,8 @@ int iGetAccurateTime(const bool difference = true)
 		return GetTime();
 	}
 	int iTime = GetTime();
-	int iOperand;
-	int iAmount;
-	iOperand = iParseTimeOffsetOperation(false);
-	iAmount = iParseTimeOffsetOperation(true);
+	int iOperand = iParseTimeOffsetOperation(false);
+	int iAmount = iParseTimeOffsetOperation(true);
 	if (iOperand == '+')
 	{
 		iTime = iTime + (iAmount * 3600);
@@ -613,21 +611,19 @@ int iGetAccurateTime(const bool difference = true)
 	return iTime;
 }
 
-int iParseTimeOffsetOperation(const bool amount = false)
+int iParseTimeOffsetOperation(const bool operation = false)
 {
-	int iOperand;
-	int iAmount;
 	char sConvarValue[16];
 	g_cvASSConfigTimeOffset.GetString(sConvarValue, sizeof(sConvarValue));
 	TrimString(sConvarValue);
-	iOperand = sConvarValue[0];
+	int iOperand = sConvarValue[0];
 	sConvarValue[0] = ' ';
 	TrimString(sConvarValue);
-	iAmount  = StringToInt(sConvarValue);
-	if (iOperand != '+' && iOperand != '-' && iAmount < 0 && (iAmount != 24 || iAmount > 24))
+	int iAmount = StringToInt(sConvarValue);
+	if (iOperand != '+' && iOperand != '-' && (iAmount <= 0 || iAmount > 24))
 	{
 		iOperand = ' ';
 		iAmount  = 0;
 	}
-	return amount ? iAmount : iOperand;
+	return operation ? iAmount : iOperand;
 }
