@@ -103,7 +103,7 @@ public Action cmdASSDoor(int client, int args)
 	}
 	else if (type > 1 || toggle > 1 || args > 2)
 	{
-		ReplyToCommand(client, "%s Usage: ass_door <optional - 0: starting door|1: ending door> <optional - 0: unlock|1: lock>", ASS_PREFIX01);
+		ReplyToCommand(client, "%s Usage: ass_door <0: starting door|1: ending door> <0: unlock|1: lock>", ASS_PREFIX01);
 		return Plugin_Handled;
 	}
 	vDoorOperation(client, type, toggle);
@@ -200,7 +200,7 @@ public Action cmdASSSaferoom(int client, int args)
 	}
 	else if (toggle > 5 || args > 1)
 	{
-		ReplyToCommand(client, "%s Usage: ass_room <optional - 0: none|1: boss|2: filter|3: group|4: keyman|5: lockdown>", ASS_PREFIX01);
+		ReplyToCommand(client, "%s Usage: ass_room <0: none|1: boss|2: filter|3: group|4: keyman|5: lockdown>", ASS_PREFIX01);
 		return Plugin_Handled;
 	}
 	vSaferoomMethods(client, toggle);
