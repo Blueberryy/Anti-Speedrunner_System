@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 29.16 (June 9, 2018)
+
+1. Bug fixes:
+
+- Fixed the bug with starting saferoom doors displaying the Saferoom vote menu for ending saferoom doors.
+
 ## Version 29.15 (June 9, 2018)
 
 1. Changes:
