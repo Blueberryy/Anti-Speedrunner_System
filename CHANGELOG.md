@@ -6,6 +6,11 @@
 
 - Fixed the bug with starting saferoom doors displaying the Saferoom vote menu for ending saferoom doors.
 
+2. Changes:
+
+- The ass_enablesystem and asssaferoom_enablesystem convars are now hooked properly.
+- The door delay speed now properly disables.
+
 ## Version 29.15 (June 9, 2018)
 
 1. Changes:
