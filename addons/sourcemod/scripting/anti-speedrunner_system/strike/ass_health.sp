@@ -80,7 +80,7 @@ public Action cmdASSHeal(int client, int args)
 	}
 	else if (args > 1)
 	{
-		ReplyToCommand(client, "%s Usage: ass_heal <optional - #userid|name>", ASS_PREFIX01);
+		ReplyToCommand(client, "%s Usage: ass_heal <#userid|name>", ASS_PREFIX01);
 		return Plugin_Handled;
 	}
 	char sTarget[32];
