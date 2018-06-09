@@ -79,7 +79,7 @@ public Action cmdASSCheck(int client, int args)
 	}
 	else if (timer > 1 || toggle > 1 || args > 3)
 	{
-		ReplyToCommand(client, "%s Usage: ass_check <optional - #userid|name> <optional - 0: off|1: on> <optional - 0: once|1: repeat>", ASS_PREFIX01);
+		ReplyToCommand(client, "%s Usage: ass_check <#userid|name> <0: off|1: on> <0: once|1: repeat>", ASS_PREFIX01);
 		return Plugin_Handled;
 	}
 	char sTarget[32];
@@ -152,7 +152,7 @@ public Action cmdASSNull(int client, int args)
 	}
 	else if (toggle > 1 || args > 2)
 	{
-		ReplyToCommand(client, "%s Usage: ass_null <optional - #userid|name> <optional - 0: off|1: on>", ASS_PREFIX01);
+		ReplyToCommand(client, "%s Usage: ass_null <#userid|name> <0: off|1: on>", ASS_PREFIX01);
 		return Plugin_Handled;
 	}
 	char sTarget[32];
@@ -236,7 +236,7 @@ public Action cmdASSStrike(int client, int args)
 	}
 	else if (args > 2)
 	{
-		ReplyToCommand(client, "%s Usage: ass_strike <optional - #userid|name> <optional - amount >= 1>", ASS_PREFIX01);
+		ReplyToCommand(client, "%s Usage: ass_strike <#userid|name> <amount >= 1>", ASS_PREFIX01);
 		return Plugin_Handled;
 	}
 	char sTarget[32];
