@@ -65,7 +65,7 @@ public Action cmdASSDisarm(int client, int args)
 	}
 	else if (timer > 1 || slot > 6 || toggle > 1 || args > 4)
 	{
-		ReplyToCommand(client, "%s Usage: ass_disarm <optional - #userid|name> <optional - 0: off|1: on> <optional - 1: 1st slot|2: 2nd slot|3: 3rd slot|4: 4th slot|5: 5th slot|6: all 5> <optional - 0: once|1: repeat>", ASS_PREFIX01);
+		ReplyToCommand(client, "%s Usage: ass_disarm <#userid|name> <0: off|1: on> <1: 1st slot|2: 2nd slot|3: 3rd slot|4: 4th slot|5: 5th slot|6: all 5> <0: once|1: repeat>", ASS_PREFIX01);
 		return Plugin_Handled;
 	}
 	char sTarget[32];
