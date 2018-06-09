@@ -20,6 +20,7 @@ void vHookSaferoomCvars()
 	g_cvASSLockdownDoorType.AddChangeHook(vASSLockdownEnableCvar);
 	g_cvASSSaferoomEnabledGameModes.AddChangeHook(vSaferoomGameModeCvars);
 	g_cvASSSaferoomDisabledGameModes.AddChangeHook(vSaferoomGameModeCvars);
+	g_cvASSSaferoomEnable.AddChangeHook(vSaferoomGameModeCvars);
 	g_cvASSSaferoomEnable.AddChangeHook(vASSBossEnableCvar);
 	g_cvASSSaferoomEnable.AddChangeHook(vASSFilterEnableCvar);
 	g_cvASSSaferoomEnable.AddChangeHook(vASSGroupEnableCvar);
@@ -378,7 +379,7 @@ public void vSaferoomGameModeCvars(ConVar convar, const char[] oldValue, const c
 	g_cvASSLockdownDoorType.GetString(g_sLockdownType, sizeof(g_sLockdownType));
 	if (bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
 	{
-		if (!bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
+		if (!g_cvASSSaferoomEnable.BoolValue || !bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
 		{
 			if (StrContains(g_sSaferoomOption, "l", false) != -1 && StrContains(g_sLockdownType, "1", false) != -1)
 			{
@@ -398,7 +399,7 @@ public void vSaferoomGameModeCvars(ConVar convar, const char[] oldValue, const c
 				}
 			}
 		}
-		else
+		else if (g_cvASSSaferoomEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
 		{
 			if (StrContains(g_sSaferoomOption, "l", false) != -1 && StrContains(g_sLockdownType, "1", false) != -1)
 			{
