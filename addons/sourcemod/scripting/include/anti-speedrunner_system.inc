@@ -12,7 +12,7 @@
 #define ASS_NAME "Anti-Speedrunner System"
 #define ASS_AUTHOR "Psyk0tik (Crasher_3637)"
 #define ASS_DESCRIPTION "The Anti-Speedrunner System provides various options for dealing with players that speedrun through campaigns and making sure survivors stick together!"
-#define ASS_VERSION "29.16"
+#define ASS_VERSION "29.17"
 #define ASS_URL "https://forums.alliedmods.net/showthread.php?t=302868"
 #define ASS_APPEND_BAD_FILENAME 0
 #define ASS_APPEND_FILE_NOT_FOUND 1

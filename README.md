@@ -875,7 +875,7 @@ By default, the A.S.S can create and execute the following types of configuratio
 
 **Impact** - For the [AutoExecConfig](https://forums.alliedmods.net/showthread.php?t=204254) include.
 
-**hmmmmm** - For showing me how to pick a random character out of a dynamic string and for his [Menu Targeting](https://forums.alliedmods.net/showthread.php?t=306954).
+**hmmmmm** - For showing me how to pick a random character out of a dynamic string and for his [Menu Targeting](https://forums.alliedmods.net/showthread.php?t=306954) include.
 
 **SourceMod Team** - For the beacon, blind, drug, and ice source codes.
 

@@ -1,5 +1,15 @@
 # Changelog
 
+## Version 29.17 (June 9, 2018)
+
+1. Bug fixes:
+
+- Fixed the assconfig_timeoffset convar not working properly.
+
+2. Changes:
+
+- Removed unnecessary declarations.
+
 ## Version 29.16 (June 9, 2018)
 
 1. Bug fixes:
