@@ -281,7 +281,7 @@ Usage: ass_freeze <#userid|name> <0: off|1: on>
 ass_heal		Kick (c)	Set a player to black and white with temporary health for speedrunning.
 Usage: ass_heal <#userid|name>
 ass_hurt		Kick (c)	Hurt a player for speedrunning.
-Usage: ass_fire <#userid|name> <0: off|1: on> <damage >= 1> <0: once|1: repeat>
+Usage: ass_hurt <#userid|name> <0: off|1: on> <damage >= 0> <0: once|1: repeat>
 ass_idle		Slay (f)	Force a player to go idle for speedrunning.
 Usage: ass_idle <#userid|name>
 ass_incap		Kick (c)	Incapacitate a player for speedrunning.
@@ -303,13 +303,13 @@ Usage: ass_rocket <#userid|name> <launch delay> <detonation delay>
 ass_room		Root (z)	Manually set the entry method for ending saferoom doors.
 Usage: ass_room <0: none|1: boss|2: filter|3: group|4: keyman|5: lockdown>
 ass_shake		Kick (c)	Shake a player's screen for speedrunning.
-Usage: ass_shake <#userid|name> <0: off|1: on> <0: once|1: repeat>
+Usage: ass_shake <#userid|name> <0: off|1: on> <duration >= 0.1> <0: once|1: repeat>
 ass_shock		Slay (f)	Shock a player for speedrunning.
 Usage: ass_shock <#userid|name>
 ass_shove		Kick (c)	Shove a player for speedrunning.
 Usage: ass_shove <#userid|name> <0: off|1: on> <0: once|1: repeat>
 ass_slow		Kick (c)	Slow a player down for speedrunning.
-Usage: ass_slow <#userid|name> <0: off|1: on> <speed>
+Usage: ass_slow <#userid|name> <0: off|1: on> <speed >= 0.1>
 ass_strike		Root (z)	Give a player a strike for speedrunning.
 Usage: ass_strike <#userid|name> <amount >= 1>
 ass_vision		Kick (c)	Change a player's vision for speedrunning.
