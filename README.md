@@ -271,7 +271,7 @@ Usage: ass_drug <#userid|name> <0: off|1: on>
 ass_entry		Root (z)	Warp all survivors inside the saferoom.
 Usage: ass_entry
 ass_exile		Ban (d)		Exile a player for speedrunning.
-Usage: ass_exile <optional - #userid|name> <optional - 0: kick|1: ban> <optional - duration >= 1>
+Usage: ass_exile <#userid|name> <0: kick|1: ban> <duration >= 1>
 ass_explode		Slay (f)	Cause an explosion on a player for speedrunning.
 Usage: ass_explode <#userid|name> <radius> <power>
 ass_fire		Kick (c)	Set a player on fire for speedrunning.
