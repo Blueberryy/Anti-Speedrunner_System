@@ -696,7 +696,7 @@ public Action eEventSPlayerUse(Event event, const char[] name, bool dontBroadcas
 	{
 		return Plugin_Continue;
 	}
-	if (((bIsSurvivor(iDoorUser) && g_cvASSCountBots.BoolValue) || (bIsHumanSurvivor(iDoorUser) && !g_cvASSCountBots.BoolValue)) && g_cvASSEnable.BoolValue && g_cvASSSaferoomEnable.BoolValue && IsValidEntity(iDoorEntity) && g_bDoorLocked[iDoorEntity] && iDoorEntity == g_iDoorId)
+	if (((bIsSurvivor(iDoorUser) && g_cvASSCountBots.BoolValue) || (bIsHumanSurvivor(iDoorUser) && !g_cvASSCountBots.BoolValue)) && g_cvASSEnable.BoolValue && g_cvASSSaferoomEnable.BoolValue && IsValidEntity(iDoorEntity) && g_bDoorLocked[iDoorEntity])
 	{
 		GetEntityClassname(iDoorEntity, g_sPropName, sizeof(g_sPropName));
 		if (StrEqual(g_sPropName, "prop_door_rotating_checkpoint", false))
