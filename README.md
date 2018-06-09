@@ -60,14 +60,15 @@ The Anti-Speedrunner System was developed against SourceMod 1.8+.
 9. Failsafe function - Provides the option to keep the plugin enabled/disabled after a certain amount of survivors are incapacitated/revived.
 10. Supports multiple game modes - Provides the option to enable/disable the plugin in certain game modes.
 11. Custom configurations - Provides support for custom configurations, whether per difficulty, per map, per game mode, per day, or per player count.
-12. Automatic config updater - Provides the ability to update the main config file when new convars are added.
-13. Menus - Provides menus for admin commands.
-14. Custom target list - Provides a menu list of players with similar names when one of them is targeted.
-14. Lock saferoom doors - Provides options for unlocking ending saferoom doors. If an invalid option or no option is chosen, the door immediately opens.
-15. Track speedrunners - Provides options for dealing with speedrunners. If an invalid option or no option is chosen, speedrunners will be warped back to the nearest teammate.
-16. Survivor and Infected target filters - Provides custom target filters. (Use @survivors for survivors and @infected for infected.)
-17. Log command usage - Provides the option to log command usage.
-18. Supports multiple languages - Provides support for translations. [Click here to add support for your language!](http://translator.mitchdempsey.com/sourcemod_plugins/310) (I check everyday so I can update the translation file attached to this post, but you can private message me as well to make sure.)
+12. Lock/unlock convar values - Provides the option to temporarily lock/unlock convar values across map changes.
+13. Automatic config updater - Provides the ability to update the main config file when new convars are added.
+14. Menus - Provides menus for admin commands.
+15. Custom target list - Provides a menu list of players with similar names when one of them is targeted.
+16. Lock saferoom doors - Provides options for unlocking ending saferoom doors. If an invalid option or no option is chosen, the door immediately opens.
+17. Track speedrunners - Provides options for dealing with speedrunners. If an invalid option or no option is chosen, speedrunners will be warped back to the nearest teammate.
+18. Survivor and Infected target filters - Provides custom target filters. (Use @survivors for survivors and @infected for infected.)
+19. Log command usage - Provides the option to log command usage.
+20. Supports multiple languages - Provides support for translations. [Click here to add support for your language!](http://translator.mitchdempsey.com/sourcemod_plugins/310) (I check everyday so I can update the translation file attached to this post, but you can private message me as well to make sure.)
 
 ## System Options
 The Anti-Speedrunner System mainly consists of 2 systems.
@@ -778,6 +779,35 @@ assstrike_strikemode "1"
 assstrike_systemoptions "QqWweErRtTyYuUIiOopPAasSdDfFgGHhJjkKLlXxcCvVbBnNMm"
 ```
 
+### Locking/Unlocking ConVar values
+
+The Anti-Speedrunner System provides the option to lock/unlock convar values. By locking a convar's value, the Anti-Speedrunner System will prevent convars from reverting to their default values across map changes until the server ends or restarts.
+
+#### Usage:
+Normal
+```
+assstrike_systemoptions "abc" // Value set in anti-speedrunner_system.cfg.
+assstrike_systemoptions "def" // Value set during a map.
+Map changes...
+assstrike_systemoptions "abc" // Value after map changes.
+```
+
+Lock
+```
+assstrike_systemoptions "abc" // Value set in anti-speedrunner_system.cfg.
+assstrike_systemoptions "==def" // Value set during a map.
+Map changes...
+assstrike_systemoptions "def" // Value after map changes.
+```
+
+Unlock
+```
+assstrike_systemoptions "abc" // Value set in anti-speedrunner_system.cfg.
+assstrike_systemoptions "!=def" // Value set during a map.
+Map changes...
+assstrike_systemoptions "abc" // Value after map changes.
+```
+
 ### Custom Configuration Files
 The Anti-Speedrunner System has features that allow for creating and executing custom configuration files.
 
@@ -815,7 +845,7 @@ By default, the A.S.S can create and execute the following types of configuratio
 
 **Lux** - For fixing up Tak (Chaosxk)'s [code](https://forums.alliedmods.net/showpost.php?p=2561468&postcount=9) and helping me with some parts of the code.
 
-**NgBUCKWANGS** - For helping to fix the errors reported by Krufftys Killers [here](https://forums.alliedmods.net/showpost.php?p=2561615&postcount=23), and for the mapname.cfg code in his [ABM](https://forums.alliedmods.net/showthread.php?t=291562) plugin.
+**NgBUCKWANGS** - For helping to fix the errors reported by Krufftys Killers [here](https://forums.alliedmods.net/showpost.php?p=2561615&postcount=23) and for the mapname.cfg and convar switch code in his [ABM](https://forums.alliedmods.net/showthread.php?t=291562) plugin.
 
 **KasperH** - For the Hungarian phrase translations and reporting errors.
 
