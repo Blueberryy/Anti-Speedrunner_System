@@ -73,7 +73,7 @@ public Action cmdASSRestart(int client, int args)
 	}
 	else if (args > 2)
 	{
-		ReplyToCommand(client, "%s Usage: ass_restart <optional - #userid|name> <optional - item1,item2,item3,item4,item5>", ASS_PREFIX01);
+		ReplyToCommand(client, "%s Usage: ass_restart <#userid|name> \"item1,item2,item3,item4,item5\"", ASS_PREFIX01);
 		return Plugin_Handled;
 	}
 	char sTarget[32];
