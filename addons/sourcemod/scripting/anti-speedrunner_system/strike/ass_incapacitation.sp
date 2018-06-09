@@ -70,7 +70,7 @@ public Action cmdASSIncap(int client, int args)
 	}
 	else if (timer > 1 || toggle > 1 || args > 4)
 	{
-		ReplyToCommand(client, "%s Usage: ass_incap <optional - #userid|name> <optional - 0: off|1: on> <optional - radius> <optional - 0: once|1: repeat>", ASS_PREFIX01);
+		ReplyToCommand(client, "%s Usage: ass_incap <#userid|name> <0: off|1: on> <radius> <0: once|1: repeat>", ASS_PREFIX01);
 		return Plugin_Handled;
 	}
 	char sTarget[32];
