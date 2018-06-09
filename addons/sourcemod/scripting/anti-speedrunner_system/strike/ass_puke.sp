@@ -74,7 +74,7 @@ public Action cmdASSPuke(int client, int args)
 	}
 	else if (timer > 1 || toggle > 1 || args > 3)
 	{
-		ReplyToCommand(client, "%s Usage: ass_puke <optional - #userid|name> <optional - 0: off|1: on> <optional - 0: once|1: repeat>", ASS_PREFIX01);
+		ReplyToCommand(client, "%s Usage: ass_puke <#userid|name> <0: off|1: on> <0: once|1: repeat>", ASS_PREFIX01);
 		return Plugin_Handled;
 	}
 	char sTarget[32];
