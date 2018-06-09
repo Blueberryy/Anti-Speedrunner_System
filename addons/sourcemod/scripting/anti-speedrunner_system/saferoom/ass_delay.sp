@@ -10,13 +10,25 @@ void vDelayCvars()
 	vCreateConVar(g_cvASSDelayDoorType, "assdelay_doortype", "21", "Which type of saferoom door should be affected?\nCombine numbers in any order for different results.\nCharacter limit: 2\n(1: Starting saferoom doors only.)\n(2: Ending saferoom doors only.)");
 }
 
-void vDoorSpeed(int client, int entity)
+void vSDoorSpeed(int client, int entity)
 {
-	if (!g_bNull[client] && (!g_cvASSAdminImmunity.BoolValue || (g_cvASSAdminImmunity.BoolValue && !bIsAdminAllowed(client))))
+	if (g_cvASSEnable.BoolValue && g_cvASSSaferoomEnable.BoolValue && !g_bNull[client] && (!g_cvASSAdminImmunity.BoolValue || (g_cvASSAdminImmunity.BoolValue && !bIsAdminAllowed(client))) && (!g_cvASSNoFinales.BoolValue || (g_cvASSNoFinales.BoolValue && !bIsFinaleMap())) && StrContains(g_sDoorType, "1", false) != -1 && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
 	{
 		SetEntPropFloat(entity, Prop_Data, "m_flSpeed", g_cvASSDelayDoorSpeed.FloatValue);
 	}
-	else if (g_bNull[client] || (g_cvASSAdminImmunity && bIsAdminAllowed(client)))
+	else if (!g_cvASSEnable.BoolValue || !g_cvASSSaferoomEnable.BoolValue || g_bNull[client] || (g_cvASSAdminImmunity && bIsAdminAllowed(client)) || (g_cvASSNoFinales.BoolValue && bIsFinaleMap()) || StrContains(g_sDoorType, "1", false) == -1 || !bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) || !bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
+	{
+		SetEntPropFloat(entity, Prop_Data, "m_flSpeed", 200.0);
+	}
+}
+
+void vEDoorSpeed(int client, int entity)
+{
+	if (g_cvASSEnable.BoolValue && g_cvASSSaferoomEnable.BoolValue && !g_bNull[client] && (!g_cvASSAdminImmunity.BoolValue || (g_cvASSAdminImmunity.BoolValue && !bIsAdminAllowed(client))) && (!g_cvASSNoFinales.BoolValue || (g_cvASSNoFinales.BoolValue && !bIsFinaleMap())) && StrContains(g_sDoorType, "2", false) != -1 && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
+	{
+		SetEntPropFloat(entity, Prop_Data, "m_flSpeed", g_cvASSDelayDoorSpeed.FloatValue);
+	}
+	else if (!g_cvASSEnable.BoolValue || !g_cvASSSaferoomEnable.BoolValue || g_bNull[client] || (g_cvASSAdminImmunity && bIsAdminAllowed(client)) || (g_cvASSNoFinales.BoolValue && bIsFinaleMap()) || StrContains(g_sDoorType, "2", false) == -1 || !bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) || !bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
 	{
 		SetEntPropFloat(entity, Prop_Data, "m_flSpeed", 200.0);
 	}

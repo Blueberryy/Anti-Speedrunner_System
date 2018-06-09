@@ -551,7 +551,6 @@ public Action eEventPlayerIncapacitated(Event event, const char[] name, bool don
 			}
 		}
 	}
-	return Plugin_Continue;
 }
 
 public Action eEventPlayerDeath(Event event, const char[] name, bool dontBroadcast)
@@ -589,7 +588,6 @@ public Action eEventPlayerDeath(Event event, const char[] name, bool dontBroadca
 			SetEntProp(iAttacker, Prop_Data, "m_iFrags", GetClientFrags(iAttacker) + 1);
 		}
 	}
-	return Plugin_Continue;
 }
 
 public Action eEventPlayerSpawnDeath(Event event, const char[] name, bool dontBroadcast)
@@ -611,11 +609,7 @@ public Action eEventSDPlayerUse(Event event, const char[] name, bool dontBroadca
 	int iDoorUser = GetClientOfUserId(event.GetInt("userid"));
 	int iDoorEntity = event.GetInt("targetid");
 	g_cvASSDelayDoorType.GetString(g_sDoorType, sizeof(g_sDoorType));
-	if (!g_cvASSEnable.BoolValue || !g_cvASSSaferoomEnable.BoolValue || (g_cvASSNoFinales.BoolValue && bIsFinaleMap()) || StrContains(g_sDoorType, "1", false) == -1 || !bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) || !bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
-	{
-		return Plugin_Continue;
-	}
-	if (((bIsSurvivor(iDoorUser) && g_cvASSCountBots.BoolValue) || (bIsHumanSurvivor(iDoorUser) && !g_cvASSCountBots.BoolValue)) && g_cvASSSaferoomEnable.BoolValue && IsValidEntity(iDoorEntity))
+	if (((bIsSurvivor(iDoorUser) && g_cvASSCountBots.BoolValue) || (bIsHumanSurvivor(iDoorUser) && !g_cvASSCountBots.BoolValue)) && IsValidEntity(iDoorEntity))
 	{
 		GetEntityClassname(iDoorEntity, g_sPropName, sizeof(g_sPropName));
 		if (StrEqual(g_sPropName, "prop_door_rotating_checkpoint", false) && GetEntProp(iDoorEntity, Prop_Data, "m_eDoorState") == 0)
@@ -629,17 +623,17 @@ public Action eEventSDPlayerUse(Event event, const char[] name, bool dontBroadca
 						return Plugin_Continue;
 					}
 				}
-				if (!g_bNull[iDoorUser] && (!g_cvASSAdminImmunity.BoolValue || (g_cvASSAdminImmunity.BoolValue && !bIsAdminAllowed(iDoorUser))))
+				if (g_cvASSEnable.BoolValue && g_cvASSSaferoomEnable.BoolValue && !g_bNull[iDoorUser] && (!g_cvASSAdminImmunity.BoolValue || (g_cvASSAdminImmunity.BoolValue && !bIsAdminAllowed(iDoorUser))) && (!g_cvASSNoFinales.BoolValue || (g_cvASSNoFinales.BoolValue && !bIsFinaleMap())) && StrContains(g_sDoorType, "1", false) != -1 && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
 				{
 					HookSingleEntityOutput(iDoorEntity, "OnFullyOpen", vStartAntiSpamDoor);
 					HookSingleEntityOutput(iDoorEntity, "OnFullyClose", vStartAntiSpamDoor);
 				}
-				else if (g_bNull[iDoorUser] || (g_cvASSAdminImmunity && bIsAdminAllowed(iDoorUser)))
+				else if (!g_cvASSEnable.BoolValue || !g_cvASSSaferoomEnable.BoolValue || g_bNull[iDoorUser] || (g_cvASSAdminImmunity && bIsAdminAllowed(iDoorUser)) || (g_cvASSNoFinales.BoolValue && bIsFinaleMap()) || StrContains(g_sDoorType, "1", false) == -1 || !bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) || !bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
 				{
 					UnhookSingleEntityOutput(iDoorEntity, "OnFullyOpen", vStartAntiSpamDoor);
 					UnhookSingleEntityOutput(iDoorEntity, "OnFullyClose", vStartAntiSpamDoor);
 				}
-				vDoorSpeed(iDoorUser, iDoorEntity);
+				vSDoorSpeed(iDoorUser, iDoorEntity);
 			}
 		}
 	}
@@ -651,11 +645,7 @@ public Action eEventEDPlayerUse(Event event, const char[] name, bool dontBroadca
 	int iDoorUser = GetClientOfUserId(event.GetInt("userid"));
 	int iDoorEntity = event.GetInt("targetid");
 	g_cvASSDelayDoorType.GetString(g_sDoorType, sizeof(g_sDoorType));
-	if (!g_cvASSEnable.BoolValue || !g_cvASSSaferoomEnable.BoolValue || (g_cvASSNoFinales.BoolValue && bIsFinaleMap()) || StrContains(g_sDoorType, "2", false) == -1 || !bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) || !bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
-	{
-		return Plugin_Continue;
-	}
-	if (((bIsSurvivor(iDoorUser) && g_cvASSCountBots.BoolValue) || (bIsHumanSurvivor(iDoorUser) && !g_cvASSCountBots.BoolValue)) && g_cvASSSaferoomEnable.BoolValue && IsValidEntity(iDoorEntity))
+	if (((bIsSurvivor(iDoorUser) && g_cvASSCountBots.BoolValue) || (bIsHumanSurvivor(iDoorUser) && !g_cvASSCountBots.BoolValue)) && IsValidEntity(iDoorEntity))
 	{
 		GetEntityClassname(iDoorEntity, g_sPropName, sizeof(g_sPropName));
 		if (StrEqual(g_sPropName, "prop_door_rotating_checkpoint", false) && GetEntProp(iDoorEntity, Prop_Data, "m_hasUnlockSequence") == 0)
@@ -669,17 +659,17 @@ public Action eEventEDPlayerUse(Event event, const char[] name, bool dontBroadca
 						return Plugin_Continue;
 					}
 				}
-				if (!g_bNull[iDoorUser] && (!g_cvASSAdminImmunity.BoolValue || (g_cvASSAdminImmunity.BoolValue && !bIsAdminAllowed(iDoorUser))))
+				if (g_cvASSEnable.BoolValue && g_cvASSSaferoomEnable.BoolValue && !g_bNull[iDoorUser] && (!g_cvASSAdminImmunity.BoolValue || (g_cvASSAdminImmunity.BoolValue && !bIsAdminAllowed(iDoorUser))) && (!g_cvASSNoFinales.BoolValue || (g_cvASSNoFinales.BoolValue && !bIsFinaleMap())) && StrContains(g_sDoorType, "2", false) != -1 && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
 				{
 					HookSingleEntityOutput(iDoorEntity, "OnFullyOpen", vStartAntiSpamDoor);
 					HookSingleEntityOutput(iDoorEntity, "OnFullyClose", vStartAntiSpamDoor);
 				}
-				else if (g_bNull[iDoorUser] || (g_cvASSAdminImmunity && bIsAdminAllowed(iDoorUser)))
+				else if (!g_cvASSEnable.BoolValue || !g_cvASSSaferoomEnable.BoolValue || g_bNull[iDoorUser] || (g_cvASSAdminImmunity && bIsAdminAllowed(iDoorUser)) || (g_cvASSNoFinales.BoolValue && bIsFinaleMap()) || StrContains(g_sDoorType, "2", false) == -1 || !bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) || !bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
 				{
 					UnhookSingleEntityOutput(iDoorEntity, "OnFullyOpen", vStartAntiSpamDoor);
 					UnhookSingleEntityOutput(iDoorEntity, "OnFullyClose", vStartAntiSpamDoor);
 				}
-				vDoorSpeed(iDoorUser, iDoorEntity);
+				vEDoorSpeed(iDoorUser, iDoorEntity);
 			}
 		}
 	}
@@ -947,7 +937,6 @@ public Action eEventRoundStart(Event event, const char[] name, bool dontBroadcas
 		}
 		CreateTimer(10.0, tTimerRestartCoordinates);
 	}
-	return Plugin_Continue;
 }
 
 public Action eEventRoundEnd(Event event, const char[] name, bool dontBroadcast)
@@ -971,7 +960,6 @@ public Action eEventRoundEnd(Event event, const char[] name, bool dontBroadcast)
 			}
 		}
 	}
-	return Plugin_Continue;
 }
 
 public Action eEventServerEnd(Event event, const char[] name, bool dontBroadcast)

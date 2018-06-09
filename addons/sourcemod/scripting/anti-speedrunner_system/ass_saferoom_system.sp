@@ -374,55 +374,45 @@ public void vSaferoomGameModeCvars(ConVar convar, const char[] oldValue, const c
 {
 	g_cvASSSaferoomSystemOptions.GetString(g_sSaferoomOption, sizeof(g_sSaferoomOption));
 	g_cvASSLockdownDoorType.GetString(g_sLockdownType, sizeof(g_sLockdownType));
-	if (bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (!g_cvASSEnable.BoolValue || !g_cvASSSaferoomEnable.BoolValue || !bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) || !bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
 	{
-		if (!g_cvASSSaferoomEnable.BoolValue || !bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
+		if (StrContains(g_sSaferoomOption, "l", false) != -1 && StrContains(g_sLockdownType, "1", false) != -1)
 		{
-			if (StrContains(g_sSaferoomOption, "l", false) != -1 && StrContains(g_sLockdownType, "1", false) != -1)
+			vResetVoteMenus();
+			vSDoorControl(g_iDoorId, false);
+		}
+		if (StrContains(g_sSaferoomOption, "b", false) != -1 || StrContains(g_sSaferoomOption, "f", false) != -1 || StrContains(g_sSaferoomOption, "g", false) != -1 || StrContains(g_sSaferoomOption, "k", false) != -1 || (StrContains(g_sSaferoomOption, "l", false) != -1 && StrContains(g_sLockdownType, "2", false) != -1))
+		{
+			vResetVoteMenus();
+			vEDoorControl(g_iDoorId2, false);
+		}
+	}
+	else if (g_cvASSEnable.BoolValue && g_cvASSSaferoomEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
+	{
+		if (StrContains(g_sSaferoomOption, "l", false) != -1 && StrContains(g_sLockdownType, "1", false) != -1)
+		{
+			if (g_iDoorId == 0)
 			{
-				if (g_iDoorId != -1)
-				{
-					vResetVoteMenus();
-					vSDoorControl(g_iDoorId, false);
-				}
+				vSInitializeDoor();
+				vResetVoteMenus();
 			}
-			if (StrContains(g_sSaferoomOption, "b", false) != -1 || StrContains(g_sSaferoomOption, "f", false) != -1 || StrContains(g_sSaferoomOption, "g", false) != -1 || StrContains(g_sSaferoomOption, "k", false) != -1 || (StrContains(g_sSaferoomOption, "l", false) != -1 && StrContains(g_sLockdownType, "2", false) != -1))
+			else
 			{
-				if (g_iDoorId2 != -1)
-				{
-					vResetVoteMenus();
-					vEDoorControl(g_iDoorId2, false);
-					g_iDoorId2 = -1;
-				}
+				vSDoorControl(g_iDoorId, true);
+				vResetVoteMenus();
 			}
 		}
-		else if (g_cvASSSaferoomEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
+		if (StrContains(g_sSaferoomOption, "b", false) != -1 || StrContains(g_sSaferoomOption, "f", false) != -1 || StrContains(g_sSaferoomOption, "g", false) != -1 || StrContains(g_sSaferoomOption, "k", false) != -1 || (StrContains(g_sSaferoomOption, "l", false) != -1 && StrContains(g_sLockdownType, "2", false) != -1))
 		{
-			if (StrContains(g_sSaferoomOption, "l", false) != -1 && StrContains(g_sLockdownType, "1", false) != -1)
+			if (g_iDoorId2 == 0)
 			{
-				if (g_iDoorId == -1)
-				{
-					vSInitializeDoor();
-					vResetVoteMenus();
-				}
-				else
-				{
-					vResetVoteMenus();
-					vSDoorControl(g_iDoorId, true);
-				}
+				vEInitializeDoor();
+				vResetVoteMenus();
 			}
-			if (StrContains(g_sSaferoomOption, "b", false) != -1 || StrContains(g_sSaferoomOption, "f", false) != -1 || StrContains(g_sSaferoomOption, "g", false) != -1 || StrContains(g_sSaferoomOption, "k", false) != -1 || (StrContains(g_sSaferoomOption, "l", false) != -1 && StrContains(g_sLockdownType, "2", false) != -1))
+			else
 			{
-				if (g_iDoorId2 == -1)
-				{
-					vEInitializeDoor();
-					vResetVoteMenus();
-				}
-				else
-				{
-					vResetVoteMenus();
-					vEDoorControl(g_iDoorId2, true);
-				}
+				vEDoorControl(g_iDoorId2, true);
+				vResetVoteMenus();
 			}
 		}
 	}
