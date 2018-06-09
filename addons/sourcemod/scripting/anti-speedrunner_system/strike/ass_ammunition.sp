@@ -59,7 +59,7 @@ public Action cmdASSAmmo(int client, int args)
 	}
 	else if (timer > 1 || count < 0 || toggle > 1 || args > 4)
 	{
-		ReplyToCommand(client, "%s Usage: ass_ammo <optional - #userid|name> <optional - 0: off|1: on> <optional - count >= 0> <optional - 0: once|1: repeat>", ASS_PREFIX01);
+		ReplyToCommand(client, "%s Usage: ass_ammo <#userid|name> <0: off|1: on> <count >= 0> <0: once|1: repeat>", ASS_PREFIX01);
 		return Plugin_Handled;
 	}
 	char sTarget[32];
