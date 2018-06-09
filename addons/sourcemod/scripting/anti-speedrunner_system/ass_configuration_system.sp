@@ -147,7 +147,7 @@ public Action cmdASSConfig(int client, int args)
 	}
 	else if (mode > 1 || type > 4 || args > 3)
 	{
-		ReplyToCommand(client, "Usage: ass_config <optional - 0: create|1: execute> <optional - 0: difficulty|1: map|2: game mode|3: day|4: player count> <optional - filename>");
+		ReplyToCommand(client, "Usage: ass_config <0: create|1: execute> <0: difficulty|1: map|2: game mode|3: day|4: player count> \"filename\"");
 		return Plugin_Handled;
 	}
 	vManualConfig(client, mode, type, filename);
