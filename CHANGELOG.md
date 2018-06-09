@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 29.15 (June 9, 2018)
+
+1. Changes:
+
+- Changed the vCountTanks() function to a iGetTankCount() stock.
+
 ## Version 29.14 (June 9, 2018)
 
 1. Updated include file.
