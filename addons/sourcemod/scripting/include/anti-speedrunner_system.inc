@@ -12,7 +12,7 @@
 #define ASS_NAME "Anti-Speedrunner System"
 #define ASS_AUTHOR "Psyk0tik (Crasher_3637)"
 #define ASS_DESCRIPTION "The Anti-Speedrunner System provides various options for dealing with players that speedrun through campaigns and making sure survivors stick together!"
-#define ASS_VERSION "29.0"
+#define ASS_VERSION "29.11"
 #define ASS_URL "https://forums.alliedmods.net/showthread.php?t=302868"
 #define ASS_APPEND_BAD_FILENAME 0
 #define ASS_APPEND_FILE_NOT_FOUND 1
@@ -41,51 +41,51 @@ static int iCreateDirectoryMode = FPERM_U_READ|FPERM_U_WRITE|FPERM_U_EXEC|FPERM_
 static int iLastFindResult;
 static int iLastAppendResult;
 
-stock int ASS_GetFindResult()
+stock int iASS_GetFindResult()
 {
 	return iLastFindResult;
 }
 
-stock int ASS_GetAppendResult()
+stock int iASS_GetAppendResult()
 {
 	return iLastAppendResult;
 }
 
-stock void ASS_CreateConfig(bool create)
+stock void vASS_CreateConfig(bool create)
 {
 	bCreateFile = create;
 }
 
-stock void ASS_CreateDirectory(bool create, int mode = FPERM_U_READ|FPERM_U_WRITE|FPERM_U_EXEC|FPERM_G_READ|FPERM_G_EXEC|FPERM_O_READ|FPERM_O_EXEC)
+stock void vASS_CreateDirectory(bool create, int mode = FPERM_U_READ|FPERM_U_WRITE|FPERM_U_EXEC|FPERM_G_READ|FPERM_G_EXEC|FPERM_O_READ|FPERM_O_EXEC)
 {
 	bCreateDirectory = create;
 	iCreateDirectoryMode = mode;
 }
 
-stock bool ASS_GetCreateFile()
+stock bool bASS_GetCreateFile()
 {
 	return bCreateFile;
 }
 
-stock void ASS_SetPlugin(Handle plugin)
+stock void vASS_SetPlugin(Handle plugin)
 {
 	hPluginHandle = plugin;
 }
 
-stock Handle ASS_GetPlugin()
+stock Handle hASS_GetPlugin()
 {
 	return hPluginHandle;
 }
 
-stock bool ASS_Config(char[] file, char[] folder = "sourcemod/anti-speedrunner_system")
+stock bool bASS_Config(char[] file, char[] folder = "sourcemod/anti-speedrunner_system")
 {
 	Format(sConfigFile, sizeof(sConfigFile), "%s", file);
 	strcopy(sRawFileName, sizeof(sRawFileName), file);
 	strcopy(sFolderPath, sizeof(sFolderPath), folder);
-	return ASS_FormatConfig(sConfigFile, sizeof(sConfigFile), folder) == ASS_FORMAT_SUCCESS;
+	return iASS_FormatConfig(sConfigFile, sizeof(sConfigFile), folder) == ASS_FORMAT_SUCCESS;
 }
 
-stock bool ASS_GetConfig(char[] buffer, int size)
+stock bool bASS_GetConfig(char[] buffer, int size)
 {
 	if (strlen(sConfigFile) > 0)
 	{
@@ -96,28 +96,28 @@ stock bool ASS_GetConfig(char[] buffer, int size)
 	return false;
 }
 
-stock ConVar ASS_ConVar(const char[] name, const char[] defaultValue, const char[] description = "", int flags = 0, bool hasMin = false, float min = 0.0, bool hasMax = false, float max = 0.0)
+stock ConVar cvASS_ConVar(const char[] name, const char[] defaultValue, const char[] description = "", int flags = 0, bool hasMin = false, float min = 0.0, bool hasMax = false, float max = 0.0)
 {
 	if (!(flags & FCVAR_DONTRECORD) && strlen(sConfigFile) > 0)
 	{
 		iLastFindResult = -1;
 		iLastAppendResult = -1;
 		char sValue[64];
-		iLastFindResult = ASS_FindValue(name, sValue, sizeof(sValue), true);
+		iLastFindResult = iASS_FindValue(name, sValue, sizeof(sValue), true);
 		if (iLastFindResult == ASS_FIND_NOT_FOUND || (iLastFindResult == ASS_FIND_FILE_NOT_FOUND && bCreateFile))
 		{
-			iLastAppendResult = ASS_Append(name, defaultValue, description, flags, hasMin, min, hasMax, max);
+			iLastAppendResult = iASS_Append(name, defaultValue, description, flags, hasMin, min, hasMax, max);
 		}
 	}
 	return CreateConVar(name, defaultValue, description, flags, hasMin, min, hasMax, max);
 }
 
-stock void ASS_ExecConfig()
+stock void vASS_ExecConfig()
 {
 	AutoExecConfig(!bCreateFile, sRawFileName, sFolderPath);
 }
 
-stock static int ASS_FormatConfig(char[] buffer, int size, char[] folder = "sourcemod/anti-speedrunner_system")
+stock static int iASS_FormatConfig(char[] buffer, int size, char[] folder = "sourcemod/anti-speedrunner_system")
 {
 	if (strlen(sConfigFile) < 1)
 	{
@@ -155,7 +155,7 @@ stock static int ASS_FormatConfig(char[] buffer, int size, char[] folder = "sour
 	return ASS_FORMAT_SUCCESS;
 }
 
-stock int ASS_Append(const char[] name, const char[] defaultValue, const char[] description, int flags, bool hasMin, float min, bool hasMax, float max)
+stock int iASS_Append(const char[] name, const char[] defaultValue, const char[] description, int flags, bool hasMin, float min, bool hasMax, float max)
 {
 	if (strlen(sConfigFile) < 1)
 	{
@@ -180,7 +180,7 @@ stock int ASS_Append(const char[] name, const char[] defaultValue, const char[] 
 			fFile.WriteLine(sWrite);
 		}
 		fFile.WriteLine("\n");
-		int iNewLines = ASS_GetCharCountInStr('\n', description);
+		int iNewLines = iASS_GetCharCountInStr('\n', description);
 		if (iNewLines == 0)
 		{
 			Format(sWrite, sizeof(sWrite), "// %s", description);
@@ -219,7 +219,7 @@ stock int ASS_Append(const char[] name, const char[] defaultValue, const char[] 
 	return ASS_APPEND_FILE_NOT_FOUND;
 }
 
-stock int ASS_FindValue(const char[] cvar, char[] value, int size, bool caseSensitive = false)
+stock int iASS_FindValue(const char[] cvar, char[] value, int size, bool caseSensitive = false)
 {
 	value[0] = '\0';
 	if (strlen(sConfigFile) < 1)
@@ -249,7 +249,7 @@ stock int ASS_FindValue(const char[] cvar, char[] value, int size, bool caseSens
 		}
 		while (!fFile.EndOfFile() && fFile.ReadLine(sRead, sizeof(sRead)))
 		{
-			if (IsCharSpace(sRead[0]) || sRead[0] == '/' || (!IsCharNumeric(sRead[0]) && !IsCharAlpha(sRead[0])) || ASS_GetCharCountInStr(' ', sRead) < 1 || ASS_GetCharCountInStr('"', sRead) != 2 || (iValueStart = StrContains(sRead, "\"")) == -1 || (iValueEnd = StrContains(sRead[iValueStart+1], "\"")) == -1 || (iCvarEnd = StrContains(sRead, " ")) == -1 || iCvarEnd >= iValueStart || iCvarEnd >= iValueStart)
+			if (IsCharSpace(sRead[0]) || sRead[0] == '/' || (!IsCharNumeric(sRead[0]) && !IsCharAlpha(sRead[0])) || iASS_GetCharCountInStr(' ', sRead) < 1 || iASS_GetCharCountInStr('"', sRead) != 2 || (iValueStart = StrContains(sRead, "\"")) == -1 || (iValueEnd = StrContains(sRead[iValueStart+1], "\"")) == -1 || (iCvarEnd = StrContains(sRead, " ")) == -1 || iCvarEnd >= iValueStart || iCvarEnd >= iValueStart)
 			{
 				continue;
 			}
@@ -272,7 +272,7 @@ stock int ASS_FindValue(const char[] cvar, char[] value, int size, bool caseSens
 	return ASS_FIND_FILE_NOT_FOUND;
 }
 
-stock int ASS_Clean()
+stock int iASS_Clean()
 {
 	if (strlen(sConfigFile) < 1)
 	{
@@ -330,7 +330,7 @@ stock int ASS_Clean()
 	return ASS_CLEAN_SUCCESS;
 }
 
-stock static int ASS_GetCharCountInStr(int character, const char[] str)
+stock static int iASS_GetCharCountInStr(int character, const char[] str)
 {
 	int iLength = strlen(str);
 	int iCount;
