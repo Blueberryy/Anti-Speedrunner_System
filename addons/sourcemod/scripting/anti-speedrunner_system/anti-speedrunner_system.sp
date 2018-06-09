@@ -698,69 +698,72 @@ public Action eEventSPlayerUse(Event event, const char[] name, bool dontBroadcas
 	}
 	if (((bIsSurvivor(iDoorUser) && g_cvASSCountBots.BoolValue) || (bIsHumanSurvivor(iDoorUser) && !g_cvASSCountBots.BoolValue)) && g_cvASSEnable.BoolValue && g_cvASSSaferoomEnable.BoolValue && IsValidEntity(iDoorEntity) && g_bDoorLocked[iDoorEntity])
 	{
-		GetEntityClassname(iDoorEntity, g_sPropName, sizeof(g_sPropName));
-		if (StrEqual(g_sPropName, "prop_door_rotating_checkpoint", false))
+		if (iDoorEntity != g_iDoorId2)
 		{
-			if (bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
+			GetEntityClassname(iDoorEntity, g_sPropName, sizeof(g_sPropName));
+			if (StrEqual(g_sPropName, "prop_door_rotating_checkpoint", false))
 			{
-				if (g_cvASSTankAlive.BoolValue && !g_bBossSpawned)
+				if (bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
 				{
-					if (iGetTankCount() > 0)
+					if (g_cvASSTankAlive.BoolValue && !g_bBossSpawned)
 					{
-						EmitSoundToAll("doors/latchlocked2.wav", iDoorEntity);
-						if (bIsHumanSurvivor(iDoorUser))
+						if (iGetTankCount() > 0)
 						{
-							bHasTranslationFile() ? PrintHintText(iDoorUser, "%s %t", ASS_PREFIX, "TankAlive") : PrintHintText(iDoorUser, "%s There is a Tank alive.", ASS_PREFIX);
+							EmitSoundToAll("doors/latchlocked2.wav", iDoorEntity);
+							if (bIsHumanSurvivor(iDoorUser))
+							{
+								bHasTranslationFile() ? PrintHintText(iDoorUser, "%s %t", ASS_PREFIX, "TankAlive") : PrintHintText(iDoorUser, "%s There is a Tank alive.", ASS_PREFIX);
+							}
+							return Plugin_Continue;
 						}
+					}
+					else if (!g_cvASSTankAlive.BoolValue && !g_bBossSpawned)
+					{
+						vSDoorControl(iDoorEntity, false);
 						return Plugin_Continue;
 					}
-				}
-				else if (!g_cvASSTankAlive.BoolValue && !g_bBossSpawned)
-				{
-					vSDoorControl(iDoorEntity, false);
-					return Plugin_Continue;
-				}
-				AcceptEntityInput(iDoorEntity, "Lock");
-				SetEntProp(iDoorEntity, Prop_Data, "m_hasUnlockSequence", 1);
-				if (!g_bLockdownStarted)
-				{
-					if (IsVoteInProgress())
+					AcceptEntityInput(iDoorEntity, "Lock");
+					SetEntProp(iDoorEntity, Prop_Data, "m_hasUnlockSequence", 1);
+					if (!g_bLockdownStarted)
 					{
-						if (bIsHumanSurvivor(iDoorUser))
+						if (IsVoteInProgress())
 						{
-							PrintToChat(iDoorUser, "%s %t", ASS_PREFIX01, "Vote in Progress");
+							if (bIsHumanSurvivor(iDoorUser))
+							{
+								PrintToChat(iDoorUser, "%s %t", ASS_PREFIX01, "Vote in Progress");
+							}
+							return Plugin_Continue;
 						}
-						return Plugin_Continue;
-					}
-					if (g_bNull[iDoorUser] || (g_cvASSAdminImmunity.BoolValue && bIsAdminAllowed(iDoorUser)) || (g_cvASSCountBots.BoolValue && bIsBotSurvivor(iDoorUser)))
-					{
-						vNoneOption(iDoorEntity, false);
-						if (g_cvASSAutoMode.BoolValue)
+						if (g_bNull[iDoorUser] || (g_cvASSAdminImmunity.BoolValue && bIsAdminAllowed(iDoorUser)) || (g_cvASSCountBots.BoolValue && bIsBotSurvivor(iDoorUser)))
 						{
-							g_bLockdownVoted = false;
-							g_bLockdownVoteMenu = true;
+							vNoneOption(iDoorEntity, false);
+							if (g_cvASSAutoMode.BoolValue)
+							{
+								g_bLockdownVoted = false;
+								g_bLockdownVoteMenu = true;
+							}
+						}
+						else
+						{
+							if (g_cvASSAutoMode.BoolValue)
+							{
+								g_bLockdownStarted = true;
+							}
+							else
+							{
+								if (!g_bLockdownVoteMenu)
+								{
+									g_bLockdownVoted = false;
+									g_bLockdownVoteMenu = true;
+									vLockdownVoteMenu();
+								}
+							}
 						}
 					}
 					else
 					{
-						if (g_cvASSAutoMode.BoolValue)
-						{
-							g_bLockdownStarted = true;
-						}
-						else
-						{
-							if (!g_bLockdownVoteMenu)
-							{
-								g_bLockdownVoted = false;
-								g_bLockdownVoteMenu = true;
-								vLockdownVoteMenu();
-							}
-						}
+						vLockdownOption(iDoorUser, iDoorEntity, false);
 					}
-				}
-				else
-				{
-					vLockdownOption(iDoorUser, iDoorEntity, false);
 				}
 			}
 		}
@@ -780,126 +783,129 @@ public Action eEventEPlayerUse(Event event, const char[] name, bool dontBroadcas
 	}
 	if (((bIsSurvivor(iDoorUser) && g_cvASSCountBots.BoolValue) || (bIsHumanSurvivor(iDoorUser) && !g_cvASSCountBots.BoolValue)) && g_cvASSEnable.BoolValue && g_cvASSSaferoomEnable.BoolValue && IsValidEntity(iDoorEntity) && g_bDoorLocked2[iDoorEntity])
 	{
-		GetEntityClassname(iDoorEntity, g_sPropName, sizeof(g_sPropName));
-		if (StrEqual(g_sPropName, "prop_door_rotating_checkpoint", false))
+		if (iDoorEntity != g_iDoorId)
 		{
-			if (bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
+			GetEntityClassname(iDoorEntity, g_sPropName, sizeof(g_sPropName));
+			if (StrEqual(g_sPropName, "prop_door_rotating_checkpoint", false))
 			{
-				if (g_cvASSTankAlive.BoolValue && !g_bBossSpawned)
+				if (bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
 				{
-					if (iGetTankCount() > 0)
+					if (g_cvASSTankAlive.BoolValue && !g_bBossSpawned)
 					{
-						EmitSoundToAll("doors/latchlocked2.wav", iDoorEntity);
-						if (bIsHumanSurvivor(iDoorUser))
+						if (iGetTankCount() > 0)
 						{
-							bHasTranslationFile() ? PrintHintText(iDoorUser, "%s %t", ASS_PREFIX, "TankAlive") : PrintHintText(iDoorUser, "%s There is a Tank alive.", ASS_PREFIX);
-						}
-						return Plugin_Continue;
-					}
-				}
-				else if (!g_cvASSTankAlive.BoolValue && !g_bBossSpawned)
-				{
-					vEDoorControl(iDoorEntity, false);
-					return Plugin_Continue;
-				}
-				AcceptEntityInput(iDoorEntity, "Lock");
-				SetEntProp(iDoorEntity, Prop_Data, "m_hasUnlockSequence", 1);
-				if (!g_bBossStarted && !g_bFilterStarted && !g_bGroupStarted && !g_bKeymanStarted && !g_bLockdownStarted2)
-				{
-					if (IsVoteInProgress())
-					{
-						if (bIsHumanSurvivor(iDoorUser))
-						{
-							PrintToChat(iDoorUser, "%s %t", ASS_PREFIX01, "Vote in Progress");
-						}
-						return Plugin_Continue;
-					}
-					if (g_bNull[iDoorUser] || (g_cvASSAdminImmunity.BoolValue && bIsAdminAllowed(iDoorUser)) || (g_cvASSCountBots.BoolValue && bIsBotSurvivor(iDoorUser)))
-					{
-						vNoneOption(iDoorEntity, true);
-						if (g_cvASSAutoMode.BoolValue)
-						{
-							g_bBFGKLVoted = false;
-							g_bBFGKLVoteMenu = true;
-						}
-					}
-					else
-					{
-						char sLetters = g_sSaferoomOption[GetRandomInt(0, strlen(g_sSaferoomOption) - 1)];
-						if (g_cvASSAutoMode.BoolValue)
-						{
-							switch (sLetters)
+							EmitSoundToAll("doors/latchlocked2.wav", iDoorEntity);
+							if (bIsHumanSurvivor(iDoorUser))
 							{
-								case 'B', 'b':
-								{
-									if (!g_bBossStarted)
-									{
-										g_bBossStarted = true;
-									}
-								}
-								case 'F', 'f':
-								{
-									if (!g_bFilterStarted)
-									{
-										g_bFilterStarted = true;
-									}
-								}
-								case 'G', 'g':
-								{
-									if (!g_bGroupStarted)
-									{
-										g_bGroupStarted = true;
-									}
-								}
-								case 'K', 'k':
-								{
-									if (!g_bKeymanStarted)
-									{
-										g_bKeymanStarted = true;
-									}
-								}
-								case 'L', 'l':
-								{
-									if (!g_bLockdownStarted2)
-									{
-										g_bLockdownStarted2 = true;
-									}
-								}
-								default: vNoneOption(iDoorEntity, true);
+								bHasTranslationFile() ? PrintHintText(iDoorUser, "%s %t", ASS_PREFIX, "TankAlive") : PrintHintText(iDoorUser, "%s There is a Tank alive.", ASS_PREFIX);
+							}
+							return Plugin_Continue;
+						}
+					}
+					else if (!g_cvASSTankAlive.BoolValue && !g_bBossSpawned)
+					{
+						vEDoorControl(iDoorEntity, false);
+						return Plugin_Continue;
+					}
+					AcceptEntityInput(iDoorEntity, "Lock");
+					SetEntProp(iDoorEntity, Prop_Data, "m_hasUnlockSequence", 1);
+					if (!g_bBossStarted && !g_bFilterStarted && !g_bGroupStarted && !g_bKeymanStarted && !g_bLockdownStarted2)
+					{
+						if (IsVoteInProgress())
+						{
+							if (bIsHumanSurvivor(iDoorUser))
+							{
+								PrintToChat(iDoorUser, "%s %t", ASS_PREFIX01, "Vote in Progress");
+							}
+							return Plugin_Continue;
+						}
+						if (g_bNull[iDoorUser] || (g_cvASSAdminImmunity.BoolValue && bIsAdminAllowed(iDoorUser)) || (g_cvASSCountBots.BoolValue && bIsBotSurvivor(iDoorUser)))
+						{
+							vNoneOption(iDoorEntity, true);
+							if (g_cvASSAutoMode.BoolValue)
+							{
+								g_bBFGKLVoted = false;
+								g_bBFGKLVoteMenu = true;
 							}
 						}
 						else
 						{
-							if (!g_bBFGKLVoteMenu)
+							char sLetters = g_sSaferoomOption[GetRandomInt(0, strlen(g_sSaferoomOption) - 1)];
+							if (g_cvASSAutoMode.BoolValue)
 							{
-								g_bBFGKLVoted = false;
-								g_bBFGKLVoteMenu = true;
-								vBFGKLVoteMenu();
+								switch (sLetters)
+								{
+									case 'B', 'b':
+									{
+										if (!g_bBossStarted)
+										{
+											g_bBossStarted = true;
+										}
+									}
+									case 'F', 'f':
+									{
+										if (!g_bFilterStarted)
+										{
+											g_bFilterStarted = true;
+										}
+									}
+									case 'G', 'g':
+									{
+										if (!g_bGroupStarted)
+										{
+											g_bGroupStarted = true;
+										}
+									}
+									case 'K', 'k':
+									{
+										if (!g_bKeymanStarted)
+										{
+											g_bKeymanStarted = true;
+										}
+									}
+									case 'L', 'l':
+									{
+										if (!g_bLockdownStarted2)
+										{
+											g_bLockdownStarted2 = true;
+										}
+									}
+									default: vNoneOption(iDoorEntity, true);
+								}
+							}
+							else
+							{
+								if (!g_bBFGKLVoteMenu)
+								{
+									g_bBFGKLVoted = false;
+									g_bBFGKLVoteMenu = true;
+									vBFGKLVoteMenu();
+								}
 							}
 						}
 					}
-				}
-				else
-				{
-					if (g_bBossStarted)
+					else
 					{
-						vBossOption(iDoorUser, iDoorEntity);
-					}
-					if (g_bFilterStarted)
-					{
-						vFilterOption(iDoorUser, iDoorEntity);
-					}
-					if (g_bGroupStarted)
-					{
-						vGroupOption(iDoorUser, iDoorEntity);
-					}
-					if (g_bKeymanStarted)
-					{
-						vKeymanOption(iDoorUser, iDoorEntity);
-					}
-					if (g_bLockdownStarted2)
-					{
-						vLockdownOption(iDoorUser, iDoorEntity, true);
+						if (g_bBossStarted)
+						{
+							vBossOption(iDoorUser, iDoorEntity);
+						}
+						if (g_bFilterStarted)
+						{
+							vFilterOption(iDoorUser, iDoorEntity);
+						}
+						if (g_bGroupStarted)
+						{
+							vGroupOption(iDoorUser, iDoorEntity);
+						}
+						if (g_bKeymanStarted)
+						{
+							vKeymanOption(iDoorUser, iDoorEntity);
+						}
+						if (g_bLockdownStarted2)
+						{
+							vLockdownOption(iDoorUser, iDoorEntity, true);
+						}
 					}
 				}
 			}
@@ -912,8 +918,6 @@ public Action eEventRoundStart(Event event, const char[] name, bool dontBroadcas
 {
 	if (g_cvASSEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
 	{
-		g_iDoorId = -1;
-		g_iDoorId2 = -1;
 		vResetVoteCounts();
 		g_cvASSSaferoomSystemOptions.GetString(g_sSaferoomOption, sizeof(g_sSaferoomOption));
 		g_cvASSLockdownDoorType.GetString(g_sLockdownType, sizeof(g_sLockdownType));
@@ -950,8 +954,6 @@ public Action eEventRoundEnd(Event event, const char[] name, bool dontBroadcast)
 {
 	if (g_cvASSEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
 	{
-		g_iDoorId = -1;
-		g_iDoorId2 = -1;
 		g_cvASSSaferoomSystemOptions.GetString(g_sSaferoomOption, sizeof(g_sSaferoomOption));
 		if (g_cvASSSaferoomEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes) && !bIsFinaleMap() && !bIsBuggedMap() && StrContains(g_sSaferoomOption, "k", false) != -1)
 		{
