@@ -62,7 +62,7 @@ public Action cmdASSExplode(int client, int args)
 	}
 	else if (args > 3)
 	{
-		ReplyToCommand(client, "%s Usage: ass_explode <optional - #userid|name> <optional - radius> <optional - power>", ASS_PREFIX01);
+		ReplyToCommand(client, "%s Usage: ass_explode <#userid|name> <radius> <power>", ASS_PREFIX01);
 		return Plugin_Handled;
 	}
 	char sTarget[32];
