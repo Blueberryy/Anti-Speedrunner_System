@@ -59,7 +59,7 @@ public Action cmdASSFreeze(int client, int args)
 	}
 	else if (toggle > 1 || args > 2)
 	{
-		ReplyToCommand(client, "%s Usage: ass_freeze <optional - #userid|name> <optional - 0: off|1: on>", ASS_PREFIX01);
+		ReplyToCommand(client, "%s Usage: ass_freeze <#userid|name> <0: off|1: on>", ASS_PREFIX01);
 		return Plugin_Handled;
 	}
 	char sTarget[32];
