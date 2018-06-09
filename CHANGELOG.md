@@ -1,5 +1,15 @@
 # Changelog
 
+## Version 29.10 (June 9, 2018)
+
+1. Bug fixes:
+
+- Fixed the ass_hurt command not allowing the 2nd parameter/argument to pass through as "0".
+
+2. Changes:
+
+- Edited all the usage messages to omit the "optional - " tag for each parameter/argument.
+
 ## Version 29.9 (June 9, 2018)
 
 1. Bug fixes:
