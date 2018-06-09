@@ -59,7 +59,7 @@ public Action cmdASSChase(int client, int args)
 	}
 	else if (type > 4 || args > 2)
 	{
-		ReplyToCommand(client, "%s Usage: ass_chase <optional - #userid|name> <optional - 1: hunter|2: smoker|3: jockey|4: charger>", ASS_PREFIX01);
+		ReplyToCommand(client, "%s Usage: ass_chase <#userid|name> <1: hunter|2: smoker|3: jockey|4: charger>", ASS_PREFIX01);
 		return Plugin_Handled;
 	}
 	char sTarget[32];
