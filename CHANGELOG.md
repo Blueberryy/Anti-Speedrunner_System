@@ -1,5 +1,19 @@
 # Changelog
 
+## Version 29.9 (June 9, 2018)
+
+1. Bug fixes:
+
+- Fixed the Saferoom vote menu always returning the "None" option.
+
+2. New features:
+
+- Added the ability to lock/unlock convar values temporarily until server ends or restarts.
+
+3. Chages:
+
+- Stopped mobs from spawning during the starting saferoom door's lockdown.
+
 ## Version 29.8 (June 8, 2018)
 
 1. Bug fixes:
