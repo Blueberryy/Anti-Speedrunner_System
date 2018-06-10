@@ -1,5 +1,22 @@
 # Changelog
 
+## Version 29.22 (June 10, 2018)
+
+1. Changes:
+
+- Renamed the ass_distancelimit convar to assstrike_distancelimit.
+- Renamed the ass_distancewarning convar to assstrike_distancewarning.
+- Renamed the assstrike_limit convar to assstrike_strikelimit.
+- Optimized code by removing unnecessary ConVar declarations.
+- Optimized code by shortening or getting rid of redundancies.
+- Optimized code by removing unnecessary checks.
+- Added minimum and maximum values to various convars.
+
+2. Files:
+
+- Updated autoconfig file.
+- Updated include file.
+
 ## Version 29.21 (June 10, 2018)
 
 1. Bug fixes:
