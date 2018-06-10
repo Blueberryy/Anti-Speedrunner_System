@@ -860,7 +860,7 @@ public int iPlayerMenuHandler(Menu menu, MenuAction action, int param1, int para
 				}
 				if (g_bIncapMenu[param1])
 				{
-					!g_bIncap[iTarget] ? vIncapSpeedrunners(iTarget, param1, 1, true, 500.0, 1) : vIncapSpeedrunners(iTarget, param1, 0);
+					!g_bIncap[iTarget] ? vIncapSpeedrunners(iTarget, param1, 1, true, 1) : vIncapSpeedrunners(iTarget, param1, 0);
 					ShowActivity2(param1, ASS_PREFIX2, "Used \"ass_incap\" on %N.", iTarget);
 				}
 				if (g_bInvertMenu[param1])
@@ -900,7 +900,7 @@ public int iPlayerMenuHandler(Menu menu, MenuAction action, int param1, int para
 				}
 				if (g_bShakeMenu[param1])
 				{
-					!g_bShake[iTarget] ? vShakeSpeedrunners(iTarget, param1, 1, true, 5.0, 1) : vShakeSpeedrunners(iTarget, param1, 0);
+					!g_bShake[iTarget] ? vShakeSpeedrunners(iTarget, param1, 1, true, 1) : vShakeSpeedrunners(iTarget, param1, 0);
 					ShowActivity2(param1, ASS_PREFIX2, "Used \"ass_shake\" on %N.", iTarget);
 				}
 				if (g_bShockMenu[param1])
@@ -1725,7 +1725,7 @@ bool bSelectTarget(const char[] targetname, int client, int toggle = 0, int cell
 		}
 		if (g_bExplodeMenu[client])
 		{
-			vExplodeSpeedrunners(g_iTargets[0], client, true, cell1, cell2);
+			vExplodeSpeedrunners(g_iTargets[0], client);
 			ShowActivity2(client, ASS_PREFIX2, "Used \"ass_explode\" on %N.", g_iTargets[0]);
 		}
 		if (g_bFireMenu[client])
@@ -1755,7 +1755,7 @@ bool bSelectTarget(const char[] targetname, int client, int toggle = 0, int cell
 		}
 		if (g_bIncapMenu[client])
 		{
-			vIncapSpeedrunners(g_iTargets[0], client, toggle, true, value1, cell1);
+			vIncapSpeedrunners(g_iTargets[0], client, toggle, true, cell1);
 			ShowActivity2(client, ASS_PREFIX2, "Used \"ass_incap\" on %N.", g_iTargets[0]);
 		}
 		if (g_bInvertMenu[client])
@@ -1795,7 +1795,7 @@ bool bSelectTarget(const char[] targetname, int client, int toggle = 0, int cell
 		}
 		if (g_bShakeMenu[client])
 		{
-			vShakeSpeedrunners(g_iTargets[0], client, toggle, true, value1, cell1);
+			vShakeSpeedrunners(g_iTargets[0], client, toggle, true, cell1);
 			ShowActivity2(client, ASS_PREFIX2, "Used \"ass_shake\" on %N.", g_iTargets[0]);
 		}
 		if (g_bShockMenu[client])
@@ -1916,7 +1916,7 @@ public int iSelectTargetHandler(Menu menu, MenuAction action, int param1, int pa
 				}
 				if (g_bExplodeMenu[param1])
 				{
-					vExplodeSpeedrunners(iTarget, param1, true, g_iCell1[iTarget], g_iCell2[iTarget]);
+					vExplodeSpeedrunners(iTarget, param1);
 					ShowActivity2(param1, ASS_PREFIX2, "Used \"ass_explode\" on %N.", iTarget);
 				}
 				if (g_bFireMenu[param1])
@@ -1946,7 +1946,7 @@ public int iSelectTargetHandler(Menu menu, MenuAction action, int param1, int pa
 				}
 				if (g_bIncapMenu[param1])
 				{
-					!g_bIncap[iTarget] ? vIncapSpeedrunners(iTarget, param1, 1, true, g_flFloat1[iTarget], g_iCell1[iTarget]) : vIncapSpeedrunners(iTarget, param1, 0, true, g_flFloat1[iTarget], g_iCell1[iTarget]);
+					!g_bIncap[iTarget] ? vIncapSpeedrunners(iTarget, param1, 1, true, g_iCell1[iTarget]) : vIncapSpeedrunners(iTarget, param1, 0, true, g_iCell1[iTarget]);
 					ShowActivity2(param1, ASS_PREFIX2, "Used \"ass_incap\" on %N.", iTarget);
 				}
 				if (g_bInvertMenu[param1])
@@ -1986,7 +1986,7 @@ public int iSelectTargetHandler(Menu menu, MenuAction action, int param1, int pa
 				}
 				if (g_bShakeMenu[param1])
 				{
-					!g_bShake[iTarget] ? vShakeSpeedrunners(iTarget, param1, 1, true, g_flFloat1[iTarget], g_iCell1[iTarget]) : vShakeSpeedrunners(iTarget, param1, 0, true, g_flFloat1[iTarget], g_iCell1[iTarget]);
+					!g_bShake[iTarget] ? vShakeSpeedrunners(iTarget, param1, 1, true, g_iCell1[iTarget]) : vShakeSpeedrunners(iTarget, param1, 0, true, g_iCell1[iTarget]);
 					ShowActivity2(param1, ASS_PREFIX2, "Used \"ass_shake\" on %N.", iTarget);
 				}
 				if (g_bShockMenu[param1])

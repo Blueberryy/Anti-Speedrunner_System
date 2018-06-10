@@ -275,7 +275,7 @@ Usage: ass_entry
 ass_exile		Ban (d)		Exile a player for speedrunning.
 Usage: ass_exile <#userid|name> <0: kick|1: ban> <duration >= 1>
 ass_explode		Slay (f)	Cause an explosion on a player for speedrunning.
-Usage: ass_explode <#userid|name> <radius> <power>
+Usage: ass_explode <#userid|name>
 ass_fire		Kick (c)	Set a player on fire for speedrunning.
 Usage: ass_fire <#userid|name> <0: off|1: on> <0: once|1: repeat>
 ass_freeze		Kick (c)	Freeze a player for speedrunning.
@@ -287,7 +287,7 @@ Usage: ass_hurt <#userid|name> <0: off|1: on> <damage >= 0> <0: once|1: repeat>
 ass_idle		Slay (f)	Force a player to go idle for speedrunning.
 Usage: ass_idle <#userid|name>
 ass_incap		Kick (c)	Incapacitate a player for speedrunning.
-Usage: ass_incap <#userid|name> <0: off|1: on> <radius> <0: once|1: repeat>
+Usage: ass_incap <#userid|name> <0: off|1: on> <0: once|1: repeat>
 ass_invert		Kick (c)	Invert a player's movement keys for speedrunning.
 Usage: ass_invert <#userid|name> <0: off|1: on>
 ass_key			Kick (c)	Choose a new Keyman.
@@ -305,13 +305,13 @@ Usage: ass_rocket <#userid|name> <launch delay> <detonation delay>
 ass_room		Root (z)	Manually set the entry method for ending saferoom doors.
 Usage: ass_room <0: none|1: boss|2: filter|3: group|4: keyman|5: lockdown>
 ass_shake		Kick (c)	Shake a player's screen for speedrunning.
-Usage: ass_shake <#userid|name> <0: off|1: on> <duration >= 0.1> <0: once|1: repeat>
+Usage: ass_shake <#userid|name> <0: off|1: on> <0: once|1: repeat>
 ass_shock		Slay (f)	Shock a player for speedrunning.
 Usage: ass_shock <#userid|name>
 ass_shove		Kick (c)	Shove a player for speedrunning.
 Usage: ass_shove <#userid|name> <0: off|1: on> <0: once|1: repeat>
 ass_slow		Kick (c)	Slow a player down for speedrunning.
-Usage: ass_slow <#userid|name> <0: off|1: on> <speed >= 0.1>
+Usage: ass_slow <#userid|name> <0: off|1: on> <speed <= 0.99>
 ass_strike		Root (z)	Give a player a strike for speedrunning.
 Usage: ass_strike <#userid|name> <amount >= 1>
 ass_vision		Kick (c)	Change a player's vision for speedrunning.
@@ -1043,8 +1043,6 @@ ass_exile @me 0 // Kick yourself for speedrunning.
 ass_exile @me or ass_exile // Open a menu with a list of options to select from.
 
 // ass_explode
-ass_explode @me 300 300 // Cause an explosion on yourself with a radius of 300 and a power of 300.
-ass_explode @me 300 // Cause an explosion on yourself with a radius of 300 and a power of 500.
 ass_explode @me // Cause an explosion on yourself.
 ass_explode // Open a menu with a list of players to select from.
 
@@ -1113,8 +1111,7 @@ ass_room 4 // Set the ending saferoom door's method to the Keyman option.
 ass_room // Open a menu with a list of Saferoom system options to select from.
 
 // ass_shake
-ass_shake @me 1 10 1 // Shake your screen every 10 seconds.
-ass_shake @me 1 10 // Shake your screen once for 10 seconds.
+ass_shake @me 1 1 // Shake your screen every 5 seconds.
 ass_shake @me 1 // Shake your screen once for 5 seconds.
 ass_shake @me or ass_shake // Open a menu with a list of players to select from.
 
@@ -1128,8 +1125,8 @@ ass_shove @me 1 // Shove yourself once.
 ass_shove @me or ass_shove // Open a menu with a list of players to select from.
 
 // ass_slow
-ass_slow @me 1 0.1 // Set your run speed to 0.1.
-ass_slow @me 1 // Set your run speed to 0.25.
+ass_slow @me 1 0.15 // Set your run speed to 0.15.
+ass_slow @me 1 // Set your run speed to whatever value is defined in assslow_runspeed.
 ass_slow @me or ass_slow // Open a menu with a list of players to select from.
 
 // ass_strike

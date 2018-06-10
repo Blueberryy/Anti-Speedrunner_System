@@ -58,9 +58,9 @@ public Action cmdASSSlow(int client, int args)
 		}
 		return Plugin_Handled;
 	}
-	else if (toggle > 1 || args > 3)
+	else if (speed > 0.99 || toggle > 1 || args > 3)
 	{
-		ReplyToCommand(client, "%s Usage: ass_slow <#userid|name> <0: off|1: on> <speed >= 0.1>", ASS_PREFIX01);
+		ReplyToCommand(client, "%s Usage: ass_slow <#userid|name> <0: off|1: on> <speed <= 0.99>", ASS_PREFIX01);
 		return Plugin_Handled;
 	}
 	char sTarget[32];
