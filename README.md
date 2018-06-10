@@ -142,7 +142,9 @@ Drugs a player.
 
 - Exile
 ```
-Mode 0: Kicks a player with the following reason:
+Mode 0: Kicks a player:
+
+Message to player:
 
 "You have been kicked for passing the distance limit many times"
 
@@ -822,7 +824,6 @@ The Anti-Speedrunner System has features that allow for creating and executing c
 > Any convars written inside these custom config files will be executed. These files are only created/executed by the A.S.S.
 
 By default, the A.S.S can create and execute the following types of configurations:
-
 1. Difficulty - Files are created/executed based on the current game difficulty. (Example: If the current z_difficulty is set to Impossible (Expert mode), then "impossible.cfg" is executed (or created if it doesn't exist already).
 2. Map - Files are created/executed based on the current map. (Example: If the current map is c1m1_hotel, then "c1m1_hotel.cfg" is executed (or created if it doesn't exist already).
 3. Game mode - Files are created/executed based on the current game mode. (Example: If the current game mode is Versus, then "versus.cfg" is executed (or created if it doesn't exist already).
@@ -837,6 +838,532 @@ By default, the A.S.S can create and execute the following types of configuratio
 5. Automatically generate config files for all game modes specified by sv_gametypes and mp_gamemode.
 6. Automatically generate config files for all days.
 7. Automatically generate config files for up to 66 players.
+
+## Questions You May Have
+> If you have any questions that aren't addressed below, feel free to message me or post on this [thread](https://forums.alliedmods.net/showthread.php?t=302868).
+
+### Main Features
+1. How do I enable admin immunity for certain flags?
+
+By default, anyone with the generic admin flag (b) can be given immunity with the ass_adminimmunity convar. Alternatively, you can give an admin flag access to the ass_override command so that only anyone with that flag can get immunity. Either way, ass_adminimmunity must be enabled for the immunity to work.
+
+2. What is automatic mode?
+
+Automatic mode is basically a feature that allows the plugin to work on its own without having to use commands or menus to control it. The system will have a mind of its own in a way.
+
+3. Why can't I use the admin commands in chat during automatic mode?
+
+This is a default feature so that any commands that admins use on players will not affect the system when it's doing its job. Even if you use the commands through the admin menu, automatic mode will disable the the effects if it detects that the player affected hasn't passed the distance limit.
+
+4. What is the ass_countbots convar for?
+
+The convar tells the plugin whether or not to punish bots as if they were real players. If it's turned off, then the system completely ignores them. If it's turned on, then the system will treat them like actual players and will punish them if they do anything that the system disapproves of.
+
+5. How do I enable/disable the plugin in certain game modes?
+
+There are 2 sets of convars that need to be addressed.
+
+The asssaferoom_enabledgamemodes and asssaferoom_disabledgamemodes only apply to the Saferoom system since they act differently from the rest of the plugin's features.
+
+The ass_enabledgamemodes and ass_disabledgamemodes apply to the whole plugin.
+
+Here are some scenarios and their outcomes:
+- Scenario 1
+```
+ass_enabledgamemodes "" // The plugin itself is enabled in all game modes.
+asssaferoom_enabledgamemodes "coop" // The Saferoom system is only enabled in Campaign mode.
+
+Outcome: The plugin works in every game mode but the Saferoom system will automatically shut off if the game mode isn't Campaign mode.
+```
+- Scenario 2
+```
+ass_enabledgamemodes "versus" // The plugin itself is enabled in only Versus mode.
+asssaferoom_enabledgamemodes "coop" // The Saferoom system is only enabled in Campaign mode.
+
+Outcome: The plugin works only in Versus mode so the game mode specified for the Saferoom system wouldn't matter.
+```
+- Scenario 3
+```
+ass_enabledgamemodes "coop,versus" // The plugin itself is enabled in only Versus mode.
+asssaferoom_enabledgamemodes "coop" // The Saferoom system is only enabled in Campaign mode.
+
+Outcome: The plugin works only in Campaign and Versus modes but the Saferoom system will automatically shut off if the game mode isn't Campaign mode.
+```
+
+6. What is the ass_distancelimit convar for?
+
+The convar determines how far a survivor can be from his/her teammates before he/she is punished. It should be higher than the value of ass_distancewarning.
+
+7. What is the ass_distancewarning convar for?
+
+The convar determines how far a survivor can be from his/her teammates before he/she is warned to go back. It should be lower than the value of ass_distancelimit.
+
+8. How does the failsafe function work?
+
+The failsafe function basically detects when the system is needed.
+
+If the amount of incapacitated survivors detected matches or exceeds the value defined by the ass_incapacitatedcount convar, then the plugin disables itself.
+
+If the amount of able/revived survivors detected matches or exceeds the value defined by the ass_revivedcount convar, then the plugin re-enables itself.
+
+9. How do I stop the plugin from enabling/disabling itself?
+
+Set ass_failsafe to 0.
+
+10. What is the ass_logcommands convar for?
+
+It basically decides if the plugin should log every command usage.
+
+11. How do I automatically disable everything on finale maps?
+
+Set ass_nofinales to 1.
+
+12. How does the plugin work during Tank fights?
+
+If you don't want the plugin to interfere with the gameplay during Tank fights, then set ass_tankalive to 0. Otherwise, set it to 1.
+
+### Commands
+
+1. Can you go into more detail how each command can be used?
+I'll just show examples for how to use each command.
+
+```
+// ass_acid
+ass_acid @me 1 1 // Spawn acid puddles under yourself every 7 seconds.
+ass_acid @me 1 // Spawn an acid puddle under yourself once.
+ass_acid @me or ass_acid // Open a menu with a list of players to select from.
+
+// ass_ammo
+ass_ammo @me 1 0 1 // Set your ammo count to 0 continuously.
+ass_ammo @me 1 7 // Set your ammo count to 7 once.
+ass_ammo @me 1 // Set your ammo count to 0 once.
+ass_ammo @me or ass_ammo // Open a menu with a list of players to select from.
+
+// ass_blind
+ass_blind @me 1 // Blind yourself.
+ass_blind @me or ass_blind // Open a menu with a list of players to select from.
+
+// ass_charge
+ass_charge @me 1 1 // Charge at yourself every 5 seconds.
+ass_charge @me 1 // Charge at yourself once.
+ass_charge @me or ass_charge // Open a menu with a list of players to select from.
+
+// ass_chase
+ass_chase @me 3 // Spawn a Jockey behind yourself to chase you.
+ass_chase @me // Pick a random special infected defined in asschase_infectedtype to spawn behind yourself to chase you.
+ass_chase // Open a menu with a list of players to select from.
+
+// ass_check
+ass_check @me 1 1 // Run a continuous timer to check if you're speedrunning.
+ass_check @me 1 // Check if you're speedrunning once.
+ass_check @me or ass_check // Open a menu with a list of players to select from.
+
+// ass_config
+ass_config 0 1 // Create a map config.
+ass_config 1 or ass_config // Open a menu with a list of options to select from.
+
+// ass_disarm
+ass_disarm @me 1 3 1 // Disarm your 3rd weapon slot continuously.
+ass_disarm @me 1 2 // Disarm your 2nd weapon slot once.
+ass_disarm @me 1 // Disarm all your weapon slots once.
+ass_disarm @me or ass_disarm // Open a menu with a list of players to select from.
+
+// ass_door
+ass_door 0 1 // Lock the starting saferoom door.
+ass_door 1 or ass_door // Open a menu with a list of options to select from.
+
+// ass_drug
+ass_drug @me 1 // Drug yourself.
+ass_drug @me or ass_drug // Open a menu with a list of players to select from.
+
+// ass_entry
+ass_entry // Warp all survivors to the saferoom.
+
+// ass_exile
+ass_exile @me 1 60 // Ban yourself for 60 minutes or 1 hour for speedrunning.
+ass_exile @me 0 // Kick yourself for speedrunning.
+ass_exile @me or ass_exile // Open a menu with a list of options to select from.
+
+// ass_explode
+ass_explode @me 300 300 // Cause an explosion on yourself with a radius of 300 and a power of 300.
+ass_explode @me 300 // Cause an explosion on yourself with a radius of 300 and a power of 500.
+ass_explode @me // Cause an explosion on yourself.
+ass_explode // Open a menu with a list of players to select from.
+
+// ass_fire
+ass_fire @me 1 1 // Set yourself on fire continuously.
+ass_fire @me 1 // Burn yourself once.
+ass_fire @me or ass_fire // Open a menu with a list of players to select from.
+
+// ass_freeze
+ass_freeze @me 1 // Freeze yourself.
+ass_freeze @me or ass_freeze // Open a menu with a list of players to select from.
+
+// ass_heal
+ass_heal @me // Set yourself to black and white and give yourself temporary health.
+ass_heal // Open a menu with a list of players to select from.
+
+// ass_hurt
+ass_hurt @me 1 1 1 // Hurt yourself with 1 damage continuously.
+ass_hurt @me 1 1 // Hurt yourself with 1 damage once.
+ass_hurt @me 1 // Hurt yourself with whatever damage is defined in asshurt_damageamount.
+ass_hurt @me // Open a menu with a list of players to select from.
+
+// ass_idle
+ass_idle @me // Set yourself to idle.
+ass_idle // Open a menu with a list of players to select from.
+
+// ass_incap
+ass_incap @me 1 1 // Incapacitate yourself continuously.
+ass_incap @me 1 // Incpacitate yourself once.
+ass_incap @me or ass_incap // Open a menu with a list of players to select from.
+
+// ass_invert
+ass_invert @me 1 //Invert your movement keys.
+ass_invert @me or ass_invert // Open a menu with a list of players to select from.
+
+// ass_key
+ass_key @me 1 // Mark yourself as a Keyman.
+ass_key @me or ass_key // Open a menu with a list of players to select from.
+
+// ass_mirror
+ass_mirror @me 1 // Mirror your own damage.
+ass_mirror @me or ass_mirror // Open a menu with a list of players to select from.
+
+// ass_null
+ass_null @me 1 // Give yourself player immunity.
+ass_null @me or ass_null // Open a menu with a list of players to select from.
+
+// ass_puke
+ass_puke @me 1 1 // Puke on yourself every 5 seconds.
+ass_puke @me 1 // Puke on yourself once.
+ass_puke @me or ass_puke // Open a menu with a list of players to select from.
+
+// ass_restart
+ass_restart @me "smg" // Restart yourself at the spawn area with an SMG.
+ass_restart @me // Restart yourself at the spawn area with the loadout defined in assrestart_loadout.
+ass_restart // Open a menu with a list of players to select from.
+
+// ass_rocket
+ass_rocket @me 3.0 4.5 // Launch yourself into space after 3.0 seconds and detonate yourself 1.5 seconds later.
+ass_rocket @me 3.0 // Launch yourself into space after 3.0 seconds and detonate yourself 0.5 seconds later.
+ass_rocket @me // Launch yourself into space after 2.0 seconds and detonate yourself 1.5 seconds later.
+ass_rocket // Open a menu with a list of players to select from.
+
+// ass_room
+ass_room 4 // Set the ending saferoom door's method to the Keyman option.
+ass_room // Open a menu with a list of Saferoom system options to select from.
+
+// ass_shake
+ass_shake @me 1 10 1 // Shake your screen every 10 seconds.
+ass_shake @me 1 10 // Shake your screen once for 10 seconds.
+ass_shake @me 1 // Shake your screen once for 5 seconds.
+ass_shake @me or ass_shake // Open a menu with a list of players to select from.
+
+// ass_shock
+ass_shock @me // Shock yourself to death.
+ass_shock // Open a menu with a list of players to select from.
+
+// ass_shove
+ass_shove @me 1 1 // Shove yourself continuously.
+ass_shove @me 1 // Shove yourself once.
+ass_shove @me or ass_shove // Open a menu with a list of players to select from.
+
+// ass_slow
+ass_slow @me 1 0.1 // Set your run speed to 0.1.
+ass_slow @me 1 // Set your run speed to 0.25.
+ass_slow @me or ass_slow // Open a menu with a list of players to select from.
+
+// ass_strike
+ass_strike @me 4 // Give yourself 4 strikes.
+ass_strike @me // Give yourself a strike as long as you don't exceed the limit. Otherwise you get punished.
+ass_strike // Open a menu with a list of players to select from.
+
+// ass_vision
+ass_vision @me 1 100 1 // Set your field of view to 100 continuously.
+ass_vision @me 1 100 // Set your field of view to 100 once.
+ass_vision @me 1 // Set your field of view to 160 once.
+ass_vision @me or ass_vision // Open a menu with a list of players to select from.
+
+// ass_warp
+ass_warp @me // Warp yourself to the nearest teammate.
+ass_warp // Open a menu with a list of players to select from.
+```
+
+### Configuration
+1. How do I enable the custom configurations features?
+
+Set assconfig_enablesystem to 1.
+
+2. How do I tell the plugin to only create certain custom config files?
+
+Set the values in assconfig_createtype.
+
+Examples:
+```
+assconfig_createtype "123" // Creates the folders and config files for each difficulty, map, and game mode.
+assconfig_createtype "4" // Creates the folder and config files for each day.
+assconfig_createtype "12345" // Creates the folders and config files for each difficulty, map, game mode, day, and player count.
+```
+
+3. How do I tell the plugin to only execute certain custom config files?
+
+Set the values in assconfig_executetype.
+
+Examples:
+```
+assconfig_executetype "123" // Executes the config file for the current difficulty, map, and game mode.
+assconfig_executetype "4" // Executes the config file for the current day.
+assconfig_executetype "12345" // Executes the config file for the current difficulty, map, game mode, day, and player count.
+```
+
+4. How can I make the Daily configs execute during a certain time of the day?
+
+Set the time offset value in assconfig_timeoffset.
+
+Examples:
+```
+assconfig_timeoffset "+10" // Adds 10 hours to the server time.
+assconfig_timeoffset "-10" // Subtracts 10 hours to the server time.
+```
+
+### Saferoom system
+#### Main Features
+1. What is asssaferoom_entrymode for?
+
+It sets how the Saferoom system will let survivors into the saferoom. If set to 0, the door will remain locked and all survivors will be warped inside. If set to 1, the door will unlock and survivors can get in.
+
+2. What are the Saferoom system options?
+```
+1. Boss // Add "b" to asssaferoom_systemoptions to use.
+2. Filter // Add "f" to asssaferoom_systemoptions to use.
+3. Group // Add "g" to asssaferoom_systemoptions to use.
+4. Keyman // Add "k" to asssaferoom_systemoptions to use.
+5. Lockdown // Add "l" to asssaferoom_systemoptions to use.
+```
+
+3. How can I configure what options the Saferoom system will use.
+
+Set the values in asssaferoom_systemoptions.
+
+Examples:
+```
+asssaferoom_systemoptions "fkl" // Only Filter, Keyman, and Lockdown options will be used.
+asssaferoom_systemoptions "k" // Only Keyman option will be used.
+asssaferoom_systemoptions "lgb" // Only Boss, Group, and Lockdown options will be used.
+```
+
+4. What is the asssaferoom_warpcountdown for?
+
+It adds a delay to the warp function of the Saferoom system.
+
+Example:
+```
+asssaferoom_warpcountdown "60" // It takes 60 seconds or 1 minute before all survivors are warped inside the saferoom if asssaferoom_entrymode is set to 0.
+```
+
+#### Boss
+1. How does the Boss option work?
+
+If the Boss option is chosen, the plugin will spawn a Tank behind the player that initially touched the door. Once that Tank is killed, the door can be unlocked.
+
+2. What kind of bosses are there?
+
+For now, there's only the Tank as a boss. Future updates may include integration of my Super Tanks+ plugin. We'll see...
+
+#### Delay
+1. How does the Delay option work?
+
+- Saferoom doors move at a speed defined by assdelay_doorspeed.
+- Saferoom doors get a cooldown between rotations. The cooldown duration is defined by assdelay_doordelay.
+- Depending on the door type defined in assdelay_doortype, a saferoom door may or may not be affected.
+
+2. How do I reset the door speed back to default?
+
+Set the value of assdelay_doorspeed to 200.0.
+
+3. How do I stop players from spamming the doors to prevent other players from getting in or out of the saferoom?
+
+Set the cooldown value in assdelay_doordelay.
+
+#### Filter
+1. How does the Filter option work?
+
+If the Filter option is chosen, the plugin will check if the player touching the door has any strikes. If the player's number of strikes matches or exceeds the value defined in assstrike_limit, then the door remains locked. If the player's number of strikes is less than the value defined in assstrike_limit, then the door is unlocked.
+
+2. What if the whole survivor team matches or exceeds the strike limit?
+
+The saferoom door will automatically unlock when a player touches it.
+
+3. What is the assfilter_blockenable for?
+
+The convar gives you the option to punish players whose strike limit either matches or exceeds the value defined in assstrike_limit. The type of punishments that the Filter option can use is defined in assfilter_blockoptions.
+
+4. What is the assfilter_blockmode for?
+
+The convar tells the Filter option to either pick a random punishment or combine all the punishments together. The punishments should be defined in assfilter_blockoptions.
+
+5. What are the options available for assfilter_blockoptions?
+
+```
+1. Acidity // Add "w" to assfilter_blockoptions to use.
+2. Ammunition // Add "j" to assfilter_blockoptions to use.
+3. Blindness // Add "c" to assfilter_blockoptions to use.
+4. Charge // Add "x" to assfilter_blockoptions to use.
+5. Chase // Add "v" to assfilter_blockoptions to use.
+6. Disarmament // Add "k" to assfilter_blockoptions to use.
+7. Drug // Add "b" to assfilter_blockoptions to use.
+8. Exile // Add "z" to assfilter_blockoptions to use.
+9. Explosion // Add "t" to assfilter_blockoptions to use.
+10. Fire // Add "n" to assfilter_blockoptions to use.
+11. Freeze // Add "f" to assfilter_blockoptions to use.
+12. Health // Add "o" to assfilter_blockoptions to use.
+13. Hurt // Add "l" to assfilter_blockoptions to use.
+14. Idle // Add "y" to assfilter_blockoptions to use.
+15. Incapacitation // Add "q" to assfilter_blockoptions to use.
+16. Inversion // Add "g" to assfilter_blockoptions to use.
+17. Mirror // Add "m" to assfilter_blockoptions to use.
+18. Puke // Add "u" to assfilter_blockoptions to use.
+19. Restart // Add "h" to assfilter_blockoptions to use.
+20. Rocket // Add "r" to assfilter_blockoptions to use.
+21. Shake // Add "e" to assfilter_blockoptions to use.
+22. Shock // Add "s" to assfilter_blockoptions to use.
+23. Shove // Add "d" to assfilter_blockoptions to use.
+24. Slow // Add "a" to assfilter_blockoptions to use.
+25. Vision // Add "p" to assfilter_blockoptions to use.
+26. Warp // Add "i" to assfilter_blockoptions to use.
+```
+
+#### Group
+1. How does the Group option work?
+
+If the Group option is chosen, the plugin will check how many survivors are near the saferoom door when a player touches it. If the number of nearby survivors matches or exceeds the value defined in assgroup_survivorcount, then the door will unlock. Otherwise, the door will remain locked.
+
+2. What is the assgroup_groupdistance for?
+
+The convar determines how close survivors have to be to the saferoom door to be counted towards assgroup_survivorcount.
+
+3. What if there aren't enough survivors alive to meet the requirement?
+
+The saferoom door will automatically unlock when a player touches it.
+
+#### Keyman
+1. How does the Keyman option work?
+
+If the Keyman option is chosen, the plugin will assign a number of players to be Keymen. Only they will be allowed to unlock the door.
+
+2. How do I tell the plugin how many players can be a Keyman?
+
+Set the value in asskeyman_keymanamount.
+
+3. What is the asskeyman_countdown for?
+
+The convar determines how long after a non-Keyman player initially touches the door until a new set of Keymen are chosen. The countdown is canceled if a Keyman opens the door before it ends. This is a feature that prevents Keymen from trolling the team.
+
+4. What happens if all the Keymen are dead?
+
+Each time a Keyman dies, disconnects, goes AFK, or gets incapacitated, a new one is chosen.
+
+#### Lockdown
+1. How does the Lockdown option work?
+
+If the Lockdown option is chosen, the plugin will initiate a lockdown before a saferoom door can open.
+
+2. What is asslockdown_doortype for?
+
+The convar lets you decide which type of saferoom door can use the Lockdown option.
+
+3. How can I set the length of lockdowns?
+
+- For starting saferoom doors, set the value in asslockdown_countdown.
+- For ending saferoom doors, set the value in asslockdown_countdown2.
+
+4. What is asslockdown_spawnmobs for?
+
+The convar tells the plugin whether to spawn mobs during a lockdown or not. This feature only applies to ending saferoom doors.
+
+### Strike system
+#### Main Features
+1. What is assstrike_detectiondelay for?
+
+The convar determines how many seconds pass before the plugin checks for speedrunners.
+
+2. How can I set the strike limit that players can reach before being punished?
+
+Set the value in assstrike_limit.
+
+3. How can I disable the strike limit feature?
+
+Set assstrike_strikemode to 0.
+
+4. What is the assstrike_punishmode for?
+
+The convar tells the Strike system to either pick a random punishment or combine all the punishments together. The punishments should be defined in assstrike_systemoptions.
+
+5. What are the options available for assstrike_systemoptions?
+
+```
+1. Acidity // Add "w" to assstrike_systemoptions to use.
+2. Ammunition // Add "j" to assstrike_systemoptions to use.
+3. Blindness // Add "c" to assstrike_systemoptions to use.
+4. Charge // Add "x" to assstrike_systemoptions to use.
+5. Chase // Add "v" to assstrike_systemoptions to use.
+6. Disarmament // Add "k" to assstrike_systemoptions to use.
+7. Drug // Add "b" to assstrike_systemoptions to use.
+8. Exile // Add "z" to assstrike_systemoptions to use.
+9. Explosion // Add "t" to assstrike_systemoptions to use.
+10. Fire // Add "n" to assstrike_systemoptions to use.
+11. Freeze // Add "f" to assstrike_systemoptions to use.
+12. Health // Add "o" to assstrike_systemoptions to use.
+13. Hurt // Add "l" to assstrike_systemoptions to use.
+14. Idle // Add "y" to assstrike_systemoptions to use.
+15. Incapacitation // Add "q" to assstrike_systemoptions to use.
+16. Inversion // Add "g" to assstrike_systemoptions to use.
+17. Mirror // Add "m" to assstrike_systemoptions to use.
+18. Puke // Add "u" to assstrike_systemoptions to use.
+19. Restart // Add "h" to assstrike_systemoptions to use.
+20. Rocket // Add "r" to assstrike_systemoptions to use.
+21. Shake // Add "e" to assstrike_systemoptions to use.
+22. Shock // Add "s" to assstrike_systemoptions to use.
+23. Shove // Add "d" to assstrike_systemoptions to use.
+24. Slow // Add "a" to assstrike_systemoptions to use.
+25. Vision // Add "p" to assstrike_systemoptions to use.
+26. Warp // Add "i" to assstrike_systemoptions to use.
+```
+
+#### Chase
+1. How can I decide which special infected goes after players?
+
+Set the values in asschase_infectedtype.
+
+#### Disarmament
+1. How can I decide which weapon slots are disarmed?
+
+Set the values in assdisarm_weaponslot.
+
+#### Exile
+1. How can I decide if a player is kicked or banned?
+
+Set the value in assexile_exilemode.
+
+2. How do I set the duration of the bans?
+
+Set the value in assexile_banduration.
+
+#### Hurt
+1. How can I decide how much damage players take per second?
+
+Set the value in asshurt_damageamount.
+
+#### Restart
+1. How can I decide what loadout players restart with?
+
+Set the loadout in assrestart_loadout.
+
+#### Slow
+1. How can I decide how slow players should be?
+
+Set the value in assslow_runspeed.
 
 ## Credits
 **ztar, Pescoxa, raziEil (disawar)** - For the [Anti-Runner System - REMAKE (Keyman system)](https://forums.alliedmods.net/showthread.php?p=2552450#post2552450).

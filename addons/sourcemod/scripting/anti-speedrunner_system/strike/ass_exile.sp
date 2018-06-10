@@ -46,7 +46,7 @@ public Action cmdASSExile(int client, int args)
 	char arg2[32];
 	GetCmdArg(2, arg2, sizeof(arg2));
 	int toggle = StringToInt(arg2);
-	if (args < 1)
+	if (args <= 1)
 	{
 		if (IsVoteInProgress())
 		{

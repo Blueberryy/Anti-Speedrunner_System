@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 29.21 (June 10, 2018)
+
+1. Bug fixes:
+
+- Fixed the ass_exile command not showing a menu list of players when there's only 1 parameter/argument.
+
 ## Version 29.20 (June 10, 2018)
 
 1. Changes:
