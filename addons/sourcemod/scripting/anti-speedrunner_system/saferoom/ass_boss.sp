@@ -13,7 +13,7 @@ void vBossSettings()
 
 void vBossOption(int client, int entity)
 {
-	if (bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
+	if (bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
 	{
 		if (!g_bBossSpawned)
 		{

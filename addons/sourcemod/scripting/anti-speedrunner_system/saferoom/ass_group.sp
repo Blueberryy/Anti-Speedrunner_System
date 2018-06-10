@@ -12,8 +12,8 @@ int g_iSurvivorHumanCount = 0;
 
 void vGroupCvars()
 {
-	vCreateConVar(g_cvASSGroupDistance, "assgroup_groupdistance", "500.0", "Nearby survivors must be this close to ending saferoom doors.", _, true, 0.0, true, 99999.0);
-	vCreateConVar(g_cvASSGroupSurvivorCount, "assgroup_survivorcount", "3", "Amount of nearby survivors needed to operate ending saferom doors.");
+	vCreateConVar(g_cvASSGroupDistance, "assgroup_groupdistance", "500.0", "Nearby survivors must be this close to ending saferoom doors.", _, true, 1.0, true, 99999.0);
+	vCreateConVar(g_cvASSGroupSurvivorCount, "assgroup_survivorcount", "3", "Amount of nearby survivors needed to operate ending saferom doors.", _, true, 1.0, true, 66.0);
 }
 
 void vGroupStart()
@@ -30,7 +30,7 @@ void vGroupSettings()
 
 void vGroupOption(int client, int entity)
 {
-	if (bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
+	if (bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
 	{
 		int iGroup = g_iClosestGroup[client];
 		int iGroupCount = g_cvASSGroupSurvivorCount.IntValue;

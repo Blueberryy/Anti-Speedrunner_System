@@ -332,6 +332,8 @@ ass_override
 // (1: ON)
 // -
 // Default: "0"
+// Minimum: "0.000000"
+// Maximum: "1.000000"
 ass_adminimmunity "0"
 
 // Enable the Anti-Speedrunner System's automatic mode?
@@ -339,6 +341,8 @@ ass_adminimmunity "0"
 // (1: ON)
 // -
 // Default: "1"
+// Minimum: "0.000000"
+// Maximum: "1.000000"
 ass_automode "1"
 
 // Allow the use of admin commands during automatic mode?
@@ -346,6 +350,8 @@ ass_automode "1"
 // (1: ON)
 // -
 // Default: "1"
+// Minimum: "0.000000"
+// Maximum: "1.000000"
 ass_commandoverride "1"
 
 // Should the Anti-Speedrunner System count bots as players?
@@ -353,6 +359,8 @@ ass_commandoverride "1"
 // (1: ON)
 // -
 // Default: "1"
+// Minimum: "0.000000"
+// Maximum: "1.000000"
 ass_countbots "1"
 
 // Disable the Anti-Speedrunner System in these game modes.
@@ -364,20 +372,6 @@ ass_countbots "1"
 // -
 // Default: ""
 ass_disabledgamemodes ""
-
-// Distance allowed before speedrunners are dealt with.
-// -
-// Default: "2000.0"
-// Minimum: "0.000000"
-// Maximum: "99999.000000"
-ass_distancelimit "2000.0"
-
-// Distance allowed before speedrunners are warned to go back.
-// -
-// Default: "1000.0"
-// Minimum: "0.000000"
-// Maximum: "99999.000000"
-ass_distancewarning "1000.0"
 
 // Enable the Anti-Speedrunner System in these game modes.
 // Separate game modes with commas.
@@ -394,6 +388,8 @@ ass_enabledgamemodes ""
 // (1: ON)
 // -
 // Default: "1"
+// Minimum: "0.000000"
+// Maximum: "1.000000"
 ass_enablesystem "1"
 
 // Disable/re-enable the Anti-Speedrunner System's functions after X survivors are incapacitated/revived?
@@ -401,6 +397,8 @@ ass_enablesystem "1"
 // (1: ON)
 // -
 // Default: "1"
+// Minimum: "0.000000"
+// Maximum: "1.000000"
 ass_failsafe "1"
 
 // Amount of incapacitated survivors needed to turn the Anti-Speedrunner System off.
@@ -408,6 +406,8 @@ ass_failsafe "1"
 // (X: ON, disable the Anti-Speedrunner System after X survivors are incapacitated.)
 // -
 // Default: "2"
+// Minimum: "1.000000"
+// Maximum: "66.000000"
 ass_incapacitatedcount "2"
 
 // Log command usage?
@@ -415,6 +415,8 @@ ass_incapacitatedcount "2"
 // (1: ON)
 // -
 // Default: "1"
+// Minimum: "0.000000"
+// Maximum: "1.000000"
 ass_logcommands "1"
 
 // Automatically disable the Anti-Speedrunner system during finale maps?
@@ -422,6 +424,8 @@ ass_logcommands "1"
 // (1: ON)
 // -
 // Default: "0"
+// Minimum: "0.000000"
+// Maximum: "1.000000"
 ass_nofinales "0"
 
 // Amount of revived survivors needed to turn the Anti-Speedrunner System back on.
@@ -429,13 +433,51 @@ ass_nofinales "0"
 // (X: ON, re-enable the Anti-Speedrunner System after X survivors are revived.)
 // -
 // Default: "2"
+// Minimum: "1.000000"
+// Maximum: "66.000000"
 ass_revivedcount "2"
+
+// Enable the Saferoom system?
+// (0: OFF)
+// (1: ON)
+// -
+// Default: "1"
+// Minimum: "0.000000"
+// Maximum: "1.000000"
+asssaferoom_enablesystem "1"
+
+// Warp survivors inside or unlock the saferoom door?
+// (0: Warp)
+// (1: Unlock)
+// -
+// Default: "1"
+// Minimum: "0.000000"
+// Maximum: "1.000000"
+asssaferoom_entrymode "1"
+
+// Survivors will be warped inside the saferoom after X second(s).
+// -
+// Default: "5"
+// Minimum: "1.000000"
+// Maximum: "99999.000000"
+asssaferoom_warpcountdown "5"
+
+// Enable the Strike system?
+// (0: OFF)
+// (1: ON)
+// -
+// Default: "1"
+// Minimum: "0.000000"
+// Maximum: "1.000000"
+assstrike_enablesystem "1"
 
 // Keep the Anti-Speedrunner System enabled when there is a Tank alive?
 // (0: OFF)
 // (1: ON)
 // -
 // Default: "1"
+// Minimum: "0.000000"
+// Maximum: "1.000000"
 ass_tankalive "1"
 
 // Spawn this type of special infected to chase speedrunners.
@@ -467,6 +509,8 @@ assconfig_createtype "31425"
 // (1: ON)
 // -
 // Default: "0"
+// Minimum: "0.000000"
+// Maximum: "1.000000"
 assconfig_enablesystem "0"
 
 // Which type of custom config should the Anti-Speedrunner System execute?
@@ -484,7 +528,7 @@ assconfig_executetype "1"
 // What is the time offset of the server?
 // How it works:
 // Server time + assconfig_timeoffset
-// Examples:
+// Example:
 // assconfig_timeoffset "+10"
 // 12:00 PM + 10 = 10:00 PM
 // assconfig_timeoffset "-10"
@@ -497,7 +541,7 @@ assconfig_timeoffset ""
 // (0: OFF)
 // -
 // Default: "3.0"
-// Minimum: "0.000000"
+// Minimum: "1.000000"
 // Maximum: "99999.000000"
 assdelay_doordelay "3.0"
 
@@ -505,8 +549,8 @@ assdelay_doordelay "3.0"
 // (Default speed: 200.0)
 // -
 // Default: "25.0"
-// Minimum: "0.000000"
-// Maximum: "99999.000000"
+// Minimum: "1.000000"
+// Maximum: "200.000000"
 assdelay_doorspeed "25.0"
 
 // Which type of saferoom door should be affected?
@@ -530,25 +574,31 @@ assdelay_doortype "21"
 // Default: "34125"
 assdisarm_weaponslot "34125"
 
-// Ban speedrunners for X minute(s).
-// (0: Permanent ban.)
-// (X: Ban for this many minutes.)
-// -
-// Default: "60"
-assexile_banduration "60"
-
 // Kick or ban speedrunners?
 // (0: Kick)
 // (1: Ban)
 // -
 // Default: "0"
+// Minimum: "0.000000"
+// Maximum: "1.000000"
 assexile_exilemode "0"
+
+// Ban speedrunners for X minute(s).
+// (0: Permanent ban.)
+// (X: Ban for this many minutes.)
+// -
+// Default: "60"
+// Minimum: "0.000000"
+// Maximum: "99999.000000"
+assexile_banduration "60"
 
 // Punish blocked door users?
 // (0: OFF)
 // (1: ON)
 // -
 // Default: "1"
+// Minimum: "0.000000"
+// Maximum: "1.000000"
 assfilter_blockenable "1"
 
 // Combine punishment options or randomly pick one?
@@ -556,6 +606,8 @@ assfilter_blockenable "1"
 // (1: Pick one)
 // -
 // Default: "1"
+// Minimum: "0.000000"
+// Maximum: "1.000000"
 assfilter_blockmode "1"
 
 // Which system options do you want to use to deal with blocked door users?
@@ -595,38 +647,50 @@ assfilter_blockoptions "QqWweErRtTyYuUIiOopPAasSdDfFgGHhJjkKLlXxcCvVbBnNMm"
 // Nearby survivors must be this close to ending saferoom doors.
 // -
 // Default: "500.0"
-// Minimum: "0.000000"
+// Minimum: "1.000000"
 // Maximum: "99999.000000"
 assgroup_groupdistance "500.0"
 
 // Amount of nearby survivors needed to operate ending saferom doors.
 // -
 // Default: "3"
+// Minimum: "1.000000"
+// Maximum: "66.000000"
 assgroup_survivorcount "3"
 
 // Hurt speedrunners by this much every second.
 // -
 // Default: "1"
+// Minimum: "1.000000"
+// Maximum: "99999.000000"
 asshurt_damageamount "1"
 
 // The Keyman system will automatically pick a new Keyman if the current Keyman does not open the door after X second(s).
 // -
 // Default: "10"
+// Minimum: "1.000000"
+// Maximum: "99999.000000"
 asskeyman_countdown "10"
 
 // How many Keymen are chosen per map?
 // -
 // Default: "2"
+// Minimum: "1.000000"
+// Maximum: "66.000000"
 asskeyman_keymanamount "2"
 
 // The starting door's lockdown will end after X second(s).
 // -
 // Default: "60"
+// Minimum: "1.000000"
+// Maximum: "99999.000000"
 asslockdown_countdown "60"
 
 // The ending door's lockdown will end after X second(s).
 // -
 // Default: "60"
+// Minimum: "1.000000"
+// Maximum: "99999.000000"
 asslockdown_countdown2 "60"
 
 // Which type of saferoom door should be affected?
@@ -643,6 +707,8 @@ asslockdown_doortype "21"
 // (1: ON)
 // -
 // Default: "1"
+// Minimum: "0.000000"
+// Maximum: "1.000000"
 asslockdown_spawnmobs "1"
 
 // What loadout should speedrunners restart with?
@@ -678,20 +744,6 @@ asssaferoom_disabledgamemodes "versus,realismversus,scavenge,survival,mutation1"
 // Default: "coop,realism,mutation12"
 asssaferoom_enabledgamemodes "coop,realism,mutation12"
 
-// Enable the Saferoom system?
-// (0: OFF)
-// (1: ON)
-// -
-// Default: "1"
-asssaferoom_enablesystem "1"
-
-// Warp survivors inside or unlock the saferoom door?
-// (0: Warp)
-// (1: Unlock)
-// -
-// Default: "1"
-asssaferoom_entrymode "1"
-
 // Which system options do you want to use to deal with speedrunners?
 // Combine letters in any order for different results.
 // Repeat the same letter to increase its chance of being chosen.
@@ -705,51 +757,57 @@ asssaferoom_entrymode "1"
 // Default: "KkKkLLllfFfFbbBBgGGg"
 asssaferoom_systemoptions "KkKkLLllfFfFbbBBgGGg"
 
-// Survivors will be warped inside the saferoom after X second(s).
-// -
-// Default: "5"
-asssaferoom_warpcountdown "5"
-
 // Set speedrunners' run speed to X value.
 // -
 // Default: "0.25"
-// Minimum: "0.000000"
+// Minimum: "0.100000"
 // Maximum: "1.000000"
 assslow_runspeed "0.25"
 
-// How often does the Strike system check for speedrunners?
+// How many seconds between each check for speedrunners?
 // -
 // Default: "5.0"
-// Minimum: "1.000000"
+// Minimum: "0.000000"
 // Maximum: "99999.000000"
 assstrike_detectiondelay "5.0"
 
-// Enable the Strike system?
-// (0: OFF)
-// (1: ON)
+// Distance allowed before speedrunners are dealt with.
 // -
-// Default: "1"
-assstrike_enablesystem "1"
-
-// Number of strikes needed to be punished for speedrunning.
-// -
-// Default: "5"
-// Minimum: "0.000000"
+// Default: "2000"
+// Minimum: "1.000000"
 // Maximum: "99999.000000"
-assstrike_limit "5"
+assstrike_distancelimit "2000"
+
+// Distance allowed before speedrunners are warned to go back.
+// -
+// Default: "1000"
+// Minimum: "1.000000"
+// Maximum: "99999.000000"
+assstrike_distancewarning "1000"
 
 // Combine punishment options or randomly pick one?
 // (0: Combine)
 // (1: Pick one)
 // -
 // Default: "1"
+// Minimum: "0.000000"
+// Maximum: "1.000000"
 assstrike_punishmode "1"
+
+// Number of strikes needed to be punished for speedrunning.
+// -
+// Default: "5"
+// Minimum: "1.000000"
+// Maximum: "99999.000000"
+assstrike_strikelimit "5"
 
 // Give strikes first before punishing speedrunners?
 // (0: OFF)
 // (1: ON)
 // -
 // Default: "1"
+// Minimum: "0.000000"
+// Maximum: "1.000000"
 assstrike_strikemode "1"
 
 // Which system options do you want to use to deal with speedrunners?
@@ -890,13 +948,13 @@ asssaferoom_enabledgamemodes "coop" // The Saferoom system is only enabled in Ca
 Outcome: The plugin works only in Campaign and Versus modes but the Saferoom system will automatically shut off if the game mode isn't Campaign mode.
 ```
 
-6. What is the ass_distancelimit convar for?
+6. What is the assstrike_distancelimit convar for?
 
-The convar determines how far a survivor can be from his/her teammates before he/she is punished. It should be higher than the value of ass_distancewarning.
+The convar determines how far a survivor can be from his/her teammates before he/she is punished. It should be higher than the value of assstrike_distancewarning.
 
-7. What is the ass_distancewarning convar for?
+7. What is the assstrike_distancewarning convar for?
 
-The convar determines how far a survivor can be from his/her teammates before he/she is warned to go back. It should be lower than the value of ass_distancelimit.
+The convar determines how far a survivor can be from his/her teammates before he/she is warned to go back. It should be lower than the value of assstrike_distancelimit.
 
 8. How does the failsafe function work?
 
@@ -1189,7 +1247,7 @@ Set the cooldown value in assdelay_doordelay.
 #### Filter
 1. How does the Filter option work?
 
-If the Filter option is chosen, the plugin will check if the player touching the door has any strikes. If the player's number of strikes matches or exceeds the value defined in assstrike_limit, then the door remains locked. If the player's number of strikes is less than the value defined in assstrike_limit, then the door is unlocked.
+If the Filter option is chosen, the plugin will check if the player touching the door has any strikes. If the player's number of strikes matches or exceeds the value defined in assstrike_strikelimit, then the door remains locked. If the player's number of strikes is less than the value defined in assstrike_strikelimit, then the door is unlocked.
 
 2. What if the whole survivor team matches or exceeds the strike limit?
 
@@ -1197,7 +1255,7 @@ The saferoom door will automatically unlock when a player touches it.
 
 3. What is the assfilter_blockenable for?
 
-The convar gives you the option to punish players whose strike limit either matches or exceeds the value defined in assstrike_limit. The type of punishments that the Filter option can use is defined in assfilter_blockoptions.
+The convar gives you the option to punish players whose strike limit either matches or exceeds the value defined in assstrike_strikelimit. The type of punishments that the Filter option can use is defined in assfilter_blockoptions.
 
 4. What is the assfilter_blockmode for?
 
@@ -1290,7 +1348,7 @@ The convar determines how many seconds pass before the plugin checks for speedru
 
 2. How can I set the strike limit that players can reach before being punished?
 
-Set the value in assstrike_limit.
+Set the value in assstrike_strikelimit.
 
 3. How can I disable the strike limit feature?
 

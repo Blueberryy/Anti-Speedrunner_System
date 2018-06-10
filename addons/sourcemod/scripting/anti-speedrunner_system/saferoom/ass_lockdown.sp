@@ -13,10 +13,10 @@ int g_iLockdownCountdown2;
 
 void vLockdownCvars()
 {
-	vCreateConVar(g_cvASSLockdownCountdown, "asslockdown_countdown", "60", "The starting door's lockdown will end after X second(s).");
-	vCreateConVar(g_cvASSLockdownCountdown2, "asslockdown_countdown2", "60", "The ending door's lockdown will end after X second(s).");
+	vCreateConVar(g_cvASSLockdownCountdown, "asslockdown_countdown", "60", "The starting door's lockdown will end after X second(s).", _, true, 1.0, true, 99999.0);
+	vCreateConVar(g_cvASSLockdownCountdown2, "asslockdown_countdown2", "60", "The ending door's lockdown will end after X second(s).", _, true, 1.0, true, 99999.0);
 	vCreateConVar(g_cvASSLockdownDoorType, "asslockdown_doortype", "21", "Which type of saferoom door should be affected?\nCombine numbers in any order for different results.\nCharacter limit: 2\n(1: Starting saferoom doors only.)\n(2: Ending saferoom doors only.)");
-	vCreateConVar(g_cvASSLockdownSpawnMobs, "asslockdown_spawnmobs", "1", "Spawn mobs of zombies during the lockdown.\n(0: OFF)\n(1: ON)");
+	vCreateConVar(g_cvASSLockdownSpawnMobs, "asslockdown_spawnmobs", "1", "Spawn mobs of zombies during the lockdown.\n(0: OFF)\n(1: ON)", _, true, 0.0, true, 1.0);
 	g_iLockdownCountdown = g_cvASSLockdownCountdown.IntValue;
 	g_iLockdownCountdown2 = g_cvASSLockdownCountdown2.IntValue;
 }
@@ -51,7 +51,7 @@ void vLockdownSettings()
 
 void vLockdownOption(int client, int entity, bool type)
 {
-	if (bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
+	if (bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
 	{
 		if (!type)
 		{

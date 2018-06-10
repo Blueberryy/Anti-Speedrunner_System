@@ -10,8 +10,8 @@ int g_iKeymanCountdown;
 
 void vKeymanCvars()
 {
-	vCreateConVar(g_cvASSKeymanCountdown, "asskeyman_countdown", "10", "The Keyman system will automatically pick a new Keyman if the current Keyman does not open the door after X second(s).");
-	vCreateConVar(g_cvASSKeymanKeymanAmount, "asskeyman_keymanamount", "2", "How many Keymen are chosen per map?");
+	vCreateConVar(g_cvASSKeymanCountdown, "asskeyman_countdown", "10", "The Keyman system will automatically pick a new Keyman if the current Keyman does not open the door after X second(s).", _, true, 1.0, true, 99999.0);
+	vCreateConVar(g_cvASSKeymanKeymanAmount, "asskeyman_keymanamount", "2", "How many Keymen are chosen per map?", _, true, 1.0, true, 66.0);
 	g_iKeymanCountdown = g_cvASSKeymanCountdown.IntValue;
 }
 
@@ -35,7 +35,7 @@ void vKeymanSettings()
 
 void vKeymanOption(int client, int entity)
 {
-	if (bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
+	if (bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
 	{
 		if (g_iKeymanCount == 0)
 		{
@@ -54,7 +54,7 @@ void vKeymanOption(int client, int entity)
 			if (g_bKeyman[client])
 			{
 				vEntryMode(entity);
-				if (bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
+				if (bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
 				{
 					for (int iToucher = 1; iToucher <= MaxClients; iToucher++)
 					{
@@ -121,7 +121,7 @@ public Action cmdASSKey(int client, int args)
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX, "InGame") : ReplyToCommand(client, "%s This command is to be used only in-game.", ASS_PREFIX);
 		return Plugin_Handled;
 	}
-	if (!bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) || !bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
+	if (!bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) || !bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
 	{
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "MapModeNotSupported") : ReplyToCommand(client, "%s Map or game mode not supported.", ASS_PREFIX01);
 		return Plugin_Handled;
@@ -272,7 +272,7 @@ void vChooseKeyman()
 
 void vNotifyPlayers(int client)
 {
-	if (bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes) && !bIsFinaleMap() && !bIsBuggedMap())
+	if (bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes) && !bIsFinaleMap() && !bIsBuggedMap())
 	{
 		for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer++)
 		{
@@ -308,7 +308,7 @@ public Action tTimerAutoChooseKeyman(Handle timer, any entity)
 
 public Action tTimerChooseKeyman(Handle timer)
 {
-	if (g_bLeftSaferoom && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes) && !bIsFinaleMap() && !bIsBuggedMap())
+	if (g_bLeftSaferoom && bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes) && !bIsFinaleMap() && !bIsBuggedMap())
 	{
 		g_bAutoKeyman = false;
 		vChooseKeyman();

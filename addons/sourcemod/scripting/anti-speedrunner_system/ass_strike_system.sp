@@ -1,5 +1,7 @@
 // Strike System
 ConVar g_cvASSStrikeDelay;
+ConVar g_cvASSStrikeDistanceLimit;
+ConVar g_cvASSStrikeDistanceWarning;
 ConVar g_cvASSStrikePunishMode;
 ConVar g_cvASSStrikeStrikeMode;
 Handle g_hAutoCheckTimer;
@@ -7,10 +9,12 @@ Handle g_hCheckTimers[MAXPLAYERS + 1];
 
 void vStrikeCvars()
 {
-	vCreateConVar(g_cvASSStrikeDelay, "assstrike_detectiondelay", "5.0", "How often does the Strike system check for speedrunners?", _, true, 1.0, true, 99999.0);
-	vCreateConVar(g_cvASSStrikeLimit, "assstrike_limit", "5", "Number of strikes needed to be punished for speedrunning.", _, true, 0.0, true, 99999.0);
-	vCreateConVar(g_cvASSStrikePunishMode, "assstrike_punishmode", "1", "Combine punishment options or randomly pick one?\n(0: Combine)\n(1: Pick one)");
-	vCreateConVar(g_cvASSStrikeStrikeMode, "assstrike_strikemode", "1", "Give strikes first before punishing speedrunners?\n(0: OFF)\n(1: ON)");
+	vCreateConVar(g_cvASSStrikeDelay, "assstrike_detectiondelay", "5.0", "How many seconds between each check for speedrunners?", _, true, 0.0, true, 99999.0);
+	vCreateConVar(g_cvASSStrikeDistanceLimit, "assstrike_distancelimit", "2000", "Distance allowed before speedrunners are dealt with.", _, true, 1.0, true, 99999.0);
+	vCreateConVar(g_cvASSStrikeDistanceWarning, "assstrike_distancewarning", "1000", "Distance allowed before speedrunners are warned to go back.", _, true, 1.0, true, 99999.0);
+	vCreateConVar(g_cvASSStrikePunishMode, "assstrike_punishmode", "1", "Combine punishment options or randomly pick one?\n(0: Combine)\n(1: Pick one)", _, true, 0.0, true, 1.0);
+	vCreateConVar(g_cvASSStrikeStrikeLimit, "assstrike_strikelimit", "5", "Number of strikes needed to be punished for speedrunning.", _, true, 1.0, true, 99999.0);
+	vCreateConVar(g_cvASSStrikeStrikeMode, "assstrike_strikemode", "1", "Give strikes first before punishing speedrunners?\n(0: OFF)\n(1: ON)", _, true, 0.0, true, 1.0);
 	vCreateConVar(g_cvASSStrikeSystemOptions, "assstrike_systemoptions", "QqWweErRtTyYuUIiOopPAasSdDfFgGHhJjkKLlXxcCvVbBnNMm", "Which system options do you want to use to deal with speedrunners?\nCombine letters in any order for different results.\nRepeat the same letter to increase its chance of being chosen.\nCharacter limit: 52\n(A or a: Slow)\n(B or b: Drug)\n(C or c: Blindness)\n(D or d: Shove)\n(E or e: Shake)\n(F or f: Freeze)\n(G or g: Inversion)\n(H or h: Restart)\n(I or i: Warp)\n(J or j: Ammunition)\n(K or k: Disarmament)\n(L or l: Hurt)\n(M or m: Mirror)\n(N or n: Fire)\n(O or o: Health)\n(P or p: Vision)\n(Q or q: Incapacitation)\n(R or r: Rocket)\n(S or s: Shock)\n(T or t: Explosion)\n(U or u: Puke)\n(V or v: Chase)\n(W or w: Acidity, switches to Puke in L4D1.)\n(X or x: Charge, switches to Chase in L4D1.)\n(Y or y: Idle)\n(Z or z: Exile)");
 }
 
@@ -46,7 +50,7 @@ public Action cmdASSCheck(int client, int args)
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX, "InGame") : ReplyToCommand(client, "%s This command is to be used only in-game.", ASS_PREFIX);
 		return Plugin_Handled;
 	}
-	if (!bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (!bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
 	{
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "MapModeNotSupported") : ReplyToCommand(client, "%s Map or game mode not supported.", ASS_PREFIX01);
 		return Plugin_Handled;
@@ -122,7 +126,7 @@ public Action cmdASSNull(int client, int args)
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX, "InGame") : ReplyToCommand(client, "%s This command is to be used only in-game.", ASS_PREFIX);
 		return Plugin_Handled;
 	}
-	if (!bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (!bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
 	{
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "MapModeNotSupported") : ReplyToCommand(client, "%s Map or game mode not supported.", ASS_PREFIX01);
 		return Plugin_Handled;
@@ -205,7 +209,7 @@ public Action cmdASSStrike(int client, int args)
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX, "InGame") : ReplyToCommand(client, "%s This command is to be used only in-game.", ASS_PREFIX);
 		return Plugin_Handled;
 	}
-	if (!bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (!bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
 	{
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "MapModeNotSupported") : ReplyToCommand(client, "%s Map or game mode not supported.", ASS_PREFIX01);
 		return Plugin_Handled;
@@ -450,22 +454,22 @@ void vStrikeSpeedrunners(int target, int client, bool log = true, int amount = 0
 	{
 		if (amount > 0)
 		{
-			if (amount > g_cvASSStrikeLimit.IntValue)
+			if (amount > g_cvASSStrikeStrikeLimit.IntValue)
 			{
-				amount = g_cvASSStrikeLimit.IntValue;
+				amount = g_cvASSStrikeStrikeLimit.IntValue;
 			}
 			if (g_cvASSStrikeStrikeMode.BoolValue)
 			{
 				g_iStrikeCount[target] = amount;
 				if (bIsHumanSurvivor(target))
 				{
-					bHasTranslationFile() ? PrintHintText(target, "%s %t", ASS_PREFIX, "StrikeInform", g_iStrikeCount[target], g_cvASSStrikeLimit.IntValue) : PrintHintText(target, "%s You were given %d/%d strikes. Stay with your teammates!", ASS_PREFIX, g_iStrikeCount[target], g_cvASSStrikeLimit.IntValue);
+					bHasTranslationFile() ? PrintHintText(target, "%s %t", ASS_PREFIX, "StrikeInform", g_iStrikeCount[target], g_cvASSStrikeStrikeLimit.IntValue) : PrintHintText(target, "%s You were given %d/%d strikes. Stay with your teammates!", ASS_PREFIX, g_iStrikeCount[target], g_cvASSStrikeStrikeLimit.IntValue);
 				}
 				for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer++)
 				{
 					if (bIsHumanSurvivor(iPlayer))
 					{
-						bHasTranslationFile() ? PrintToChat(iPlayer, "%s %t", ASS_PREFIX01, "StrikeAnnounce", target, g_iStrikeCount[target], g_cvASSStrikeLimit.IntValue) : PrintToChat(iPlayer, "%s %N has been given %d/%d strikes!", ASS_PREFIX01, target, g_iStrikeCount[target], g_cvASSStrikeLimit.IntValue);
+						bHasTranslationFile() ? PrintToChat(iPlayer, "%s %t", ASS_PREFIX01, "StrikeAnnounce", target, g_iStrikeCount[target], g_cvASSStrikeStrikeLimit.IntValue) : PrintToChat(iPlayer, "%s %N has been given %d/%d strikes!", ASS_PREFIX01, target, g_iStrikeCount[target], g_cvASSStrikeStrikeLimit.IntValue);
 					}
 				}
 			}
@@ -492,34 +496,34 @@ void vStrikeSpeedrunners(int target, int client, bool log = true, int amount = 0
 			}
 			else
 			{
-				if (g_cvASSStrikeStrikeMode.BoolValue && g_iStrikeCount[target] < g_cvASSStrikeLimit.IntValue)
+				if (g_cvASSStrikeStrikeMode.BoolValue && g_iStrikeCount[target] < g_cvASSStrikeStrikeLimit.IntValue)
 				{
 					g_iStrikeCount[target]++;
 					if (bIsHumanSurvivor(target))
 					{
-						bHasTranslationFile() ? PrintHintText(target, "%s %t", ASS_PREFIX, "StrikeInform", g_iStrikeCount[target], g_cvASSStrikeLimit.IntValue) : PrintHintText(target, "%s You were given %d/%d strikes. Stay with your teammates!", ASS_PREFIX, g_iStrikeCount[target], g_cvASSStrikeLimit.IntValue);
+						bHasTranslationFile() ? PrintHintText(target, "%s %t", ASS_PREFIX, "StrikeInform", g_iStrikeCount[target], g_cvASSStrikeStrikeLimit.IntValue) : PrintHintText(target, "%s You were given %d/%d strikes. Stay with your teammates!", ASS_PREFIX, g_iStrikeCount[target], g_cvASSStrikeStrikeLimit.IntValue);
 					}
 					for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer++)
 					{
 						if (bIsHumanSurvivor(iPlayer))
 						{
-							bHasTranslationFile() ? PrintToChat(iPlayer, "%s %t", ASS_PREFIX01, "StrikeAnnounce", target, g_iStrikeCount[target], g_cvASSStrikeLimit.IntValue) : PrintToChat(iPlayer, "%s %N has been given %d/%d strikes!", ASS_PREFIX01, target, g_iStrikeCount[target], g_cvASSStrikeLimit.IntValue);
+							bHasTranslationFile() ? PrintToChat(iPlayer, "%s %t", ASS_PREFIX01, "StrikeAnnounce", target, g_iStrikeCount[target], g_cvASSStrikeStrikeLimit.IntValue) : PrintToChat(iPlayer, "%s %N has been given %d/%d strikes!", ASS_PREFIX01, target, g_iStrikeCount[target], g_cvASSStrikeStrikeLimit.IntValue);
 						}
 					}
 				}
-				else if ((g_cvASSStrikeStrikeMode.BoolValue && g_iStrikeCount[target] >= g_cvASSStrikeLimit.IntValue) || !g_cvASSStrikeStrikeMode.BoolValue)
+				else if ((g_cvASSStrikeStrikeMode.BoolValue && g_iStrikeCount[target] >= g_cvASSStrikeStrikeLimit.IntValue) || !g_cvASSStrikeStrikeMode.BoolValue)
 				{
 					if (g_cvASSStrikeStrikeMode.BoolValue)
 					{
 						if (bIsHumanSurvivor(target))
 						{
-							bHasTranslationFile() ? PrintHintText(target, "%s %t", ASS_PREFIX, "Inform", g_iStrikeCount[target], g_cvASSStrikeLimit.IntValue) : PrintHintText(target, "%s You have %d/%d strikes and will be punished!", ASS_PREFIX, g_iStrikeCount[target], g_cvASSStrikeLimit.IntValue);
+							bHasTranslationFile() ? PrintHintText(target, "%s %t", ASS_PREFIX, "Inform", g_iStrikeCount[target], g_cvASSStrikeStrikeLimit.IntValue) : PrintHintText(target, "%s You have %d/%d strikes and will be punished!", ASS_PREFIX, g_iStrikeCount[target], g_cvASSStrikeStrikeLimit.IntValue);
 						}
 						for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer++)
 						{
 							if (bIsHumanSurvivor(iPlayer))
 							{
-								bHasTranslationFile() ? PrintToChat(iPlayer, "%s %t", ASS_PREFIX01, "Announce", target, g_iStrikeCount[target], g_cvASSStrikeLimit.IntValue) : PrintToChat(iPlayer, "%s %N has %d/%d strikes and will be punished!", ASS_PREFIX01, target, g_iStrikeCount[target], g_cvASSStrikeLimit.IntValue);
+								bHasTranslationFile() ? PrintToChat(iPlayer, "%s %t", ASS_PREFIX01, "Announce", target, g_iStrikeCount[target], g_cvASSStrikeStrikeLimit.IntValue) : PrintToChat(iPlayer, "%s %N has %d/%d strikes and will be punished!", ASS_PREFIX01, target, g_iStrikeCount[target], g_cvASSStrikeStrikeLimit.IntValue);
 							}
 						}
 					}
@@ -561,7 +565,7 @@ public void vStrikeDelayCvar(ConVar convar, const char[] oldValue, const char[] 
 
 bool bIsPlayerBad(int client)
 {
-	return g_iStrikeCount[client] == g_cvASSStrikeLimit.IntValue;
+	return g_iStrikeCount[client] == g_cvASSStrikeStrikeLimit.IntValue;
 }
 
 public Action tTimerAutoCheckSpeedrunners(Handle timer)
@@ -576,22 +580,14 @@ public Action tTimerCheckSpeedrunners(Handle timer, any client)
 
 public Action tTimerAutoDetectSpeedrunners(Handle timer)
 {
-	float flCount;
+	if (!g_cvASSEnable.BoolValue || !g_cvASSStrikeEnable.BoolValue || flGetSurvivorCount() < 3 || (!g_cvASSTankAlive.BoolValue && iGetTankCount() > 0) || (g_cvASSNoFinales.BoolValue && bIsFinaleMap()) || !bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	{
+		return Plugin_Continue;
+	}
 	float flDistance[MAXPLAYERS + 1];
 	float flOtherOrigin[3] = {0.0, 0.0, 0.0};
 	float flOverLimit[MAXPLAYERS + 1];
 	float flOwnOrigin[3] = {0.0, 0.0, 0.0};
-	for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer++)
-	{
-		if ((bIsHumanSurvivor(iPlayer) && !g_cvASSCountBots.BoolValue) || (bIsSurvivor(iPlayer) && g_cvASSCountBots.BoolValue))
-		{
-			flCount++;
-		}
-	}
-	if (!g_cvASSEnable.BoolValue || !g_cvASSStrikeEnable.BoolValue || (flCount < 2 && !g_cvASSCountBots.BoolValue) || (flCount < 1 && g_cvASSCountBots.BoolValue) || (!g_cvASSTankAlive.BoolValue && iGetTankCount() > 0) || (g_cvASSNoFinales.BoolValue && bIsFinaleMap()) || !bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
-	{
-		return Plugin_Continue;
-	}
 	for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer++)
 	{
 		if (((bIsHumanSurvivor(iPlayer) && !g_cvASSCountBots.BoolValue) || (bIsSurvivor(iPlayer) && g_cvASSCountBots.BoolValue)))
@@ -603,36 +599,36 @@ public Action tTimerAutoDetectSpeedrunners(Handle timer)
 				{
 					GetClientAbsOrigin(iDestination, flOtherOrigin);
 					flDistance[iPlayer] += GetVectorDistance(flOwnOrigin, flOtherOrigin);
-					if (GetVectorDistance(flOwnOrigin, flOtherOrigin) > g_cvASSDistanceLimit.IntValue)
+					if (GetVectorDistance(flOwnOrigin, flOtherOrigin) > g_cvASSStrikeDistanceLimit.IntValue)
 					{
 						flOverLimit[iPlayer]++;
 					}
 				}
 			}
 		}
-		flDistance[iPlayer] = FloatDiv(flDistance[iPlayer], (flCount - 1));
-		if (!g_bRestart[iPlayer] && (!g_cvASSAdminImmunity.BoolValue || (g_cvASSAdminImmunity.BoolValue && !bIsAdminAllowed(iPlayer))) && bIsAbleSurvivor(iPlayer) && flDistance[iPlayer] > g_cvASSDistanceWarning.IntValue && flDistance[iPlayer] > g_cvASSDistanceLimit.IntValue && flOverLimit[iPlayer] > 1)
+		flDistance[iPlayer] = FloatDiv(flDistance[iPlayer], (flGetSurvivorCount() - 1));
+		if (!g_bRestart[iPlayer] && (!g_cvASSAdminImmunity.BoolValue || (g_cvASSAdminImmunity.BoolValue && !bIsAdminAllowed(iPlayer))) && bIsAbleSurvivor(iPlayer) && flDistance[iPlayer] > g_cvASSStrikeDistanceWarning.IntValue && flDistance[iPlayer] > g_cvASSStrikeDistanceLimit.IntValue && flOverLimit[iPlayer] > 1)
 		{
 			vStrikeSpeedrunners(iPlayer, iPlayer, false);
 			g_bWarp[iPlayer] = true;
 			return Plugin_Continue;
 		}
-		else if (bIsAbleSurvivor(iPlayer) && flDistance[iPlayer] > g_cvASSDistanceWarning.IntValue && flDistance[iPlayer] < g_cvASSDistanceLimit.IntValue)
+		else if (bIsAbleSurvivor(iPlayer) && flDistance[iPlayer] > g_cvASSStrikeDistanceWarning.IntValue && flDistance[iPlayer] < g_cvASSStrikeDistanceLimit.IntValue)
 		{
 			vResetStats(iPlayer);
 			if (!g_bNull[iPlayer] && (!g_bRestart[iPlayer] || !g_cvASSAdminImmunity.BoolValue || (g_cvASSAdminImmunity.BoolValue && !bIsAdminAllowed(iPlayer))) && bIsAbleHumanSurvivor(iPlayer))
 			{
-				if (g_cvASSStrikeStrikeMode.BoolValue && g_iStrikeCount[iPlayer] < g_cvASSStrikeLimit.IntValue)
+				if (g_cvASSStrikeStrikeMode.BoolValue && g_iStrikeCount[iPlayer] < g_cvASSStrikeStrikeLimit.IntValue)
 				{
 					bHasTranslationFile() ? PrintHintText(iPlayer, "%s %t", ASS_PREFIX, "StrikeWarn") : PrintHintText(iPlayer, "%s Stay with your teammates or you will be given a strike!", ASS_PREFIX);
 				}
-				else if (!g_cvASSStrikeStrikeMode.BoolValue || g_iStrikeCount[iPlayer] == g_cvASSStrikeLimit.IntValue || g_iStrikeCount[iPlayer] > g_cvASSStrikeLimit.IntValue)
+				else if (!g_cvASSStrikeStrikeMode.BoolValue || g_iStrikeCount[iPlayer] == g_cvASSStrikeStrikeLimit.IntValue || g_iStrikeCount[iPlayer] > g_cvASSStrikeStrikeLimit.IntValue)
 				{
 					bHasTranslationFile() ? PrintHintText(iPlayer, "%s %t", ASS_PREFIX, "StrikeWarn2") : PrintHintText(iPlayer, "%s Stay with your teammates or you will be punished!", ASS_PREFIX);
 				}
 			}
 		}
-		else if (bIsSurvivor(iPlayer) && flDistance[iPlayer] < g_cvASSDistanceWarning.IntValue && flDistance[iPlayer] < g_cvASSDistanceLimit.IntValue)
+		else if (bIsSurvivor(iPlayer) && flDistance[iPlayer] < g_cvASSStrikeDistanceWarning.IntValue && flDistance[iPlayer] < g_cvASSStrikeDistanceLimit.IntValue)
 		{
 			vResetStats(iPlayer);
 		}
@@ -647,22 +643,14 @@ public Action tTimerDetectSpeedrunners(Handle timer, any client)
 		vKillCheckTimer(client);
 		return Plugin_Handled;
 	}
-	float flCount;
+	if (!g_cvASSEnable.BoolValue || !g_cvASSStrikeEnable.BoolValue || flGetSurvivorCount() < 3 || (!g_cvASSTankAlive.BoolValue && iGetTankCount() > 0) || (g_cvASSNoFinales.BoolValue && bIsFinaleMap()) || !bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	{
+		return Plugin_Continue;
+	}
 	float flDistance[MAXPLAYERS + 1];
 	float flOtherOrigin[3] = {0.0, 0.0, 0.0};
 	float flOverLimit[MAXPLAYERS + 1];
 	float flOwnOrigin[3] = {0.0, 0.0, 0.0};
-	for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer++)
-	{
-		if ((bIsHumanSurvivor(iPlayer) && !g_cvASSCountBots.BoolValue) || (bIsSurvivor(iPlayer) && g_cvASSCountBots.BoolValue))
-		{
-			flCount++;
-		}
-	}
-	if (!g_cvASSEnable.BoolValue || !g_cvASSStrikeEnable.BoolValue || (flCount < 2 && !g_cvASSCountBots.BoolValue) || (flCount < 1 && g_cvASSCountBots.BoolValue) || (!g_cvASSTankAlive.BoolValue && iGetTankCount() > 0) || (g_cvASSNoFinales.BoolValue && bIsFinaleMap()) || !bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
-	{
-		return Plugin_Continue;
-	}
 	if (((bIsHumanSurvivor(client) && !g_cvASSCountBots.BoolValue) || (bIsSurvivor(client) && g_cvASSCountBots.BoolValue)))
 	{
 		GetClientAbsOrigin(client, flOwnOrigin);
@@ -672,40 +660,53 @@ public Action tTimerDetectSpeedrunners(Handle timer, any client)
 			{
 				GetClientAbsOrigin(iPlayer, flOtherOrigin);
 				flDistance[client] += GetVectorDistance(flOwnOrigin, flOtherOrigin);
-				if (GetVectorDistance(flOwnOrigin, flOtherOrigin) > g_cvASSDistanceLimit.IntValue)
+				if (GetVectorDistance(flOwnOrigin, flOtherOrigin) > g_cvASSStrikeDistanceLimit.IntValue)
 				{
 					flOverLimit[client]++;
 				}
 			}
 		}
 	}
-	flDistance[client] = FloatDiv(flDistance[client], (flCount - 1));
-	if (!g_bRestart[client] && bIsAbleSurvivor(client) && flDistance[client] > g_cvASSDistanceWarning.IntValue && flDistance[client] > g_cvASSDistanceLimit.IntValue && flOverLimit[client] > 1)
+	flDistance[client] = FloatDiv(flDistance[client], (flGetSurvivorCount() - 1));
+	if (!g_bRestart[client] && bIsAbleSurvivor(client) && flDistance[client] > g_cvASSStrikeDistanceWarning.IntValue && flDistance[client] > g_cvASSStrikeDistanceLimit.IntValue && flOverLimit[client] > 1)
 	{
 		vStrikeSpeedrunners(client, client, false);
 		g_bWarp[client] = true;
 		return Plugin_Continue;
 	}
-	else if (bIsAbleSurvivor(client) && flDistance[client] > g_cvASSDistanceWarning.IntValue && flDistance[client] < g_cvASSDistanceLimit.IntValue)
+	else if (bIsAbleSurvivor(client) && flDistance[client] > g_cvASSStrikeDistanceWarning.IntValue && flDistance[client] < g_cvASSStrikeDistanceLimit.IntValue)
 	{
 		vResetStats(client);
 		if (!g_bNull[client] && !g_bRestart[client] && bIsAbleHumanSurvivor(client))
 		{
-			if (g_cvASSStrikeStrikeMode.BoolValue && g_iStrikeCount[client] < g_cvASSStrikeLimit.IntValue)
+			if (g_cvASSStrikeStrikeMode.BoolValue && g_iStrikeCount[client] < g_cvASSStrikeStrikeLimit.IntValue)
 			{
 				bHasTranslationFile() ? PrintHintText(client, "%s %t", ASS_PREFIX, "StrikeWarn") : PrintHintText(client, "%s Stay with your teammates or you will be given a strike!", ASS_PREFIX);
 			}
-			else if (!g_cvASSStrikeStrikeMode.BoolValue || g_iStrikeCount[client] == g_cvASSStrikeLimit.IntValue || g_iStrikeCount[client] > g_cvASSStrikeLimit.IntValue)
+			else if (!g_cvASSStrikeStrikeMode.BoolValue || g_iStrikeCount[client] == g_cvASSStrikeStrikeLimit.IntValue || g_iStrikeCount[client] > g_cvASSStrikeStrikeLimit.IntValue)
 			{
 				bHasTranslationFile() ? PrintHintText(client, "%s %t", ASS_PREFIX, "StrikeWarn2") : PrintHintText(client, "%s Stay with your teammates or you will be punished!", ASS_PREFIX);
 			}
 		}
 	}
-	else if (bIsSurvivor(client) && flDistance[client] < g_cvASSDistanceWarning.IntValue && flDistance[client] < g_cvASSDistanceLimit.IntValue)
+	else if (bIsSurvivor(client) && flDistance[client] < g_cvASSStrikeDistanceWarning.IntValue && flDistance[client] < g_cvASSStrikeDistanceLimit.IntValue)
 	{
 		vResetStats(client);
 	}
 	return Plugin_Continue;
+}
+
+float flGetSurvivorCount()
+{
+	float flSurvivorCount;
+	for (int iSurvivor = 1; iSurvivor <= MaxClients; iSurvivor++)
+	{
+		if ((bIsHumanSurvivor(iSurvivor) && !g_cvASSCountBots.BoolValue) || (bIsSurvivor(iSurvivor) && g_cvASSCountBots.BoolValue))
+		{
+			flSurvivorCount++;
+		}
+	}
+	return flSurvivorCount;
 }
 
 void vResetStats(int client)
