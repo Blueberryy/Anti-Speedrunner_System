@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 29.23 (June 10, 2018)
+
+1. Changes:
+
+- Optimized code by changing how and when the failsafe and player count timers are called and ended.
+
 ## Version 29.22 (June 10, 2018)
 
 1. Changes:
