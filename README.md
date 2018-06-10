@@ -480,7 +480,13 @@ assconfig_enablesystem "0"
 assconfig_executetype "1"
 
 // What is the time offset of the server?
-// (Used for daily configs.)
+// How it works:
+// Server time + assconfig_timeoffset
+// Examples:
+// assconfig_timeoffset "+10"
+// 12:00 PM + 10 = 10:00 PM
+// assconfig_timeoffset "-10"
+// 12:00 PM - 10 = 2:00 AM
 // -
 // Default: ""
 assconfig_timeoffset ""

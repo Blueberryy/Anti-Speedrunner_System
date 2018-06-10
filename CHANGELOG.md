@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 29.18 (June 10, 2018)
+
+1. Changes:
+
+- Added more details to the config description of the assconfig_timeoffset convar.
+
 ## Version 29.17 (June 9, 2018)
 
 1. Bug fixes:
