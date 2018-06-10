@@ -39,12 +39,6 @@ public Action cmdASSExplode(int client, int args)
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "WrongTeam") : ReplyToCommand(client, "%s You must be on the survivor team to use this command.", ASS_PREFIX01);
 		return Plugin_Handled;
 	}
-	char arg3[32];
-	GetCmdArg(3, arg3, sizeof(arg3));
-	int power = StringToInt(arg3);
-	char arg2[32];
-	GetCmdArg(2, arg2, sizeof(arg2));
-	int radius = StringToInt(arg2);
 	if (args < 1)
 	{
 		if (IsVoteInProgress())
@@ -59,14 +53,14 @@ public Action cmdASSExplode(int client, int args)
 		}
 		return Plugin_Handled;
 	}
-	else if (args > 3)
+	else if (args > 1)
 	{
-		ReplyToCommand(client, "%s Usage: ass_explode <#userid|name> <radius> <power>", ASS_PREFIX01);
+		ReplyToCommand(client, "%s Usage: ass_explode <#userid|name>", ASS_PREFIX01);
 		return Plugin_Handled;
 	}
 	char sTarget[32];
 	GetCmdArg(1, sTarget, sizeof(sTarget));
-	if (!bSelectTarget(sTarget, client, 0, radius, power, 0.0, 0.0, ""))
+	if (!bSelectTarget(sTarget, client, 0, 0, 0, 0.0, 0.0, ""))
 	{
 		char target_name[32];
 		int target_list[MAXPLAYERS];
@@ -79,7 +73,7 @@ public Action cmdASSExplode(int client, int args)
 		}
 		for (int iPlayer = 0; iPlayer < target_count; iPlayer++)
 		{
-			vExplodeSpeedrunners(target_list[iPlayer], client, true, radius, power);
+			vExplodeSpeedrunners(target_list[iPlayer], client);
 		}
 		ShowActivity2(client, ASS_PREFIX2, "Used \"ass_explode\" on %s.", target_name);
 	}
@@ -88,7 +82,7 @@ public Action cmdASSExplode(int client, int args)
 	return Plugin_Handled;
 }
 
-void vExplodeSpeedrunners(int target, int client, bool log = true, int radius = 0, int power = 0)
+void vExplodeSpeedrunners(int target, int client, bool log = true)
 {
 	if (bIsInfected(target))
 	{
@@ -110,15 +104,7 @@ void vExplodeSpeedrunners(int target, int client, bool log = true, int radius = 
 		{
 			float flPosition[3];
 			GetClientAbsOrigin(target, flPosition);
-			if (radius == 0)
-			{
-				radius = 500;
-			}
-			if (power == 0)
-			{
-				power = 500;
-			}
-			vCreateExplosion(flPosition, target, radius, power);
+			vCreateExplosion(flPosition, target);
 			if (bIsHumanSurvivor(target))
 			{
 				bHasTranslationFile() ? PrintHintText(target, "%s %t", ASS_PREFIX, "ExplodeInform") : PrintHintText(target, "%s You were caught in an explosion!", ASS_PREFIX);
@@ -138,12 +124,8 @@ void vExplodeSpeedrunners(int target, int client, bool log = true, int radius = 
 	}
 }
 
-void vCreateExplosion(float pos[3], int entity, int radius, int power)
+void vCreateExplosion(float pos[3], int entity)
 {
-	char sRadius[32];
-	char sPower[32];
-	IntToString(radius, sRadius, sizeof(sRadius));
-	IntToString(power, sPower, sizeof(sPower));
 	int iParticle = CreateEntityByName("info_particle_system");
 	int iParticle2 = CreateEntityByName("info_particle_system");
 	int iParticle3 = CreateEntityByName("info_particle_system");
@@ -168,16 +150,16 @@ void vCreateExplosion(float pos[3], int entity, int radius, int power)
 	ActivateEntity(iTrace);
 	TeleportEntity(iTrace, pos, NULL_VECTOR, NULL_VECTOR);
 	DispatchKeyValue(iEntity, "fireballsprite", "sprites/muzzleflash4.vmt");
-	DispatchKeyValue(iEntity, "iMagnitude", sPower);
-	DispatchKeyValue(iEntity, "iRadiusOverride", sRadius);
+	DispatchKeyValue(iEntity, "iMagnitude", "500");
+	DispatchKeyValue(iEntity, "iRadiusOverride", "500");
 	DispatchKeyValue(iEntity, "spawnflags", "828");
 	DispatchSpawn(iEntity);
 	TeleportEntity(iEntity, pos, NULL_VECTOR, NULL_VECTOR);
-	DispatchKeyValue(iPhysics, "radius", sRadius);
-	DispatchKeyValue(iPhysics, "magnitude", sPower);
+	DispatchKeyValue(iPhysics, "radius", "500");
+	DispatchKeyValue(iPhysics, "magnitude", "500");
 	DispatchSpawn(iPhysics);
 	TeleportEntity(iPhysics, pos, NULL_VECTOR, NULL_VECTOR);
-	DispatchKeyValue(iHurt, "DamageRadius", sRadius);
+	DispatchKeyValue(iHurt, "DamageRadius", "500");
 	DispatchKeyValue(iHurt, "DamageDelay", "0.5");
 	DispatchKeyValue(iHurt, "Damage", "5");
 	DispatchKeyValue(iHurt, "DamageType", "8");

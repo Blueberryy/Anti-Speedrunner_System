@@ -1217,7 +1217,7 @@ void vStrikeOptions(int mode, int target, int client, ConVar convar)
 				case 'B', 'b': vDrugSpeedrunners(target, client, 1, false);
 				case 'C', 'c': vBlindSpeedrunners(target, client, 1, false);
 				case 'D', 'd': vShoveSpeedrunners(target, client, 1, false, 1);
-				case 'E', 'e': vShakeSpeedrunners(target, client, 1, false, 5.0, 1);
+				case 'E', 'e': vShakeSpeedrunners(target, client, 1, false, 1);
 				case 'F', 'f': vFreezeSpeedrunners(target, client, 1, false);
 				case 'G', 'g': vInvertSpeedrunners(target, client, 1, false);
 				case 'H', 'h': vRestartSpeedrunners(target, client, false);
@@ -1229,7 +1229,7 @@ void vStrikeOptions(int mode, int target, int client, ConVar convar)
 				case 'N', 'n': vFireSpeedrunners(target, client, 1, false, 1);
 				case 'O', 'o': vHealSpeedrunners(target, client, false);
 				case 'P', 'p': vVisionSpeedrunners(target, client, 1, false, 160, 1);
-				case 'Q', 'q': vIncapSpeedrunners(target, client, 1, false, 500.0, 1);
+				case 'Q', 'q': vIncapSpeedrunners(target, client, 1, false, 1);
 				case 'R', 'r': vRocketSpeedrunners(target, client, false);
 				case 'S', 's': vShockSpeedrunners(target, client, false);
 				case 'T', 't': vExplodeSpeedrunners(target, client, false);
@@ -1262,7 +1262,7 @@ void vStrikeOptions(int mode, int target, int client, ConVar convar)
 			}
 			if (StrContains(g_sStrikeOption, "e", false) != -1)
 			{
-				vShakeSpeedrunners(target, client, 1, false, 5.0, 1);
+				vShakeSpeedrunners(target, client, 1, false, 1);
 			}
 			if (StrContains(g_sStrikeOption, "f", false) != -1)
 			{
@@ -1310,7 +1310,7 @@ void vStrikeOptions(int mode, int target, int client, ConVar convar)
 			}
 			if (StrContains(g_sStrikeOption, "q", false) != -1)
 			{
-				vIncapSpeedrunners(target, client, 1, false, 500.0, 1);
+				vIncapSpeedrunners(target, client, 1, false, 1);
 			}
 			if (StrContains(g_sStrikeOption, "r", false) != -1)
 			{

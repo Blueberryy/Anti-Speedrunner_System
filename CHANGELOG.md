@@ -11,6 +11,10 @@
 - Optimized code by shortening or getting rid of redundancies.
 - Optimized code by removing unnecessary checks.
 - Added minimum and maximum values to various convars.
+- Added a maximum value of 0.99 for the ass_slow command's 3rd argument
+- Removed 2nd and 3rd arguments for the ass_explode command.
+- Removed 3rd argument for the ass_incap command.
+- Removed 3rd argument for the ass_shake command.
 
 2. Files:
 

@@ -1,5 +1,4 @@
 // Incapacitation Option
-float g_flRadius[MAXPLAYERS + 1];
 Handle g_hIncapTimers[MAXPLAYERS + 1];
 int g_iBeamSprite = -1;
 int g_iGreyColor[4] = {128, 128, 128, 255};
@@ -44,12 +43,9 @@ public Action cmdASSIncap(int client, int args)
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "WrongTeam") : ReplyToCommand(client, "%s You must be on the survivor team to use this command.", ASS_PREFIX01);
 		return Plugin_Handled;
 	}
-	char arg4[32];
-	GetCmdArg(4, arg4, sizeof(arg4));
-	int timer = StringToInt(arg4);
 	char arg3[32];
 	GetCmdArg(3, arg3, sizeof(arg3));
-	float radius = StringToFloat(arg3);
+	int timer = StringToInt(arg3);
 	char arg2[32];
 	GetCmdArg(2, arg2, sizeof(arg2));
 	int toggle = StringToInt(arg2);
@@ -67,14 +63,14 @@ public Action cmdASSIncap(int client, int args)
 		}
 		return Plugin_Handled;
 	}
-	else if (timer > 1 || toggle > 1 || args > 4)
+	else if (timer > 1 || toggle > 1 || args > 3)
 	{
-		ReplyToCommand(client, "%s Usage: ass_incap <#userid|name> <0: off|1: on> <radius> <0: once|1: repeat>", ASS_PREFIX01);
+		ReplyToCommand(client, "%s Usage: ass_incap <#userid|name> <0: off|1: on> <0: once|1: repeat>", ASS_PREFIX01);
 		return Plugin_Handled;
 	}
 	char sTarget[32];
 	GetCmdArg(1, sTarget, sizeof(sTarget));
-	if (!bSelectTarget(sTarget, client, toggle, timer, 0, radius, 0.0, ""))
+	if (!bSelectTarget(sTarget, client, toggle, timer, 0, 0.0, 0.0, ""))
 	{
 		char target_name[32];
 		int target_list[MAXPLAYERS];
@@ -87,7 +83,7 @@ public Action cmdASSIncap(int client, int args)
 		}
 		for (int iPlayer = 0; iPlayer < target_count; iPlayer++)
 		{
-			vIncapSpeedrunners(target_list[iPlayer], client, toggle, true, radius, timer);
+			vIncapSpeedrunners(target_list[iPlayer], client, toggle, true, timer);
 		}
 		ShowActivity2(client, ASS_PREFIX2, "Used \"ass_incap\" on %s.", target_name);
 	}
@@ -105,15 +101,14 @@ void vIncap(int client)
 	float flVector[3];
 	GetClientAbsOrigin(client, flVector);
 	flVector[2] += 10;
-	TE_SetupBeamRingPoint(flVector, 10.0, g_flRadius[client], g_iBeamSprite, g_iHaloSprite, 0, 15, 0.5, 5.0, 0.0, g_iGreyColor, 10, 0);
+	TE_SetupBeamRingPoint(flVector, 10.0, 500.0, g_iBeamSprite, g_iHaloSprite, 0, 15, 0.5, 5.0, 0.0, g_iGreyColor, 10, 0);
 	TE_SendToAll();
-	TE_SetupBeamRingPoint(flVector, 10.0, g_flRadius[client], g_iBeamSprite, g_iHaloSprite, 0, 10, 0.6, 10.0, 0.5, g_iWhiteColor, 10, 0);
+	TE_SetupBeamRingPoint(flVector, 10.0, 500.0, g_iBeamSprite, g_iHaloSprite, 0, 10, 0.6, 10.0, 0.5, g_iWhiteColor, 10, 0);
 	TE_SendToAll();
 }
 
-void vIncapSpeedrunners(int target, int client, int toggle, bool log = true, float radius = 0.0, int timer = 0)
+void vIncapSpeedrunners(int target, int client, int toggle, bool log = true, int timer = 0)
 {
-	radius == 0.0 ? (g_flRadius[target] = 500.0) : (g_flRadius[target] = radius);
 	if (bIsInfected(target))
 	{
 		return;

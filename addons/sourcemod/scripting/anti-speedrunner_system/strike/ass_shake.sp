@@ -1,5 +1,4 @@
 // Shake Option
-float g_flDuration[MAXPLAYERS + 1];
 Handle g_hShakeTimers[MAXPLAYERS + 1];
 
 public Action cmdASSShake(int client, int args)
@@ -34,12 +33,9 @@ public Action cmdASSShake(int client, int args)
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "WrongTeam") : ReplyToCommand(client, "%s You must be on the survivor team to use this command.", ASS_PREFIX01);
 		return Plugin_Handled;
 	}
-	char arg4[32];
-	GetCmdArg(4, arg4, sizeof(arg4));
-	int timer = StringToInt(arg4);
 	char arg3[32];
 	GetCmdArg(3, arg3, sizeof(arg3));
-	float duration = StringToFloat(arg3);
+	int timer = StringToInt(arg3);
 	char arg2[32];
 	GetCmdArg(2, arg2, sizeof(arg2));
 	int toggle = StringToInt(arg2);
@@ -57,14 +53,14 @@ public Action cmdASSShake(int client, int args)
 		}
 		return Plugin_Handled;
 	}
-	else if (timer > 1 || toggle > 1 || args > 4)
+	else if (timer > 1 || toggle > 1 || args > 3)
 	{
-		ReplyToCommand(client, "%s Usage: ass_shake <#userid|name> <0: off|1: on> <duration >= 0.1> <0: once|1: repeat>", ASS_PREFIX01);
+		ReplyToCommand(client, "%s Usage: ass_shake <#userid|name> <0: off|1: on> <0: once|1: repeat>", ASS_PREFIX01);
 		return Plugin_Handled;
 	}
 	char sTarget[32];
 	GetCmdArg(1, sTarget, sizeof(sTarget));
-	if (!bSelectTarget(sTarget, client, toggle, timer, 0, duration, 0.0, ""))
+	if (!bSelectTarget(sTarget, client, toggle, timer, 0, 0.0, 0.0, ""))
 	{
 		char target_name[32];
 		int target_list[MAXPLAYERS];
@@ -77,7 +73,7 @@ public Action cmdASSShake(int client, int args)
 		}
 		for (int iPlayer = 0; iPlayer < target_count; iPlayer++)
 		{
-			vShakeSpeedrunners(target_list[iPlayer], client, toggle, true, duration, timer);
+			vShakeSpeedrunners(target_list[iPlayer], client, toggle, true, timer);
 		}
 		ShowActivity2(client, ASS_PREFIX2, "Used \"ass_shake\" on %s.", target_name);
 	}
@@ -95,14 +91,13 @@ void vShake(int client)
 		bfWrite.WriteByte(0);
 		bfWrite.WriteFloat(16.0);
 		bfWrite.WriteFloat(0.5);
-		bfWrite.WriteFloat(g_flDuration[client]);
+		bfWrite.WriteFloat(5.0);
 		EndMessage();
 	}
 }
 
-void vShakeSpeedrunners(int target, int client, int toggle, bool log = true, float duration = 0.0, int timer = 0)
+void vShakeSpeedrunners(int target, int client, int toggle, bool log = true, int timer = 0)
 {
-	duration == 0.0 ? (g_flDuration[target] = 5.0) : (g_flDuration[target] = duration);
 	if (bIsInfected(target))
 	{
 		return;
@@ -152,7 +147,7 @@ void vShakeSpeedrunners(int target, int client, int toggle, bool log = true, flo
 							g_bShake[target] = true;
 							if (g_hShakeTimers[target] == null)
 							{
-								g_hShakeTimers[target] = CreateTimer(g_flDuration[target], tTimerShakeSpeedrunners, target, TIMER_REPEAT);
+								g_hShakeTimers[target] = CreateTimer(5.0, tTimerShakeSpeedrunners, target, TIMER_REPEAT);
 							}
 						}
 					}
