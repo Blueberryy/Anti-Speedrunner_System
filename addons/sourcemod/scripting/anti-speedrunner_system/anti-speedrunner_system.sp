@@ -79,7 +79,6 @@ bool g_bLeftSaferoom;
 bool g_bPlayerMoved;
 bool g_bRestartValid;
 bool g_bStarted[MAXPLAYERS + 1];
-bool g_bUpdateCheck;
 bool g_bBFGKLVoted;
 bool g_bBFGKLVoteMenu;
 bool g_bLockdownVoted;
@@ -287,19 +286,14 @@ public void OnPluginStart()
 	HookEvent("player_team", eEventJoinTeam, EventHookMode_Post);
 	HookEvent("player_left_checkpoint", eEventLeftCheckpoint, EventHookMode_Post);
 	HookEvent("round_start", eEventRoundStart, EventHookMode_Post);
-	HookEvent("round_start", eEventStartTimer);
 	HookEvent("round_end", eEventServerEnd, EventHookMode_PostNoCopy);
 	HookEvent("round_end", eEventRoundEnd);
-	HookEvent("round_end", eEventStopTimer);
 	HookEvent("mission_lost", eEventServerEnd);
 	HookEvent("mission_lost", eEventRoundEnd);
-	HookEvent("mission_lost", eEventStopTimer);
 	HookEvent("map_transition", eEventServerEnd);
 	HookEvent("map_transition", eEventRoundEnd);
-	HookEvent("map_transition", eEventStopTimer);
 	HookEvent("finale_win", eEventServerEnd);
 	HookEvent("finale_win", eEventRoundEnd);
-	HookEvent("finale_win", eEventStopTimer);
 	HookEvent("finale_vehicle_ready", eEventServerEnd);
 	HookEvent("finale_vehicle_leaving", eEventServerEnd);
 	g_umFadeUserMsgId = GetUserMessageId("Fade");
@@ -337,6 +331,8 @@ public void OnMapStart()
 		{
 			vAutoCheckSpeedrunners(1);
 		}
+		CreateTimer(1.0, tTimerUpdateIncapCount, _, TIMER_FLAG_NO_MAPCHANGE|TIMER_REPEAT);
+		CreateTimer(1.0, tTimerUpdatePlayerCount, _, TIMER_FLAG_NO_MAPCHANGE|TIMER_REPEAT);
 	}
 }
 
@@ -973,21 +969,6 @@ public void eEventLeftCheckpoint(Event event, const char[] name, bool dontBroadc
 	}
 }
 
-public void eEventStartTimer(Event event, const char[] name, bool dontBroadcast)
-{
-	g_bUpdateCheck = true;
-	CreateTimer(1.0, tTimerUpdateIncapCount, _, TIMER_REPEAT);
-	CreateTimer(1.0, tTimerUpdatePlayerCount, _, TIMER_REPEAT);
-}
-
-public void eEventStopTimer(Event event, const char[] name, bool dontBroadcast)
-{
-	if (g_bUpdateCheck)
-	{
-		g_bUpdateCheck = false;
-	}
-}
-
 public void eEventJoinTeam(Event event, const char[] name, bool dontBroadcast)
 {
 	int iPlayer = GetClientOfUserId(event.GetInt("userid"));
@@ -1579,10 +1560,6 @@ public Action tTimerRestartCoordinates(Handle timer)
 public Action tTimerUpdatePlayerCount(Handle timer)
 {
 	g_cvASSConfigExecute.GetString(g_sConfigOption, sizeof(g_sConfigOption));
-	if (!g_bUpdateCheck)
-	{
-		return Plugin_Stop;
-	}
 	if (!g_cvASSEnable.BoolValue || !bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) || StrContains(g_sConfigOption, "5", false) == -1)
 	{
 		return Plugin_Continue;
@@ -1599,10 +1576,6 @@ public Action tTimerUpdatePlayerCount(Handle timer)
 
 public Action tTimerUpdateIncapCount(Handle timer)
 {
-	if (!g_bUpdateCheck)
-	{
-		return Plugin_Stop;
-	}
 	if (!g_cvASSEnable.BoolValue || !bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
 	{
 		return Plugin_Continue;
