@@ -1468,13 +1468,13 @@ public void vSwitchCvars(ConVar convar, const char[] oldValue, const char[] newV
 	Format(sName, sizeof(sName), sConVars);
 	Format(sValue, sizeof(sValue), "%s", newValue);
 	TrimString(sValue);
-	if (StrContains(newValue, "==") == 0)
+	if (StrContains(newValue, ASS_LOCK) == 0)
 	{
 		strcopy(sValue, sizeof(sValue), sValue[2]);
 		TrimString(sValue);
 		g_smConVars.SetString(sName, sValue, true);
 	}
-	else if (StrContains(newValue, "!=") == 0)
+	else if (StrContains(newValue, ASS_UNLOCK) == 0)
 	{
 		strcopy(sValue, sizeof(sValue), sValue[2]);
 		TrimString(sValue);

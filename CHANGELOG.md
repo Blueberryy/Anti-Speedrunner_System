@@ -1,5 +1,12 @@
 # Changelog
 
+## Version 29.20 (June 10, 2018)
+
+1. Changes:
+
+- Removed unnecessary check for admin immunity.
+- Added #define's for the convar value switch symbols. (Found in addons/sourcemod/scripting/include/anti-speedrunner_system.inc on lines 17 and 18.)
+
 ## Version 29.19 (June 10, 2018)
 
 1. Bug fixes:

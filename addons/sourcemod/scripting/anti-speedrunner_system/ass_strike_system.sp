@@ -689,7 +689,7 @@ public Action tTimerDetectSpeedrunners(Handle timer, any client)
 	else if (bIsAbleSurvivor(client) && flDistance[client] > g_cvASSDistanceWarning.IntValue && flDistance[client] < g_cvASSDistanceLimit.IntValue)
 	{
 		vResetStats(client);
-		if (!g_bNull[client] && (!g_bRestart[client] || !g_cvASSAdminImmunity.BoolValue || (g_cvASSAdminImmunity.BoolValue && !bIsAdminAllowed(client))) && bIsAbleHumanSurvivor(client))
+		if (!g_bNull[client] && !g_bRestart[client] && bIsAbleHumanSurvivor(client))
 		{
 			if (g_cvASSStrikeStrikeMode.BoolValue && g_iStrikeCount[client] < g_cvASSStrikeLimit.IntValue)
 			{

@@ -789,6 +789,8 @@ assstrike_systemoptions "QqWweErRtTyYuUIiOopPAasSdDfFgGHhJjkKLlXxcCvVbBnNMm"
 
 The Anti-Speedrunner System provides the option to lock/unlock convar values. By locking a convar's value, the Anti-Speedrunner System will prevent convars from reverting to their default values across map changes until the server ends or restarts.
 
+> The default lock and unlock switch symbols are "==" and "!=" respectively. You can change these on lines 17 and 18 in the anti-speedrunner_system.inc file. The character limit for both is 2.
+
 #### Usage:
 Normal
 ```
