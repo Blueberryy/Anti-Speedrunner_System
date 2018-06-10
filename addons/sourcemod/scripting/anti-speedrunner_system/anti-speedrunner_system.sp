@@ -1461,9 +1461,11 @@ void vCreateConVar(ConVar &convar, const char[] name, const char[] defaultValue,
 
 public void vSwitchCvars(ConVar convar, const char[] oldValue, const char[] newValue)
 {
+	char sConVars[64];
+	convar.GetName(sConVars, sizeof(sConVars));
 	char sName[64];
 	char sValue[2049];
-	convar.GetName(sName, sizeof(sName));
+	Format(sName, sizeof(sName), sConVars);
 	Format(sValue, sizeof(sValue), "%s", newValue);
 	TrimString(sValue);
 	if (StrContains(newValue, "==") == 0)

@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 29.19 (June 10, 2018)
+
+1. Bug fixes:
+
+- Fixed the convar switches not working properly.
+
 ## Version 29.18 (June 10, 2018)
 
 1. Changes:
