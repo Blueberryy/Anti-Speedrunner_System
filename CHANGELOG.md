@@ -1,5 +1,16 @@
 # Changelog
 
+## Version 29.24 (June 11, 2018)
+
+1. Bug fixes:
+
+- Fixed the bug with admins still getting warnings even with ass_adminimmunity set to 1.
+
+2. Changes:
+
+- Moved various lines of code around.
+- Rearranged the order of convars printed in the autoconfig file.
+
 ## Version 29.23 (June 10, 2018)
 
 1. Changes:
