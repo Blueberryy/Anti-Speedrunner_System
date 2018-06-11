@@ -1,38 +1,4 @@
 // Saferoom System
-void vSaferoomCvars()
-{
-	vCreateConVar(g_cvASSSaferoomDisabledGameModes, "asssaferoom_disabledgamemodes", "versus,realismversus,scavenge,survival,mutation1", "Disable the Boss, Group, Keyman, and Lockdown systems in these game modes.\nSeparate game modes with commas.\nGame mode limit: 64\nCharacter limit for each game mode: 32\n(Empty: None)\n(Not empty: Disabled only in these game modes.)");
-	vCreateConVar(g_cvASSSaferoomEnabledGameModes, "asssaferoom_enabledgamemodes", "coop,realism,mutation12", "Enable the Boss, Group, Keyman, and Lockdown systems in these game modes.\nSeparate game modes with commas.\nGame mode limit: 64\nCharacter limit for each game mode: 32\n(Empty: All)\n(Not empty: Enabled only in these game modes.)");
-	vCreateConVar(g_cvASSSaferoomSystemOptions, "asssaferoom_systemoptions", "KkKkLLllfFfFbbBBgGGg", "Which system options do you want to use to deal with speedrunners?\nCombine letters in any order for different results.\nRepeat the same letter to increase its chance of being chosen.\nCharacter limit: 20\n(B or b: Boss)\n(F or f: Filter)\n(G or g: Group)\n(K or k: Keyman)\n(L or l: Lockdown)");
-	g_iWarpCountdown = g_cvASSSaferoomWarpCountdown.IntValue;
-}
-
-void vHookSaferoomCvars()
-{
-	g_cvASSEnabledGameModes.AddChangeHook(vSaferoomGameModeCvars);
-	g_cvASSDisabledGameModes.AddChangeHook(vSaferoomGameModeCvars);
-	g_cvASSEnable.AddChangeHook(vSaferoomGameModeCvars);
-	g_cvASSEnable.AddChangeHook(vASSBossEnableCvar);
-	g_cvASSEnable.AddChangeHook(vASSFilterEnableCvar);
-	g_cvASSEnable.AddChangeHook(vASSGroupEnableCvar);
-	g_cvASSEnable.AddChangeHook(vASSKeymanEnableCvar);
-	g_cvASSEnable.AddChangeHook(vASSLockdownEnableCvar);
-	g_cvASSLockdownDoorType.AddChangeHook(vASSLockdownEnableCvar);
-	g_cvASSSaferoomEnabledGameModes.AddChangeHook(vSaferoomGameModeCvars);
-	g_cvASSSaferoomDisabledGameModes.AddChangeHook(vSaferoomGameModeCvars);
-	g_cvASSSaferoomEnable.AddChangeHook(vSaferoomGameModeCvars);
-	g_cvASSSaferoomEnable.AddChangeHook(vASSBossEnableCvar);
-	g_cvASSSaferoomEnable.AddChangeHook(vASSFilterEnableCvar);
-	g_cvASSSaferoomEnable.AddChangeHook(vASSGroupEnableCvar);
-	g_cvASSSaferoomEnable.AddChangeHook(vASSKeymanEnableCvar);
-	g_cvASSSaferoomEnable.AddChangeHook(vASSLockdownEnableCvar);
-	g_cvASSSaferoomSystemOptions.AddChangeHook(vASSBossEnableCvar);
-	g_cvASSSaferoomSystemOptions.AddChangeHook(vASSFilterEnableCvar);
-	g_cvASSSaferoomSystemOptions.AddChangeHook(vASSGroupEnableCvar);
-	g_cvASSSaferoomSystemOptions.AddChangeHook(vASSKeymanEnableCvar);
-	g_cvASSSaferoomSystemOptions.AddChangeHook(vASSLockdownEnableCvar);
-}
-
 void vSaferoomStart()
 {
 	if (g_cvASSSaferoomEnable.BoolValue && bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))

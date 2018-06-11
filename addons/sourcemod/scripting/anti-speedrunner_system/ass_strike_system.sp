@@ -7,22 +7,6 @@ ConVar g_cvASSStrikeStrikeMode;
 Handle g_hAutoCheckTimer;
 Handle g_hCheckTimers[MAXPLAYERS + 1];
 
-void vStrikeCvars()
-{
-	vCreateConVar(g_cvASSStrikeDelay, "assstrike_detectiondelay", "5.0", "How many seconds between each check for speedrunners?", _, true, 0.0, true, 99999.0);
-	vCreateConVar(g_cvASSStrikeDistanceLimit, "assstrike_distancelimit", "2000", "Distance allowed before speedrunners are dealt with.", _, true, 1.0, true, 99999.0);
-	vCreateConVar(g_cvASSStrikeDistanceWarning, "assstrike_distancewarning", "1000", "Distance allowed before speedrunners are warned to go back.", _, true, 1.0, true, 99999.0);
-	vCreateConVar(g_cvASSStrikePunishMode, "assstrike_punishmode", "1", "Combine punishment options or randomly pick one?\n(0: Combine)\n(1: Pick one)", _, true, 0.0, true, 1.0);
-	vCreateConVar(g_cvASSStrikeStrikeLimit, "assstrike_strikelimit", "5", "Number of strikes needed to be punished for speedrunning.", _, true, 1.0, true, 99999.0);
-	vCreateConVar(g_cvASSStrikeStrikeMode, "assstrike_strikemode", "1", "Give strikes first before punishing speedrunners?\n(0: OFF)\n(1: ON)", _, true, 0.0, true, 1.0);
-	vCreateConVar(g_cvASSStrikeSystemOptions, "assstrike_systemoptions", "QqWweErRtTyYuUIiOopPAasSdDfFgGHhJjkKLlXxcCvVbBnNMm", "Which system options do you want to use to deal with speedrunners?\nCombine letters in any order for different results.\nRepeat the same letter to increase its chance of being chosen.\nCharacter limit: 52\n(A or a: Slow)\n(B or b: Drug)\n(C or c: Blindness)\n(D or d: Shove)\n(E or e: Shake)\n(F or f: Freeze)\n(G or g: Inversion)\n(H or h: Restart)\n(I or i: Warp)\n(J or j: Ammunition)\n(K or k: Disarmament)\n(L or l: Hurt)\n(M or m: Mirror)\n(N or n: Fire)\n(O or o: Health)\n(P or p: Vision)\n(Q or q: Incapacitation)\n(R or r: Rocket)\n(S or s: Shock)\n(T or t: Explosion)\n(U or u: Puke)\n(V or v: Chase)\n(W or w: Acidity, switches to Puke in L4D1.)\n(X or x: Charge, switches to Chase in L4D1.)\n(Y or y: Idle)\n(Z or z: Exile)");
-}
-
-void vHookStrikeCvars()
-{
-	g_cvASSStrikeDelay.AddChangeHook(vStrikeDelayCvar);
-}
-
 public Action cmdASSCheck(int client, int args)
 {
 	if (!g_cvASSEnable.BoolValue)
@@ -677,7 +661,7 @@ public Action tTimerDetectSpeedrunners(Handle timer, any client)
 	else if (bIsAbleSurvivor(client) && flDistance[client] > g_cvASSStrikeDistanceWarning.IntValue && flDistance[client] < g_cvASSStrikeDistanceLimit.IntValue)
 	{
 		vResetStats(client);
-		if (!g_bNull[client] && !g_bRestart[client] && bIsAbleHumanSurvivor(client))
+		if (!g_bNull[client] && (!g_bRestart[client] || !g_cvASSAdminImmunity.BoolValue || (g_cvASSAdminImmunity.BoolValue && !bIsAdminAllowed(client))) && bIsAbleHumanSurvivor(client))
 		{
 			if (g_cvASSStrikeStrikeMode.BoolValue && g_iStrikeCount[client] < g_cvASSStrikeStrikeLimit.IntValue)
 			{

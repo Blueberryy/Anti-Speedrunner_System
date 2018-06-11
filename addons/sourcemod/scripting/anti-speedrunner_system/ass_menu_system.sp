@@ -1108,6 +1108,7 @@ void vSaferoomOptionMenu(int client)
 	mSaferoomMenu.AddItem("Group", "Group");
 	mSaferoomMenu.AddItem("Keyman", "Keyman");
 	mSaferoomMenu.AddItem("Lockdown", "Lockdown");
+	mSaferoomMenu.AddItem("None", "None");
 	g_bAdminMenu[client] ? (mSaferoomMenu.ExitBackButton = true) : (mSaferoomMenu.ExitBackButton = false);
 	mSaferoomMenu.Display(client, MENU_TIME_FOREVER);
 }
@@ -1223,6 +1224,16 @@ public int iSaferoomMenuHandler(Menu menu, MenuAction action, int param1, int pa
 				vEntryModeSettings();
 				ShowActivity2(param1, ASS_PREFIX2, "Used \"ass_room\".");
 			}
+			else if (StrEqual(g_sInfo, "None"))
+			{
+				vEDoorControl(g_iDoorId2, false);
+				vBossSettings();
+				vFilterSettings();
+				vGroupSettings();
+				vKeymanSettings();
+				vEntryModeSettings();
+				ShowActivity2(param1, ASS_PREFIX2, "Used \"ass_room\".");
+			}
 			if (IsClientInGame(param1) && !IsClientInKickQueue(param1))
 			{
 				vSaferoomOptionMenu(param1);
@@ -1265,6 +1276,11 @@ public int iSaferoomMenuHandler(Menu menu, MenuAction action, int param1, int pa
 				if (StrEqual(g_sInfo, "Lockdown"))
 				{
 					Format(g_sVoteOption, sizeof(g_sVoteOption), "%T", "Lockdown", param1);
+					return RedrawMenuItem(g_sVoteOption);
+				}
+				if (StrEqual(g_sInfo, "None"))
+				{
+					Format(g_sVoteOption, sizeof(g_sVoteOption), "%T", "None", param1);
 					return RedrawMenuItem(g_sVoteOption);
 				}
 			}
