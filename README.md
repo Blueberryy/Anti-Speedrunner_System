@@ -437,40 +437,6 @@ ass_nofinales "0"
 // Maximum: "66.000000"
 ass_revivedcount "2"
 
-// Enable the Saferoom system?
-// (0: OFF)
-// (1: ON)
-// -
-// Default: "1"
-// Minimum: "0.000000"
-// Maximum: "1.000000"
-asssaferoom_enablesystem "1"
-
-// Warp survivors inside or unlock the saferoom door?
-// (0: Warp)
-// (1: Unlock)
-// -
-// Default: "1"
-// Minimum: "0.000000"
-// Maximum: "1.000000"
-asssaferoom_entrymode "1"
-
-// Survivors will be warped inside the saferoom after X second(s).
-// -
-// Default: "5"
-// Minimum: "1.000000"
-// Maximum: "99999.000000"
-asssaferoom_warpcountdown "5"
-
-// Enable the Strike system?
-// (0: OFF)
-// (1: ON)
-// -
-// Default: "1"
-// Minimum: "0.000000"
-// Maximum: "1.000000"
-assstrike_enablesystem "1"
-
 // Keep the Anti-Speedrunner System enabled when there is a Tank alive?
 // (0: OFF)
 // (1: ON)
@@ -574,15 +540,6 @@ assdelay_doortype "21"
 // Default: "34125"
 assdisarm_weaponslot "34125"
 
-// Kick or ban speedrunners?
-// (0: Kick)
-// (1: Ban)
-// -
-// Default: "0"
-// Minimum: "0.000000"
-// Maximum: "1.000000"
-assexile_exilemode "0"
-
 // Ban speedrunners for X minute(s).
 // (0: Permanent ban.)
 // (X: Ban for this many minutes.)
@@ -591,6 +548,15 @@ assexile_exilemode "0"
 // Minimum: "0.000000"
 // Maximum: "99999.000000"
 assexile_banduration "60"
+
+// Kick or ban speedrunners?
+// (0: Kick)
+// (1: Ban)
+// -
+// Default: "0"
+// Minimum: "0.000000"
+// Maximum: "1.000000"
+assexile_exilemode "0"
 
 // Punish blocked door users?
 // (0: OFF)
@@ -744,6 +710,24 @@ asssaferoom_disabledgamemodes "versus,realismversus,scavenge,survival,mutation1"
 // Default: "coop,realism,mutation12"
 asssaferoom_enabledgamemodes "coop,realism,mutation12"
 
+// Enable the Saferoom system?
+// (0: OFF)
+// (1: ON)
+// -
+// Default: "1"
+// Minimum: "0.000000"
+// Maximum: "1.000000"
+asssaferoom_enablesystem "1"
+
+// Warp survivors inside or unlock the saferoom door?
+// (0: Warp)
+// (1: Unlock)
+// -
+// Default: "1"
+// Minimum: "0.000000"
+// Maximum: "1.000000"
+asssaferoom_entrymode "1"
+
 // Which system options do you want to use to deal with speedrunners?
 // Combine letters in any order for different results.
 // Repeat the same letter to increase its chance of being chosen.
@@ -756,6 +740,13 @@ asssaferoom_enabledgamemodes "coop,realism,mutation12"
 // -
 // Default: "KkKkLLllfFfFbbBBgGGg"
 asssaferoom_systemoptions "KkKkLLllfFfFbbBBgGGg"
+
+// Survivors will be warped inside the saferoom after X second(s).
+// -
+// Default: "5"
+// Minimum: "1.000000"
+// Maximum: "99999.000000"
+asssaferoom_warpcountdown "5"
 
 // Set speedrunners' run speed to X value.
 // -
@@ -784,6 +775,15 @@ assstrike_distancelimit "2000"
 // Minimum: "1.000000"
 // Maximum: "99999.000000"
 assstrike_distancewarning "1000"
+
+// Enable the Strike system?
+// (0: OFF)
+// (1: ON)
+// -
+// Default: "1"
+// Minimum: "0.000000"
+// Maximum: "1.000000"
+assstrike_enablesystem "1"
 
 // Combine punishment options or randomly pick one?
 // (0: Combine)

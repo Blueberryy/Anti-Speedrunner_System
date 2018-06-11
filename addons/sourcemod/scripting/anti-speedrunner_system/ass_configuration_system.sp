@@ -28,8 +28,7 @@ void vExecuteConfigs()
 		Format(sDifficultyConfig, sizeof(sDifficultyConfig), "cfg/sourcemod/anti-speedrunner_system/difficulty_configs/%s.cfg", sDifficultyConfig);
 		if (FileExists(sDifficultyConfig, true))
 		{
-			strcopy(sDifficultyConfig, sizeof(sDifficultyConfig), sDifficultyConfig[4]);
-			ServerCommand("exec \"%s\"", sDifficultyConfig);
+			vExecConfigFile("cfg/sourcemod/anti-speedrunner_system/", "difficulty_configs/", sDifficultyConfig, sDifficultyConfig);
 		}
 		else if (!FileExists(sDifficultyConfig, true) && g_cvASSConfigEnable.BoolValue)
 		{
@@ -43,8 +42,7 @@ void vExecuteConfigs()
 		Format(sMapConfig, sizeof(sMapConfig), (bIsL4D2Game() ? "cfg/sourcemod/anti-speedrunner_system/l4d2_map_configs/%s.cfg" : "cfg/sourcemod/anti-speedrunner_system/l4d_map_configs/%s.cfg"), sMapConfig);
 		if (FileExists(sMapConfig, true))
 		{
-			strcopy(sMapConfig, sizeof(sMapConfig), sMapConfig[4]);
-			ServerCommand("exec \"%s\"", sMapConfig);
+			vExecConfigFile("cfg/sourcemod/anti-speedrunner_system/", (bIsL4D2Game() ? "l4d2_map_configs/" : "l4d_map_configs/"), sMapConfig, sMapConfig);
 		}
 		else if (!FileExists(sMapConfig, true) && g_cvASSConfigEnable.BoolValue)
 		{
@@ -58,8 +56,7 @@ void vExecuteConfigs()
 		Format(sModeConfig, sizeof(sModeConfig), (bIsL4D2Game() ? "cfg/sourcemod/anti-speedrunner_system/l4d2_gamemode_configs/%s.cfg" : "cfg/sourcemod/anti-speedrunner_system/l4d_gamemode_configs/%s.cfg"), sModeConfig);
 		if (FileExists(sModeConfig, true))
 		{
-			strcopy(sModeConfig, sizeof(sModeConfig), sModeConfig[4]);
-			ServerCommand("exec \"%s\"", sModeConfig);
+			vExecConfigFile("cfg/sourcemod/anti-speedrunner_system/", (bIsL4D2Game() ? "l4d2_gamemode_configs/" : "l4d_gamemode_configs/"), sModeConfig, sModeConfig);
 		}
 		else if (!FileExists(sModeConfig, true) && g_cvASSConfigEnable.BoolValue)
 		{
@@ -85,8 +82,7 @@ void vExecuteConfigs()
 		Format(sDayConfig, sizeof(sDayConfig), "cfg/sourcemod/anti-speedrunner_system/daily_configs/%s.cfg", sDayConfig);
 		if (FileExists(sDayConfig, true))
 		{
-			strcopy(sDayConfig, sizeof(sDayConfig), sDayConfig[4]);
-			ServerCommand("exec \"%s\"", sDayConfig);
+			vExecConfigFile("cfg/sourcemod/anti-speedrunner_system/", "daily_configs/", sDayConfig, sDayConfig);
 		}
 		else if (!FileExists(sDayConfig, true) && g_cvASSConfigEnable.BoolValue)
 		{
@@ -99,8 +95,7 @@ void vExecuteConfigs()
 		Format(sCountConfig, sizeof(sCountConfig), "cfg/sourcemod/anti-speedrunner_system/playercount_configs/%d.cfg", iGetPlayerCount());
 		if (FileExists(sCountConfig, true))
 		{
-			strcopy(sCountConfig, sizeof(sCountConfig), sCountConfig[4]);
-			ServerCommand("exec \"%s\"", sCountConfig);
+			vExecConfigFile("cfg/sourcemod/anti-speedrunner_system/", "playercount_configs/", sCountConfig, sCountConfig);
 		}
 		else if (!FileExists(sCountConfig, true) && g_cvASSConfigEnable.BoolValue)
 		{
@@ -119,6 +114,11 @@ public Action cmdASSConfig(int client, int args)
 	if (!bIsValidClient(client))
 	{
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX, "InGame") : ReplyToCommand(client, "%s This command is to be used only in-game.", ASS_PREFIX);
+		return Plugin_Handled;
+	}
+	if (!bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	{
+		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "MapModeNotSupported") : ReplyToCommand(client, "%s Map or game mode not supported.", ASS_PREFIX01);
 		return Plugin_Handled;
 	}
 	char filename[128];
@@ -262,7 +262,7 @@ void vManualDifficulty(int client, int toggle, char[] difficulty)
 		{
 			if (FileExists(sConfigFilename, true))
 			{
-				ServerCommand("exec sourcemod/anti-speedrunner_system/difficulty_configs/%s", difficulty);
+				vExecConfigFile("cfg/sourcemod/anti-speedrunner_system/", "difficulty_configs/", difficulty, difficulty);
 				if (bIsValidClient(client))
 				{
 					bHasTranslationFile() ? PrintToChat(client, "%s %t", ASS_PREFIX01, "ConfigExecuted", difficulty, "difficulty_configs") : PrintToChat(client, "%s Executed %s.cfg from %s.", ASS_PREFIX01, difficulty, "difficulty_configs");
@@ -308,7 +308,7 @@ void vManualMap(int client, int toggle, char[] map)
 		{
 			if (FileExists(sConfigFilename, true))
 			{
-				ServerCommand("exec sourcemod/anti-speedrunner_system/%s/%s", (bIsL4D2Game() ? "l4d2_map_configs" : "l4d_map_configs"), map);
+				vExecConfigFile("cfg/sourcemod/anti-speedrunner_system/", (bIsL4D2Game() ? "l4d2_map_configs/" : "l4d_map_configs/"), map, map);
 				if (bIsValidClient(client))
 				{
 					bHasTranslationFile() ? PrintToChat(client, "%s %t", ASS_PREFIX01, "ConfigExecuted", map, (bIsL4D2Game() ? "l4d2_map_configs" : "l4d_map_configs")) : PrintToChat(client, "%s Executed %s.cfg from %s.", ASS_PREFIX01, map, (bIsL4D2Game() ? "l4d2_map_configs" : "l4d_map_configs"));
@@ -354,7 +354,7 @@ void vManualMode(int client, int toggle, char[] mode)
 		{
 			if (FileExists(sConfigFilename, true))
 			{
-				ServerCommand("exec sourcemod/anti-speedrunner_system/%s/%s", (bIsL4D2Game() ? "l4d2_gamemode_configs" : "l4d_gamemode_configs"), mode);
+				vExecConfigFile("cfg/sourcemod/anti-speedrunner_system/", (bIsL4D2Game() ? "l4d2_gamemode_configs/" : "l4d_gamemode_configs/"), mode, mode);
 				if (bIsValidClient(client))
 				{
 					bHasTranslationFile() ? PrintToChat(client, "%s %t", ASS_PREFIX01, "ConfigExecuted", mode, (bIsL4D2Game() ? "l4d2_gamemode_configs" : "l4d_gamemode_configs")) : PrintToChat(client, "%s Executed %s.cfg from %s.", ASS_PREFIX01, mode, (bIsL4D2Game() ? "l4d2_gamemode_configs" : "l4d_gamemode_configs"));
@@ -400,7 +400,7 @@ void vManualDay(int client, int toggle, char[] day)
 		{
 			if (FileExists(sConfigFilename, true))
 			{
-				ServerCommand("exec sourcemod/anti-speedrunner_system/daily_configs/%s", day);
+				vExecConfigFile("cfg/sourcemod/anti-speedrunner_system/", "daily_configs/", day, day);
 				if (bIsValidClient(client))
 				{
 					bHasTranslationFile() ? PrintToChat(client, "%s %t", ASS_PREFIX01, "ConfigExecuted", day, "daily_configs") : PrintToChat(client, "%s Executed %s.cfg from %s.", ASS_PREFIX01, day, "daily_configs");
@@ -446,7 +446,7 @@ void vManualCount(int client, int toggle, char[] playercount)
 		{
 			if (FileExists(sConfigFilename, true))
 			{
-				ServerCommand("exec sourcemod/anti-speedrunner_system/playercount_configs/%s", playercount);
+				vExecConfigFile("cfg/sourcemod/anti-speedrunner_system/", "playercount_configs/", playercount, playercount);
 				if (bIsValidClient(client))
 				{
 					bHasTranslationFile() ? PrintToChat(client, "%s %t", ASS_PREFIX01, "ConfigExecuted", playercount, "playercount_configs") : PrintToChat(client, "%s Executed %s.cfg from %s.", ASS_PREFIX01, playercount, "playercount_configs");
@@ -473,8 +473,7 @@ public void vASSGameDifficultyCvar(ConVar convar, const char[] oldValue, const c
 		Format(sDifficultyConfig, sizeof(sDifficultyConfig), "cfg/sourcemod/anti-speedrunner_system/difficulty_configs/%s.cfg", sDifficultyConfig);
 		if (FileExists(sDifficultyConfig, true))
 		{
-			strcopy(sDifficultyConfig, sizeof(sDifficultyConfig), sDifficultyConfig[4]);
-			ServerCommand("exec \"%s\"", sDifficultyConfig);
+			vExecConfigFile("cfg/sourcemod/anti-speedrunner_system/", "difficulty_configs/", sDifficultyConfig, sDifficultyConfig);
 		}
 	}
 }
@@ -516,7 +515,7 @@ void vCreateConfigFiles()
 			for (int iMap = 0; iMap < iMapCount; iMap++)
 			{
 				GetArrayString(hADTMaps, iMap, sMapNames, sizeof(sMapNames));
-				vCreateConfigFile("cfg/sourcemod/anti-speedrunner_system/", (bIsL4D2Game() ? "l4d2_map_configs/" : "l4d_map_configs/"), sMapNames, sMapNames);
+				vCreateConfigFile("cfg/sourcemod/anti-speedrunner_system/", (bIsL4D2Game() ? "l4d2_map_configs" : "l4d_map_configs"), sMapNames, sMapNames);
 			}
 		}
 	}
@@ -585,6 +584,20 @@ void vCreateConfigFile(const char[] filepath, const char[] folder, const char[] 
 		fFilename.WriteLine("");
 		delete fFilename;
 	}
+}
+
+void vExecConfigFile(const char[] filepath, const char[] folder, const char[] filename, const char[] label = "")
+{
+	char sConfigFilename[128];
+	char sConfigLabel[128];
+	Format(sConfigFilename, sizeof(sConfigFilename), "%s%s%s.cfg", filepath, folder, filename);
+	if (!FileExists(sConfigFilename))
+	{
+		return;
+	}
+	strlen(label) > 0 ? strcopy(sConfigLabel, sizeof(sConfigLabel), label) : strcopy(sConfigLabel, sizeof(sConfigLabel), sConfigFilename);
+	strcopy(sConfigFilename, sizeof(sConfigFilename), sConfigFilename[4]);
+	ServerCommand("exec \"%s\"", sConfigFilename);
 }
 
 int iGetAccurateTime(const bool difference = true)

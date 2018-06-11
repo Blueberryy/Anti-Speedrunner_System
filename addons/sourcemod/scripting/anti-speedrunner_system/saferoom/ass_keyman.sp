@@ -212,7 +212,6 @@ void vSelectKeyman(int target, int client, int toggle, bool log = true)
 				{
 					g_bAutoKeyman = false;
 					vNotifyPlayers(target);
-					g_bKeyman[target] = true;
 				}
 				else if (!g_bKeyman[target] && bIsAbleHumanSurvivor(target))
 				{
