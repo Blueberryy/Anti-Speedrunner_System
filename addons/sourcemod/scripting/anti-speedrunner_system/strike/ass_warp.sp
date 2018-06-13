@@ -97,7 +97,7 @@ void vWarpSpeedrunners(int target, int client, bool log = true)
 			float flCurrentOrigin[3] = {0.0, 0.0, 0.0};
 			for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer++)
 			{
-				if (((bIsSurvivor(iPlayer) && g_cvASSCountBots.BoolValue) || (bIsHumanSurvivor(iPlayer) && !g_cvASSCountBots.BoolValue)) && ( !g_cvASSAdminImmunity.BoolValue || (g_cvASSAdminImmunity.BoolValue && !bIsAdminAllowed(iPlayer))) && !g_bRestart[iPlayer] && !g_bWarp[iPlayer] && iPlayer != target)
+				if (((bIsSurvivor(iPlayer) && g_cvASSCountBots.BoolValue) || (bIsHumanSurvivor(iPlayer) && !g_cvASSCountBots.BoolValue)) && (!g_cvASSAdminImmunity.BoolValue || (g_cvASSAdminImmunity.BoolValue && !bIsAdminAllowed(iPlayer))) && !g_bRestart[iPlayer] && !g_bWarp[iPlayer] && iPlayer != target)
 				{
 					GetClientAbsOrigin(iPlayer, flCurrentOrigin);
 					TeleportEntity(target, flCurrentOrigin, NULL_VECTOR, NULL_VECTOR);

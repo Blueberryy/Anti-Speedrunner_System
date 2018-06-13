@@ -1,14 +1,35 @@
-// Fire Option
-Handle g_hFireTimers[MAXPLAYERS + 1];
+// Acidity Option
+Handle g_hAcidTimers[MAXPLAYERS + 1];
+Handle g_hSDKAcidPlayer;
 
-public Action cmdASSFire(int client, int args)
+void vAcidSDKCall()
+{
+	if (bHasGameDataFile())
+	{
+		g_hGameData = LoadGameConfigFile("anti-speedrunner_system");
+		StartPrepSDKCall(SDKCall_Entity);
+		PrepSDKCall_SetFromConf(g_hGameData, SDKConf_Signature, "CSpitterProjectile_Detonate");
+		g_hSDKAcidPlayer = EndPrepSDKCall();
+		if (g_hSDKAcidPlayer == null)
+		{
+			bHasTranslationFile() ? PrintToServer("%s %t", ASS_PREFIX, "AcidSignature") : PrintToServer("%s Your \"CSpitterProjectile_Detonate\" signature is outdated.", ASS_PREFIX);
+		}
+	}
+}
+
+public Action cmdASSAcid(int client, int args)
 {
 	if (!g_cvASSEnable.BoolValue)
 	{
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "ASSOff") : ReplyToCommand(client, "%s The Anti-Speedrunner System is disabled.", ASS_PREFIX01);
 		return Plugin_Handled;
 	}
-	if (g_cvASSAutoMode.BoolValue && !g_cvASSCommandOverride.BoolValue)
+	if (!bIsL4D2Game())
+	{
+		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "NotL4D2") : ReplyToCommand(client, "%s Available in Left 4 Dead 2 only.", ASS_PREFIX01);
+		return Plugin_Handled;
+	}
+	if ((g_cvASSAutoMode.BoolValue && !g_cvASSCommandOverride.BoolValue) || !bHasGameDataFile())
 	{
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "CommandOff") : ReplyToCommand(client, "%s This command is disabled.", ASS_PREFIX01);
 		return Plugin_Handled;
@@ -47,7 +68,7 @@ public Action cmdASSFire(int client, int args)
 		}
 		else
 		{
-			g_bFireMenu[client] = true;
+			g_bAcidMenu[client] = true;
 			g_bAdminMenu[client] = false;
 			vPlayerMenu(client);
 		}
@@ -55,7 +76,7 @@ public Action cmdASSFire(int client, int args)
 	}
 	else if (timer > 1 || toggle > 1 || args > 3)
 	{
-		ReplyToCommand(client, "%s Usage: ass_fire <#userid|name> <0: off|1: on> <0: once|1: repeat>", ASS_PREFIX01);
+		ReplyToCommand(client, "%s Usage: ass_acid <#userid|name> <0: off|1: on> <0: once|1: repeat>", ASS_PREFIX01);
 		return Plugin_Handled;
 	}
 	char sTarget[32];
@@ -73,66 +94,41 @@ public Action cmdASSFire(int client, int args)
 		}
 		for (int iPlayer = 0; iPlayer < target_count; iPlayer++)
 		{
-			vFireSpeedrunners(target_list[iPlayer], client, toggle, true, timer);
+			vAcidSpeedrunners(target_list[iPlayer], client, toggle, true, timer);
 		}
-		ShowActivity2(client, ASS_PREFIX2, "Used \"ass_fire\" on %s.", target_name);
+		ShowActivity2(client, ASS_PREFIX2, "Used \"ass_acid\" on %s.", target_name);
 	}
-	g_bFireMenu[client] = true;
+	g_bAcidMenu[client] = true;
 	g_bAdminMenu[client] = false;
 	return Plugin_Handled;
 }
 
-void vFire(int client)
+void vAcid(int client)
 {
-	float flPosition[3];
-	GetClientAbsOrigin(client, flPosition);
-	char sUser[256];
-	IntToString(GetClientUserId(client) + 25, sUser, sizeof(sUser));
-	vCreateFire(client, "fire_small_01", true, 1.0);
-	int iDamage = CreateEntityByName("point_hurt");
-	DispatchKeyValue(iDamage, "Damage", "1");
-	DispatchKeyValue(iDamage, "DamageType", "8");
-	DispatchKeyValue(client, "targetname", sUser);
-	DispatchKeyValue(iDamage, "DamageTarget", sUser);
-	DispatchSpawn(iDamage);
-	TeleportEntity(iDamage, flPosition, NULL_VECTOR, NULL_VECTOR);
-	AcceptEntityInput(iDamage, "Hurt");
+	float flVecPos[3];
+	if ((bIsSurvivor(client) && g_cvASSCountBots.BoolValue) || (bIsHumanSurvivor(client) && !g_cvASSCountBots.BoolValue))
+	{
+		GetClientAbsOrigin(client, flVecPos);
+		flVecPos[2] += 16.0;
+		int iAcid = CreateEntityByName("spitter_projectile");
+		for (int iSender = 1; iSender <= MaxClients; iSender++)
+		{
+			if (IsValidEntity(iAcid) && IsValidEntity(iSender))
+			{
+				DispatchSpawn(iAcid);
+				SetEntPropFloat(iAcid, Prop_Send, "m_DmgRadius", 1024.0);
+				SetEntProp(iAcid, Prop_Send, "m_bIsLive", 1);
+				SetEntPropEnt(iAcid, Prop_Send, "m_hThrower", iSender);
+				TeleportEntity(iAcid, flVecPos, NULL_VECTOR, NULL_VECTOR);
+				SDKCall(g_hSDKAcidPlayer, iAcid);
+			}
+		}
+	}
 }
 
-void vCreateFire(int client, char[] particle, bool parent, float duration)
+void vAcidSpeedrunners(int target, int client, int toggle, bool log = true, int timer = 0)
 {
-	float flPosition[3];
-	char sName[64];
-	char sTargetName[64];
-	int iParticle = CreateEntityByName("info_particle_system");
-	GetClientAbsOrigin(client, flPosition);
-	TeleportEntity(iParticle, flPosition, NULL_VECTOR, NULL_VECTOR);
-	DispatchKeyValue(iParticle, "effect_name", particle);
-	if (parent)
-	{
-		int iTarget = GetClientUserId(client);
-		Format(sName, sizeof(sName), "%d", iTarget + 25);
-		DispatchKeyValue(client, "targetname", sName);
-		GetEntPropString(client, Prop_Data, "m_iName", sName, sizeof(sName));
-		Format(sTargetName, sizeof(sTargetName), "%d", iTarget + 1000);
-		DispatchKeyValue(iParticle, "targetname", sTargetName);
-		DispatchKeyValue(iParticle, "parentname", sName);
-	}
-	DispatchSpawn(iParticle);
-	DispatchSpawn(iParticle);
-	if (parent)
-	{
-		SetVariantString(sName);
-		AcceptEntityInput(iParticle, "SetParent", iParticle, iParticle);
-	}
-	ActivateEntity(iParticle);
-	AcceptEntityInput(iParticle, "start");
-	CreateTimer(duration, tTimerStopAndRemoveParticle, iParticle, TIMER_FLAG_NO_MAPCHANGE);
-}
-
-void vFireSpeedrunners(int target, int client, int toggle, bool log = true, int timer = 0)
-{
-	if (bIsInfected(target))
+	if (bIsInfected(target) || !bHasGameDataFile() || !bIsL4D2Game())
 	{
 		return;
 	}
@@ -142,16 +138,16 @@ void vFireSpeedrunners(int target, int client, int toggle, bool log = true, int 
 		{
 			case 0:
 			{
-				vKillFireTimer(target);
+				vKillAcidTimer(target);
 				if (bIsHumanSurvivor(target) && log)
 				{
-					bHasTranslationFile() ? PrintHintText(target, "%s %t", ASS_PREFIX, "FireNoInform") : PrintHintText(target, "%s You are not on fire anymore!", ASS_PREFIX);
+					bHasTranslationFile() ? PrintHintText(target, "%s %t", ASS_PREFIX, "AcidNoInform") : PrintHintText(target, "%s You are not being spat on anymore!", ASS_PREFIX);
 				}
 				for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer++)
 				{
 					if (bIsHumanSurvivor(iPlayer) && log)
 					{
-						bHasTranslationFile() ? PrintToChat(iPlayer, "%s %t", ASS_PREFIX01, "FireNoAnnounce", target) : PrintToChat(iPlayer, "%s %N is not on fire anymore!", ASS_PREFIX01, target);
+						bHasTranslationFile() ? PrintToChat(iPlayer, "%s %t", ASS_PREFIX01, "AcidNoAnnounce", target) : PrintToChat(iPlayer, "%s %N is not being spat on anymore!", ASS_PREFIX01, target);
 					}
 				}
 			}
@@ -159,7 +155,7 @@ void vFireSpeedrunners(int target, int client, int toggle, bool log = true, int 
 			{
 				if (g_bNull[target] || (g_cvASSAdminImmunity.BoolValue && bIsAdminAllowed(target)))
 				{
-					vKillFireTimer(target);
+					vKillAcidTimer(target);
 					if (!g_bCheck[target] && !g_bAutoCheck)
 					{
 						if (bIsHumanSurvivor(client) && bIsAdminAllowed(client))
@@ -172,28 +168,28 @@ void vFireSpeedrunners(int target, int client, int toggle, bool log = true, int 
 				{
 					if (timer == 0)
 					{
-						vFire(target);
+						vAcid(target);
 					}
 					else
 					{
-						if (!g_bFire[target])
+						if (!g_bAcid[target])
 						{
-							g_bFire[target] = true;
-							if (g_hFireTimers[target] == null)
+							g_bAcid[target] = true;
+							if (g_hAcidTimers[target] == null)
 							{
-								g_hFireTimers[target] = CreateTimer(1.0, tTimerFireSpeedrunners, target, TIMER_REPEAT);
+								g_hAcidTimers[target] = CreateTimer(7.0, tTimerAcidSpeedrunners, target, TIMER_REPEAT);
 							}
 						}
 					}
 					if (bIsHumanSurvivor(target) && log)
 					{
-						bHasTranslationFile() ? PrintHintText(target, "%s %t", ASS_PREFIX, "FireInform") : PrintHintText(target, "%s You are on fire!", ASS_PREFIX);
+						bHasTranslationFile() ? PrintHintText(target, "%s %t", ASS_PREFIX, "AcidInform") : PrintHintText(target, "%s You are being spat on!", ASS_PREFIX);
 					}
 					for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer++)
 					{
 						if (bIsHumanSurvivor(iPlayer) && log)
 						{
-							bHasTranslationFile() ? PrintToChat(iPlayer, "%s %t", ASS_PREFIX01, "FireAnnounce", target) : PrintToChat(iPlayer, "%s %N is on fire!", ASS_PREFIX01, target);
+							bHasTranslationFile() ? PrintToChat(iPlayer, "%s %t", ASS_PREFIX01, "AcidAnnounce", target) : PrintToChat(iPlayer, "%s %N is being spat on!", ASS_PREFIX01, target);
 						}
 					}
 				}
@@ -201,36 +197,28 @@ void vFireSpeedrunners(int target, int client, int toggle, bool log = true, int 
 		}
 		if (g_cvASSLogCommands.BoolValue && log)
 		{
-			LogAction(client, target, "%s \"%L\" used \"ass_fire\" on \"%L\".", ASS_PREFIX, client, target);
+			LogAction(client, target, "%s \"%L\" used \"ass_acid\" on \"%L\".", ASS_PREFIX, client, target);
 		}
 	}
 }
 
-void vKillFireTimer(int client)
+void vKillAcidTimer(int client)
 {
-	g_bFire[client] = false;
-	if (g_hFireTimers[client] != null)
+	g_bAcid[client] = false;
+	if (g_hAcidTimers[client] != null)
 	{
-		KillTimer(g_hFireTimers[client]);
-		g_hFireTimers[client] = null;
+		KillTimer(g_hAcidTimers[client]);
+		g_hAcidTimers[client] = null;
 	}
 }
 
-public Action tTimerFireSpeedrunners(Handle timer, any client)
+public Action tTimerAcidSpeedrunners(Handle timer, any client)
 {
 	if (!IsClientInGame(client) || !IsPlayerAlive(client) || bIsPlayerIncapacitated(client))
 	{
-		vKillFireTimer(client);
+		vKillAcidTimer(client);
 		return Plugin_Handled;
 	}
-	vFire(client);
+	vAcid(client);
 	return Plugin_Continue;
-}
-
-public Action tTimerStopAndRemoveParticle(Handle timer, any entity)
-{
-	if (entity > 0 && IsValidEntity(entity))
-	{
-		AcceptEntityInput(entity, "Kill");
-	}
 }
