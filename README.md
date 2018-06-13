@@ -25,13 +25,12 @@ The Anti-Speedrunner System was developed against SourceMod 1.8+.
 ### Installation
 1. Delete files from old versions of the plugin.
 2. Extract the folder inside the .zip file.
-3. Place anti-speedrunner_system.phrases.txt into addons/sourcemod/translations folder.
-4. Place all the contents into their respective folders.
-5. If prompted to replace or merge anything, click yes.
-6. Load up the Anti-Speedrunner System.
+3. Place all the contents into their respective folders.
+4. If prompted to replace or merge anything, click yes.
+5. Load up the Anti-Speedrunner System.
   - Type ```sm_rcon sm plugins load anti-speedrunner_system``` in console.
   - OR restart the server.
-7. Customize the Anti-Speedrunner_System (Config file generated on first load).
+6. Customize the Anti-Speedrunner_System (Config file generated on first load).
 
 ### Uninstalling/Upgrading to Newer Versions
 1. Delete anti-speedrunner_system.smx from addons/sourcemod/plugins folder.
