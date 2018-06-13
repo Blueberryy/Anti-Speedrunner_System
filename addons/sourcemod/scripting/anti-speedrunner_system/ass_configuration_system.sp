@@ -515,7 +515,7 @@ void vCreateConfigFiles()
 			for (int iMap = 0; iMap < iMapCount; iMap++)
 			{
 				GetArrayString(hADTMaps, iMap, sMapNames, sizeof(sMapNames));
-				vCreateConfigFile("cfg/sourcemod/anti-speedrunner_system/", (bIsL4D2Game() ? "l4d2_map_configs" : "l4d_map_configs"), sMapNames, sMapNames);
+				vCreateConfigFile("cfg/sourcemod/anti-speedrunner_system/", (bIsL4D2Game() ? "l4d2_map_configs/" : "l4d_map_configs/"), sMapNames, sMapNames);
 			}
 		}
 	}

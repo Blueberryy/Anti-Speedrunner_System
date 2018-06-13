@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 29.26 (June 13, 2018)
+
+1. Bug fixes:
+
+- Fixed the bug with custom map configs generating in the wrong place.
+
 ## Version 29.25 (June 13, 2018)
 
 1. Bug fixes:
