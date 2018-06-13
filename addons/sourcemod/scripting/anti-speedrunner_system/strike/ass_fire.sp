@@ -88,7 +88,7 @@ void vFire(int client)
 	GetClientAbsOrigin(client, flPosition);
 	char sUser[256];
 	IntToString(GetClientUserId(client) + 25, sUser, sizeof(sUser));
-	vCreateParticle(client, "fire_small_01", true, 1.0);
+	vCreateFire(client, "fire_small_01", true, 1.0);
 	int iDamage = CreateEntityByName("point_hurt");
 	DispatchKeyValue(iDamage, "Damage", "1");
 	DispatchKeyValue(iDamage, "DamageType", "8");
@@ -97,7 +97,37 @@ void vFire(int client)
 	DispatchSpawn(iDamage);
 	TeleportEntity(iDamage, flPosition, NULL_VECTOR, NULL_VECTOR);
 	AcceptEntityInput(iDamage, "Hurt");
-	CreateTimer(0.1, tTimerDamageSpeedrunners, iDamage, TIMER_FLAG_NO_MAPCHANGE);
+}
+
+void vCreateFire(int client, char[] particle, bool parent, float duration)
+{
+	float flPosition[3];
+	char sName[64];
+	char sTargetName[64];
+	int iParticle = CreateEntityByName("info_particle_system");
+	GetClientAbsOrigin(client, flPosition);
+	TeleportEntity(iParticle, flPosition, NULL_VECTOR, NULL_VECTOR);
+	DispatchKeyValue(iParticle, "effect_name", particle);
+	if (parent)
+	{
+		int iTarget = GetClientUserId(client);
+		Format(sName, sizeof(sName), "%d", iTarget + 25);
+		DispatchKeyValue(client, "targetname", sName);
+		GetEntPropString(client, Prop_Data, "m_iName", sName, sizeof(sName));
+		Format(sTargetName, sizeof(sTargetName), "%d", iTarget + 1000);
+		DispatchKeyValue(iParticle, "targetname", sTargetName);
+		DispatchKeyValue(iParticle, "parentname", sName);
+	}
+	DispatchSpawn(iParticle);
+	DispatchSpawn(iParticle);
+	if (parent)
+	{
+		SetVariantString(sName);
+		AcceptEntityInput(iParticle, "SetParent", iParticle, iParticle);
+	}
+	ActivateEntity(iParticle);
+	AcceptEntityInput(iParticle, "start");
+	CreateTimer(duration, tTimerStopAndRemoveParticle, iParticle, TIMER_FLAG_NO_MAPCHANGE);
 }
 
 void vFireSpeedrunners(int target, int client, int toggle, bool log = true, int timer = 0)
@@ -184,8 +214,6 @@ void vKillFireTimer(int client)
 		KillTimer(g_hFireTimers[client]);
 		g_hFireTimers[client] = null;
 	}
-	int iDamage = CreateEntityByName("point_hurt");
-	CreateTimer(1.0, tTimerStopAndRemoveParticle, iDamage, TIMER_FLAG_NO_MAPCHANGE);
 }
 
 public Action tTimerFireSpeedrunners(Handle timer, any client)
@@ -197,47 +225,6 @@ public Action tTimerFireSpeedrunners(Handle timer, any client)
 	}
 	vFire(client);
 	return Plugin_Continue;
-}
-
-void vCreateParticle(int client, char[] particle, bool parent, float duration)
-{
-	float flPosition[3];
-	char sName[64];
-	char sTargetName[64];
-	int iParticle = CreateEntityByName("info_particle_system");
-	GetClientAbsOrigin(client, flPosition);
-	TeleportEntity(iParticle, flPosition, NULL_VECTOR, NULL_VECTOR);
-	DispatchKeyValue(iParticle, "effect_name", particle);
-	if (parent)
-	{
-		int iTarget = GetClientUserId(client);
-		Format(sName, sizeof(sName), "%d", iTarget + 25);
-		DispatchKeyValue(client, "targetname", sName);
-		GetEntPropString(client, Prop_Data, "m_iName", sName, sizeof(sName));
-		Format(sTargetName, sizeof(sTargetName), "%d", iTarget + 1000);
-		DispatchKeyValue(iParticle, "targetname", sTargetName);
-		DispatchKeyValue(iParticle, "parentname", sName);
-	}
-	DispatchSpawn(iParticle);
-	DispatchSpawn(iParticle);
-	if (parent)
-	{
-		SetVariantString(sName);
-		AcceptEntityInput(iParticle, "SetParent", iParticle, iParticle);
-	}
-	ActivateEntity(iParticle);
-	AcceptEntityInput(iParticle, "start");
-	CreateTimer(duration, tTimerStopAndRemoveParticle, iParticle, TIMER_FLAG_NO_MAPCHANGE);
-}
-
-public Action tTimerDamageSpeedrunners(Handle timer, any hurt)
-{
-	if (IsValidEntity(hurt))
-	{
-		AcceptEntityInput(hurt, "Hurt");
-		return Plugin_Continue;
-	}
-	return Plugin_Stop;
 }
 
 public Action tTimerStopAndRemoveParticle(Handle timer, any entity)

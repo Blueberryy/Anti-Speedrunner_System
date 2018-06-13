@@ -1,7 +1,7 @@
 // Menu System
 char g_sInfo[32];
 char g_sMenuBuffer[255];
-char g_sVoteOption[64];
+char g_sMenuOption[64];
 int g_iTotalVotes;
 int g_iVotes;
 
@@ -547,13 +547,13 @@ public int iConfigsMenuHandler(Menu menu, MenuAction action, int param1, int par
 				menu.GetItem(param2, g_sInfo, sizeof(g_sInfo));
 				if (StrEqual(g_sInfo, "Create"))
 				{
-					Format(g_sVoteOption, sizeof(g_sVoteOption), "%T", "Create", param1);
-					return RedrawMenuItem(g_sVoteOption);
+					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "Create", param1);
+					return RedrawMenuItem(g_sMenuOption);
 				}
 				if (StrEqual(g_sInfo, "Execute"))
 				{
-					Format(g_sVoteOption, sizeof(g_sVoteOption), "%T", "Execute", param1);
-					return RedrawMenuItem(g_sVoteOption);
+					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "Execute", param1);
+					return RedrawMenuItem(g_sMenuOption);
 				}
 			}
 		}
@@ -629,28 +629,28 @@ public int iConfigsMenuHandler2(Menu menu, MenuAction action, int param1, int pa
 				menu.GetItem(param2, g_sInfo, sizeof(g_sInfo));
 				if (StrEqual(g_sInfo, "Difficulty"))
 				{
-					Format(g_sVoteOption, sizeof(g_sVoteOption), "%T", "Difficulty", param1);
-					return RedrawMenuItem(g_sVoteOption);
+					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "Difficulty", param1);
+					return RedrawMenuItem(g_sMenuOption);
 				}
 				if (StrEqual(g_sInfo, "Map"))
 				{
-					Format(g_sVoteOption, sizeof(g_sVoteOption), "%T", "Map", param1);
-					return RedrawMenuItem(g_sVoteOption);
+					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "Map", param1);
+					return RedrawMenuItem(g_sMenuOption);
 				}
 				if (StrEqual(g_sInfo, "Game mode"))
 				{
-					Format(g_sVoteOption, sizeof(g_sVoteOption), "%T", "GameMode", param1);
-					return RedrawMenuItem(g_sVoteOption);
+					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "GameMode", param1);
+					return RedrawMenuItem(g_sMenuOption);
 				}
 				if (StrEqual(g_sInfo, "Daily"))
 				{
-					Format(g_sVoteOption, sizeof(g_sVoteOption), "%T", "Daily", param1);
-					return RedrawMenuItem(g_sVoteOption);
+					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "Daily", param1);
+					return RedrawMenuItem(g_sMenuOption);
 				}
 				if (StrEqual(g_sInfo, "Player count"))
 				{
-					Format(g_sVoteOption, sizeof(g_sVoteOption), "%T", "PlayerCount", param1);
-					return RedrawMenuItem(g_sVoteOption);
+					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "PlayerCount", param1);
+					return RedrawMenuItem(g_sMenuOption);
 				}
 			}
 		}
@@ -712,13 +712,13 @@ public int iExileMenuHandler(Menu menu, MenuAction action, int param1, int param
 				menu.GetItem(param2, g_sInfo, sizeof(g_sInfo));
 				if (StrEqual(g_sInfo, "Kick"))
 				{
-					Format(g_sVoteOption, sizeof(g_sVoteOption), "%T", "Kick", param1);
-					return RedrawMenuItem(g_sVoteOption);
+					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "Kick", param1);
+					return RedrawMenuItem(g_sMenuOption);
 				}
 				if (StrEqual(g_sInfo, "Banishment"))
 				{
-					Format(g_sVoteOption, sizeof(g_sVoteOption), "%T", "Ban", param1);
-					return RedrawMenuItem(g_sVoteOption);
+					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "Ban", param1);
+					return RedrawMenuItem(g_sMenuOption);
 				}
 			}
 		}
@@ -1003,13 +1003,13 @@ public int iTypeMenuHandler(Menu menu, MenuAction action, int param1, int param2
 				menu.GetItem(param2, g_sInfo, sizeof(g_sInfo));
 				if (StrEqual(g_sInfo, "Starting door"))
 				{
-					Format(g_sVoteOption, sizeof(g_sVoteOption), "%T", "StartDoor", param1);
-					return RedrawMenuItem(g_sVoteOption);
+					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "StartDoor", param1);
+					return RedrawMenuItem(g_sMenuOption);
 				}
 				if (StrEqual(g_sInfo, "Ending door"))
 				{
-					Format(g_sVoteOption, sizeof(g_sVoteOption), "%T", "EndDoor", param1);
-					return RedrawMenuItem(g_sVoteOption);
+					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "EndDoor", param1);
+					return RedrawMenuItem(g_sMenuOption);
 				}
 			}
 		}
@@ -1085,13 +1085,13 @@ public int iDoorMenuHandler(Menu menu, MenuAction action, int param1, int param2
 				menu.GetItem(param2, g_sInfo, sizeof(g_sInfo));
 				if (StrEqual(g_sInfo, "Lock"))
 				{
-					Format(g_sVoteOption, sizeof(g_sVoteOption), "%T", "Lock", param1);
-					return RedrawMenuItem(g_sVoteOption);
+					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "Lock", param1);
+					return RedrawMenuItem(g_sMenuOption);
 				}
 				if (StrEqual(g_sInfo, "Unlock"))
 				{
-					Format(g_sVoteOption, sizeof(g_sVoteOption), "%T", "Unlock", param1);
-					return RedrawMenuItem(g_sVoteOption);
+					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "Unlock", param1);
+					return RedrawMenuItem(g_sMenuOption);
 				}
 			}
 		}
@@ -1255,33 +1255,33 @@ public int iSaferoomMenuHandler(Menu menu, MenuAction action, int param1, int pa
 				menu.GetItem(param2, g_sInfo, sizeof(g_sInfo));
 				if (StrEqual(g_sInfo, "Boss"))
 				{
-					Format(g_sVoteOption, sizeof(g_sVoteOption), "%T", "Boss", param1);
-					return RedrawMenuItem(g_sVoteOption);
+					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "Boss", param1);
+					return RedrawMenuItem(g_sMenuOption);
 				}
 				if (StrEqual(g_sInfo, "Filter"))
 				{
-					Format(g_sVoteOption, sizeof(g_sVoteOption), "%T", "Filter", param1);
-					return RedrawMenuItem(g_sVoteOption);
+					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "Filter", param1);
+					return RedrawMenuItem(g_sMenuOption);
 				}
 				if (StrEqual(g_sInfo, "Group"))
 				{
-					Format(g_sVoteOption, sizeof(g_sVoteOption), "%T", "Group", param1);
-					return RedrawMenuItem(g_sVoteOption);
+					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "Group", param1);
+					return RedrawMenuItem(g_sMenuOption);
 				}
 				if (StrEqual(g_sInfo, "Keyman"))
 				{
-					Format(g_sVoteOption, sizeof(g_sVoteOption), "%T", "Keyman", param1);
-					return RedrawMenuItem(g_sVoteOption);
+					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "Keyman", param1);
+					return RedrawMenuItem(g_sMenuOption);
 				}
 				if (StrEqual(g_sInfo, "Lockdown"))
 				{
-					Format(g_sVoteOption, sizeof(g_sVoteOption), "%T", "Lockdown", param1);
-					return RedrawMenuItem(g_sVoteOption);
+					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "Lockdown", param1);
+					return RedrawMenuItem(g_sMenuOption);
 				}
 				if (StrEqual(g_sInfo, "None"))
 				{
-					Format(g_sVoteOption, sizeof(g_sVoteOption), "%T", "None", param1);
-					return RedrawMenuItem(g_sVoteOption);
+					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "None", param1);
+					return RedrawMenuItem(g_sMenuOption);
 				}
 			}
 		}
@@ -1502,33 +1502,33 @@ public int iBFGKLVoteMenuHandler(Menu menu, MenuAction action, int param1, int p
 				menu.GetItem(param2, g_sInfo, sizeof(g_sInfo));
 				if (StrEqual(g_sInfo, "Boss"))
 				{
-					Format(g_sVoteOption, sizeof(g_sVoteOption), "%T", "Boss", param1);
-					return RedrawMenuItem(g_sVoteOption);
+					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "Boss", param1);
+					return RedrawMenuItem(g_sMenuOption);
 				}
 				if (StrEqual(g_sInfo, "Filter"))
 				{
-					Format(g_sVoteOption, sizeof(g_sVoteOption), "%T", "Filter", param1);
-					return RedrawMenuItem(g_sVoteOption);
+					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "Filter", param1);
+					return RedrawMenuItem(g_sMenuOption);
 				}
 				if (StrEqual(g_sInfo, "Group"))
 				{
-					Format(g_sVoteOption, sizeof(g_sVoteOption), "%T", "Group", param1);
-					return RedrawMenuItem(g_sVoteOption);
+					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "Group", param1);
+					return RedrawMenuItem(g_sMenuOption);
 				}
 				if (StrEqual(g_sInfo, "Keyman"))
 				{
-					Format(g_sVoteOption, sizeof(g_sVoteOption), "%T", "Keyman", param1);
-					return RedrawMenuItem(g_sVoteOption);
+					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "Keyman", param1);
+					return RedrawMenuItem(g_sMenuOption);
 				}
 				if (StrEqual(g_sInfo, "Lockdown"))
 				{
-					Format(g_sVoteOption, sizeof(g_sVoteOption), "%T", "Lockdown", param1);
-					return RedrawMenuItem(g_sVoteOption);
+					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "Lockdown", param1);
+					return RedrawMenuItem(g_sMenuOption);
 				}
 				if (StrEqual(g_sInfo, "None"))
 				{
-					Format(g_sVoteOption, sizeof(g_sVoteOption), "%T", "None", param1);
-					return RedrawMenuItem(g_sVoteOption);
+					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "None", param1);
+					return RedrawMenuItem(g_sMenuOption);
 				}
 			}
 		}
@@ -1639,13 +1639,13 @@ public int iLockdownMenuHandler(Menu menu, MenuAction action, int param1, int pa
 			menu.GetItem(param2, g_sInfo, sizeof(g_sInfo));
 			if (StrEqual(g_sInfo, "Yes"))
 			{
-				Format(g_sVoteOption, sizeof(g_sVoteOption), "%T", "Yes", param1);
-				return RedrawMenuItem(g_sVoteOption);
+				Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "Yes", param1);
+				return RedrawMenuItem(g_sMenuOption);
 			}
 			if (StrEqual(g_sInfo, "No"))
 			{
-				Format(g_sVoteOption, sizeof(g_sVoteOption), "%T", "No", param1);
-				return RedrawMenuItem(g_sVoteOption);
+				Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "No", param1);
+				return RedrawMenuItem(g_sMenuOption);
 			}
 		}
 	}

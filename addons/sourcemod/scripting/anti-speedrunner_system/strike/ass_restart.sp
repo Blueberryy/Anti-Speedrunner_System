@@ -172,3 +172,19 @@ void vRestartSpeedrunners(int target, int client, bool log = true, char[] loadou
 		}
 	}
 }
+
+public Action tTimerRestartCoordinates(Handle timer)
+{
+	for (int iSurvivor = 1; iSurvivor <= MaxClients; iSurvivor++)
+	{
+		if (bIsSurvivor(iSurvivor))
+		{
+			g_bRestartValid = true;
+			g_flSpawnPosition[0] = 0.0;
+			g_flSpawnPosition[1] = 0.0;
+			g_flSpawnPosition[2] = 0.0;
+			GetClientAbsOrigin(iSurvivor, g_flSpawnPosition);
+			break;
+		}
+	}
+}

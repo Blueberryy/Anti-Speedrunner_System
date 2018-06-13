@@ -138,7 +138,7 @@ UserMsg g_umFadeUserMsgId;
 #include "anti-speedrunner_system/saferoom/ass_group.sp"
 #include "anti-speedrunner_system/saferoom/ass_keyman.sp"
 #include "anti-speedrunner_system/saferoom/ass_lockdown.sp"
-#include "anti-speedrunner_system/strike/ass_acid.sp"
+#include "anti-speedrunner_system/strike/ass_acidity.sp"
 #include "anti-speedrunner_system/strike/ass_ammunition.sp"
 #include "anti-speedrunner_system/strike/ass_blindness.sp"
 #include "anti-speedrunner_system/strike/ass_charge.sp"
@@ -329,16 +329,16 @@ public void OnPluginStart()
 	g_umFadeUserMsgId = GetUserMessageId("Fade");
 	g_bLeftSaferoom = false;
 	vSetStarted(false);
+	if (bIsL4D2Game())
+	{
+		vAcidSDKCall();
+		vChargeSDKCall();
+	}
 	vHealSDKCalls();
 	vIdleSDKCalls();
 	vPukeSDKCall();
 	vRestartSDKCall();
 	vShoveSDKCall();
-	if (bIsL4D2Game())
-	{
-		vChargeSDKCall();
-		vAcidSDKCall();
-	}
 	TopMenu tmAdminMenu;
 	if (LibraryExists("adminmenu") && ((tmAdminMenu = GetAdminTopMenu()) != null))
 	{
@@ -366,13 +366,9 @@ public void OnMapStart()
 	}
 }
 
-public void OnClientPutInServer(int client)
-{
-	SDKHook(client, SDKHook_TraceAttack, aTraceAttack);
-}
-
 public void OnClientPostAdminCheck(int client)
 {
+	SDKHook(client, SDKHook_TraceAttack, aTraceAttack);
 	vResetPlayerStats(client);
 	g_bAdminMenu[client] = false;
 	g_bAFK[client] = false;
@@ -1029,7 +1025,7 @@ public void eEventJoinTeam(Event event, const char[] name, bool dontBroadcast)
 
 public Action OnPlayerRunCmd(int client, int &buttons, int &impulse, float vel[3], float angles[3], int &weapon)
 {
-	if (!bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) || !bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes) || bIsFinaleMap() || bIsBuggedMap())
+	if (!bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
 	{
 		return Plugin_Continue;
 	}
@@ -1065,17 +1061,20 @@ public Action OnPlayerRunCmd(int client, int &buttons, int &impulse, float vel[3
 		}
 		return Plugin_Changed;
 	}
-	if (buttons & IN_MOVELEFT || buttons & IN_BACK || buttons & IN_FORWARD || buttons & IN_MOVERIGHT || buttons & IN_USE)
+	if (bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes) && !bIsFinaleMap() && !bIsBuggedMap())
 	{
-		if (bIsSurvivor(client))
+		if (buttons & IN_MOVELEFT || buttons & IN_BACK || buttons & IN_FORWARD || buttons & IN_MOVERIGHT || buttons & IN_USE)
 		{
-			if (!bIsBotSurvivor(client))
+			if (bIsSurvivor(client))
 			{
-				g_bPlayerMoved = true;
-			}
-			if (g_bPlayerMoved)
-			{
-				g_bStarted[client] = true;
+				if (!bIsBotSurvivor(client))
+				{
+					g_bPlayerMoved = true;
+				}
+				if (g_bPlayerMoved)
+				{
+					g_bStarted[client] = true;
+				}
 			}
 		}
 	}
@@ -1569,39 +1568,6 @@ public void vGameModeCvars(ConVar convar, const char[] oldValue, const char[] ne
 			vAutoCheckSpeedrunners(1);
 		}
 	}
-}
-
-public Action tTimerRestartCoordinates(Handle timer)
-{
-	for (int iSurvivor = 1; iSurvivor <= MaxClients; iSurvivor++)
-	{
-		if (bIsSurvivor(iSurvivor))
-		{
-			g_bRestartValid = true;
-			g_flSpawnPosition[0] = 0.0;
-			g_flSpawnPosition[1] = 0.0;
-			g_flSpawnPosition[2] = 0.0;
-			GetClientAbsOrigin(iSurvivor, g_flSpawnPosition);
-			break;
-		}
-	}
-}
-
-public Action tTimerUpdatePlayerCount(Handle timer)
-{
-	g_cvASSConfigExecute.GetString(g_sConfigOption, sizeof(g_sConfigOption));
-	if (!g_cvASSEnable.BoolValue || !bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) || StrContains(g_sConfigOption, "5", false) == -1)
-	{
-		return Plugin_Continue;
-	}
-	char sCountConfig[512];
-	Format(sCountConfig, sizeof(sCountConfig), "cfg/sourcemod/anti-speedrunner_system/playercount_configs/%d.cfg", iGetPlayerCount());
-	if (FileExists(sCountConfig, true))
-	{
-		strcopy(sCountConfig, sizeof(sCountConfig), sCountConfig[4]);
-		ServerCommand("exec \"%s\"", sCountConfig);
-	}
-	return Plugin_Continue;
 }
 
 public Action tTimerUpdateIncapCount(Handle timer)

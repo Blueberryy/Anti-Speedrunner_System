@@ -636,3 +636,20 @@ int iParseTimeOffsetOperation(const bool operation = false)
 	}
 	return operation ? iAmount : iOperand;
 }
+
+public Action tTimerUpdatePlayerCount(Handle timer)
+{
+	g_cvASSConfigExecute.GetString(g_sConfigOption, sizeof(g_sConfigOption));
+	if (!g_cvASSEnable.BoolValue || !bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) || StrContains(g_sConfigOption, "5", false) == -1)
+	{
+		return Plugin_Continue;
+	}
+	char sCountConfig[512];
+	Format(sCountConfig, sizeof(sCountConfig), "cfg/sourcemod/anti-speedrunner_system/playercount_configs/%d.cfg", iGetPlayerCount());
+	if (FileExists(sCountConfig, true))
+	{
+		strcopy(sCountConfig, sizeof(sCountConfig), sCountConfig[4]);
+		ServerCommand("exec \"%s\"", sCountConfig);
+	}
+	return Plugin_Continue;
+}
