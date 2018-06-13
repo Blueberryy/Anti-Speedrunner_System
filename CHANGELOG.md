@@ -1,5 +1,18 @@
 # Changelog
 
+## Version 29.25 (June 13, 2018)
+
+1. Bug fixes:
+
+- Fixed the bug where the Inversion option wouldn't work if the Saferoom system was disabled.
+
+2. Changes:
+
+- Moved some lines of code around.
+- Renamed the ass_acid.sp file to ass_acidity.sp for consistency.
+- Renamed the g_sVoteOption buffer to g_sMenuOption.
+- Used different code for the Fire option.
+
 ## Version 29.24 (June 11, 2018)
 
 1. Bug fixes:
