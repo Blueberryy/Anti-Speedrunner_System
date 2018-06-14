@@ -12,7 +12,7 @@
 #define ASS_NAME "Anti-Speedrunner System"
 #define ASS_AUTHOR "Psyk0tik (Crasher_3637)"
 #define ASS_DESCRIPTION "The Anti-Speedrunner System provides various options for dealing with players that speedrun through campaigns and making sure survivors stick together!"
-#define ASS_VERSION "29.26"
+#define ASS_VERSION "29.27"
 #define ASS_URL "https://forums.alliedmods.net/showthread.php?t=302868"
 #define ASS_LOCK "=="
 #define ASS_UNLOCK "!="
@@ -709,9 +709,10 @@ stock int iGetTankCount()
 
 stock void vCheatCommand(int client, char[] command, char[] arguments = "")
 {
-	SetCommandFlags(command, GetCommandFlags(command) & ~FCVAR_CHEAT);
+	int iCmdFlags = GetCommandFlags(command);
+	SetCommandFlags(command, iCmdFlags & ~FCVAR_CHEAT);
 	FakeClientCommand(client, "%s %s", command, arguments);
-	SetCommandFlags(command, GetCommandFlags(command));
+	SetCommandFlags(command, iCmdFlags);
 }
 
 stock void vCopyVector(float source[3], float target[3])

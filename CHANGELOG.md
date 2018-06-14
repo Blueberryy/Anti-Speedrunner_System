@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 29.27 (June 14, 2018)
+
+1. Files:
+
+- Updated include file.
+
 ## Version 29.26 (June 13, 2018)
 
 1. Bug fixes:
