@@ -1,5 +1,15 @@
 # Changelog
 
+## Version 29.29 (June 16, 2018)
+
+1. Bug fixes:
+
+- Fixed the ass_enabledgamemodes, ass_disabledgamemodes, asssaferoom_enabledgamemodes, and asssaferoom_disabledgamemodes convars not working properly.
+
+2. Files:
+
+- Updated include file.
+
 ## Version 29.28 (June 15, 2018)
 
 1. Changes:

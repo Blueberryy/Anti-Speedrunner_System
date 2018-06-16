@@ -925,6 +925,7 @@ The asssaferoom_enabledgamemodes and asssaferoom_disabledgamemodes only apply to
 The ass_enabledgamemodes and ass_disabledgamemodes apply to the whole plugin.
 
 Here are some scenarios and their outcomes:
+
 - Scenario 1
 ```
 ass_enabledgamemodes "" // The plugin itself is enabled in all game modes.
@@ -982,6 +983,7 @@ If you don't want the plugin to interfere with the gameplay during Tank fights, 
 ### Commands
 
 1. Can you go into more detail how each command can be used?
+
 I'll just show examples for how to use each command.
 
 ```
@@ -1188,6 +1190,7 @@ assconfig_timeoffset "-10" // Subtracts 10 hours to the server time.
 It sets how the Saferoom system will let survivors into the saferoom. If set to 0, the door will remain locked and all survivors will be warped inside. If set to 1, the door will unlock and survivors can get in.
 
 2. What are the Saferoom system options?
+
 ```
 1. Boss // Add "b" to asssaferoom_systemoptions to use.
 2. Filter // Add "f" to asssaferoom_systemoptions to use.
