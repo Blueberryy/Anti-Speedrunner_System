@@ -1,5 +1,12 @@
 # Changelog
 
+## Version 29.28 (June 15, 2018)
+
+1. Changes:
+
+- Moved various lines of code around.
+- Lessened the damage of the Explosion option from 500 to 150 so it's no longer instant death.
+
 ## Version 29.27 (June 14, 2018)
 
 1. Files:

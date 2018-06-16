@@ -379,6 +379,7 @@ public void OnClientPostAdminCheck(int client)
 
 public void OnClientDisconnect(int client)
 {
+	SDKUnhook(client, SDKHook_TraceAttack, aTraceAttack);
 	vKillCheckTimer(client);
 	vResetPlayerStats(client);
 	g_bAdminMenu[client] = false;
@@ -533,7 +534,7 @@ public Action eEventPlayerBotReplace(Event event, const char[] name, bool dontBr
 		Handle hDataPack = CreateDataPack();
 		WritePackCell(hDataPack, iSurvivor);
 		WritePackCell(hDataPack, iBot);
-		CreateTimer(0.2, tTimerAFKFix, hDataPack, TIMER_FLAG_NO_MAPCHANGE);
+		CreateTimer(0.2, tTimerIdleFix, hDataPack, TIMER_FLAG_NO_MAPCHANGE);
 		if (g_bIdle[iSurvivor])
 		{
 			g_bIdle[iSurvivor] = false;
@@ -1025,7 +1026,7 @@ public void eEventJoinTeam(Event event, const char[] name, bool dontBroadcast)
 
 public Action OnPlayerRunCmd(int client, int &buttons, int &impulse, float vel[3], float angles[3], int &weapon)
 {
-	if (!bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (!g_cvASSEnable.BoolValue || !bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
 	{
 		return Plugin_Continue;
 	}
@@ -1061,7 +1062,7 @@ public Action OnPlayerRunCmd(int client, int &buttons, int &impulse, float vel[3
 		}
 		return Plugin_Changed;
 	}
-	if (bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes) && !bIsFinaleMap() && !bIsBuggedMap())
+	if (g_cvASSSaferoomEnable.BoolValue && bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes) && !bIsFinaleMap() && !bIsBuggedMap())
 	{
 		if (buttons & IN_MOVELEFT || buttons & IN_BACK || buttons & IN_FORWARD || buttons & IN_MOVERIGHT || buttons & IN_USE)
 		{

@@ -67,7 +67,7 @@ void vExecuteConfigs()
 	{
 		char sDayConfig[512];
 		char sDay[2];
-		FormatTime(sDay, sizeof(sDay), "%w", iGetAccurateTime(true));
+		FormatTime(sDay, sizeof(sDay), "%w", iGetAccurateTime(g_cvASSConfigTimeOffset, true));
 		int iDayNum = StringToInt(sDay);
 		switch (iDayNum)
 		{
@@ -200,7 +200,7 @@ void vManualConfig(int client, int mode, int type, char[] filename = "")
 		{
 			char sDayConfig[128];
 			char sDay[2];
-			FormatTime(sDay, sizeof(sDay), "%w", iGetAccurateTime(true));
+			FormatTime(sDay, sizeof(sDay), "%w", iGetAccurateTime(g_cvASSConfigTimeOffset, true));
 			int iDayNum = StringToInt(sDay);
 			switch (iDayNum)
 			{
@@ -598,43 +598,6 @@ void vExecConfigFile(const char[] filepath, const char[] folder, const char[] fi
 	strlen(label) > 0 ? strcopy(sConfigLabel, sizeof(sConfigLabel), label) : strcopy(sConfigLabel, sizeof(sConfigLabel), sConfigFilename);
 	strcopy(sConfigFilename, sizeof(sConfigFilename), sConfigFilename[4]);
 	ServerCommand("exec \"%s\"", sConfigFilename);
-}
-
-int iGetAccurateTime(const bool difference = true)
-{
-	if (!difference)
-	{
-		return GetTime();
-	}
-	int iTime = GetTime();
-	int iOperand = iParseTimeOffsetOperation(false);
-	int iAmount = iParseTimeOffsetOperation(true);
-	if (iOperand == '+')
-	{
-		iTime = iTime + (iAmount * 3600);
-	}
-	if (iOperand == '-')
-	{
-		iTime = iTime - (iAmount * 3600);
-	}
-	return iTime;
-}
-
-int iParseTimeOffsetOperation(const bool operation = false)
-{
-	char sConvarValue[16];
-	g_cvASSConfigTimeOffset.GetString(sConvarValue, sizeof(sConvarValue));
-	TrimString(sConvarValue);
-	int iOperand = sConvarValue[0];
-	sConvarValue[0] = ' ';
-	TrimString(sConvarValue);
-	int iAmount = StringToInt(sConvarValue);
-	if (iOperand != '+' && iOperand != '-' && (iAmount <= 0 || iAmount > 24))
-	{
-		iOperand = ' ';
-		iAmount  = 0;
-	}
-	return operation ? iAmount : iOperand;
 }
 
 public Action tTimerUpdatePlayerCount(Handle timer)
