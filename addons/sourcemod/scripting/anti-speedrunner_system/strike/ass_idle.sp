@@ -175,7 +175,7 @@ void vIdleSpeedrunners(int target, int client, bool log = true)
 	}
 }
 
-public Action tTimerAFKFix(Handle timer, Handle pack)
+public Action tTimerIdleFix(Handle timer, Handle pack)
 {
 	ResetPack(pack);
 	int iSurvivor = ReadPackCell(pack);

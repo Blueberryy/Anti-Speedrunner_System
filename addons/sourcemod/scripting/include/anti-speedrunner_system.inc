@@ -12,7 +12,7 @@
 #define ASS_NAME "Anti-Speedrunner System"
 #define ASS_AUTHOR "Psyk0tik (Crasher_3637)"
 #define ASS_DESCRIPTION "The Anti-Speedrunner System provides various options for dealing with players that speedrun through campaigns and making sure survivors stick together!"
-#define ASS_VERSION "29.27"
+#define ASS_VERSION "29.28"
 #define ASS_URL "https://forums.alliedmods.net/showthread.php?t=302868"
 #define ASS_LOCK "=="
 #define ASS_UNLOCK "!="
@@ -33,13 +33,13 @@
 #define ASS_FORMAT_SUCCESS 41
 
 // Configs
-static bool bCreateDirectory = false;
-static bool bCreateFile = false;
+static bool bCreateDirectory;
+static bool bCreateFile;
 static char sConfigFile[PLATFORM_MAX_PATH];
 static char sRawFileName[PLATFORM_MAX_PATH];
 static char sFolderPath[PLATFORM_MAX_PATH];
-static Handle hPluginHandle = null;
-static int iCreateDirectoryMode = FPERM_U_READ|FPERM_U_WRITE|FPERM_U_EXEC|FPERM_G_READ|FPERM_G_EXEC|FPERM_O_READ|FPERM_O_EXEC;
+static Handle hPluginHandle;
+static int iCreateDirectoryMode;
 static int iLastFindResult;
 static int iLastAppendResult;
 
@@ -58,7 +58,7 @@ stock void vASS_CreateConfig(bool create)
 	bCreateFile = create;
 }
 
-stock void vASS_CreateDirectory(bool create, int mode = FPERM_U_READ|FPERM_U_WRITE|FPERM_U_EXEC|FPERM_G_READ|FPERM_G_EXEC|FPERM_O_READ|FPERM_O_EXEC)
+stock void vASS_CreateDirectory(bool create, int mode = 511)
 {
 	bCreateDirectory = create;
 	iCreateDirectoryMode = mode;
@@ -573,6 +573,26 @@ stock int iGetAbleSurvivorCount(bool bots)
 	return iAbleSurvivorCount;
 }
 
+stock int iGetAccurateTime(ConVar convar, const bool difference = true)
+{
+	if (!difference)
+	{
+		return GetTime();
+	}
+	int iTime = GetTime();
+	int iOperand = iParseTimeOffsetOperation(convar, false);
+	int iAmount = iParseTimeOffsetOperation(convar, true);
+	if (iOperand == '+')
+	{
+		iTime = iTime + (iAmount * 3600);
+	}
+	if (iOperand == '-')
+	{
+		iTime = iTime - (iAmount * 3600);
+	}
+	return iTime;
+}
+
 stock int iGetBadSurvivorCount(bool bots)
 {
 	int iBadCount;
@@ -705,6 +725,23 @@ stock int iGetTankCount()
 		}
 	}
 	return iTankCount;
+}
+
+stock int iParseTimeOffsetOperation(ConVar convar, const bool operation = false)
+{
+	char sConvarValue[16];
+	convar.GetString(sConvarValue, sizeof(sConvarValue));
+	TrimString(sConvarValue);
+	int iOperand = sConvarValue[0];
+	sConvarValue[0] = ' ';
+	TrimString(sConvarValue);
+	int iAmount = StringToInt(sConvarValue);
+	if (iOperand != '+' && iOperand != '-' && (iAmount <= 0 || iAmount > 24))
+	{
+		iOperand = ' ';
+		iAmount  = 0;
+	}
+	return operation ? iAmount : iOperand;
 }
 
 stock void vCheatCommand(int client, char[] command, char[] arguments = "")

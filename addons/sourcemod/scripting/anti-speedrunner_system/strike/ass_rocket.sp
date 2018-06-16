@@ -1,5 +1,5 @@
 // Rocket Option
-int g_iEntity[MAXPLAYERS + 1];
+int g_iRocket[MAXPLAYERS + 1];
 int g_iExplosionSprite = -1;
 
 void vRocketStart()
@@ -111,7 +111,41 @@ void vRocketSpeedrunners(int target, int client, bool log = true, float launch =
 		}
 		else
 		{
-			vAttachFlame(target);
+			char sFlameName[128];
+			char sTargetName[128];
+			Format(sFlameName, sizeof(sFlameName), "RocketFlame%i", target);
+			int iFlame = CreateEntityByName("env_steam");
+			if (IsValidEntity(iFlame))
+			{
+				float flPosition[3];
+				GetEntPropVector(target, Prop_Send, "m_vecOrigin", flPosition);
+				flPosition[2] += 30;
+				float flAngles[3];
+				flAngles[0] = 90.0;
+				flAngles[1] = 0.0;
+				flAngles[2] = 0.0;
+				Format(sTargetName, sizeof(sTargetName), "target%i", target);
+				DispatchKeyValue(target, "targetname", sTargetName);
+				DispatchKeyValue(iFlame,"targetname", sFlameName);
+				DispatchKeyValue(iFlame, "parentname", sTargetName);
+				DispatchKeyValue(iFlame,"SpawnFlags", "1");
+				DispatchKeyValue(iFlame,"Type", "0");
+				DispatchKeyValue(iFlame,"InitialState", "1");
+				DispatchKeyValue(iFlame,"Spreadspeed", "10");
+				DispatchKeyValue(iFlame,"Speed", "800");
+				DispatchKeyValue(iFlame,"Startsize", "10");
+				DispatchKeyValue(iFlame,"EndSize", "250");
+				DispatchKeyValue(iFlame,"Rate", "15");
+				DispatchKeyValue(iFlame,"JetLength", "400");
+				DispatchKeyValue(iFlame,"RenderColor", "180 71 8");
+				DispatchKeyValue(iFlame,"RenderAmt", "180");
+				DispatchSpawn(iFlame);
+				TeleportEntity(iFlame, flPosition, flAngles, NULL_VECTOR);
+				SetVariantString(sTargetName);
+				AcceptEntityInput(iFlame, "SetParent", iFlame, iFlame, 0);
+				CreateTimer(3.0, tTimerDeleteFlame, iFlame);
+				g_iRocket[target] = iFlame;
+			}
 			EmitSoundToAll("weapons/rpg/rocketfire1.wav", target, _, _, _, 0.8);
 			launch == 0.0 ? CreateTimer(2.0, tTimerLaunch, target) : CreateTimer(launch, tTimerLaunch, target);
 			detonation == 0.0 ? CreateTimer(3.5, tTimerDetonate, target) : CreateTimer(detonation, tTimerDetonate, target);
@@ -134,48 +168,9 @@ void vRocketSpeedrunners(int target, int client, bool log = true, float launch =
 	}
 }
 
-void vAttachFlame(int entity)
-{
-	char sFlameName[128];
-	char sTargetName[128];
-	Format(sFlameName, sizeof(sFlameName), "RocketFlame%i", entity);
-	int iFlame = CreateEntityByName("env_steam");
-	if (IsValidEntity(iFlame))
-	{
-		float flPosition[3];
-		GetEntPropVector(entity, Prop_Send, "m_vecOrigin", flPosition);
-		flPosition[2] += 30;
-		float flAngles[3];
-		flAngles[0] = 90.0;
-		flAngles[1] = 0.0;
-		flAngles[2] = 0.0;
-		Format(sTargetName, sizeof(sTargetName), "target%i", entity);
-		DispatchKeyValue(entity, "targetname", sTargetName);
-		DispatchKeyValue(iFlame,"targetname", sFlameName);
-		DispatchKeyValue(iFlame, "parentname", sTargetName);
-		DispatchKeyValue(iFlame,"SpawnFlags", "1");
-		DispatchKeyValue(iFlame,"Type", "0");
-		DispatchKeyValue(iFlame,"InitialState", "1");
-		DispatchKeyValue(iFlame,"Spreadspeed", "10");
-		DispatchKeyValue(iFlame,"Speed", "800");
-		DispatchKeyValue(iFlame,"Startsize", "10");
-		DispatchKeyValue(iFlame,"EndSize", "250");
-		DispatchKeyValue(iFlame,"Rate", "15");
-		DispatchKeyValue(iFlame,"JetLength", "400");
-		DispatchKeyValue(iFlame,"RenderColor", "180 71 8");
-		DispatchKeyValue(iFlame,"RenderAmt", "180");
-		DispatchSpawn(iFlame);
-		TeleportEntity(iFlame, flPosition, flAngles, NULL_VECTOR);
-		SetVariantString(sTargetName);
-		AcceptEntityInput(iFlame, "SetParent", iFlame, iFlame, 0);
-		CreateTimer(3.0, tTimerDeleteFlame, iFlame);
-		g_iEntity[entity] = iFlame;
-	}
-}
-
 public Action tTimerLaunch(Handle timer, any client)
 {
-	if (IsClientInGame(client))
+	if (bIsSurvivor(client))
 	{
 		float flVelocity[3];
 		flVelocity[0] = 0.0;
@@ -191,13 +186,13 @@ public Action tTimerLaunch(Handle timer, any client)
 
 public Action tTimerDetonate(Handle timer, any client)
 {
-	if (IsClientInGame(client))
+	if (bIsSurvivor(client))
 	{
 		float flPosition[3];
 		GetClientAbsOrigin(client, flPosition);
 		TE_SetupExplosion(flPosition, g_iExplosionSprite, 10.0, 1, 0, 600, 5000);
 		TE_SendToAll();
-		g_iEntity[client] = 0;
+		g_iRocket[client] = 0;
 		ForcePlayerSuicide(client);
 		SetEntityGravity(client, 1.0);
 	}

@@ -1,10 +1,10 @@
 // Explosion Option
 void vExplodeStart()
 {
-	PrecacheSound("ambient/explosions/explode_1.wav");
-	PrecacheSound("ambient/explosions/explode_2.wav");
-	PrecacheSound("ambient/explosions/explode_3.wav");
-	PrecacheSound("animation/van_inside_debris.wav");
+	PrecacheSound("ambient/explosions/explode_1.wav", true);
+	PrecacheSound("ambient/explosions/explode_2.wav", true);
+	PrecacheSound("ambient/explosions/explode_3.wav", true);
+	PrecacheSound("animation/van_inside_debris.wav", true);
 }
 
 public Action cmdASSExplode(int client, int args)
@@ -126,6 +126,7 @@ void vExplodeSpeedrunners(int target, int client, bool log = true)
 
 void vCreateExplosion(float pos[3], int entity)
 {
+	GetClientAbsOrigin(entity, pos);
 	int iParticle = CreateEntityByName("info_particle_system");
 	int iParticle2 = CreateEntityByName("info_particle_system");
 	int iParticle3 = CreateEntityByName("info_particle_system");
@@ -150,16 +151,16 @@ void vCreateExplosion(float pos[3], int entity)
 	ActivateEntity(iTrace);
 	TeleportEntity(iTrace, pos, NULL_VECTOR, NULL_VECTOR);
 	DispatchKeyValue(iEntity, "fireballsprite", "sprites/muzzleflash4.vmt");
-	DispatchKeyValue(iEntity, "iMagnitude", "500");
-	DispatchKeyValue(iEntity, "iRadiusOverride", "500");
+	DispatchKeyValue(iEntity, "iMagnitude", "150");
+	DispatchKeyValue(iEntity, "iRadiusOverride", "150");
 	DispatchKeyValue(iEntity, "spawnflags", "828");
 	DispatchSpawn(iEntity);
 	TeleportEntity(iEntity, pos, NULL_VECTOR, NULL_VECTOR);
-	DispatchKeyValue(iPhysics, "radius", "500");
-	DispatchKeyValue(iPhysics, "magnitude", "500");
+	DispatchKeyValue(iPhysics, "radius", "150");
+	DispatchKeyValue(iPhysics, "magnitude", "150");
 	DispatchSpawn(iPhysics);
 	TeleportEntity(iPhysics, pos, NULL_VECTOR, NULL_VECTOR);
-	DispatchKeyValue(iHurt, "DamageRadius", "500");
+	DispatchKeyValue(iHurt, "DamageRadius", "150");
 	DispatchKeyValue(iHurt, "DamageDelay", "0.5");
 	DispatchKeyValue(iHurt, "Damage", "5");
 	DispatchKeyValue(iHurt, "DamageType", "8");
@@ -179,48 +180,38 @@ void vCreateExplosion(float pos[3], int entity)
 	AcceptEntityInput(iEntity, "Explode");
 	AcceptEntityInput(iPhysics, "Explode");
 	AcceptEntityInput(iHurt, "TurnOn");
-	Handle hDataPack = CreateDataPack();
-	WritePackCell(hDataPack, iTrace);
-	WritePackCell(hDataPack, iHurt);
-	Handle hDataPack2 = CreateDataPack();
-	WritePackCell(hDataPack2, iParticle);
-	WritePackCell(hDataPack2, iParticle2);
-	WritePackCell(hDataPack2, iParticle3);
-	WritePackCell(hDataPack2, iTrace);
-	WritePackCell(hDataPack2, iEntity);
-	WritePackCell(hDataPack2, iPhysics);
-	WritePackCell(hDataPack2, iHurt);
-	CreateTimer(15.0 + 1.5, tTimerDeleteExplosions, hDataPack2, TIMER_FLAG_NO_MAPCHANGE);
-	CreateTimer(15.0, tTimerStopFire, hDataPack, TIMER_FLAG_NO_MAPCHANGE);
+	CreateTimer(15.0 + 1.5, tTimerDeleteEntity, iParticle, TIMER_FLAG_NO_MAPCHANGE);
+	CreateTimer(15.0 + 1.5, tTimerDeleteEntity, iParticle2, TIMER_FLAG_NO_MAPCHANGE);
+	CreateTimer(15.0 + 1.5, tTimerDeleteEntity, iParticle3, TIMER_FLAG_NO_MAPCHANGE);
+	CreateTimer(15.0 + 1.5, tTimerDeleteEntity, iTrace, TIMER_FLAG_NO_MAPCHANGE);
+	CreateTimer(15.0 + 1.5, tTimerDeleteEntity, iEntity, TIMER_FLAG_NO_MAPCHANGE);
+	CreateTimer(15.0 + 1.5, tTimerDeleteEntity, iPhysics, TIMER_FLAG_NO_MAPCHANGE);
+	CreateTimer(15.0 + 1.5, tTimerDeleteEntity, iHurt, TIMER_FLAG_NO_MAPCHANGE);
+	CreateTimer(15.0, tTimerStopExplosion, iTrace, TIMER_FLAG_NO_MAPCHANGE);
+	CreateTimer(15.0, tTimerStopExplosion, iHurt, TIMER_FLAG_NO_MAPCHANGE);
 }
 
-public Action tTimerStopFire(Handle timer, Handle pack)
+public Action tTimerStopExplosion(Handle timer, any entity)
 {
-	ResetPack(pack);
-	int iParticle = ReadPackCell(pack);
-	int iHurt = ReadPackCell(pack);
-	delete pack;
-	if (IsValidEntity(iParticle))
+	char sClassname[32];
+	GetEntityClassname(entity, sClassname, sizeof(sClassname));
+	if (IsValidEntity(entity))
 	{
-		AcceptEntityInput(iParticle, "Stop");
-	}
-	if (IsValidEntity(iHurt))
-	{
-		AcceptEntityInput(iHurt, "TurnOff");
-	}
-}
-
-public Action tTimerDeleteExplosions(Handle timer, Handle pack)
-{
-	ResetPack(pack);
-	int iEntity;
-	for (int iParticle = 1; iParticle <= 7; iParticle++)
-	{
-		iEntity = ReadPackCell(pack);
-		if (IsValidEntity(iEntity))
+		if (StrEqual(sClassname, "info_particle_system", false))
 		{
-			AcceptEntityInput(iEntity, "Kill");
+			AcceptEntityInput(entity, "Stop");
+		}
+		else if (StrEqual(sClassname, "point_hurt", false))
+		{
+			AcceptEntityInput(entity, "TurnOff");
 		}
 	}
-	delete pack;
+}
+
+public Action tTimerDeleteEntity(Handle timer, any entity)
+{
+	if (IsValidEntity(entity))
+	{
+		AcceptEntityInput(entity, "Kill");
+	}
 }
