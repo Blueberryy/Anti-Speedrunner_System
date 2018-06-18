@@ -94,55 +94,53 @@ void vSetAmmo(int client, int count)
 		GetEntityClassname(iActiveWeapon, sWeapon, sizeof(sWeapon));
 		if (IsValidEntity(iActiveWeapon))
 		{
-			if (bIsL4D2Game())
+			if (StrEqual(sWeapon, "weapon_rifle", false))
 			{
-				if (StrEqual(sWeapon, "weapon_rifle", false) || StrEqual(sWeapon, "weapon_rifle_desert", false) || StrEqual(sWeapon, "weapon_rifle_ak47", false) || StrEqual(sWeapon, "weapon_rifle_sg552", false))
-				{
-					SetEntData(client, (FindDataMapInfo(client, "m_iAmmo") + 12), count);
-				}
-				else if (StrEqual(sWeapon, "weapon_smg", false) || StrEqual(sWeapon, "weapon_smg_silenced", false) || StrEqual(sWeapon, "weapon_smg_mp5", false))
-				{
-					SetEntData(client, (FindDataMapInfo(client, "m_iAmmo") + 20), count);
-				}
-				else if (StrEqual(sWeapon, "weapon_pumpshotgun", false) || StrEqual(sWeapon, "weapon_shotgun_chrome", false))
-				{
-					SetEntData(client, (FindDataMapInfo(client, "m_iAmmo") + 28), count);
-				}
-				else if (StrEqual(sWeapon, "weapon_autoshotgun", false) || StrEqual(sWeapon, "weapon_shotgun_spas", false))
-				{
-					SetEntData(client, (FindDataMapInfo(client, "m_iAmmo") + 32), count);
-				}
-				else if (StrEqual(sWeapon, "weapon_hunting_rifle", false) || StrEqual(sWeapon, "weapon_sniper_scout", false))
-				{
-					SetEntData(client, (FindDataMapInfo(client, "m_iAmmo") + 36), count);
-				}
-				else if (StrEqual(sWeapon, "weapon_sniper_military", false) || StrEqual(sWeapon, "weapon_sniper_awp", false))
-				{
-					SetEntData(client, (FindDataMapInfo(client, "m_iAmmo") + 40), count);
-				}
-				else if (StrEqual(sWeapon, "weapon_grenade_launcher", false))
-				{
-					SetEntData(client, (FindDataMapInfo(client, "m_iAmmo") + 68), count);
-				}
+				bIsL4D2Game() ? SetEntData(client, (FindDataMapInfo(client, "m_iAmmo") + 12), count) : SetEntData(client, (FindDataMapInfo(client, "m_iAmmo") + 12), count);
 			}
-			else
+			else if (StrEqual(sWeapon, "weapon_rifle_desert", false) || StrEqual(sWeapon, "weapon_rifle_ak47", false) || StrEqual(sWeapon, "weapon_rifle_sg552", false))
 			{
-				if (StrEqual(sWeapon, "weapon_hunting_rifle", false))
-				{
-					SetEntData(client, (FindDataMapInfo(client, "m_iAmmo") + 8), count);
-				}
-				else if (StrEqual(sWeapon, "weapon_rifle", false))
-				{
-					SetEntData(client, (FindDataMapInfo(client, "m_iAmmo") + 12), count);
-				}
-				else if (StrEqual(sWeapon, "weapon_smg", false))
-				{
-					SetEntData(client, (FindDataMapInfo(client, "m_iAmmo") + 20), count);
-				}
-				else if (StrEqual(sWeapon, "weapon_pumpshotgun", false) || StrEqual(sWeapon, "weapon_autoshotgun", false))
-				{
-					SetEntData(client, (FindDataMapInfo(client, "m_iAmmo") + 24), count);
-				}
+				SetEntData(client, (FindDataMapInfo(client, "m_iAmmo") + 12), count);
+			}
+			else if (StrEqual(sWeapon, "weapon_smg", false))
+			{
+				bIsL4D2Game() ? SetEntData(client, (FindDataMapInfo(client, "m_iAmmo") + 20), count) : SetEntData(client, (FindDataMapInfo(client, "m_iAmmo") + 20), count);
+			}
+			else if (StrEqual(sWeapon, "weapon_smg_silenced", false) || StrEqual(sWeapon, "weapon_smg_mp5", false))
+			{
+				SetEntData(client, (FindDataMapInfo(client, "m_iAmmo") + 20), count);
+			}
+			else if (StrEqual(sWeapon, "weapon_pumpshotgun", false))
+			{
+				bIsL4D2Game() ? SetEntData(client, (FindDataMapInfo(client, "m_iAmmo") + 28), count) : SetEntData(client, (FindDataMapInfo(client, "m_iAmmo") + 24), count);
+			}
+			else if (StrEqual(sWeapon, "weapon_shotgun_chrome", false))
+			{
+				SetEntData(client, (FindDataMapInfo(client, "m_iAmmo") + 28), count);
+			}
+			else if (StrEqual(sWeapon, "weapon_autoshotgun", false))
+			{
+				bIsL4D2Game() ? SetEntData(client, (FindDataMapInfo(client, "m_iAmmo") + 24), count) : SetEntData(client, (FindDataMapInfo(client, "m_iAmmo") + 32), count);
+			}
+			else if (StrEqual(sWeapon, "weapon_shotgun_spas", false))
+			{
+				SetEntData(client, (FindDataMapInfo(client, "m_iAmmo") + 32), count);
+			}
+			else if (StrEqual(sWeapon, "weapon_hunting_rifle", false))
+			{
+				bIsL4D2Game() ? SetEntData(client, (FindDataMapInfo(client, "m_iAmmo") + 36), count) : SetEntData(client, (FindDataMapInfo(client, "m_iAmmo") + 8), count);
+			}
+			else if (StrEqual(sWeapon, "weapon_sniper_scout", false))
+			{
+				SetEntData(client, (FindDataMapInfo(client, "m_iAmmo") + 36), count);
+			}
+			else if (StrEqual(sWeapon, "weapon_sniper_military", false) || StrEqual(sWeapon, "weapon_sniper_awp", false))
+			{
+				SetEntData(client, (FindDataMapInfo(client, "m_iAmmo") + 40), count);
+			}
+			else if (StrEqual(sWeapon, "weapon_grenade_launcher", false))
+			{
+				SetEntData(client, (FindDataMapInfo(client, "m_iAmmo") + 68), count);
 			}
 		}
 		SetEntProp(GetPlayerWeaponSlot(client, 0), Prop_Data, "m_iClip1", count, 1);
