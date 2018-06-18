@@ -329,7 +329,7 @@ void vCheckSpeedrunners(int target, int client, int toggle, bool log = true, int
 				{
 					if (timer == 0)
 					{
-						tTimerDetectSpeedrunners(null, target);
+						tTimerDetectSpeedrunners(null, GetClientUserId(target));
 					}
 					else
 					{
@@ -338,7 +338,7 @@ void vCheckSpeedrunners(int target, int client, int toggle, bool log = true, int
 							g_bCheck[target] = true;
 							if (g_hCheckTimers[target] == null)
 							{
-								g_hCheckTimers[target] = CreateTimer(g_cvASSStrikeDelay.FloatValue, tTimerDetectSpeedrunners, target, TIMER_REPEAT);
+								g_hCheckTimers[target] = CreateTimer(g_cvASSStrikeDelay.FloatValue, tTimerDetectSpeedrunners, GetClientUserId(target), TIMER_REPEAT);
 							}
 						}
 					}
@@ -535,7 +535,7 @@ public void vStrikeDelayCvar(ConVar convar, const char[] oldValue, const char[] 
 					if (g_bCheck[iPlayer])
 					{
 						vKillCheckTimer(iPlayer);
-						CreateTimer(1.0, tTimerCheckSpeedrunners, iPlayer);
+						CreateTimer(1.0, tTimerCheckSpeedrunners, GetClientUserId(iPlayer));
 					}
 				}
 				else
@@ -557,8 +557,9 @@ public Action tTimerAutoCheckSpeedrunners(Handle timer)
 	vAutoCheckSpeedrunners(1);
 }
 
-public Action tTimerCheckSpeedrunners(Handle timer, any client)
+public Action tTimerCheckSpeedrunners(Handle timer, any userid)
 {
+	int client = GetClientOfUserId(userid);
 	vCheckSpeedrunners(client, client, 1, false);
 }
 
@@ -620,8 +621,9 @@ public Action tTimerAutoDetectSpeedrunners(Handle timer)
 	return Plugin_Continue;
 }
 
-public Action tTimerDetectSpeedrunners(Handle timer, any client)
+public Action tTimerDetectSpeedrunners(Handle timer, any userid)
 {
+	int client = GetClientOfUserId(userid);
 	if (!g_cvASSAutoMode.BoolValue && (!IsClientInGame(client) || !IsPlayerAlive(client)))
 	{
 		vKillCheckTimer(client);

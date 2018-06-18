@@ -195,7 +195,7 @@ void vDisarmSpeedrunners(int target, int client, int toggle, bool log = true, in
 							g_bDisarm[target] = true;
 							if (g_hDisarmTimers[target] == null)
 							{
-								g_hDisarmTimers[target] = CreateTimer(1.0, tTimerDisarmSpeedrunners, target, TIMER_REPEAT);
+								g_hDisarmTimers[target] = CreateTimer(1.0, tTimerDisarmSpeedrunners, GetClientUserId(target), TIMER_REPEAT);
 							}
 						}
 					}
@@ -230,8 +230,9 @@ void vKillDisarmTimer(int client)
 	}
 }
 
-public Action tTimerDisarmSpeedrunners(Handle timer, any client)
+public Action tTimerDisarmSpeedrunners(Handle timer, any userid)
 {
+	int client = GetClientOfUserId(userid);
 	if (!IsClientInGame(client) || !IsPlayerAlive(client) || bIsPlayerIncapacitated(client))
 	{
 		vKillDisarmTimer(client);

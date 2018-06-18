@@ -147,7 +147,7 @@ void vVisionSpeedrunners(int target, int client, int toggle, bool log = true, in
 							g_bVision[target] = true;
 							if (g_hVisionTimers[target] == null)
 							{
-								g_hVisionTimers[target] = CreateTimer(0.1, tTimerVisionSpeedrunners, target, TIMER_REPEAT);
+								g_hVisionTimers[target] = CreateTimer(0.1, tTimerVisionSpeedrunners, GetClientUserId(target), TIMER_REPEAT);
 							}
 						}
 					}
@@ -187,8 +187,9 @@ void vKillVisionTimer(int client)
 	}
 }
 
-public Action tTimerVisionSpeedrunners(Handle timer, any client)
+public Action tTimerVisionSpeedrunners(Handle timer, any userid)
 {
+	int client = GetClientOfUserId(userid);
 	if (!IsClientInGame(client) || !IsPlayerAlive(client) || bIsPlayerIncapacitated(client))
 	{
 		vKillVisionTimer(client);

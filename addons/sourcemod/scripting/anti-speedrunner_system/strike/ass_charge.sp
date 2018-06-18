@@ -186,7 +186,7 @@ void vChargeSpeedrunners(int target, int client, int toggle, bool log = true, in
 							g_bCharge[target] = true;
 							if (g_hChargeTimers[target] == null)
 							{
-								g_hChargeTimers[target] = CreateTimer(5.0, tTimerChargeSpeedrunners, target, TIMER_REPEAT);
+								g_hChargeTimers[target] = CreateTimer(5.0, tTimerChargeSpeedrunners, GetClientUserId(target), TIMER_REPEAT);
 							}
 						}
 					}
@@ -221,8 +221,9 @@ void vKillChargeTimer(int client)
 	}
 }
 
-public Action tTimerChargeSpeedrunners(Handle timer, any client)
+public Action tTimerChargeSpeedrunners(Handle timer, any userid)
 {
+	int client = GetClientOfUserId(userid);
 	if (!IsClientInGame(client) || !IsPlayerAlive(client) || bIsPlayerIncapacitated(client))
 	{
 		vKillChargeTimer(client);

@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 29.32 (June 18, 2018)
+
+Changes:
+
+1. Client-based timers now pass client user IDs instead of client IDs.
+
 ## Version 29.31 (June 18, 2018)
 
 Changes:

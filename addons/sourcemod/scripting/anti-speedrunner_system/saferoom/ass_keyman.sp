@@ -293,6 +293,10 @@ void vNotifyPlayers(int client)
 
 public Action tTimerAutoChooseKeyman(Handle timer, any entity)
 {
+	if ((entity = EntRefToEntIndex(entity)) == INVALID_ENT_REFERENCE)
+	{
+		return Plugin_Stop;
+	}
 	EmitSoundToAll("buttons/blip1.wav", entity);
 	g_iKeymanCountdown--;
 	for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer++)

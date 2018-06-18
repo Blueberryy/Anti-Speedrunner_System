@@ -144,7 +144,7 @@ void vIncapSpeedrunners(int target, int client, int toggle, bool log = true, int
 							g_bIncap[target] = true;
 							if (g_hIncapTimers[target] == null)
 							{
-								g_hIncapTimers[target] = CreateTimer(1.0, tTimerIncapSpeedrunners, target, TIMER_REPEAT);
+								g_hIncapTimers[target] = CreateTimer(1.0, tTimerIncapSpeedrunners, GetClientUserId(target), TIMER_REPEAT);
 							}
 						}
 					}
@@ -179,8 +179,9 @@ void vKillIncapTimer(int client)
 	}
 }
 
-public Action tTimerIncapSpeedrunners(Handle timer, any client)
+public Action tTimerIncapSpeedrunners(Handle timer, any userid)
 {
+	int client = GetClientOfUserId(userid);
 	if (!IsClientInGame(client) || !IsPlayerAlive(client))
 	{
 		vKillIncapTimer(client);

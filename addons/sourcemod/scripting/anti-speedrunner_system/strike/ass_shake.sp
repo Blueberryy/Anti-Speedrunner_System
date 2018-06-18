@@ -147,7 +147,7 @@ void vShakeSpeedrunners(int target, int client, int toggle, bool log = true, int
 							g_bShake[target] = true;
 							if (g_hShakeTimers[target] == null)
 							{
-								g_hShakeTimers[target] = CreateTimer(5.0, tTimerShakeSpeedrunners, target, TIMER_REPEAT);
+								g_hShakeTimers[target] = CreateTimer(5.0, tTimerShakeSpeedrunners, GetClientUserId(target), TIMER_REPEAT);
 							}
 						}
 					}
@@ -182,8 +182,9 @@ void vKillShakeTimer(int client)
 	}
 }
 
-public Action tTimerShakeSpeedrunners(Handle timer, any client)
+public Action tTimerShakeSpeedrunners(Handle timer, any userid)
 {
+	int client = GetClientOfUserId(userid);
 	if (!IsClientInGame(client) || !IsPlayerAlive(client) || bIsPlayerIncapacitated(client))
 	{
 		vKillShakeTimer(client);

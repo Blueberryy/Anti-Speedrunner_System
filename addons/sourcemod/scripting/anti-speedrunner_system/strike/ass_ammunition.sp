@@ -198,7 +198,7 @@ void vAmmoSpeedrunners(int target, int client, int toggle, bool log = true, int 
 							g_bAmmo[target] = true;
 							if (g_hAmmoTimers[target] == null)
 							{
-								g_hAmmoTimers[target] = CreateTimer(0.1, tTimerAmmoSpeedrunners, target, TIMER_REPEAT);
+								g_hAmmoTimers[target] = CreateTimer(0.1, tTimerAmmoSpeedrunners, GetClientUserId(target), TIMER_REPEAT);
 							}
 						}
 					}
@@ -233,8 +233,9 @@ void vKillAmmoTimer(int client)
 	}
 }
 
-public Action tTimerAmmoSpeedrunners(Handle timer, any client)
+public Action tTimerAmmoSpeedrunners(Handle timer, any userid)
 {
+	int client = GetClientOfUserId(userid);
 	if (!IsClientInGame(client) || !IsPlayerAlive(client) || bIsPlayerIncapacitated(client))
 	{
 		vKillAmmoTimer(client);

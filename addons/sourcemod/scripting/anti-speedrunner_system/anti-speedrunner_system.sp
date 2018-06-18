@@ -549,7 +549,8 @@ public Action eEventPlayerBotReplace(Event event, const char[] name, bool dontBr
 
 public Action eEventPlayerIncapacitated(Event event, const char[] name, bool dontBroadcast)
 {
-	int iDisabled = GetClientOfUserId(event.GetInt("userid"));
+	int iUserId = event.GetInt("userid");
+	int iDisabled = GetClientOfUserId(iUserId);
 	g_cvASSSaferoomSystemOptions.GetString(g_sSaferoomOption, sizeof(g_sSaferoomOption));
 	if (g_cvASSEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
 	{
@@ -573,8 +574,10 @@ public Action eEventPlayerIncapacitated(Event event, const char[] name, bool don
 
 public Action eEventPlayerDeath(Event event, const char[] name, bool dontBroadcast)
 {
-	int iAttacker = GetClientOfUserId(event.GetInt("attacker"));
-	int iDead = GetClientOfUserId(event.GetInt("userid"));
+	int iAttackerId = event.GetInt("attacker");
+	int iAttacker = GetClientOfUserId(iAttackerId);
+	int iUserId = event.GetInt("userid");
+	int iDead = GetClientOfUserId(iUserId);
 	if (g_cvASSEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
 	{
 		g_cvASSSaferoomSystemOptions.GetString(g_sSaferoomOption, sizeof(g_sSaferoomOption));
@@ -610,7 +613,8 @@ public Action eEventPlayerDeath(Event event, const char[] name, bool dontBroadca
 
 public Action eEventPlayerSpawnDeath(Event event, const char[] name, bool dontBroadcast)
 {
-	int iSurvivor = GetClientOfUserId(event.GetInt("userid"));
+	int iUserId = event.GetInt("userid");
+	int iSurvivor = GetClientOfUserId(iUserId);
 	g_cvASSSaferoomSystemOptions.GetString(g_sSaferoomOption, sizeof(g_sSaferoomOption));
 	if (g_cvASSEnable.BoolValue && g_cvASSSaferoomEnable.BoolValue && StrContains(g_sSaferoomOption, "g", false) != -1 && iSurvivor > 0)
 	{
@@ -624,7 +628,8 @@ public Action eEventPlayerSpawnDeath(Event event, const char[] name, bool dontBr
 
 public Action eEventSDPlayerUse(Event event, const char[] name, bool dontBroadcast)
 {
-	int iDoorUser = GetClientOfUserId(event.GetInt("userid"));
+	int iUserId = event.GetInt("userid");
+	int iDoorUser = GetClientOfUserId(iUserId);
 	int iDoorEntity = event.GetInt("targetid");
 	g_cvASSDelayDoorType.GetString(g_sDoorType, sizeof(g_sDoorType));
 	if (((bIsSurvivor(iDoorUser) && g_cvASSCountBots.BoolValue) || (bIsHumanSurvivor(iDoorUser) && !g_cvASSCountBots.BoolValue)) && IsValidEntity(iDoorEntity))
@@ -660,7 +665,8 @@ public Action eEventSDPlayerUse(Event event, const char[] name, bool dontBroadca
 
 public Action eEventEDPlayerUse(Event event, const char[] name, bool dontBroadcast)
 {
-	int iDoorUser = GetClientOfUserId(event.GetInt("userid"));
+	int iUserId = event.GetInt("userid");
+	int iDoorUser = GetClientOfUserId(iUserId);
 	int iDoorEntity = event.GetInt("targetid");
 	g_cvASSDelayDoorType.GetString(g_sDoorType, sizeof(g_sDoorType));
 	if (((bIsSurvivor(iDoorUser) && g_cvASSCountBots.BoolValue) || (bIsHumanSurvivor(iDoorUser) && !g_cvASSCountBots.BoolValue)) && IsValidEntity(iDoorEntity))
@@ -696,7 +702,8 @@ public Action eEventEDPlayerUse(Event event, const char[] name, bool dontBroadca
 
 public Action eEventSPlayerUse(Event event, const char[] name, bool dontBroadcast)
 {
-	int iDoorUser = GetClientOfUserId(event.GetInt("userid"));
+	int iUserId = event.GetInt("userid");
+	int iDoorUser = GetClientOfUserId(iUserId);
 	int iDoorEntity = event.GetInt("targetid");
 	g_cvASSSaferoomSystemOptions.GetString(g_sSaferoomOption, sizeof(g_sSaferoomOption));
 	g_cvASSLockdownDoorType.GetString(g_sLockdownType, sizeof(g_sLockdownType));
@@ -781,7 +788,8 @@ public Action eEventSPlayerUse(Event event, const char[] name, bool dontBroadcas
 
 public Action eEventEPlayerUse(Event event, const char[] name, bool dontBroadcast)
 {
-	int iDoorUser = GetClientOfUserId(event.GetInt("userid"));
+	int iUserId = event.GetInt("userid");
+	int iDoorUser = GetClientOfUserId(iUserId);
 	int iDoorEntity = event.GetInt("targetid");
 	g_cvASSSaferoomSystemOptions.GetString(g_sSaferoomOption, sizeof(g_sSaferoomOption));
 	g_cvASSLockdownDoorType.GetString(g_sLockdownType, sizeof(g_sLockdownType));
@@ -988,7 +996,8 @@ public Action eEventServerEnd(Event event, const char[] name, bool dontBroadcast
 public void eEventLeftCheckpoint(Event event, const char[] name, bool dontBroadcast)
 {
 	int iDoorEntity = event.GetInt("entityid");
-	int iLeaver = GetClientOfUserId(event.GetInt("userid"));
+	int iUserId = event.GetInt("userid");
+	int iLeaver = GetClientOfUserId(iUserId);
 	g_cvASSSaferoomSystemOptions.GetString(g_sSaferoomOption, sizeof(g_sSaferoomOption));
 	if (g_cvASSEnable.BoolValue && g_cvASSSaferoomEnable.BoolValue && StrContains(g_sSaferoomOption, "k", false) != -1 && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
 	{
@@ -1001,7 +1010,8 @@ public void eEventLeftCheckpoint(Event event, const char[] name, bool dontBroadc
 
 public void eEventJoinTeam(Event event, const char[] name, bool dontBroadcast)
 {
-	int iPlayer = GetClientOfUserId(event.GetInt("userid"));
+	int iUserId = event.GetInt("userid");
+	int iPlayer = GetClientOfUserId(iUserId);
 	g_cvASSSaferoomSystemOptions.GetString(g_sSaferoomOption, sizeof(g_sSaferoomOption));
 	if (g_cvASSEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
 	{
@@ -1618,10 +1628,11 @@ public Action tTimerUpdateIncapCount(Handle timer)
 	return Plugin_Continue;
 }
 
-public Action tTimerLeftSafeArea(Handle timer, any client)
+public Action tTimerLeftSafeArea(Handle timer, any userid)
 {
+	int client = GetClientOfUserId(userid);
 	g_cvASSSaferoomSystemOptions.GetString(g_sSaferoomOption, sizeof(g_sSaferoomOption));
-	if (!g_cvASSEnable.BoolValue || !g_cvASSSaferoomEnable.BoolValue || StrContains(g_sSaferoomOption, "k", false) == -1 || client == 0 || !IsClientInGame(client) || g_bLeftSaferoom || !bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) || !bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes) || bIsFinaleMap() || bIsBuggedMap())
+	if (!g_cvASSEnable.BoolValue || !g_cvASSSaferoomEnable.BoolValue || StrContains(g_sSaferoomOption, "k", false) == -1 || g_bLeftSaferoom || !bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) || !bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes) || bIsFinaleMap() || bIsBuggedMap())
 	{
 		return Plugin_Stop;
 	}
@@ -1655,6 +1666,10 @@ public Action tTimerLeftSafeArea(Handle timer, any client)
 
 public Action tTimerWarpCountdown(Handle timer, any entity)
 {
+	if ((entity = EntRefToEntIndex(entity)) == INVALID_ENT_REFERENCE)
+	{
+		return Plugin_Stop;
+	}
 	EmitSoundToAll("buttons/button14.wav", entity);
 	g_iWarpCountdown--;
 	for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer++)

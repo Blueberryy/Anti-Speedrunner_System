@@ -162,7 +162,7 @@ void vPukeSpeedrunners(int target, int client, int toggle, bool log = true, int 
 							g_bPuke[target] = true;
 							if (g_hPukeTimers[target] == null)
 							{
-								g_hPukeTimers[target] = CreateTimer(7.0, tTimerPukeSpeedrunners, target, TIMER_REPEAT);
+								g_hPukeTimers[target] = CreateTimer(7.0, tTimerPukeSpeedrunners, GetClientUserId(target), TIMER_REPEAT);
 							}
 						}
 					}
@@ -197,8 +197,9 @@ void vKillPukeTimer(int client)
 	}
 }
 
-public Action tTimerPukeSpeedrunners(Handle timer, any client)
+public Action tTimerPukeSpeedrunners(Handle timer, any userid)
 {
+	int client = GetClientOfUserId(userid);
 	if (!IsClientInGame(client) || !IsPlayerAlive(client) || bIsPlayerIncapacitated(client))
 	{
 		vKillPukeTimer(client);

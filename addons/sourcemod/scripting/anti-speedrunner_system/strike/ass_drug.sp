@@ -125,7 +125,7 @@ void vDrugSpeedrunners(int target, int client, int toggle, bool log = true)
 						g_bDrug[target] = true;
 						if (g_hDrugTimers[target] == null)
 						{
-							g_hDrugTimers[target] = CreateTimer(1.0, tTimerDrugSpeedrunners, target, TIMER_REPEAT);
+							g_hDrugTimers[target] = CreateTimer(1.0, tTimerDrugSpeedrunners, GetClientUserId(target), TIMER_REPEAT);
 						}
 						if (bIsHumanSurvivor(target))
 						{
@@ -191,8 +191,9 @@ void vKillDrugTimer(int client)
 	}
 }
 
-public Action tTimerDrugSpeedrunners(Handle timer, any client)
+public Action tTimerDrugSpeedrunners(Handle timer, any userid)
 {
+	int client = GetClientOfUserId(userid);
 	if (!IsClientInGame(client) || !IsPlayerAlive(client) || bIsPlayerIncapacitated(client))
 	{
 		vKillDrugTimer(client);

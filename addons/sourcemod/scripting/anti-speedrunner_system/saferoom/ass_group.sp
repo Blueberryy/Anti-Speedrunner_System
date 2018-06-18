@@ -94,7 +94,7 @@ bool bIsNotConsole()
 	return bFind;
 }
 
-public Action tTimerGroupUpdate(Handle timer, any data)
+public Action tTimerGroupUpdate(Handle timer)
 {
 	g_cvASSSaferoomSystemOptions.GetString(g_sSaferoomOption, sizeof(g_sSaferoomOption));
 	if (!g_cvASSEnable.BoolValue || !g_cvASSSaferoomEnable.BoolValue || StrContains(g_sSaferoomOption, "g", false) == -1 || !bIsNotConsole())

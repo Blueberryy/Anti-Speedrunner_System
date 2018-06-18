@@ -177,7 +177,7 @@ void vAcidSpeedrunners(int target, int client, int toggle, bool log = true, int 
 							g_bAcid[target] = true;
 							if (g_hAcidTimers[target] == null)
 							{
-								g_hAcidTimers[target] = CreateTimer(7.0, tTimerAcidSpeedrunners, target, TIMER_REPEAT);
+								g_hAcidTimers[target] = CreateTimer(7.0, tTimerAcidSpeedrunners, GetClientUserId(target), TIMER_REPEAT);
 							}
 						}
 					}
@@ -212,8 +212,9 @@ void vKillAcidTimer(int client)
 	}
 }
 
-public Action tTimerAcidSpeedrunners(Handle timer, any client)
+public Action tTimerAcidSpeedrunners(Handle timer, any userid)
 {
+	int client = GetClientOfUserId(userid);
 	if (!IsClientInGame(client) || !IsPlayerAlive(client) || bIsPlayerIncapacitated(client))
 	{
 		vKillAcidTimer(client);

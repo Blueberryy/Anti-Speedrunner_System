@@ -134,6 +134,10 @@ public Action tTimerSpawnMob(Handle timer, any data)
 
 public Action tTimerLockdownStarts(Handle timer, any entity)
 {
+	if ((entity = EntRefToEntIndex(entity)) == INVALID_ENT_REFERENCE)
+	{
+		return Plugin_Stop;
+	}
 	EmitSoundToAll("ambient/alarms/klaxon1.wav", entity);
 	g_iLockdownCountdown--;
 	vLockdownCountdown(g_iLockdownCountdown);
@@ -142,6 +146,10 @@ public Action tTimerLockdownStarts(Handle timer, any entity)
 
 public Action tTimerLockdownStarts2(Handle timer, any entity)
 {
+	if ((entity = EntRefToEntIndex(entity)) == INVALID_ENT_REFERENCE)
+	{
+		return Plugin_Stop;
+	}
 	EmitSoundToAll("ambient/alarms/klaxon1.wav", entity);
 	g_iLockdownCountdown2--;
 	vLockdownCountdown(g_iLockdownCountdown2);
@@ -150,6 +158,10 @@ public Action tTimerLockdownStarts2(Handle timer, any entity)
 
 public Action tTimerLockdownEnds(Handle timer, any entity)
 {
+	if ((entity = EntRefToEntIndex(entity)) == INVALID_ENT_REFERENCE)
+	{
+		return Plugin_Stop;
+	}
 	if (g_hLockdownTimer != null)
 	{
 		EmitSoundToAll("doors/door_squeek1.wav", entity);
@@ -159,10 +171,15 @@ public Action tTimerLockdownEnds(Handle timer, any entity)
 		KillTimer(g_hLockdownTimer);
 		g_hLockdownTimer = null;
 	}
+	return Plugin_Continue;
 }
 
 public Action tTimerLockdownEnds2(Handle timer, any entity)
 {
+	if ((entity = EntRefToEntIndex(entity)) == INVALID_ENT_REFERENCE)
+	{
+		return Plugin_Stop;
+	}
 	if (g_hLockdownTimer2 != null)
 	{
 		vEntryMode(entity);
@@ -171,4 +188,5 @@ public Action tTimerLockdownEnds2(Handle timer, any entity)
 		KillTimer(g_hLockdownTimer2);
 		g_hLockdownTimer2 = null;
 	}
+	return Plugin_Continue;
 }

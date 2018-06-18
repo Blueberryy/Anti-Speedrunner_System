@@ -193,6 +193,10 @@ void vCreateExplosion(float pos[3], int entity)
 
 public Action tTimerStopExplosion(Handle timer, any entity)
 {
+	if ((entity = EntRefToEntIndex(entity)) == INVALID_ENT_REFERENCE)
+	{
+		return Plugin_Stop;
+	}
 	char sClassname[32];
 	GetEntityClassname(entity, sClassname, sizeof(sClassname));
 	if (IsValidEntity(entity))
@@ -206,12 +210,18 @@ public Action tTimerStopExplosion(Handle timer, any entity)
 			AcceptEntityInput(entity, "TurnOff");
 		}
 	}
+	return Plugin_Continue;
 }
 
 public Action tTimerDeleteEntity(Handle timer, any entity)
 {
+	if ((entity = EntRefToEntIndex(entity)) == INVALID_ENT_REFERENCE)
+	{
+		return Plugin_Stop;
+	}
 	if (IsValidEntity(entity))
 	{
 		AcceptEntityInput(entity, "Kill");
 	}
+	return Plugin_Continue;
 }

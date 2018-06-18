@@ -130,7 +130,7 @@ void vFreezeSpeedrunners(int target, int client, int toggle, bool log = true)
 						g_bFreeze[target] = true;
 						if (g_hFreezeTimers[target] == null)
 						{
-							g_hFreezeTimers[target] = CreateTimer(1.0, tTimerFreezeSpeedrunners, target, TIMER_REPEAT);
+							g_hFreezeTimers[target] = CreateTimer(1.0, tTimerFreezeSpeedrunners, GetClientUserId(target), TIMER_REPEAT);
 						}
 						if (bIsHumanSurvivor(target))
 						{
@@ -171,8 +171,9 @@ void vKillFreezeTimer(int client)
 	}
 }
 
-public Action tTimerFreezeSpeedrunners(Handle timer, any client)
+public Action tTimerFreezeSpeedrunners(Handle timer, any userid)
 {
+	int client = GetClientOfUserId(userid);
 	if (!IsClientInGame(client) || !IsPlayerAlive(client) || bIsPlayerIncapacitated(client))
 	{
 		vKillFreezeTimer(client);

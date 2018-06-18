@@ -164,7 +164,7 @@ void vShoveSpeedrunners(int target, int client, int toggle, bool log = true, int
 							g_bShove[target] = true;
 							if (g_hShoveTimers[target] == null)
 							{
-								g_hShoveTimers[target] = CreateTimer(1.0, tTimerShoveSpeedrunners, target, TIMER_REPEAT);
+								g_hShoveTimers[target] = CreateTimer(1.0, tTimerShoveSpeedrunners, GetClientUserId(target), TIMER_REPEAT);
 							}
 						}
 					}
@@ -199,8 +199,9 @@ void vKillShoveTimer(int client)
 	}
 }
 
-public Action tTimerShoveSpeedrunners(Handle timer, any client)
+public Action tTimerShoveSpeedrunners(Handle timer, any userid)
 {
+	int client = GetClientOfUserId(userid);
 	if (!IsClientInGame(client) || !IsPlayerAlive(client) || bIsPlayerIncapacitated(client))
 	{
 		vKillShoveTimer(client);

@@ -144,7 +144,7 @@ void vHurtSpeedrunners(int target, int client, int toggle, bool log = true, int 
 							g_bHurt[target] = true;
 							if (g_hHurtTimers[target] == null)
 							{
-								g_hHurtTimers[target] = CreateTimer(1.0, tTimerHurtSpeedrunners, target, TIMER_REPEAT);
+								g_hHurtTimers[target] = CreateTimer(1.0, tTimerHurtSpeedrunners, GetClientUserId(target), TIMER_REPEAT);
 							}
 						}
 					}
@@ -179,8 +179,9 @@ void vKillHurtTimer(int client)
 	}
 }
 
-public Action tTimerHurtSpeedrunners(Handle timer, any client)
+public Action tTimerHurtSpeedrunners(Handle timer, any userid)
 {
+	int client = GetClientOfUserId(userid);
 	if (!IsClientInGame(client) || !IsPlayerAlive(client) || bIsPlayerIncapacitated(client))
 	{
 		vKillHurtTimer(client);

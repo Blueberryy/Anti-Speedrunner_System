@@ -181,7 +181,7 @@ void vFireSpeedrunners(int target, int client, int toggle, bool log = true, int 
 							g_bFire[target] = true;
 							if (g_hFireTimers[target] == null)
 							{
-								g_hFireTimers[target] = CreateTimer(1.0, tTimerFireSpeedrunners, target, TIMER_REPEAT);
+								g_hFireTimers[target] = CreateTimer(1.0, tTimerFireSpeedrunners, GetClientUserId(target), TIMER_REPEAT);
 							}
 						}
 					}
@@ -216,8 +216,9 @@ void vKillFireTimer(int client)
 	}
 }
 
-public Action tTimerFireSpeedrunners(Handle timer, any client)
+public Action tTimerFireSpeedrunners(Handle timer, any userid)
 {
+	int client = GetClientOfUserId(userid);
 	if (!IsClientInGame(client) || !IsPlayerAlive(client) || bIsPlayerIncapacitated(client))
 	{
 		vKillFireTimer(client);
@@ -229,8 +230,13 @@ public Action tTimerFireSpeedrunners(Handle timer, any client)
 
 public Action tTimerStopAndRemoveParticle(Handle timer, any entity)
 {
+	if ((entity = EntRefToEntIndex(entity)) == INVALID_ENT_REFERENCE)
+	{
+		return Plugin_Stop;
+	}
 	if (entity > 0 && IsValidEntity(entity))
 	{
 		AcceptEntityInput(entity, "Kill");
 	}
+	return Plugin_Continue;
 }

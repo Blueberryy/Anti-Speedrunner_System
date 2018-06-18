@@ -147,8 +147,8 @@ void vRocketSpeedrunners(int target, int client, bool log = true, float launch =
 				g_iRocket[target] = iFlame;
 			}
 			EmitSoundToAll("weapons/rpg/rocketfire1.wav", target, _, _, _, 0.8);
-			launch == 0.0 ? CreateTimer(2.0, tTimerLaunch, target) : CreateTimer(launch, tTimerLaunch, target);
-			detonation == 0.0 ? CreateTimer(3.5, tTimerDetonate, target) : CreateTimer(detonation, tTimerDetonate, target);
+			launch == 0.0 ? CreateTimer(2.0, tTimerLaunch, GetClientUserId(target)) : CreateTimer(launch, tTimerLaunch, GetClientUserId(target));
+			detonation == 0.0 ? CreateTimer(3.5, tTimerDetonate, GetClientUserId(target)) : CreateTimer(detonation, tTimerDetonate, GetClientUserId(target));
 			if (bIsHumanSurvivor(target))
 			{
 				bHasTranslationFile() ? PrintHintText(target, "%s %t", ASS_PREFIX, "RocketInform") : PrintHintText(target, "%s You were sent into space!", ASS_PREFIX);
@@ -168,8 +168,9 @@ void vRocketSpeedrunners(int target, int client, bool log = true, float launch =
 	}
 }
 
-public Action tTimerLaunch(Handle timer, any client)
+public Action tTimerLaunch(Handle timer, any userid)
 {
+	int client = GetClientOfUserId(userid);
 	if (bIsSurvivor(client))
 	{
 		float flVelocity[3];
@@ -184,8 +185,9 @@ public Action tTimerLaunch(Handle timer, any client)
 	return Plugin_Handled;
 }
 
-public Action tTimerDetonate(Handle timer, any client)
+public Action tTimerDetonate(Handle timer, any userid)
 {
+	int client = GetClientOfUserId(userid);
 	if (bIsSurvivor(client))
 	{
 		float flPosition[3];
@@ -201,6 +203,10 @@ public Action tTimerDetonate(Handle timer, any client)
 
 public Action tTimerDeleteFlame(Handle timer, any entity)
 {
+	if ((entity = EntRefToEntIndex(entity)) == INVALID_ENT_REFERENCE)
+	{
+		return Plugin_Stop;
+	}
 	if (IsValidEntity(entity))
 	{
 		char sClassname[256];
@@ -210,4 +216,5 @@ public Action tTimerDeleteFlame(Handle timer, any entity)
 			AcceptEntityInput(entity, "Kill");
 		}
 	}
+	return Plugin_Continue;
 }
