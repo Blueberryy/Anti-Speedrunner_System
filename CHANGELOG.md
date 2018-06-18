@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 29.31 (June 18, 2018)
+
+Changes:
+
+1. Shorter code for the ass_ammunition file.
+
 ## Version 29.30 (June 18, 2018)
 
 1. Bug fixes:
