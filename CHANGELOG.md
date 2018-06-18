@@ -1,5 +1,15 @@
 # Changelog
 
+## Version 29.35 (June 18, 2018)
+
+Bug fixes:
+
+1. Fixed the Ammunition option using the wrong weapon offsets for the Auto-Shotgun.
+
+Files:
+
+1. Updated include file.
+
 ## Version 29.34 (June 18, 2018)
 
 Files:

@@ -121,7 +121,7 @@ void vSetAmmo(int client, int count)
 			}
 			else if (StrEqual(sWeapon, "weapon_autoshotgun", false))
 			{
-				bIsL4D2Game() ? SetEntData(client, iAmmo + 24, count) : SetEntData(client, iAmmo + 32, count);
+				bIsL4D2Game() ? SetEntData(client, iAmmo + 32, count) : SetEntData(client, iAmmo + 24, count);
 			}
 			else if (StrEqual(sWeapon, "weapon_shotgun_spas", false))
 			{
