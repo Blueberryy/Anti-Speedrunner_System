@@ -1,5 +1,18 @@
 # Changelog
 
+## Version 29.34 (June 18, 2018)
+
+Files:
+
+1. Updated include file.
+
+## Version 29.33 (June 18, 2018)
+
+Changes:
+
+1. Shorter code for the ass_explosion file.
+2. Cleaner code for the ass_ammunition file.
+
 ## Version 29.32 (June 18, 2018)
 
 Changes:
