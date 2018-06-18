@@ -12,7 +12,7 @@
 #define ASS_NAME "Anti-Speedrunner System"
 #define ASS_AUTHOR "Psyk0tik (Crasher_3637)"
 #define ASS_DESCRIPTION "The Anti-Speedrunner System provides various options for dealing with players that speedrun through campaigns and making sure survivors stick together!"
-#define ASS_VERSION "29.29"
+#define ASS_VERSION "29.30"
 #define ASS_URL "https://forums.alliedmods.net/showthread.php?t=302868"
 #define ASS_LOCK "=="
 #define ASS_UNLOCK "!="
@@ -490,28 +490,28 @@ stock bool bIsSurvivor(int client)
 stock bool bIsSystemValid(ConVar convar, ConVar convar2, ConVar convar3)
 {
 	char sGameMode[32];
-	char sConVarModes[2049];
-	char sModeName[64][32];
+	char sConVarModes[32];
 	convar.GetString(sGameMode, sizeof(sGameMode));
+	Format(sGameMode, sizeof(sGameMode), ",%s,", sGameMode);
 	convar2.GetString(sConVarModes, sizeof(sConVarModes));
-	ExplodeString(sConVarModes, ",", sModeName, sizeof(sModeName), sizeof(sModeName[]));
-	for (int iMode = 0; iMode < sizeof(sModeName); iMode++)
+	if (strcmp(sConVarModes, ""))
 	{
-		if (StrContains(sGameMode, sModeName[iMode], false) != -1 && sModeName[iMode][0] != '\0')
+		Format(sConVarModes, sizeof(sConVarModes), ",%s,", sConVarModes);
+		if (StrContains(sConVarModes, sGameMode, false) == -1)
 		{
-			return true;
+			return false;
 		}
 	}
 	convar3.GetString(sConVarModes, sizeof(sConVarModes));
-	ExplodeString(sConVarModes, ",", sModeName, sizeof(sModeName), sizeof(sModeName[]));
-	for (int iMode = 0; iMode < sizeof(sModeName); iMode++)
+	if (strcmp(sConVarModes, ""))
 	{
-		if (StrContains(sGameMode, sModeName[iMode], false) == -1 && sModeName[iMode][0] != '\0')
+		Format(sConVarModes, sizeof(sConVarModes), ",%s,", sConVarModes);
+		if (StrContains(sConVarModes, sGameMode, false) != -1)
 		{
-			return true;
+			return false;
 		}
 	}
-	return false;
+	return true;
 }
 
 stock bool bIsTank(int client)

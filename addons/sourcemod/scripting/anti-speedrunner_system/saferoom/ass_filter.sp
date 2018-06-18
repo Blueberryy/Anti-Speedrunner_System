@@ -19,7 +19,7 @@ void vFilterSettings()
 
 void vFilterOption(int client, int entity)
 {
-	if (bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
+	if (bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
 	{
 		if (g_iStrikeCount[client] >= g_cvASSStrikeStrikeLimit.IntValue && ((g_cvASSCountBots.BoolValue && iGetAbleSurvivorCount(true) > iGetBadSurvivorCount(true) && iGetHumanCount() > 1) || (!g_cvASSCountBots.BoolValue && iGetAbleSurvivorCount(false) > iGetBadSurvivorCount(false))))
 		{

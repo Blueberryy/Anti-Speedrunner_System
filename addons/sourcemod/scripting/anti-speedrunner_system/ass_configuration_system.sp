@@ -4,6 +4,8 @@ ConVar g_cvASSConfigCreate;
 ConVar g_cvASSConfigEnable;
 ConVar g_cvASSConfigExecute;
 ConVar g_cvASSConfigTimeOffset;
+ConVar g_cvASSGameDifficulty;
+ConVar g_cvASSGameTypes;
 
 void vConfigCvars()
 {
@@ -11,20 +13,22 @@ void vConfigCvars()
 	vCreateConVar(g_cvASSConfigEnable, "assconfig_enablesystem", "0", "Enable the Configuration system?\n(0: OFF)\n(1: ON)", _, true, 0.0, true, 1.0);
 	vCreateConVar(g_cvASSConfigExecute, "assconfig_executetype", "1", "Which type of custom config should the Anti-Speedrunner System execute?\nCombine numbers in any order for different results.\nCharacter limit: 5\n(1: Difficulties)\n(2: Maps)\n(3: Game modes)\n(4: Days)\n(5: Player count)");
 	vCreateConVar(g_cvASSConfigTimeOffset, "assconfig_timeoffset", "", "What is the time offset of the server?\nHow it works:\nServer time + assconfig_timeoffset\nExample:\nassconfig_timeoffset \"+10\"\n12:00 PM + 10 = 10:00 PM\nassconfig_timeoffset \"-10\"\n12:00 PM - 10 = 2:00 AM");
+	g_cvASSGameDifficulty = FindConVar("z_difficulty");
+	g_cvASSGameTypes = FindConVar("sv_gametypes");
 }
 
 void vHookConfigCvars()
 {
-	FindConVar("z_difficulty").AddChangeHook(vASSGameDifficultyCvar);
+	g_cvASSGameDifficulty.AddChangeHook(vASSGameDifficultyCvar);
 }
 
 void vExecuteConfigs()
 {
 	g_cvASSConfigExecute.GetString(g_sConfigOption, sizeof(g_sConfigOption));
-	if (StrContains(g_sConfigOption, "1", false) != -1 && FindConVar("z_difficulty") != null)
+	if (StrContains(g_sConfigOption, "1", false) != -1 && g_cvASSGameDifficulty != null)
 	{
 		char sDifficultyConfig[512];
-		FindConVar("z_difficulty").GetString(sDifficultyConfig, sizeof(sDifficultyConfig));
+		g_cvASSGameDifficulty.GetString(sDifficultyConfig, sizeof(sDifficultyConfig));
 		Format(sDifficultyConfig, sizeof(sDifficultyConfig), "cfg/sourcemod/anti-speedrunner_system/difficulty_configs/%s.cfg", sDifficultyConfig);
 		if (FileExists(sDifficultyConfig, true))
 		{
@@ -52,7 +56,7 @@ void vExecuteConfigs()
 	if (StrContains(g_sConfigOption, "3", false) != -1)
 	{
 		char sModeConfig[512];
-		FindConVar("mp_gamemode").GetString(sModeConfig, sizeof(sModeConfig));
+		g_cvASSGameMode.GetString(sModeConfig, sizeof(sModeConfig));
 		Format(sModeConfig, sizeof(sModeConfig), (bIsL4D2Game() ? "cfg/sourcemod/anti-speedrunner_system/l4d2_gamemode_configs/%s.cfg" : "cfg/sourcemod/anti-speedrunner_system/l4d_gamemode_configs/%s.cfg"), sModeConfig);
 		if (FileExists(sModeConfig, true))
 		{
@@ -116,7 +120,7 @@ public Action cmdASSConfig(int client, int args)
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX, "InGame") : ReplyToCommand(client, "%s This command is to be used only in-game.", ASS_PREFIX);
 		return Plugin_Handled;
 	}
-	if (!bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (!bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
 	{
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "MapModeNotSupported") : ReplyToCommand(client, "%s Map or game mode not supported.", ASS_PREFIX01);
 		return Plugin_Handled;
@@ -158,10 +162,10 @@ void vManualConfig(int client, int mode, int type, char[] filename = "")
 	{
 		case 0:
 		{
-			if (FindConVar("z_difficulty") != null)
+			if (g_cvASSGameDifficulty != null)
 			{
 				char sDifficultyConfig[128];
-				FindConVar("z_difficulty").GetString(sDifficultyConfig, sizeof(sDifficultyConfig));
+				g_cvASSGameDifficulty.GetString(sDifficultyConfig, sizeof(sDifficultyConfig));
 				filename[0] == '\0' ? (bNoFilename = true) : (bNoFilename = false);
 				filename[0] == '\0' ? vManualDifficulty(client, mode, sDifficultyConfig) : vManualDifficulty(client, mode, filename);
 				if (g_cvASSLogCommands.BoolValue)
@@ -188,7 +192,7 @@ void vManualConfig(int client, int mode, int type, char[] filename = "")
 		case 2:
 		{
 			char sModeConfig[128];
-			FindConVar("mp_gamemode").GetString(sModeConfig, sizeof(sModeConfig));
+			g_cvASSGameMode.GetString(sModeConfig, sizeof(sModeConfig));
 			filename[0] == '\0' ? (bNoFilename = true) : (bNoFilename = false);
 			filename[0] == '\0' ? vManualMode(client, mode, sModeConfig) : vManualMode(client, mode, filename);
 			if (g_cvASSLogCommands.BoolValue)
@@ -469,7 +473,7 @@ public void vASSGameDifficultyCvar(ConVar convar, const char[] oldValue, const c
 	if (StrContains(g_sConfigOption, "1", false) != -1)
 	{
 		char sDifficultyConfig[512];
-		FindConVar("z_difficulty").GetString(sDifficultyConfig, sizeof(sDifficultyConfig));
+		g_cvASSGameDifficulty.GetString(sDifficultyConfig, sizeof(sDifficultyConfig));
 		Format(sDifficultyConfig, sizeof(sDifficultyConfig), "cfg/sourcemod/anti-speedrunner_system/difficulty_configs/%s.cfg", sDifficultyConfig);
 		if (FileExists(sDifficultyConfig, true))
 		{
@@ -524,7 +528,7 @@ void vCreateConfigFiles()
 		CreateDirectory((bIsL4D2Game() ? "cfg/sourcemod/anti-speedrunner_system/l4d2_gamemode_configs/" : "cfg/sourcemod/anti-speedrunner_system/l4d_gamemode_configs/"), 511);
 		char sGameType[2049];
 		char sTypes[64][32];
-		FindConVar("sv_gametypes").GetString(sGameType, sizeof(sGameType));
+		g_cvASSGameTypes.GetString(sGameType, sizeof(sGameType));
 		ExplodeString(sGameType, ",", sTypes, sizeof(sTypes), sizeof(sTypes[]));
 		for (int iMode = 0; iMode < sizeof(sTypes); iMode++)
 		{
@@ -603,7 +607,7 @@ void vExecConfigFile(const char[] filepath, const char[] folder, const char[] fi
 public Action tTimerUpdatePlayerCount(Handle timer)
 {
 	g_cvASSConfigExecute.GetString(g_sConfigOption, sizeof(g_sConfigOption));
-	if (!g_cvASSEnable.BoolValue || !bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) || StrContains(g_sConfigOption, "5", false) == -1)
+	if (!g_cvASSEnable.BoolValue || !bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) || StrContains(g_sConfigOption, "5", false) == -1)
 	{
 		return Plugin_Continue;
 	}

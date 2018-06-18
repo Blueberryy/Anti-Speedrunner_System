@@ -47,7 +47,7 @@ public Action cmdASSHeal(int client, int args)
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX, "InGame") : ReplyToCommand(client, "%s This command is to be used only in-game.", ASS_PREFIX);
 		return Plugin_Handled;
 	}
-	if (!bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (!bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
 	{
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "MapModeNotSupported") : ReplyToCommand(client, "%s Map or game mode not supported.", ASS_PREFIX01);
 		return Plugin_Handled;
@@ -120,7 +120,7 @@ void vHealSpeedrunners(int target, int client, bool log = true)
 		}
 		else
 		{
-			SetEntProp(target, Prop_Send, "m_currentReviveCount", FindConVar("survivor_max_incapacitated_count").IntValue - 1);
+			SetEntProp(target, Prop_Send, "m_currentReviveCount", g_cvASSHealIncapCount.IntValue - 1);
 			SetEntProp(target, Prop_Send, "m_isIncapacitated", 1);
 			SDKCall(g_hSDKRevivePlayer, target);
 			SetEntityHealth(target, 1);

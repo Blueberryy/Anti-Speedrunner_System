@@ -34,7 +34,7 @@ public Action cmdASSCheck(int client, int args)
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX, "InGame") : ReplyToCommand(client, "%s This command is to be used only in-game.", ASS_PREFIX);
 		return Plugin_Handled;
 	}
-	if (!bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (!bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
 	{
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "MapModeNotSupported") : ReplyToCommand(client, "%s Map or game mode not supported.", ASS_PREFIX01);
 		return Plugin_Handled;
@@ -110,7 +110,7 @@ public Action cmdASSNull(int client, int args)
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX, "InGame") : ReplyToCommand(client, "%s This command is to be used only in-game.", ASS_PREFIX);
 		return Plugin_Handled;
 	}
-	if (!bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (!bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
 	{
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "MapModeNotSupported") : ReplyToCommand(client, "%s Map or game mode not supported.", ASS_PREFIX01);
 		return Plugin_Handled;
@@ -193,7 +193,7 @@ public Action cmdASSStrike(int client, int args)
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX, "InGame") : ReplyToCommand(client, "%s This command is to be used only in-game.", ASS_PREFIX);
 		return Plugin_Handled;
 	}
-	if (!bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (!bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
 	{
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "MapModeNotSupported") : ReplyToCommand(client, "%s Map or game mode not supported.", ASS_PREFIX01);
 		return Plugin_Handled;
@@ -564,7 +564,7 @@ public Action tTimerCheckSpeedrunners(Handle timer, any client)
 
 public Action tTimerAutoDetectSpeedrunners(Handle timer)
 {
-	if (!g_cvASSEnable.BoolValue || !g_cvASSStrikeEnable.BoolValue || flGetSurvivorCount() < 3 || (!g_cvASSTankAlive.BoolValue && iGetTankCount() > 0) || (g_cvASSNoFinales.BoolValue && bIsFinaleMap()) || !bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (!g_cvASSEnable.BoolValue || !g_cvASSStrikeEnable.BoolValue || flGetSurvivorCount() < 3 || (!g_cvASSTankAlive.BoolValue && iGetTankCount() > 0) || (g_cvASSNoFinales.BoolValue && bIsFinaleMap()) || !bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
 	{
 		return Plugin_Continue;
 	}
@@ -627,7 +627,7 @@ public Action tTimerDetectSpeedrunners(Handle timer, any client)
 		vKillCheckTimer(client);
 		return Plugin_Handled;
 	}
-	if (!g_cvASSEnable.BoolValue || !g_cvASSStrikeEnable.BoolValue || flGetSurvivorCount() < 3 || (!g_cvASSTankAlive.BoolValue && iGetTankCount() > 0) || (g_cvASSNoFinales.BoolValue && bIsFinaleMap()) || !bIsSystemValid(FindConVar("mp_gamemode"), g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (!g_cvASSEnable.BoolValue || !g_cvASSStrikeEnable.BoolValue || flGetSurvivorCount() < 3 || (!g_cvASSTankAlive.BoolValue && iGetTankCount() > 0) || (g_cvASSNoFinales.BoolValue && bIsFinaleMap()) || !bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
 	{
 		return Plugin_Continue;
 	}
