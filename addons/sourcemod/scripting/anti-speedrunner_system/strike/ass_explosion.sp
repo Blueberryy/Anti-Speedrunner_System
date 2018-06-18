@@ -180,13 +180,13 @@ void vCreateExplosion(float pos[3], int entity)
 	AcceptEntityInput(iEntity, "Explode");
 	AcceptEntityInput(iPhysics, "Explode");
 	AcceptEntityInput(iHurt, "TurnOn");
-	CreateTimer(15.0 + 1.5, tTimerDeleteEntity, iParticle, TIMER_FLAG_NO_MAPCHANGE);
-	CreateTimer(15.0 + 1.5, tTimerDeleteEntity, iParticle2, TIMER_FLAG_NO_MAPCHANGE);
-	CreateTimer(15.0 + 1.5, tTimerDeleteEntity, iParticle3, TIMER_FLAG_NO_MAPCHANGE);
-	CreateTimer(15.0 + 1.5, tTimerDeleteEntity, iTrace, TIMER_FLAG_NO_MAPCHANGE);
-	CreateTimer(15.0 + 1.5, tTimerDeleteEntity, iEntity, TIMER_FLAG_NO_MAPCHANGE);
-	CreateTimer(15.0 + 1.5, tTimerDeleteEntity, iPhysics, TIMER_FLAG_NO_MAPCHANGE);
-	CreateTimer(15.0 + 1.5, tTimerDeleteEntity, iHurt, TIMER_FLAG_NO_MAPCHANGE);
+	CreateTimer(16.5, tTimerDeleteEntity, iParticle, TIMER_FLAG_NO_MAPCHANGE);
+	CreateTimer(16.5, tTimerDeleteEntity, iParticle2, TIMER_FLAG_NO_MAPCHANGE);
+	CreateTimer(16.5, tTimerDeleteEntity, iParticle3, TIMER_FLAG_NO_MAPCHANGE);
+	CreateTimer(16.5, tTimerDeleteEntity, iTrace, TIMER_FLAG_NO_MAPCHANGE);
+	CreateTimer(16.5, tTimerDeleteEntity, iEntity, TIMER_FLAG_NO_MAPCHANGE);
+	CreateTimer(16.5, tTimerDeleteEntity, iPhysics, TIMER_FLAG_NO_MAPCHANGE);
+	CreateTimer(16.5, tTimerDeleteEntity, iHurt, TIMER_FLAG_NO_MAPCHANGE);
 	CreateTimer(15.0, tTimerStopExplosion, iTrace, TIMER_FLAG_NO_MAPCHANGE);
 	CreateTimer(15.0, tTimerStopExplosion, iHurt, TIMER_FLAG_NO_MAPCHANGE);
 }
