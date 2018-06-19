@@ -1003,7 +1003,7 @@ public void eEventLeftCheckpoint(Event event, const char[] name, bool dontBroadc
 	{
 		if (g_bStarted[iLeaver] && iLeaver > 0 && iDoorEntity == 0 && !g_bLeftSaferoom)
 		{
-			CreateTimer(0.5, tTimerLeftSafeArea, iLeaver);
+			CreateTimer(0.5, tTimerLeftSafeArea, iUserId);
 		}
 	}
 }
