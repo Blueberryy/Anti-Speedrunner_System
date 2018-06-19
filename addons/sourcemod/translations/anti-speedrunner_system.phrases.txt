@@ -52,7 +52,7 @@
 	{
 		"en"		"The Anti-Speedrunner System is disabled."
 		"pt"		"O Sistema Anti-Speedrunner esta desabilitado."
-		"hu"		"Az Anti-Speedrunner Rendszer tiltva van."
+		"hu"		"Az Anti-Speedrunner Rendszer le van tiltva."
 		"es"		"El Sistema Anti-Speedrunner está deshabilitado."
 		"chi"		"该防跑图系统是禁用的。"
 	}
@@ -103,7 +103,7 @@
 	{
 		"en"		"You are not being spat on anymore!"
 		"pt"		"Voce não esta mais sendo cuspido!"
-		"hu"		"Nem köpünk le többé!"
+		"hu"		"Nem vagy már leköpve!"
 		"es"		"¡Ya no te escupirán!"
 		"chi"		"你不再被唾弃了！"
 	}
