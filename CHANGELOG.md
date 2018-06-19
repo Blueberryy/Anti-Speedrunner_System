@@ -1,5 +1,15 @@
 # Changelog
 
+## Version 29.36 (June 19, 2018)
+
+Bug fixes:
+
+1. Fixed a timer not working properly due to a client index being passed instead of a client user ID.
+
+Files:
+
+1. Updated translation file. (Thanks KasperH!)
+
 ## Version 29.35 (June 18, 2018)
 
 Bug fixes:
