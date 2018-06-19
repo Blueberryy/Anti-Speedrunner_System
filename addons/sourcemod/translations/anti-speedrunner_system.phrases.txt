@@ -264,7 +264,7 @@
 		"#format"	"{1:N},{2:s}"
 		"en"		"{1} is being chased by a {2}!"
 		"pt"		"{1} esta sendo perseguido por um {2}!"
-		"hu"		"{1} -t üldözõbe vette egy {2}!"
+		"hu"		"{1}-t üldözõbe vette egy {2}!"
 		"es"		"¡{1} está siendo perseguido por un {2}!"
 		"chi"		"{1}正在被一个{2}追逐！"
 	}
@@ -424,7 +424,7 @@
 		"#format"	"{1:N}"
 		"en"		"{1} is drugged!"
 		"pt"		"{1} esta drogado!"
-		"hu"		"{1} -t bedrogozták!"
+		"hu"		"{1}-t bedrogozták!"
 		"es"		"¡{1} está drogado!"
 		"chi"		"{1}服下麻醉剂！"
 	}
@@ -1713,7 +1713,7 @@
 		"#format"	"{1:N}"
 		"en"		"{1} is not being shoved anymore!"
 		"pt"		"{1} nao esta mais sendo empurrado!"
-		"hu"		"{1} -t nem lökjük meg többé!"
+		"hu"		"{1}-t nem lökjük meg többé!"
 		"es"		"¡{1} ya no está siendo empujado!"
 		"chi"		"{1}不再被推动！"
 	}
