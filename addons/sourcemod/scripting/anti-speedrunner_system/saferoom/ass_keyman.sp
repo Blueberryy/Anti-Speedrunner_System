@@ -89,7 +89,7 @@ void vKeymanOption(int client, int entity)
 					g_bKeymanCountdown = true;
 					if (g_hKeymanTimer == null)
 					{
-						g_hKeymanTimer = CreateTimer(1.0, tTimerAutoChooseKeyman, entity, TIMER_REPEAT);
+						g_hKeymanTimer = CreateTimer(1.0, tTimerAutoChooseKeyman, EntIndexToEntRef(entity), TIMER_REPEAT);
 					}
 					CreateTimer(g_cvASSKeymanCountdown.FloatValue + 1.0, tTimerKeymanChosen);
 				}

@@ -180,48 +180,20 @@ void vCreateExplosion(float pos[3], int entity)
 	AcceptEntityInput(iEntity, "Explode");
 	AcceptEntityInput(iPhysics, "Explode");
 	AcceptEntityInput(iHurt, "TurnOn");
-	CreateTimer(16.5, tTimerDeleteEntity, iParticle, TIMER_FLAG_NO_MAPCHANGE);
-	CreateTimer(16.5, tTimerDeleteEntity, iParticle2, TIMER_FLAG_NO_MAPCHANGE);
-	CreateTimer(16.5, tTimerDeleteEntity, iParticle3, TIMER_FLAG_NO_MAPCHANGE);
-	CreateTimer(16.5, tTimerDeleteEntity, iTrace, TIMER_FLAG_NO_MAPCHANGE);
-	CreateTimer(16.5, tTimerDeleteEntity, iEntity, TIMER_FLAG_NO_MAPCHANGE);
-	CreateTimer(16.5, tTimerDeleteEntity, iPhysics, TIMER_FLAG_NO_MAPCHANGE);
-	CreateTimer(16.5, tTimerDeleteEntity, iHurt, TIMER_FLAG_NO_MAPCHANGE);
-	CreateTimer(15.0, tTimerStopExplosion, iTrace, TIMER_FLAG_NO_MAPCHANGE);
-	CreateTimer(15.0, tTimerStopExplosion, iHurt, TIMER_FLAG_NO_MAPCHANGE);
-}
-
-public Action tTimerStopExplosion(Handle timer, any entity)
-{
-	if ((entity = EntRefToEntIndex(entity)) == INVALID_ENT_REFERENCE)
-	{
-		return Plugin_Stop;
-	}
-	char sClassname[32];
-	GetEntityClassname(entity, sClassname, sizeof(sClassname));
-	if (IsValidEntity(entity))
-	{
-		if (StrEqual(sClassname, "info_particle_system", false))
-		{
-			AcceptEntityInput(entity, "Stop");
-		}
-		else if (StrEqual(sClassname, "point_hurt", false))
-		{
-			AcceptEntityInput(entity, "TurnOff");
-		}
-	}
-	return Plugin_Continue;
-}
-
-public Action tTimerDeleteEntity(Handle timer, any entity)
-{
-	if ((entity = EntRefToEntIndex(entity)) == INVALID_ENT_REFERENCE)
-	{
-		return Plugin_Stop;
-	}
-	if (IsValidEntity(entity))
-	{
-		AcceptEntityInput(entity, "Kill");
-	}
-	return Plugin_Continue;
+	iParticle = EntIndexToEntRef(iParticle);
+	vDeleteEntity(iParticle, 16.5);
+	iParticle2 = EntIndexToEntRef(iParticle2);
+	vDeleteEntity(iParticle2, 16.5);
+	iParticle3 = EntIndexToEntRef(iParticle3);
+	vDeleteEntity(iParticle, 16.5);
+	iTrace = EntIndexToEntRef(iTrace);
+	vDeleteEntity(iTrace, 16.5);
+	vDeleteExplosion(iTrace, 15.0, "Stop");
+	iEntity = EntIndexToEntRef(iEntity);
+	vDeleteEntity(iEntity, 16.5);
+	iPhysics = EntIndexToEntRef(iPhysics);
+	vDeleteEntity(iPhysics, 16.5);
+	iHurt = EntIndexToEntRef(iHurt);
+	vDeleteEntity(iHurt, 16.5);
+	vDeleteExplosion(iHurt, 15.0, "TurnOff");
 }

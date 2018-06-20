@@ -60,9 +60,9 @@ void vLockdownOption(int client, int entity, bool type)
 				g_bLockdownStarts = true;
 				if (g_hLockdownTimer == null)
 				{
-					g_hLockdownTimer = CreateTimer(1.0, tTimerLockdownStarts, entity, TIMER_REPEAT);
+					g_hLockdownTimer = CreateTimer(1.0, tTimerLockdownStarts, EntIndexToEntRef(entity), TIMER_REPEAT);
 				}
-				CreateTimer(g_cvASSLockdownCountdown.FloatValue + 1.0, tTimerLockdownEnds, entity, TIMER_FLAG_NO_MAPCHANGE);
+				CreateTimer(g_cvASSLockdownCountdown.FloatValue + 1.0, tTimerLockdownEnds, EntIndexToEntRef(entity), TIMER_FLAG_NO_MAPCHANGE);
 			}
 		}
 		else
@@ -73,9 +73,9 @@ void vLockdownOption(int client, int entity, bool type)
 				CreateTimer(1.0, tTimerSpawnMob, GetEngineTime() + g_cvASSLockdownCountdown2.IntValue, TIMER_FLAG_NO_MAPCHANGE|TIMER_REPEAT);
 				if (g_hLockdownTimer2 == null)
 				{
-					g_hLockdownTimer2 = CreateTimer(1.0, tTimerLockdownStarts2, entity, TIMER_REPEAT);
+					g_hLockdownTimer2 = CreateTimer(1.0, tTimerLockdownStarts2, EntIndexToEntRef(entity), TIMER_REPEAT);
 				}
-				CreateTimer(g_cvASSLockdownCountdown2.FloatValue + 1.0, tTimerLockdownEnds2, entity, TIMER_FLAG_NO_MAPCHANGE);
+				CreateTimer(g_cvASSLockdownCountdown2.FloatValue + 1.0, tTimerLockdownEnds2, EntIndexToEntRef(entity), TIMER_FLAG_NO_MAPCHANGE);
 			}
 		}
 		if (g_bLockdownStarts || g_bLockdownStarts2)

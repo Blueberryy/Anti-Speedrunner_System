@@ -143,7 +143,8 @@ void vRocketSpeedrunners(int target, int client, bool log = true, float launch =
 				TeleportEntity(iFlame, flPosition, flAngles, NULL_VECTOR);
 				SetVariantString(sTargetName);
 				AcceptEntityInput(iFlame, "SetParent", iFlame, iFlame, 0);
-				CreateTimer(3.0, tTimerDeleteFlame, iFlame);
+				iFlame = EntIndexToEntRef(iFlame);
+				vDeleteEntity(iFlame, 3.0);
 				g_iRocket[target] = iFlame;
 			}
 			EmitSoundToAll("weapons/rpg/rocketfire1.wav", target, _, _, _, 0.8);
@@ -199,22 +200,4 @@ public Action tTimerDetonate(Handle timer, any userid)
 		SetEntityGravity(client, 1.0);
 	}
 	return Plugin_Handled;
-}
-
-public Action tTimerDeleteFlame(Handle timer, any entity)
-{
-	if ((entity = EntRefToEntIndex(entity)) == INVALID_ENT_REFERENCE)
-	{
-		return Plugin_Stop;
-	}
-	if (IsValidEntity(entity))
-	{
-		char sClassname[256];
-		GetEntityClassname(entity, sClassname, sizeof(sClassname));
-		if (StrEqual(sClassname, "env_steam", false))
-		{
-			AcceptEntityInput(entity, "Kill");
-		}
-	}
-	return Plugin_Continue;
 }

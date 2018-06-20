@@ -451,9 +451,8 @@ stock bool bIsInfected(int client)
 
 stock bool bIsL4D2Game()
 {
-	char sGameName[64];
-	GetGameFolderName(sGameName, sizeof(sGameName));
-	return StrEqual(sGameName, "left4dead2", false);
+	EngineVersion evEngine = GetEngineVersion();
+	return evEngine == Engine_Left4Dead2;
 }
 
 stock bool bIsPlayerIdle(int client)
@@ -531,6 +530,11 @@ stock bool bIsTank(int client)
 stock bool bIsValidClient(int client)
 {
 	return client > 0 && client <= MaxClients && IsClientInGame(client) && !IsClientInKickQueue(client) && !IsFakeClient(client);
+}
+
+stock bool bIsValidEntRef(int entity)
+{
+	return entity && EntRefToEntIndex(entity) != INVALID_ENT_REFERENCE;
 }
 
 public bool bSurvivorFilter(const char[] pattern, Handle clients)
@@ -749,6 +753,29 @@ stock void vCopyVector(float source[3], float target[3])
 	target[0] = source[0];
 	target[1] = source[1];
 	target[2] = source[2];
+}
+
+stock void vDeleteEntity(int entity, float time)
+{
+	if (bIsValidEntRef(entity))
+	{
+		char sVariant[64];
+		Format(sVariant, sizeof(sVariant), "OnUser1 !self:kill::%f:1", time);
+		SetVariantString(sVariant);
+		AcceptEntityInput(entity, "AddOutput");
+		AcceptEntityInput(entity, "FireUser1");
+	}
+}
+
+stock void vDeleteExplosion(int entity, float time, char[] input)
+{
+	if (bIsValidEntRef(entity))
+	{
+		char sVariant[64];
+		Format(sVariant, sizeof(sVariant), "OnUser1 !self:kill::%f:1", time);
+		SetVariantString(sVariant);
+		AcceptEntityInput(entity, input);
+	}
 }
 
 stock void vMultiTargetFilters(int toggle)

@@ -512,7 +512,8 @@ public void OnLibraryRemoved(const char[] name)
 
 public Action eEventPlayerAFK(Event event, const char[] name, bool dontBroadcast)
 {
-	int iIdler = GetClientOfUserId(event.GetInt("player"));
+	int iUserId = event.GetInt("player");
+	int iIdler = GetClientOfUserId(iUserId);
 	g_bAFK[iIdler] = true;
 	if (g_bKeyman[iIdler])
 	{
@@ -530,11 +531,13 @@ public Action eEventPlayerAFK(Event event, const char[] name, bool dontBroadcast
 
 public Action eEventPlayerBotReplace(Event event, const char[] name, bool dontBroadcast)
 {
-	int iSurvivor = GetClientOfUserId(GetEventInt(event, "player"));
-	int iBot = GetClientOfUserId(GetEventInt(event, "bot"));
+	int iSurvivorId = event.GetInt("player");
+	int iSurvivor = GetClientOfUserId(iSurvivorId);
+	int iBotId = event.GetInt("bot");
+	int iBot = GetClientOfUserId(iBotId);
 	if (g_cvASSEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsIdlePlayer(iBot, iSurvivor)) 
 	{
-		Handle hDataPack = CreateDataPack();
+		Handle hDataPack;
 		WritePackCell(hDataPack, iSurvivor);
 		WritePackCell(hDataPack, iBot);
 		CreateTimer(0.2, tTimerIdleFix, hDataPack, TIMER_FLAG_NO_MAPCHANGE);
@@ -1003,7 +1006,7 @@ public void eEventLeftCheckpoint(Event event, const char[] name, bool dontBroadc
 	{
 		if (g_bStarted[iLeaver] && iLeaver > 0 && iDoorEntity == 0 && !g_bLeftSaferoom)
 		{
-			CreateTimer(0.5, tTimerLeftSafeArea, iUserId);
+			CreateTimer(0.5, tTimerLeftSafeArea, GetClientUserId(iLeaver));
 		}
 	}
 }
@@ -1155,7 +1158,7 @@ void vEntryMode(int entity)
 			g_bEntryStarted = true;
 			if (g_hWarpTimer == null)
 			{
-				g_hWarpTimer = CreateTimer(1.0, tTimerWarpCountdown, entity, TIMER_REPEAT);
+				g_hWarpTimer = CreateTimer(1.0, tTimerWarpCountdown, EntIndexToEntRef(entity), TIMER_REPEAT);
 			}
 			CreateTimer(g_cvASSSaferoomWarpCountdown.FloatValue + 1.0, tTimerWarpSurvivors);
 		}

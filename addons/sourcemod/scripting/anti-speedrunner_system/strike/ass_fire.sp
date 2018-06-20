@@ -127,7 +127,8 @@ void vCreateFire(int client, char[] particle, bool parent, float duration)
 	}
 	ActivateEntity(iParticle);
 	AcceptEntityInput(iParticle, "start");
-	CreateTimer(duration, tTimerStopAndRemoveParticle, iParticle, TIMER_FLAG_NO_MAPCHANGE);
+	iParticle = EntIndexToEntRef(iParticle);
+	vDeleteEntity(iParticle, duration);
 }
 
 void vFireSpeedrunners(int target, int client, int toggle, bool log = true, int timer = 0)
@@ -225,18 +226,5 @@ public Action tTimerFireSpeedrunners(Handle timer, any userid)
 		return Plugin_Handled;
 	}
 	vFire(client);
-	return Plugin_Continue;
-}
-
-public Action tTimerStopAndRemoveParticle(Handle timer, any entity)
-{
-	if ((entity = EntRefToEntIndex(entity)) == INVALID_ENT_REFERENCE)
-	{
-		return Plugin_Stop;
-	}
-	if (entity > 0 && IsValidEntity(entity))
-	{
-		AcceptEntityInput(entity, "Kill");
-	}
 	return Plugin_Continue;
 }
