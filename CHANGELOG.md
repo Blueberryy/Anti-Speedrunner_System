@@ -1,5 +1,15 @@
 # Changelog
 
+## Version 29.38 (June 21, 2018)
+
+Changes:
+
+1. Optimized code a bit.
+
+Files:
+
+1. Updated include file.
+
 ## Version 29.37 (June 20, 2018)
 
 Changes:

@@ -12,7 +12,7 @@
 #define ASS_NAME "Anti-Speedrunner System"
 #define ASS_AUTHOR "Psyk0tik (Crasher_3637)"
 #define ASS_DESCRIPTION "The Anti-Speedrunner System provides various options for dealing with players that speedrun through campaigns and making sure survivors stick together!"
-#define ASS_VERSION "29.37"
+#define ASS_VERSION "29.38"
 #define ASS_URL "https://forums.alliedmods.net/showthread.php?t=302868"
 #define ASS_LOCK "=="
 #define ASS_UNLOCK "!="
@@ -190,13 +190,13 @@ stock int iASS_Append(const char[] name, const char[] defaultValue, const char[]
 		}
 		else
 		{
-			char[][] newlineBuf = new char[iNewLines + 1][2048];
-			ExplodeString(description, "\n", newlineBuf, iNewLines + 1, 2048, false);
+			char[][] sNewLines = new char[iNewLines + 1][2048];
+			ExplodeString(description, "\n", sNewLines, iNewLines + 1, 2048, false);
 			for (int iLine; iLine <= iNewLines; iLine++)
 			{
-				if (strlen(newlineBuf[iLine]) > 0)
+				if (strlen(sNewLines[iLine]) > 0)
 				{
-					fFile.WriteLine("// %s", newlineBuf[iLine]);
+					fFile.WriteLine("// %s", sNewLines[iLine]);
 				}
 			}
 		}

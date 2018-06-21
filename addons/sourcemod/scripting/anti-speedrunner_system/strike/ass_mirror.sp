@@ -141,7 +141,7 @@ void vMirrorSpeedrunners(int target, int client, int toggle, bool log = true)
 	}
 }
 
-public Action aTraceAttack(int victim, int &attacker, int &inflictor, float &damage, int &damagetype, int &ammotype, int hitbox, int hitgroup)
+public Action TraceAttack(int victim, int &attacker, int &inflictor, float &damage, int &damagetype, int &ammotype, int hitbox, int hitgroup)
 {
 	if (bIsSurvivor(attacker))
 	{

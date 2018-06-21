@@ -31,6 +31,7 @@ bool g_bIdle[MAXPLAYERS + 1];
 bool g_bIncap[MAXPLAYERS + 1];
 bool g_bInvert[MAXPLAYERS + 1];
 bool g_bKeyman[MAXPLAYERS + 1];
+bool g_bLateLoad;
 bool g_bMirror[MAXPLAYERS + 1];
 bool g_bNull[MAXPLAYERS + 1];
 bool g_bPuke[MAXPLAYERS + 1];
@@ -173,12 +174,13 @@ UserMsg g_umFadeUserMsgId;
 
 public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max)
 {
-	char sGameName[64];
-	GetGameFolderName(sGameName, sizeof(sGameName));
-	if (!StrEqual(sGameName, "left4dead", false) && !StrEqual(sGameName, "left4dead2", false))
+	EngineVersion evEngine = GetEngineVersion();
+	if (evEngine != Engine_Left4Dead && evEngine != Engine_Left4Dead2)
 	{
+		strcopy(error, err_max, "The Anti-Speedrunner System only supports Left 4 Dead 1 & 2.");
 		return APLRes_SilentFailure;
 	}
+	g_bLateLoad = late;
 	return APLRes_Success;
 }
 
@@ -367,12 +369,22 @@ public void OnMapStart()
 		}
 		CreateTimer(1.0, tTimerUpdateIncapCount, _, TIMER_FLAG_NO_MAPCHANGE|TIMER_REPEAT);
 		CreateTimer(1.0, tTimerUpdatePlayerCount, _, TIMER_FLAG_NO_MAPCHANGE|TIMER_REPEAT);
+		if (g_bLateLoad)
+		{
+			for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer++ )
+			{
+				if (bIsValidClient(iPlayer))
+				{
+					SDKHook(iPlayer, SDKHook_TraceAttack, TraceAttack);
+				}
+			}
+		}
 	}
 }
 
 public void OnClientPostAdminCheck(int client)
 {
-	SDKHook(client, SDKHook_TraceAttack, aTraceAttack);
+	SDKHook(client, SDKHook_TraceAttack, TraceAttack);
 	vResetPlayerStats(client);
 	g_bAdminMenu[client] = false;
 	g_bAFK[client] = false;
@@ -383,7 +395,7 @@ public void OnClientPostAdminCheck(int client)
 
 public void OnClientDisconnect(int client)
 {
-	SDKUnhook(client, SDKHook_TraceAttack, aTraceAttack);
+	SDKUnhook(client, SDKHook_TraceAttack, TraceAttack);
 	vKillCheckTimer(client);
 	vResetPlayerStats(client);
 	g_bAdminMenu[client] = false;
