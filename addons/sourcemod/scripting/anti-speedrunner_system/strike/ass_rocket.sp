@@ -139,8 +139,8 @@ void vRocketSpeedrunners(int target, int client, bool log = true, float launch =
 				DispatchKeyValue(iFlame,"JetLength", "400");
 				DispatchKeyValue(iFlame,"RenderColor", "180 71 8");
 				DispatchKeyValue(iFlame,"RenderAmt", "180");
-				DispatchSpawn(iFlame);
 				TeleportEntity(iFlame, flPosition, flAngles, NULL_VECTOR);
+				DispatchSpawn(iFlame);
 				SetVariantString(sTargetName);
 				AcceptEntityInput(iFlame, "SetParent", iFlame, iFlame, 0);
 				iFlame = EntIndexToEntRef(iFlame);

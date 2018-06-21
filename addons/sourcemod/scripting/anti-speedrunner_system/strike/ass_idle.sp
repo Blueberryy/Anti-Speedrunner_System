@@ -175,11 +175,11 @@ void vIdleSpeedrunners(int target, int client, bool log = true)
 	}
 }
 
-public Action tTimerIdleFix(Handle timer, Handle pack)
+public Action tTimerIdleFix(Handle timer, DataPack pack)
 {
-	ResetPack(pack);
-	int iSurvivor = ReadPackCell(pack);
-	int iBot = ReadPackCell(pack);
+	pack.Reset();
+	int iSurvivor = GetClientOfUserId(pack.ReadCell());
+	int iBot = GetClientOfUserId(pack.ReadCell());
 	if (!IsClientInGame(iSurvivor) || GetClientTeam(iSurvivor) != 1 || iGetIdleBot(iSurvivor) || IsFakeClient(iSurvivor))
 	{
 		g_bAFK[iSurvivor] = false;	

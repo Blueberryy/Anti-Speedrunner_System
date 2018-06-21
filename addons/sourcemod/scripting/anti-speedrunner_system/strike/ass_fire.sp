@@ -94,8 +94,8 @@ void vFire(int client)
 	DispatchKeyValue(iDamage, "DamageType", "8");
 	DispatchKeyValue(client, "targetname", sUser);
 	DispatchKeyValue(iDamage, "DamageTarget", sUser);
-	DispatchSpawn(iDamage);
 	TeleportEntity(iDamage, flPosition, NULL_VECTOR, NULL_VECTOR);
+	DispatchSpawn(iDamage);
 	AcceptEntityInput(iDamage, "Hurt");
 }
 
@@ -118,7 +118,6 @@ void vCreateFire(int client, char[] particle, bool parent, float duration)
 		DispatchKeyValue(iParticle, "targetname", sTargetName);
 		DispatchKeyValue(iParticle, "parentname", sName);
 	}
-	DispatchSpawn(iParticle);
 	DispatchSpawn(iParticle);
 	if (parent)
 	{

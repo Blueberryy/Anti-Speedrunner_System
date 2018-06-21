@@ -1,6 +1,12 @@
 # Changelog
 
-## Version 29.37 (July 4, 2018)
+## Version 29.37 (June 20, 2018)
+
+Changes:
+
+1. Converted some code to new syntax.
+2. Removed unnecessary code.
+3. Optimized some code.
 
 Files:
 

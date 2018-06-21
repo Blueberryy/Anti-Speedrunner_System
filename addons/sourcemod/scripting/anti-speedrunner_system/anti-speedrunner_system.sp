@@ -537,10 +537,10 @@ public Action eEventPlayerBotReplace(Event event, const char[] name, bool dontBr
 	int iBot = GetClientOfUserId(iBotId);
 	if (g_cvASSEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsIdlePlayer(iBot, iSurvivor)) 
 	{
-		Handle hDataPack;
-		WritePackCell(hDataPack, iSurvivor);
-		WritePackCell(hDataPack, iBot);
-		CreateTimer(0.2, tTimerIdleFix, hDataPack, TIMER_FLAG_NO_MAPCHANGE);
+		DataPack dpDataPack;
+		CreateDataTimer(0.2, tTimerIdleFix, dpDataPack, TIMER_FLAG_NO_MAPCHANGE);
+		dpDataPack.WriteCell(iSurvivorId);
+		dpDataPack.WriteCell(iBotId);
 		if (g_bIdle[iSurvivor])
 		{
 			g_bIdle[iSurvivor] = false;
