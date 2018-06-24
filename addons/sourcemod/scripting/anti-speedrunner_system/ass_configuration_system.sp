@@ -120,7 +120,7 @@ public Action cmdASSConfig(int client, int args)
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX, "InGame") : ReplyToCommand(client, "%s This command is to be used only in-game.", ASS_PREFIX);
 		return Plugin_Handled;
 	}
-	if (!bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (!bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes, g_cvASSGameModeTypes))
 	{
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "MapModeNotSupported") : ReplyToCommand(client, "%s Map or game mode not supported.", ASS_PREFIX01);
 		return Plugin_Handled;
@@ -141,7 +141,7 @@ public Action cmdASSConfig(int client, int args)
 		}
 		else
 		{
-			vConfigsMenu(client);
+			vConfigsMenu(client, 0);
 		}
 		return Plugin_Handled;
 	}
@@ -509,19 +509,20 @@ void vCreateConfigFiles()
 	{
 		CreateDirectory((bIsL4D2Game() ? "cfg/sourcemod/anti-speedrunner_system/l4d2_map_configs/" : "cfg/sourcemod/anti-speedrunner_system/l4d_map_configs/"), 511);
 		char sMapNames[128];
-		Handle hADTMaps = CreateArray(16, 0);
+		ArrayList alADTMaps = new ArrayList(16, 0);
 		int iSerial = -1;
-		ReadMapList(hADTMaps, iSerial, "default", MAPLIST_FLAG_MAPSFOLDER);
-		ReadMapList(hADTMaps, iSerial, "allexistingmaps__", MAPLIST_FLAG_MAPSFOLDER|MAPLIST_FLAG_NO_DEFAULT);
-		int iMapCount = GetArraySize(hADTMaps);
+		ReadMapList(alADTMaps, iSerial, "default", MAPLIST_FLAG_MAPSFOLDER);
+		ReadMapList(alADTMaps, iSerial, "allexistingmaps__", MAPLIST_FLAG_MAPSFOLDER|MAPLIST_FLAG_NO_DEFAULT);
+		int iMapCount = GetArraySize(alADTMaps);
 		if (iMapCount > 0)
 		{
 			for (int iMap = 0; iMap < iMapCount; iMap++)
 			{
-				GetArrayString(hADTMaps, iMap, sMapNames, sizeof(sMapNames));
+				alADTMaps.GetString(iMap, sMapNames, sizeof(sMapNames));
 				vCreateConfigFile("cfg/sourcemod/anti-speedrunner_system/", (bIsL4D2Game() ? "l4d2_map_configs/" : "l4d_map_configs/"), sMapNames, sMapNames);
 			}
 		}
+		delete alADTMaps;
 	}
 	if (StrContains(g_sConfigOption, "3", false) != -1)
 	{
@@ -607,7 +608,7 @@ void vExecConfigFile(const char[] filepath, const char[] folder, const char[] fi
 public Action tTimerUpdatePlayerCount(Handle timer)
 {
 	g_cvASSConfigExecute.GetString(g_sConfigOption, sizeof(g_sConfigOption));
-	if (!g_cvASSEnable.BoolValue || !bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) || StrContains(g_sConfigOption, "5", false) == -1)
+	if (!g_cvASSEnable.BoolValue || !bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes, g_cvASSGameModeTypes) || StrContains(g_sConfigOption, "5", false) == -1)
 	{
 		return Plugin_Continue;
 	}

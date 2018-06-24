@@ -400,6 +400,19 @@ ass_enablesystem "1"
 // Maximum: "1.000000"
 ass_failsafe "1"
 
+// Enable the Anti-Speedrunner System in these game mode types.
+// Add numbers up together.
+// (0: All 4 types.)
+// (1: Co-Op modes only.)
+// (2: Versus modes only.)
+// (4: Survival modes only.)
+// (8: Scavenge modes only.)
+// -
+// Default: "0"
+// Minimum: "0.000000"
+// Maximum: "15.000000"
+ass_gamemodetypes "0"
+
 // Amount of incapacitated survivors needed to turn the Anti-Speedrunner System off.
 // (0: OFF, keep the Anti-Speedrunner System enabled.)
 // (X: ON, disable the Anti-Speedrunner System after X survivors are incapacitated.)
@@ -924,28 +937,44 @@ The asssaferoom_enabledgamemodes and asssaferoom_disabledgamemodes only apply to
 
 The ass_enabledgamemodes and ass_disabledgamemodes apply to the whole plugin.
 
+You have 2 options:
+
+- Enable/disable in certain game mode types.
+- Enable/disable in specific game modes.
+
+For option 1:
+
+You must add numbers up together.
+
+For option 2:
+
+You must specify the game modes in the das_enabledgamemodes and das_disabledgamemodes convars.
+
 Here are some scenarios and their outcomes:
 
 - Scenario 1
 ```
+ass_gamemodetypes "1" // The plugin is enabled for all Campaign modes only (coop, mutation1, etc.).
 ass_enabledgamemodes "" // The plugin itself is enabled in all game modes.
-asssaferoom_enabledgamemodes "coop" // The Saferoom system is only enabled in Campaign mode.
+asssaferoom_enabledgamemodes "coop" // The Saferoom system is only enabled in "coop" mode.
 
-Outcome: The plugin works in every game mode but the Saferoom system will automatically shut off if the game mode isn't Campaign mode.
+Outcome: The plugin works in every Campaign-based game mode like "mutation1" except "coop" mode but the Saferoom system will automatically shut off if the game mode isn't "coop" mode.
 ```
 - Scenario 2
 ```
-ass_enabledgamemodes "versus" // The plugin itself is enabled in only Versus mode.
-asssaferoom_enabledgamemodes "coop" // The Saferoom system is only enabled in Campaign mode.
+ass_gamemodetypes "8" // The plugin is enabled for all Scavenge modes only (teamscavenge, scavenge, etc.)
+ass_enabledgamemodes "versus" // The plugin itself is enabled in only "versus" mode.
+asssaferoom_enabledgamemodes "coop" // The Saferoom system is only enabled in "coop" mode.
 
-Outcome: The plugin works only in Versus mode so the game mode specified for the Saferoom system wouldn't matter.
+Outcome: The plugin works only in Scavenge modes so the plugin won't work in any of the game modes specified.
 ```
 - Scenario 3
 ```
-ass_enabledgamemodes "coop,versus" // The plugin itself is enabled in only Versus mode.
-asssaferoom_enabledgamemodes "coop" // The Saferoom system is only enabled in Campaign mode.
+ass_gamemodetypes "0" // The plugin is enabled for all game mode types.
+ass_enabledgamemodes "coop,versus" // The plugin itself is enabled in only "coop" and "versus" mode.
+asssaferoom_enabledgamemodes "coop" // The Saferoom system is only enabled in "coop" mode.
 
-Outcome: The plugin works only in Campaign and Versus modes but the Saferoom system will automatically shut off if the game mode isn't Campaign mode.
+Outcome: The plugin works in all game modes but is only enabled in "coop" and "versus" modes but the Saferoom system will automatically shut off if the game mode isn't "coop" mode.
 ```
 
 6. What is the assstrike_distancelimit convar for?
@@ -1461,7 +1490,7 @@ Set the value in assslow_runspeed.
 
 **Farbror Godis** - For the [Curse](https://forums.alliedmods.net/showthread.php?p=2402076) plugin.
 
-**Silvers (Silvershot)** - For the code that allows users to enable/disable the plugin in certain game modes, help with gamedata signatures, and the code to prevent Tanks from damaging themselves and other infected with their own abilities.
+**Silvers (Silvershot)** - For the code that allows users to enable/disable the plugin in certain game modes, help with gamedata signatures, and help with optimizing/fixing various parts of the code.
 
 **Milo|** - For the code that automatically generates config files for each day and each map installed on a server.
 

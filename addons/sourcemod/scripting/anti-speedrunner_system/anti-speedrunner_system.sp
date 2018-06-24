@@ -100,6 +100,7 @@ ConVar g_cvASSEnabledGameModes;
 ConVar g_cvASSEnable;
 ConVar g_cvASSFailsafe;
 ConVar g_cvASSGameMode;
+ConVar g_cvASSGameModeTypes;
 ConVar g_cvASSHealIncapCount;
 ConVar g_cvASSIncapacitatedCount;
 ConVar g_cvASSLockdownDoorType;
@@ -238,6 +239,7 @@ public void OnPluginStart()
 	vCreateConVar(g_cvASSEnabledGameModes, "ass_enabledgamemodes", "", "Enable the Anti-Speedrunner System in these game modes.\nSeparate game modes with commas.\nGame mode limit: 64\nCharacter limit for each game mode: 32\n(Empty: All)\n(Not empty: Enabled only in these game modes.)");
 	vCreateConVar(g_cvASSEnable, "ass_enablesystem", "1", "Enable the Anti-Speedrunner System?\n(0: OFF)\n(1: ON)", _, true, 0.0, true, 1.0);
 	vCreateConVar(g_cvASSFailsafe, "ass_failsafe", "1", "Disable/re-enable the Anti-Speedrunner System's functions after X survivors are incapacitated/revived?\n(0: OFF)\n(1: ON)", _, true, 0.0, true, 1.0);
+	vCreateConVar(g_cvASSGameModeTypes, "ass_gamemodetypes", "0", "Enable the Anti-Speedrunner System in these game mode types.\nAdd numbers up together.\n(0: All 4 types.)\n(1: Co-Op modes only.)\n(2: Versus modes only.)\n(4: Survival modes only.)\n(8: Scavenge modes only.)", _, true, 0.0, true, 15.0);
 	g_cvASSGameMode = FindConVar("mp_gamemode");
 	vCreateConVar(g_cvASSIncapacitatedCount, "ass_incapacitatedcount", "2", "Amount of incapacitated survivors needed to turn the Anti-Speedrunner System off.\n(0: OFF, keep the Anti-Speedrunner System enabled.)\n(X: ON, disable the Anti-Speedrunner System after X survivors are incapacitated.)", _, true, 1.0, true, 66.0);
 	vCreateConVar(g_cvASSLogCommands, "ass_logcommands", "1", "Log command usage?\n(0: OFF)\n(1: ON)", _, true, 0.0, true, 1.0);
@@ -354,7 +356,7 @@ public void OnPluginStart()
 
 public void OnMapStart()
 {
-	if (g_cvASSEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (g_cvASSEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes, g_cvASSGameModeTypes))
 	{
 		g_bRestartValid = false;
 		vExplodeStart();
@@ -403,10 +405,10 @@ public void OnClientDisconnect(int client)
 	g_bHeadshot[client] = false;
 	g_bNull[client] = false;
 	g_iStrikeCount[client] = 0;
-	if (g_cvASSEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (g_cvASSEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes, g_cvASSGameModeTypes))
 	{
 		g_cvASSSaferoomSystemOptions.GetString(g_sSaferoomOption, sizeof(g_sSaferoomOption));
-		if (g_cvASSSaferoomEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes) && StrContains(g_sSaferoomOption, "k", false) != -1 && bIsHumanSurvivor(client) && !bIsFinaleMap() && !bIsBuggedMap())
+		if (g_cvASSSaferoomEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes, g_cvASSGameModeTypes) && StrContains(g_sSaferoomOption, "k", false) != -1 && bIsHumanSurvivor(client) && !bIsFinaleMap() && !bIsBuggedMap())
 		{
 			if (g_bKeyman[client])
 			{
@@ -431,9 +433,9 @@ public void OnConfigsExecuted()
 	vExecuteConfigs();
 	g_cvASSSaferoomSystemOptions.GetString(g_sSaferoomOption, sizeof(g_sSaferoomOption));
 	g_cvASSLockdownDoorType.GetString(g_sLockdownType, sizeof(g_sLockdownType));
-	if (g_cvASSEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (g_cvASSEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes, g_cvASSGameModeTypes))
 	{
-		if (g_cvASSSaferoomEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes) && !bIsFinaleMap() && !bIsBuggedMap())
+		if (g_cvASSSaferoomEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes, g_cvASSGameModeTypes) && !bIsFinaleMap() && !bIsBuggedMap())
 		{
 			if (StrContains(g_sSaferoomOption, "l", false) != -1 && StrContains(g_sLockdownType, "1", false) != -1)
 			{
@@ -547,7 +549,7 @@ public Action eEventPlayerBotReplace(Event event, const char[] name, bool dontBr
 	int iSurvivor = GetClientOfUserId(iSurvivorId);
 	int iBotId = event.GetInt("bot");
 	int iBot = GetClientOfUserId(iBotId);
-	if (g_cvASSEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsIdlePlayer(iBot, iSurvivor)) 
+	if (g_cvASSEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes, g_cvASSGameModeTypes) && bIsIdlePlayer(iBot, iSurvivor)) 
 	{
 		DataPack dpDataPack;
 		CreateDataTimer(0.2, tTimerIdleFix, dpDataPack, TIMER_FLAG_NO_MAPCHANGE);
@@ -567,9 +569,9 @@ public Action eEventPlayerIncapacitated(Event event, const char[] name, bool don
 	int iUserId = event.GetInt("userid");
 	int iDisabled = GetClientOfUserId(iUserId);
 	g_cvASSSaferoomSystemOptions.GetString(g_sSaferoomOption, sizeof(g_sSaferoomOption));
-	if (g_cvASSEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (g_cvASSEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes, g_cvASSGameModeTypes))
 	{
-		if (g_cvASSSaferoomEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes) && StrContains(g_sSaferoomOption, "k", false) != -1 && bIsHumanSurvivor(iDisabled) && !bIsFinaleMap() && !bIsBuggedMap())
+		if (g_cvASSSaferoomEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes, g_cvASSGameModeTypes) && StrContains(g_sSaferoomOption, "k", false) != -1 && bIsHumanSurvivor(iDisabled) && !bIsFinaleMap() && !bIsBuggedMap())
 		{
 			if (g_bKeyman[iDisabled])
 			{
@@ -593,10 +595,10 @@ public Action eEventPlayerDeath(Event event, const char[] name, bool dontBroadca
 	int iAttacker = GetClientOfUserId(iAttackerId);
 	int iUserId = event.GetInt("userid");
 	int iDead = GetClientOfUserId(iUserId);
-	if (g_cvASSEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (g_cvASSEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes, g_cvASSGameModeTypes))
 	{
 		g_cvASSSaferoomSystemOptions.GetString(g_sSaferoomOption, sizeof(g_sSaferoomOption));
-		if (g_cvASSSaferoomEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes) && StrContains(g_sSaferoomOption, "k", false) != -1 && bIsHumanSurvivor(iDead) && !bIsFinaleMap() && !bIsBuggedMap())
+		if (g_cvASSSaferoomEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes, g_cvASSGameModeTypes) && StrContains(g_sSaferoomOption, "k", false) != -1 && bIsHumanSurvivor(iDead) && !bIsFinaleMap() && !bIsBuggedMap())
 		{
 			if (g_bKeyman[iDead])
 			{
@@ -652,7 +654,7 @@ public Action eEventSDPlayerUse(Event event, const char[] name, bool dontBroadca
 		GetEntityClassname(iDoorEntity, g_sPropName, sizeof(g_sPropName));
 		if (StrEqual(g_sPropName, "prop_door_rotating_checkpoint", false) && GetEntProp(iDoorEntity, Prop_Data, "m_eDoorState") == 0)
 		{
-			if (bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+			if (bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes, g_cvASSGameModeTypes))
 			{
 				if (!g_cvASSTankAlive.BoolValue)
 				{
@@ -661,12 +663,12 @@ public Action eEventSDPlayerUse(Event event, const char[] name, bool dontBroadca
 						return Plugin_Continue;
 					}
 				}
-				if (g_cvASSEnable.BoolValue && g_cvASSSaferoomEnable.BoolValue && !g_bNull[iDoorUser] && (!g_cvASSAdminImmunity.BoolValue || (g_cvASSAdminImmunity.BoolValue && !bIsAdminAllowed(iDoorUser))) && (!g_cvASSNoFinales.BoolValue || (g_cvASSNoFinales.BoolValue && !bIsFinaleMap())) && StrContains(g_sDoorType, "1", false) != -1 && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
+				if (g_cvASSEnable.BoolValue && g_cvASSSaferoomEnable.BoolValue && !g_bNull[iDoorUser] && (!g_cvASSAdminImmunity.BoolValue || (g_cvASSAdminImmunity.BoolValue && !bIsAdminAllowed(iDoorUser))) && (!g_cvASSNoFinales.BoolValue || (g_cvASSNoFinales.BoolValue && !bIsFinaleMap())) && StrContains(g_sDoorType, "1", false) != -1 && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes, g_cvASSGameModeTypes) && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes, g_cvASSGameModeTypes))
 				{
 					HookSingleEntityOutput(iDoorEntity, "OnFullyOpen", vStartAntiSpamDoor);
 					HookSingleEntityOutput(iDoorEntity, "OnFullyClose", vStartAntiSpamDoor);
 				}
-				else if (!g_cvASSEnable.BoolValue || !g_cvASSSaferoomEnable.BoolValue || g_bNull[iDoorUser] || (g_cvASSAdminImmunity && bIsAdminAllowed(iDoorUser)) || (g_cvASSNoFinales.BoolValue && bIsFinaleMap()) || StrContains(g_sDoorType, "1", false) == -1 || !bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) || !bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
+				else if (!g_cvASSEnable.BoolValue || !g_cvASSSaferoomEnable.BoolValue || g_bNull[iDoorUser] || (g_cvASSAdminImmunity && bIsAdminAllowed(iDoorUser)) || (g_cvASSNoFinales.BoolValue && bIsFinaleMap()) || StrContains(g_sDoorType, "1", false) == -1 || !bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes, g_cvASSGameModeTypes) || !bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes, g_cvASSGameModeTypes))
 				{
 					UnhookSingleEntityOutput(iDoorEntity, "OnFullyOpen", vStartAntiSpamDoor);
 					UnhookSingleEntityOutput(iDoorEntity, "OnFullyClose", vStartAntiSpamDoor);
@@ -689,7 +691,7 @@ public Action eEventEDPlayerUse(Event event, const char[] name, bool dontBroadca
 		GetEntityClassname(iDoorEntity, g_sPropName, sizeof(g_sPropName));
 		if (StrEqual(g_sPropName, "prop_door_rotating_checkpoint", false) && GetEntProp(iDoorEntity, Prop_Data, "m_hasUnlockSequence") == 0)
 		{
-			if (bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+			if (bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes, g_cvASSGameModeTypes))
 			{
 				if (!g_cvASSTankAlive.BoolValue)
 				{
@@ -698,12 +700,12 @@ public Action eEventEDPlayerUse(Event event, const char[] name, bool dontBroadca
 						return Plugin_Continue;
 					}
 				}
-				if (g_cvASSEnable.BoolValue && g_cvASSSaferoomEnable.BoolValue && !g_bNull[iDoorUser] && (!g_cvASSAdminImmunity.BoolValue || (g_cvASSAdminImmunity.BoolValue && !bIsAdminAllowed(iDoorUser))) && (!g_cvASSNoFinales.BoolValue || (g_cvASSNoFinales.BoolValue && !bIsFinaleMap())) && StrContains(g_sDoorType, "2", false) != -1 && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
+				if (g_cvASSEnable.BoolValue && g_cvASSSaferoomEnable.BoolValue && !g_bNull[iDoorUser] && (!g_cvASSAdminImmunity.BoolValue || (g_cvASSAdminImmunity.BoolValue && !bIsAdminAllowed(iDoorUser))) && (!g_cvASSNoFinales.BoolValue || (g_cvASSNoFinales.BoolValue && !bIsFinaleMap())) && StrContains(g_sDoorType, "2", false) != -1 && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes, g_cvASSGameModeTypes) && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes, g_cvASSGameModeTypes))
 				{
 					HookSingleEntityOutput(iDoorEntity, "OnFullyOpen", vStartAntiSpamDoor);
 					HookSingleEntityOutput(iDoorEntity, "OnFullyClose", vStartAntiSpamDoor);
 				}
-				else if (!g_cvASSEnable.BoolValue || !g_cvASSSaferoomEnable.BoolValue || g_bNull[iDoorUser] || (g_cvASSAdminImmunity && bIsAdminAllowed(iDoorUser)) || (g_cvASSNoFinales.BoolValue && bIsFinaleMap()) || StrContains(g_sDoorType, "2", false) == -1 || !bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) || !bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
+				else if (!g_cvASSEnable.BoolValue || !g_cvASSSaferoomEnable.BoolValue || g_bNull[iDoorUser] || (g_cvASSAdminImmunity && bIsAdminAllowed(iDoorUser)) || (g_cvASSNoFinales.BoolValue && bIsFinaleMap()) || StrContains(g_sDoorType, "2", false) == -1 || !bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes, g_cvASSGameModeTypes) || !bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes, g_cvASSGameModeTypes))
 				{
 					UnhookSingleEntityOutput(iDoorEntity, "OnFullyOpen", vStartAntiSpamDoor);
 					UnhookSingleEntityOutput(iDoorEntity, "OnFullyClose", vStartAntiSpamDoor);
@@ -733,7 +735,7 @@ public Action eEventSPlayerUse(Event event, const char[] name, bool dontBroadcas
 			GetEntityClassname(iDoorEntity, g_sPropName, sizeof(g_sPropName));
 			if (StrEqual(g_sPropName, "prop_door_rotating_checkpoint", false))
 			{
-				if (bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
+				if (bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes, g_cvASSGameModeTypes) && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes, g_cvASSGameModeTypes))
 				{
 					if (g_cvASSTankAlive.BoolValue && !g_bBossSpawned)
 					{
@@ -819,7 +821,7 @@ public Action eEventEPlayerUse(Event event, const char[] name, bool dontBroadcas
 			GetEntityClassname(iDoorEntity, g_sPropName, sizeof(g_sPropName));
 			if (StrEqual(g_sPropName, "prop_door_rotating_checkpoint", false))
 			{
-				if (bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
+				if (bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes, g_cvASSGameModeTypes) && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes, g_cvASSGameModeTypes))
 				{
 					if (g_cvASSTankAlive.BoolValue && !g_bBossSpawned)
 					{
@@ -947,12 +949,12 @@ public Action eEventEPlayerUse(Event event, const char[] name, bool dontBroadcas
 
 public Action eEventRoundStart(Event event, const char[] name, bool dontBroadcast)
 {
-	if (g_cvASSEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (g_cvASSEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes, g_cvASSGameModeTypes))
 	{
 		vResetVoteCounts();
 		g_cvASSSaferoomSystemOptions.GetString(g_sSaferoomOption, sizeof(g_sSaferoomOption));
 		g_cvASSLockdownDoorType.GetString(g_sLockdownType, sizeof(g_sLockdownType));
-		if (g_cvASSSaferoomEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
+		if (g_cvASSSaferoomEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes, g_cvASSGameModeTypes))
 		{
 			if (StrContains(g_sSaferoomOption, "l", false) != -1 && StrContains(g_sLockdownType, "1", false) != -1)
 			{
@@ -982,10 +984,10 @@ public Action eEventRoundStart(Event event, const char[] name, bool dontBroadcas
 
 public Action eEventRoundEnd(Event event, const char[] name, bool dontBroadcast)
 {
-	if (g_cvASSEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (g_cvASSEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes, g_cvASSGameModeTypes))
 	{
 		g_cvASSSaferoomSystemOptions.GetString(g_sSaferoomOption, sizeof(g_sSaferoomOption));
-		if (g_cvASSSaferoomEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes) && !bIsFinaleMap() && !bIsBuggedMap() && StrContains(g_sSaferoomOption, "k", false) != -1)
+		if (g_cvASSSaferoomEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes, g_cvASSGameModeTypes) && !bIsFinaleMap() && !bIsBuggedMap() && StrContains(g_sSaferoomOption, "k", false) != -1)
 		{
 			vKeymanStats();
 			for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer++)
@@ -1014,7 +1016,7 @@ public void eEventLeftCheckpoint(Event event, const char[] name, bool dontBroadc
 	int iUserId = event.GetInt("userid");
 	int iLeaver = GetClientOfUserId(iUserId);
 	g_cvASSSaferoomSystemOptions.GetString(g_sSaferoomOption, sizeof(g_sSaferoomOption));
-	if (g_cvASSEnable.BoolValue && g_cvASSSaferoomEnable.BoolValue && StrContains(g_sSaferoomOption, "k", false) != -1 && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
+	if (g_cvASSEnable.BoolValue && g_cvASSSaferoomEnable.BoolValue && StrContains(g_sSaferoomOption, "k", false) != -1 && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes, g_cvASSGameModeTypes) && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes, g_cvASSGameModeTypes))
 	{
 		if (g_bStarted[iLeaver] && iLeaver > 0 && iDoorEntity == 0 && !g_bLeftSaferoom)
 		{
@@ -1028,9 +1030,9 @@ public void eEventJoinTeam(Event event, const char[] name, bool dontBroadcast)
 	int iUserId = event.GetInt("userid");
 	int iPlayer = GetClientOfUserId(iUserId);
 	g_cvASSSaferoomSystemOptions.GetString(g_sSaferoomOption, sizeof(g_sSaferoomOption));
-	if (g_cvASSEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (g_cvASSEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes, g_cvASSGameModeTypes))
 	{
-		if (g_cvASSSaferoomEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes) && StrContains(g_sSaferoomOption, "k", false) != -1 && bIsHumanSurvivor(iPlayer) && !bIsFinaleMap() && !bIsBuggedMap())
+		if (g_cvASSSaferoomEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes, g_cvASSGameModeTypes) && StrContains(g_sSaferoomOption, "k", false) != -1 && bIsHumanSurvivor(iPlayer) && !bIsFinaleMap() && !bIsBuggedMap())
 		{
 			if (!g_bLeftSaferoom)
 			{
@@ -1054,7 +1056,7 @@ public void eEventJoinTeam(Event event, const char[] name, bool dontBroadcast)
 
 public Action OnPlayerRunCmd(int client, int &buttons, int &impulse, float vel[3], float angles[3], int &weapon)
 {
-	if (!g_cvASSEnable.BoolValue || !bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (!g_cvASSEnable.BoolValue || !bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes, g_cvASSGameModeTypes))
 	{
 		return Plugin_Continue;
 	}
@@ -1090,7 +1092,7 @@ public Action OnPlayerRunCmd(int client, int &buttons, int &impulse, float vel[3
 		}
 		return Plugin_Changed;
 	}
-	if (g_cvASSSaferoomEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes) && !bIsFinaleMap() && !bIsBuggedMap())
+	if (g_cvASSSaferoomEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes, g_cvASSGameModeTypes) && !bIsFinaleMap() && !bIsBuggedMap())
 	{
 		if (buttons & IN_MOVELEFT || buttons & IN_BACK || buttons & IN_FORWARD || buttons & IN_MOVERIGHT || buttons & IN_USE)
 		{
@@ -1178,18 +1180,6 @@ void vEntryMode(int entity)
 		{
 			EmitSoundToAll("doors/latchlocked2.wav", entity);
 		}
-	}
-}
-
-void vEntryOption()
-{
-	if (g_cvASSSaferoomEntryMode.BoolValue)
-	{
-		vNoneOption(g_iDoorId2, true);
-	}
-	else
-	{
-		vEntryCommand();
 	}
 }
 
@@ -1559,7 +1549,7 @@ public void vASSAutoModeCvar(ConVar convar, const char[] oldValue, const char[] 
 public void vGameModeCvars(ConVar convar, const char[] oldValue, const char[] newValue)
 {
 	g_cvASSSaferoomSystemOptions.GetString(g_sSaferoomOption, sizeof(g_sSaferoomOption));
-	if (!g_cvASSEnable.BoolValue || !bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (!g_cvASSEnable.BoolValue || !bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes, g_cvASSGameModeTypes))
 	{
 		for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer++)
 		{
@@ -1586,7 +1576,7 @@ public void vGameModeCvars(ConVar convar, const char[] oldValue, const char[] ne
 			}
 		}
 	}
-	else if (g_cvASSEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	else if (g_cvASSEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes, g_cvASSGameModeTypes))
 	{
 		for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer++)
 		{
@@ -1601,7 +1591,7 @@ public void vGameModeCvars(ConVar convar, const char[] oldValue, const char[] ne
 
 public Action tTimerUpdateIncapCount(Handle timer)
 {
-	if (!g_cvASSEnable.BoolValue || !bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (!g_cvASSEnable.BoolValue || !bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes, g_cvASSGameModeTypes))
 	{
 		return Plugin_Continue;
 	}
@@ -1647,7 +1637,7 @@ public Action tTimerLeftSafeArea(Handle timer, any userid)
 {
 	int client = GetClientOfUserId(userid);
 	g_cvASSSaferoomSystemOptions.GetString(g_sSaferoomOption, sizeof(g_sSaferoomOption));
-	if (!g_cvASSEnable.BoolValue || !g_cvASSSaferoomEnable.BoolValue || StrContains(g_sSaferoomOption, "k", false) == -1 || g_bLeftSaferoom || !bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) || !bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes) || bIsFinaleMap() || bIsBuggedMap())
+	if (!g_cvASSEnable.BoolValue || !g_cvASSSaferoomEnable.BoolValue || StrContains(g_sSaferoomOption, "k", false) == -1 || g_bLeftSaferoom || !bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes, g_cvASSGameModeTypes) || !bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes, g_cvASSGameModeTypes) || bIsFinaleMap() || bIsBuggedMap())
 	{
 		return Plugin_Stop;
 	}

@@ -12,7 +12,7 @@
 #define ASS_NAME "Anti-Speedrunner System"
 #define ASS_AUTHOR "Psyk0tik (Crasher_3637)"
 #define ASS_DESCRIPTION "The Anti-Speedrunner System provides various options for dealing with players that speedrun through campaigns and making sure survivors stick together!"
-#define ASS_VERSION "29.38"
+#define ASS_VERSION "29.39"
 #define ASS_URL "https://forums.alliedmods.net/showthread.php?t=302868"
 #define ASS_LOCK "=="
 #define ASS_UNLOCK "!="
@@ -33,65 +33,66 @@
 #define ASS_FORMAT_SUCCESS 41
 
 // Configs
-static bool bCreateDirectory;
-static bool bCreateFile;
-static char sConfigFile[PLATFORM_MAX_PATH];
-static char sRawFileName[PLATFORM_MAX_PATH];
-static char sFolderPath[PLATFORM_MAX_PATH];
-static Handle hPluginHandle;
-static int iCreateDirectoryMode;
-static int iLastFindResult;
-static int iLastAppendResult;
+static bool g_bCreateDirectory;
+static bool g_bCreateFile;
+static char g_sConfigFile[PLATFORM_MAX_PATH];
+static char g_sRawFileName[PLATFORM_MAX_PATH];
+static char g_sFolderPath[PLATFORM_MAX_PATH];
+static Handle g_hPluginHandle;
+static int g_iCreateDirectoryMode;
+static int g_iCurrentMode;
+static int g_iLastFindResult;
+static int g_iLastAppendResult;
 
 stock int iASS_GetFindResult()
 {
-	return iLastFindResult;
+	return g_iLastFindResult;
 }
 
 stock int iASS_GetAppendResult()
 {
-	return iLastAppendResult;
+	return g_iLastAppendResult;
 }
 
 stock void vASS_CreateConfig(bool create)
 {
-	bCreateFile = create;
+	g_bCreateFile = create;
 }
 
 stock void vASS_CreateDirectory(bool create, int mode = 511)
 {
-	bCreateDirectory = create;
-	iCreateDirectoryMode = mode;
+	g_bCreateDirectory = create;
+	g_iCreateDirectoryMode = mode;
 }
 
 stock bool bASS_GetCreateFile()
 {
-	return bCreateFile;
+	return g_bCreateFile;
 }
 
 stock void vASS_SetPlugin(Handle plugin)
 {
-	hPluginHandle = plugin;
+	g_hPluginHandle = plugin;
 }
 
 stock Handle hASS_GetPlugin()
 {
-	return hPluginHandle;
+	return g_hPluginHandle;
 }
 
 stock bool bASS_Config(char[] file, char[] folder = "sourcemod/anti-speedrunner_system")
 {
-	Format(sConfigFile, sizeof(sConfigFile), "%s", file);
-	strcopy(sRawFileName, sizeof(sRawFileName), file);
-	strcopy(sFolderPath, sizeof(sFolderPath), folder);
-	return iASS_FormatConfig(sConfigFile, sizeof(sConfigFile), folder) == ASS_FORMAT_SUCCESS;
+	Format(g_sConfigFile, sizeof(g_sConfigFile), "%s", file);
+	strcopy(g_sRawFileName, sizeof(g_sRawFileName), file);
+	strcopy(g_sFolderPath, sizeof(g_sFolderPath), folder);
+	return iASS_FormatConfig(g_sConfigFile, sizeof(g_sConfigFile), folder) == ASS_FORMAT_SUCCESS;
 }
 
 stock bool bASS_GetConfig(char[] buffer, int size)
 {
-	if (strlen(sConfigFile) > 0)
+	if (strlen(g_sConfigFile) > 0)
 	{
-		strcopy(buffer, size, sConfigFile);
+		strcopy(buffer, size, g_sConfigFile);
 		return true;
 	}
 	buffer[0] = '\0';
@@ -100,15 +101,15 @@ stock bool bASS_GetConfig(char[] buffer, int size)
 
 stock ConVar cvASS_ConVar(const char[] name, const char[] defaultValue, const char[] description = "", int flags = 0, bool hasMin = false, float min = 0.0, bool hasMax = false, float max = 0.0)
 {
-	if (!(flags & FCVAR_DONTRECORD) && strlen(sConfigFile) > 0)
+	if (!(flags & FCVAR_DONTRECORD) && strlen(g_sConfigFile) > 0)
 	{
-		iLastFindResult = -1;
-		iLastAppendResult = -1;
+		g_iLastFindResult = -1;
+		g_iLastAppendResult = -1;
 		char sValue[64];
-		iLastFindResult = iASS_FindValue(name, sValue, sizeof(sValue), true);
-		if (iLastFindResult == ASS_FIND_NOT_FOUND || (iLastFindResult == ASS_FIND_FILE_NOT_FOUND && bCreateFile))
+		g_iLastFindResult = iASS_FindValue(name, sValue, sizeof(sValue), true);
+		if (g_iLastFindResult == ASS_FIND_NOT_FOUND || (g_iLastFindResult == ASS_FIND_FILE_NOT_FOUND && g_bCreateFile))
 		{
-			iLastAppendResult = iASS_Append(name, defaultValue, description, flags, hasMin, min, hasMax, max);
+			g_iLastAppendResult = iASS_Append(name, defaultValue, description, flags, hasMin, min, hasMax, max);
 		}
 	}
 	return CreateConVar(name, defaultValue, description, flags, hasMin, min, hasMax, max);
@@ -116,16 +117,16 @@ stock ConVar cvASS_ConVar(const char[] name, const char[] defaultValue, const ch
 
 stock void vASS_ExecConfig()
 {
-	AutoExecConfig(!bCreateFile, sRawFileName, sFolderPath);
+	AutoExecConfig(!g_bCreateFile, g_sRawFileName, g_sFolderPath);
 }
 
 stock static int iASS_FormatConfig(char[] buffer, int size, char[] folder = "sourcemod/anti-speedrunner_system")
 {
-	if (strlen(sConfigFile) < 1)
+	if (strlen(g_sConfigFile) < 1)
 	{
 		return ASS_NO_CONFIG;
 	}
-	if (StrContains(sConfigFile, ".cfg") != -1 && strlen(sConfigFile) < 4)
+	if (StrContains(g_sConfigFile, ".cfg") != -1 && strlen(g_sConfigFile) < 4)
 	{
 		return ASS_FORMAT_BAD_FILENAME;
 	}
@@ -133,9 +134,9 @@ stock static int iASS_FormatConfig(char[] buffer, int size, char[] folder = "sou
 	if (strlen(folder) > 0)
 	{
 		Format(sPathPrefix, sizeof(sPathPrefix), "cfg/%s/", folder);
-		if (bCreateDirectory && !DirExists(sPathPrefix))
+		if (g_bCreateDirectory && !DirExists(sPathPrefix))
 		{
-			CreateDirectory(sPathPrefix, iCreateDirectoryMode);
+			CreateDirectory(sPathPrefix, g_iCreateDirectoryMode);
 		}
 	}
 	else
@@ -148,7 +149,7 @@ stock static int iASS_FormatConfig(char[] buffer, int size, char[] folder = "sou
 	{
 		StrCat(sFile, sizeof(sFile), sPathPrefix);
 	}
-	StrCat(sFile, sizeof(sFile), sConfigFile);
+	StrCat(sFile, sizeof(sFile), g_sConfigFile);
 	if (StrContains(sFile[strlen(sFile) - 4], ".cfg") != 0)
 	{
 		StrCat(sFile, sizeof(sFile), ".cfg");
@@ -159,14 +160,14 @@ stock static int iASS_FormatConfig(char[] buffer, int size, char[] folder = "sou
 
 stock int iASS_Append(const char[] name, const char[] defaultValue, const char[] description, int flags, bool hasMin, float min, bool hasMax, float max)
 {
-	if (strlen(sConfigFile) < 1)
+	if (strlen(g_sConfigFile) < 1)
 	{
 		return ASS_NO_CONFIG;
 	}
 	char sFile[PLATFORM_MAX_PATH];
-	strcopy(sFile, sizeof(sFile), sConfigFile);
+	strcopy(sFile, sizeof(sFile), g_sConfigFile);
 	bool bFileExists = FileExists(sFile);
-	if (bCreateFile || bFileExists)
+	if (g_bCreateFile || bFileExists)
 	{
 		File fFile = OpenFile(sFile, (bFileExists ? "a" : "w"));
 		char sWrite[2048];
@@ -174,10 +175,10 @@ stock int iASS_Append(const char[] name, const char[] defaultValue, const char[]
 		{
 			return ASS_APPEND_BAD_HANDLE;
 		}
-		if (bCreateFile && !bFileExists)
+		if (g_bCreateFile && !bFileExists)
 		{
 			fFile.WriteLine("// This file was auto-generated by the Anti-Speedrunner System v%s (%s)", ASS_VERSION, ASS_URL);
-			GetPluginFilename(hPluginHandle, sWrite, sizeof(sWrite));
+			GetPluginFilename(g_hPluginHandle, sWrite, sizeof(sWrite));
 			Format(sWrite, sizeof(sWrite), "// ConVars for plugin \"%s\"", sWrite);
 			fFile.WriteLine(sWrite);
 		}
@@ -224,14 +225,14 @@ stock int iASS_Append(const char[] name, const char[] defaultValue, const char[]
 stock int iASS_FindValue(const char[] cvar, char[] value, int size, bool caseSensitive = false)
 {
 	value[0] = '\0';
-	if (strlen(sConfigFile) < 1)
+	if (strlen(g_sConfigFile) < 1)
 	{
 		return ASS_NO_CONFIG;
 	}
 	char sFile[PLATFORM_MAX_PATH];
-	strcopy(sFile, sizeof(sFile), sConfigFile);
+	strcopy(sFile, sizeof(sFile), g_sConfigFile);
 	bool bFileExists = FileExists(sFile);
-	if (bCreateFile && !bFileExists)
+	if (g_bCreateFile && !bFileExists)
 	{
 		return ASS_FIND_FILE_NOT_FOUND;
 	}
@@ -276,12 +277,12 @@ stock int iASS_FindValue(const char[] cvar, char[] value, int size, bool caseSen
 
 stock int iASS_Clean()
 {
-	if (strlen(sConfigFile) < 1)
+	if (strlen(g_sConfigFile) < 1)
 	{
 		return ASS_NO_CONFIG;
 	}
 	char sFile[PLATFORM_MAX_PATH];
-	strcopy(sFile, sizeof(sFile), sConfigFile);
+	strcopy(sFile, sizeof(sFile), g_sConfigFile);
 	if (!FileExists(sFile))
 	{
 		return ASS_CLEAN_FILE_NOT_FOUND;
@@ -486,8 +487,29 @@ stock bool bIsSurvivor(int client)
 	return client > 0 && client <= MaxClients && IsClientInGame(client) && GetClientTeam(client) == 2 && IsPlayerAlive(client) && !IsClientInKickQueue(client);
 }
 
-stock bool bIsSystemValid(ConVar convar, ConVar convar2, ConVar convar3)
+stock bool bIsSystemValid(ConVar convar, ConVar convar2, ConVar convar3, ConVar convar4)
 {
+	if (convar == null)
+	{
+		return false;
+	}
+	if (convar4.IntValue != 0)
+	{
+		g_iCurrentMode = 0;
+		int iMode = CreateEntityByName("info_gamemode");
+		DispatchSpawn(iMode);
+		HookSingleEntityOutput(iMode, "OnCoop", vGamemode, true);
+		HookSingleEntityOutput(iMode, "OnSurvival", vGamemode, true);
+		HookSingleEntityOutput(iMode, "OnVersus", vGamemode, true);
+		HookSingleEntityOutput(iMode, "OnScavenge", vGamemode, true);
+		ActivateEntity(iMode);
+		AcceptEntityInput(iMode, "PostSpawnActivate");
+		AcceptEntityInput(iMode, "Kill");
+		if (g_iCurrentMode == 0 || !(convar4.IntValue & g_iCurrentMode))
+		{
+			return false;
+		}
+	}
 	char sGameMode[32];
 	char sConVarModes[32];
 	convar.GetString(sGameMode, sizeof(sGameMode));
@@ -775,6 +797,26 @@ stock void vDeleteExplosion(int entity, float time, char[] input)
 		Format(sVariant, sizeof(sVariant), "OnUser1 !self:kill::%f:1", time);
 		SetVariantString(sVariant);
 		AcceptEntityInput(entity, input);
+	}
+}
+
+public void vGamemode(const char[] output, int caller, int activator, float delay)
+{
+	if (strcmp(output, "OnCoop") == 0)
+	{
+		g_iCurrentMode = 1;
+	}
+	else if (strcmp(output, "OnSurvival") == 0)
+	{
+		g_iCurrentMode = 2;
+	}
+	else if (strcmp(output, "OnVersus") == 0)
+	{
+		g_iCurrentMode = 4;
+	}
+	else if (strcmp(output, "OnScavenge") == 0)
+	{
+		g_iCurrentMode = 8;
 	}
 }
 

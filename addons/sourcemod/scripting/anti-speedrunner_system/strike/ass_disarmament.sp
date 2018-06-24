@@ -29,7 +29,7 @@ public Action cmdASSDisarm(int client, int args)
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX, "InGame") : ReplyToCommand(client, "%s This command is to be used only in-game.", ASS_PREFIX);
 		return Plugin_Handled;
 	}
-	if (!bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (!bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes, g_cvASSGameModeTypes))
 	{
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "MapModeNotSupported") : ReplyToCommand(client, "%s Map or game mode not supported.", ASS_PREFIX01);
 		return Plugin_Handled;
@@ -58,7 +58,7 @@ public Action cmdASSDisarm(int client, int args)
 		{
 			g_bDisarmMenu[client] = true;
 			g_bAdminMenu[client] = false;
-			vPlayerMenu(client);
+			vPlayerMenu(client, 0);
 		}
 		return Plugin_Handled;
 	}
@@ -97,49 +97,57 @@ void vDisarm(int client)
 	{
 		char sWeaponSlot[6];
 		g_cvASSDisarmSlot.GetString(sWeaponSlot, sizeof(sWeaponSlot));
-		if (StrContains(sWeaponSlot, "1", false) != -1 && GetPlayerWeaponSlot(client, 0) > 0)
+		if (StrContains(sWeaponSlot, "1", false) != -1)
 		{
-			SDKHooks_DropWeapon(client, GetPlayerWeaponSlot(client, 0), NULL_VECTOR, NULL_VECTOR);
+			vDropWeapon(client, 0);
 		}
-		if (StrContains(sWeaponSlot, "2", false) != -1 && GetPlayerWeaponSlot(client, 1) > 0)
+		if (StrContains(sWeaponSlot, "2", false) != -1)
 		{
-			SDKHooks_DropWeapon(client, GetPlayerWeaponSlot(client, 1), NULL_VECTOR, NULL_VECTOR);
+			vDropWeapon(client, 1);
 		}
-		if (StrContains(sWeaponSlot, "3", false) != -1 && GetPlayerWeaponSlot(client, 2) > 0)
+		if (StrContains(sWeaponSlot, "3", false) != -1)
 		{
-			SDKHooks_DropWeapon(client, GetPlayerWeaponSlot(client, 2), NULL_VECTOR, NULL_VECTOR);
+			vDropWeapon(client, 2);
 		}
-		if (StrContains(sWeaponSlot, "4", false) != -1 && GetPlayerWeaponSlot(client, 3) > 0)
+		if (StrContains(sWeaponSlot, "4", false) != -1)
 		{
-			SDKHooks_DropWeapon(client, GetPlayerWeaponSlot(client, 3), NULL_VECTOR, NULL_VECTOR);
+			vDropWeapon(client, 3);
 		}
-		if (StrContains(sWeaponSlot, "5", false) != -1 && GetPlayerWeaponSlot(client, 4) > 0)
+		if (StrContains(sWeaponSlot, "5", false) != -1)
 		{
-			SDKHooks_DropWeapon(client, GetPlayerWeaponSlot(client, 4), NULL_VECTOR, NULL_VECTOR);
+			vDropWeapon(client, 4);
 		}
 	}
 	else if (g_iWeaponSlot[client] >= 1 && g_iWeaponSlot[client] < 7)
 	{
-		if ((g_iWeaponSlot[client] == 1 || g_iWeaponSlot[client] == 6) && GetPlayerWeaponSlot(client, 0) > 0)
+		if ((g_iWeaponSlot[client] == 1 || g_iWeaponSlot[client] == 6))
 		{
-			SDKHooks_DropWeapon(client, GetPlayerWeaponSlot(client, 0), NULL_VECTOR, NULL_VECTOR);
+			vDropWeapon(client, 0);
 		}
-		if ((g_iWeaponSlot[client] == 2 || g_iWeaponSlot[client] == 6) && GetPlayerWeaponSlot(client, 1) > 0)
+		if ((g_iWeaponSlot[client] == 2 || g_iWeaponSlot[client] == 6))
 		{
-			SDKHooks_DropWeapon(client, GetPlayerWeaponSlot(client, 1), NULL_VECTOR, NULL_VECTOR);
+			vDropWeapon(client, 1);
 		}
-		if ((g_iWeaponSlot[client] == 3 || g_iWeaponSlot[client] == 6) && GetPlayerWeaponSlot(client, 2) > 0)
+		if ((g_iWeaponSlot[client] == 3 || g_iWeaponSlot[client] == 6))
 		{
-			SDKHooks_DropWeapon(client, GetPlayerWeaponSlot(client, 2), NULL_VECTOR, NULL_VECTOR);
+			vDropWeapon(client, 2);
 		}
-		if ((g_iWeaponSlot[client] == 4 || g_iWeaponSlot[client] == 6) && GetPlayerWeaponSlot(client, 3) > 0)
+		if ((g_iWeaponSlot[client] == 4 || g_iWeaponSlot[client] == 6))
 		{
-			SDKHooks_DropWeapon(client, GetPlayerWeaponSlot(client, 3), NULL_VECTOR, NULL_VECTOR);
+			vDropWeapon(client, 3);
 		}
-		if ((g_iWeaponSlot[client] == 5 || g_iWeaponSlot[client] == 6) && GetPlayerWeaponSlot(client, 4) > 0)
+		if ((g_iWeaponSlot[client] == 5 || g_iWeaponSlot[client] == 6))
 		{
-			SDKHooks_DropWeapon(client, GetPlayerWeaponSlot(client, 4), NULL_VECTOR, NULL_VECTOR);
+			vDropWeapon(client, 4);
 		}
+	}
+}
+
+void vDropWeapon(int client, int slot)
+{
+	if (bIsSurvivor(client) && GetPlayerWeaponSlot(client, slot) > 0)
+	{
+		SDKHooks_DropWeapon(client, GetPlayerWeaponSlot(client, slot), NULL_VECTOR, NULL_VECTOR);
 	}
 }
 

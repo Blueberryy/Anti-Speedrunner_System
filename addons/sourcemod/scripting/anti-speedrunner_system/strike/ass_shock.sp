@@ -29,7 +29,7 @@ public Action cmdASSShock(int client, int args)
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX, "InGame") : ReplyToCommand(client, "%s This command is to be used only in-game.", ASS_PREFIX);
 		return Plugin_Handled;
 	}
-	if (!bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (!bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes, g_cvASSGameModeTypes))
 	{
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "MapModeNotSupported") : ReplyToCommand(client, "%s Map or game mode not supported.", ASS_PREFIX01);
 		return Plugin_Handled;
@@ -49,7 +49,7 @@ public Action cmdASSShock(int client, int args)
 		{
 			g_bShockMenu[client] = true;
 			g_bAdminMenu[client] = false;
-			vPlayerMenu(client);
+			vPlayerMenu(client, 0);
 		}
 		return Plugin_Handled;
 	}
@@ -103,7 +103,7 @@ void vShockSpeedrunners(int target, int client, bool log = true)
 		else
 		{
 			float flPosition[3];
-			GetClientAbsOrigin(target, flPosition);
+			GetClientAbsOrigin(client, flPosition);
 			flPosition[2] -= 26;
 			float flStartPosition[3];
 			flStartPosition[0] = flPosition[0] + GetRandomInt(-500, 500);
@@ -117,8 +117,8 @@ void vShockSpeedrunners(int target, int client, bool log = true)
 			TE_SendToAll();
 			TE_SetupEnergySplash(flPosition, flDirection, false);
 			TE_SendToAll();
-			EmitAmbientSound("ambient/explosions/explode_2.wav", flStartPosition, target, SNDLEVEL_RAIDSIREN);
-			ForcePlayerSuicide(target);
+			EmitAmbientSound("ambient/explosions/explode_2.wav", flStartPosition, client, SNDLEVEL_RAIDSIREN);
+			ForcePlayerSuicide(client);
 			if (bIsHumanSurvivor(target))
 			{
 				bHasTranslationFile() ? PrintHintText(target, "%s %t", ASS_PREFIX, "ShockInform") : PrintHintText(target, "%s You got shocked and died!", ASS_PREFIX);

@@ -29,7 +29,7 @@ public Action cmdASSFreeze(int client, int args)
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX, "InGame") : ReplyToCommand(client, "%s This command is to be used only in-game.", ASS_PREFIX);
 		return Plugin_Handled;
 	}
-	if (!bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (!bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes, g_cvASSGameModeTypes))
 	{
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "MapModeNotSupported") : ReplyToCommand(client, "%s Map or game mode not supported.", ASS_PREFIX01);
 		return Plugin_Handled;
@@ -52,7 +52,7 @@ public Action cmdASSFreeze(int client, int args)
 		{
 			g_bFreezeMenu[client] = true;
 			g_bAdminMenu[client] = false;
-			vPlayerMenu(client);
+			vPlayerMenu(client, 0);
 		}
 		return Plugin_Handled;
 	}
@@ -183,7 +183,7 @@ public Action tTimerFreezeSpeedrunners(Handle timer, any userid)
 	if (GetEntityMoveType(client) != MOVETYPE_NONE)
 	{
 		SetEntityMoveType(client, MOVETYPE_NONE);
-		SetEntityRenderColor(client, 0, 128, 255, 192);
+		SetEntityRenderColor(client, 0, 130, 255, 190);
 		EmitAmbientSound("physics/glass/glass_impact_bullet4.wav", g_flVector, client, SNDLEVEL_RAIDSIREN);
 	}
 	return Plugin_Continue;

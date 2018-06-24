@@ -21,7 +21,7 @@ public Action cmdASSBlind(int client, int args)
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX, "InGame") : ReplyToCommand(client, "%s This command is to be used only in-game.", ASS_PREFIX);
 		return Plugin_Handled;
 	}
-	if (!bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (!bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes, g_cvASSGameModeTypes))
 	{
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "MapModeNotSupported") : ReplyToCommand(client, "%s Map or game mode not supported.", ASS_PREFIX01);
 		return Plugin_Handled;
@@ -44,7 +44,7 @@ public Action cmdASSBlind(int client, int args)
 		{
 			g_bBlindMenu[client] = true;
 			g_bAdminMenu[client] = false;
-			vPlayerMenu(client);
+			vPlayerMenu(client, 0);
 		}
 		return Plugin_Handled;
 	}

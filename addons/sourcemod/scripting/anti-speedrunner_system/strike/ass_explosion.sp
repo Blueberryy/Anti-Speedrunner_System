@@ -29,7 +29,7 @@ public Action cmdASSExplode(int client, int args)
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX, "InGame") : ReplyToCommand(client, "%s This command is to be used only in-game.", ASS_PREFIX);
 		return Plugin_Handled;
 	}
-	if (!bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (!bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes, g_cvASSGameModeTypes))
 	{
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "MapModeNotSupported") : ReplyToCommand(client, "%s Map or game mode not supported.", ASS_PREFIX01);
 		return Plugin_Handled;
@@ -49,7 +49,7 @@ public Action cmdASSExplode(int client, int args)
 		{
 			g_bExplodeMenu[client] = true;
 			g_bAdminMenu[client] = false;
-			vPlayerMenu(client);
+			vPlayerMenu(client, 0);
 		}
 		return Plugin_Handled;
 	}
@@ -185,7 +185,7 @@ void vCreateExplosion(float pos[3], int entity)
 	iParticle2 = EntIndexToEntRef(iParticle2);
 	vDeleteEntity(iParticle2, 16.5);
 	iParticle3 = EntIndexToEntRef(iParticle3);
-	vDeleteEntity(iParticle, 16.5);
+	vDeleteEntity(iParticle3, 16.5);
 	iTrace = EntIndexToEntRef(iTrace);
 	vDeleteEntity(iTrace, 16.5);
 	vDeleteExplosion(iTrace, 15.0, "Stop");

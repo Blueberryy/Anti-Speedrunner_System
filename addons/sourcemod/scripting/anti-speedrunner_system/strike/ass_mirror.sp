@@ -21,7 +21,7 @@ public Action cmdASSMirror(int client, int args)
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX, "InGame") : ReplyToCommand(client, "%s This command is to be used only in-game.", ASS_PREFIX);
 		return Plugin_Handled;
 	}
-	if (!bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (!bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes, g_cvASSGameModeTypes))
 	{
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "MapModeNotSupported") : ReplyToCommand(client, "%s Map or game mode not supported.", ASS_PREFIX01);
 		return Plugin_Handled;
@@ -44,7 +44,7 @@ public Action cmdASSMirror(int client, int args)
 		{
 			g_bMirrorMenu[client] = true;
 			g_bAdminMenu[client] = false;
-			vPlayerMenu(client);
+			vPlayerMenu(client, 0);
 		}
 		return Plugin_Handled;
 	}
@@ -150,14 +150,14 @@ public Action TraceAttack(int victim, int &attacker, int &inflictor, float &dama
 			int iDamage = RoundFloat(damage);
 			if (!IsClientConnected(attacker))
 			{
-				iDamage *= 0.0;
+				iDamage = 0;
 				return Plugin_Changed;
 			}
 			int iHealth = GetClientHealth(attacker);
 			if (iHealth > 0 && iHealth > iDamage)
 			{
 				SetEntityHealth(attacker, iHealth - iDamage);
-				iDamage *= 0.0;
+				iDamage = 0;
 				return Plugin_Changed;
 			}
 			else
@@ -166,8 +166,8 @@ public Action TraceAttack(int victim, int &attacker, int &inflictor, float &dama
 				if (StrContains(g_sWeapon, "_projectile") > 0)
 				{
 					ReplaceString(g_sWeapon, sizeof(g_sWeapon), "_projectile", "", false);
-					ForcePlayerSuicide(attacker);
-					iDamage *= 0.0;
+					SetEntityHealth(attacker, 1);
+					iDamage = 0;
 					return Plugin_Changed;
 				}
 				else
@@ -175,8 +175,8 @@ public Action TraceAttack(int victim, int &attacker, int &inflictor, float &dama
 					GetClientWeapon(attacker, g_sWeapon, sizeof(g_sWeapon));
 					ReplaceString(g_sWeapon, sizeof(g_sWeapon), "weapon_", "", false);
 					hitgroup == 1 ? (g_bHeadshot[attacker] = true) : (g_bHeadshot[attacker] = false);
-					ForcePlayerSuicide(attacker);
-					iDamage *= 0.0;
+					SetEntityHealth(attacker, 1);
+					iDamage = 0;
 					return Plugin_Changed;
 				}
 			}

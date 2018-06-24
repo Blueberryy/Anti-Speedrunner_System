@@ -41,7 +41,7 @@ public Action cmdASSShove(int client, int args)
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX, "InGame") : ReplyToCommand(client, "%s This command is to be used only in-game.", ASS_PREFIX);
 		return Plugin_Handled;
 	}
-	if (!bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (!bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes, g_cvASSGameModeTypes))
 	{
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "MapModeNotSupported") : ReplyToCommand(client, "%s Map or game mode not supported.", ASS_PREFIX01);
 		return Plugin_Handled;
@@ -67,7 +67,7 @@ public Action cmdASSShove(int client, int args)
 		{
 			g_bShoveMenu[client] = true;
 			g_bAdminMenu[client] = false;
-			vPlayerMenu(client);
+			vPlayerMenu(client, 0);
 		}
 		return Plugin_Handled;
 	}
@@ -103,14 +103,8 @@ public Action cmdASSShove(int client, int args)
 void vShove(int client)
 {
 	float flVecOrigin[3];
-	for (int iSender = 1; iSender <= MaxClients; iSender++)
-	{
-		if (((bIsSurvivor(iSender) && g_cvASSCountBots.BoolValue) || (bIsHumanSurvivor(iSender) && !g_cvASSCountBots.BoolValue)) && client != iSender)
-		{
-			GetClientAbsOrigin(iSender, flVecOrigin);
-			SDKCall(g_hSDKShovePlayer, client, iSender, flVecOrigin);
-		}
-	}
+	GetClientAbsOrigin(client, flVecOrigin);
+	SDKCall(g_hSDKShovePlayer, client, client, flVecOrigin);
 }
 
 void vShoveSpeedrunners(int target, int client, int toggle, bool log = true, int timer = 0)

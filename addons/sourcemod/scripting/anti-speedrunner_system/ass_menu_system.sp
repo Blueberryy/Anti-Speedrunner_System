@@ -16,7 +16,7 @@ public void vAcidMenu(TopMenu topmenu, TopMenuAction action, TopMenuObject objec
 			{
 				g_bAcidMenu[param] = true;
 				g_bAdminMenu[param] = true;
-				vPlayerMenu(param);
+				vPlayerMenu(param, 0);
 			}
 			else
 			{
@@ -36,7 +36,7 @@ public void vAmmoMenu(TopMenu topmenu, TopMenuAction action, TopMenuObject objec
 		{
 			g_bAmmoMenu[param] = true;
 			g_bAdminMenu[param] = true;
-			vPlayerMenu(param);
+			vPlayerMenu(param, 0);
 		}
 	}
 }
@@ -50,7 +50,7 @@ public void vBlindMenu(TopMenu topmenu, TopMenuAction action, TopMenuObject obje
 		{
 			g_bBlindMenu[param] = true;
 			g_bAdminMenu[param] = true;
-			vPlayerMenu(param);
+			vPlayerMenu(param, 0);
 		}
 	}
 }
@@ -66,7 +66,7 @@ public void vChargeMenu(TopMenu topmenu, TopMenuAction action, TopMenuObject obj
 			{
 				g_bChargeMenu[param] = true;
 				g_bAdminMenu[param] = true;
-				vPlayerMenu(param);
+				vPlayerMenu(param, 0);
 			}
 			else
 			{
@@ -86,7 +86,7 @@ public void vChaseMenu(TopMenu topmenu, TopMenuAction action, TopMenuObject obje
 		{
 			g_bChaseMenu[param] = true;
 			g_bAdminMenu[param] = true;
-			vPlayerMenu(param);
+			vPlayerMenu(param, 0);
 		}
 	}
 }
@@ -100,7 +100,7 @@ public void vCheckMenu(TopMenu topmenu, TopMenuAction action, TopMenuObject obje
 		{
 			g_bCheckMenu[param] = true;
 			g_bAdminMenu[param] = true;
-			vPlayerMenu(param);
+			vPlayerMenu(param, 0);
 		}
 	}
 }
@@ -113,7 +113,7 @@ public void vConfigMenu(TopMenu topmenu, TopMenuAction action, TopMenuObject obj
 		case TopMenuAction_SelectOption:
 		{
 			g_bAdminMenu[param] = true;
-			vConfigsMenu(param);
+			vConfigsMenu(param, 0);
 		}
 	}
 }
@@ -127,7 +127,7 @@ public void vDisarmMenu(TopMenu topmenu, TopMenuAction action, TopMenuObject obj
 		{
 			g_bDisarmMenu[param] = true;
 			g_bAdminMenu[param] = true;
-			vPlayerMenu(param);
+			vPlayerMenu(param, 0);
 		}
 	}
 }
@@ -140,7 +140,7 @@ public void vDoorMenu(TopMenu topmenu, TopMenuAction action, TopMenuObject objec
 		case TopMenuAction_SelectOption:
 		{
 			g_bAdminMenu[param] = true;
-			vDoorTypeMenu(param);
+			vDoorTypeMenu(param, 0);
 		}
 	}
 }
@@ -154,7 +154,7 @@ public void vDrugMenu(TopMenu topmenu, TopMenuAction action, TopMenuObject objec
 		{
 			g_bDrugMenu[param] = true;
 			g_bAdminMenu[param] = true;
-			vPlayerMenu(param);
+			vPlayerMenu(param, 0);
 		}
 	}
 }
@@ -181,7 +181,7 @@ public void vExileMenu(TopMenu topmenu, TopMenuAction action, TopMenuObject obje
 		{
 			g_bExileMenu[param] = true;
 			g_bAdminMenu[param] = true;
-			vExileModeMenu(param);
+			vExileModeMenu(param, 0);
 		}
 	}
 }
@@ -195,7 +195,7 @@ public void vExplodeMenu(TopMenu topmenu, TopMenuAction action, TopMenuObject ob
 		{
 			g_bExplodeMenu[param] = true;
 			g_bAdminMenu[param] = true;
-			vPlayerMenu(param);
+			vPlayerMenu(param, 0);
 		}
 	}
 }
@@ -209,7 +209,7 @@ public void vFireMenu(TopMenu topmenu, TopMenuAction action, TopMenuObject objec
 		{
 			g_bFireMenu[param] = true;
 			g_bAdminMenu[param] = true;
-			vPlayerMenu(param);
+			vPlayerMenu(param, 0);
 		}
 	}
 }
@@ -223,7 +223,7 @@ public void vFreezeMenu(TopMenu topmenu, TopMenuAction action, TopMenuObject obj
 		{
 			g_bFreezeMenu[param] = true;
 			g_bAdminMenu[param] = true;
-			vPlayerMenu(param);
+			vPlayerMenu(param, 0);
 		}
 	}
 }
@@ -237,7 +237,7 @@ public void vHealMenu(TopMenu topmenu, TopMenuAction action, TopMenuObject objec
 		{
 			g_bHealMenu[param] = true;
 			g_bAdminMenu[param] = true;
-			vPlayerMenu(param);
+			vPlayerMenu(param, 0);
 		}
 	}
 }
@@ -251,7 +251,7 @@ public void vHurtMenu(TopMenu topmenu, TopMenuAction action, TopMenuObject objec
 		{
 			g_bHurtMenu[param] = true;
 			g_bAdminMenu[param] = true;
-			vPlayerMenu(param);
+			vPlayerMenu(param, 0);
 		}
 	}
 }
@@ -265,7 +265,7 @@ public void vIdleMenu(TopMenu topmenu, TopMenuAction action, TopMenuObject objec
 		{
 			g_bIdleMenu[param] = true;
 			g_bAdminMenu[param] = true;
-			vPlayerMenu(param);
+			vPlayerMenu(param, 0);
 		}
 	}
 }
@@ -279,7 +279,7 @@ public void vIncapMenu(TopMenu topmenu, TopMenuAction action, TopMenuObject obje
 		{
 			g_bIncapMenu[param] = true;
 			g_bAdminMenu[param] = true;
-			vPlayerMenu(param);
+			vPlayerMenu(param, 0);
 		}
 	}
 }
@@ -293,7 +293,7 @@ public void vInvertMenu(TopMenu topmenu, TopMenuAction action, TopMenuObject obj
 		{
 			g_bInvertMenu[param] = true;
 			g_bAdminMenu[param] = true;
-			vPlayerMenu(param);
+			vPlayerMenu(param, 0);
 		}
 	}
 }
@@ -307,7 +307,7 @@ public void vKeymanMenu(TopMenu topmenu, TopMenuAction action, TopMenuObject obj
 		{
 			g_bKeymanMenu[param] = true;
 			g_bAdminMenu[param] = true;
-			vPlayerMenu(param);
+			vPlayerMenu(param, 0);
 		}
 	}
 }
@@ -321,7 +321,7 @@ public void vMirrorMenu(TopMenu topmenu, TopMenuAction action, TopMenuObject obj
 		{
 			g_bMirrorMenu[param] = true;
 			g_bAdminMenu[param] = true;
-			vPlayerMenu(param);
+			vPlayerMenu(param, 0);
 		}
 	}
 }
@@ -335,7 +335,7 @@ public void vNullMenu(TopMenu topmenu, TopMenuAction action, TopMenuObject objec
 		{
 			g_bNullMenu[param] = true;
 			g_bAdminMenu[param] = true;
-			vPlayerMenu(param);
+			vPlayerMenu(param, 0);
 		}
 	}
 }
@@ -349,7 +349,7 @@ public void vPukeMenu(TopMenu topmenu, TopMenuAction action, TopMenuObject objec
 		{
 			g_bPukeMenu[param] = true;
 			g_bAdminMenu[param] = true;
-			vPlayerMenu(param);
+			vPlayerMenu(param, 0);
 		}
 	}
 }
@@ -363,7 +363,7 @@ public void vRestartMenu(TopMenu topmenu, TopMenuAction action, TopMenuObject ob
 		{
 			g_bRestartMenu[param] = true;
 			g_bAdminMenu[param] = true;
-			vPlayerMenu(param);
+			vPlayerMenu(param, 0);
 		}
 	}
 }
@@ -377,7 +377,7 @@ public void vRocketMenu(TopMenu topmenu, TopMenuAction action, TopMenuObject obj
 		{
 			g_bRocketMenu[param] = true;
 			g_bAdminMenu[param] = true;
-			vPlayerMenu(param);
+			vPlayerMenu(param, 0);
 		}
 	}
 }
@@ -390,7 +390,7 @@ public void vSaferoomMenu(TopMenu topmenu, TopMenuAction action, TopMenuObject o
 		case TopMenuAction_SelectOption:
 		{
 			g_bAdminMenu[param] = true;
-			vSaferoomOptionMenu(param);
+			vSaferoomOptionMenu(param, 0);
 		}
 	}
 }
@@ -404,7 +404,7 @@ public void vShakeMenu(TopMenu topmenu, TopMenuAction action, TopMenuObject obje
 		{
 			g_bShakeMenu[param] = true;
 			g_bAdminMenu[param] = true;
-			vPlayerMenu(param);
+			vPlayerMenu(param, 0);
 		}
 	}
 }
@@ -418,7 +418,7 @@ public void vShockMenu(TopMenu topmenu, TopMenuAction action, TopMenuObject obje
 		{
 			g_bShockMenu[param] = true;
 			g_bAdminMenu[param] = true;
-			vPlayerMenu(param);
+			vPlayerMenu(param, 0);
 		}
 	}
 }
@@ -432,7 +432,7 @@ public void vShoveMenu(TopMenu topmenu, TopMenuAction action, TopMenuObject obje
 		{
 			g_bShoveMenu[param] = true;
 			g_bAdminMenu[param] = true;
-			vPlayerMenu(param);
+			vPlayerMenu(param, 0);
 		}
 	}
 }
@@ -446,7 +446,7 @@ public void vSlowMenu(TopMenu topmenu, TopMenuAction action, TopMenuObject objec
 		{
 			g_bSlowMenu[param] = true;
 			g_bAdminMenu[param] = true;
-			vPlayerMenu(param);
+			vPlayerMenu(param, 0);
 		}
 	}
 }
@@ -460,7 +460,7 @@ public void vStrikeMenu(TopMenu topmenu, TopMenuAction action, TopMenuObject obj
 		{
 			g_bStrikeMenu[param] = true;
 			g_bAdminMenu[param] = true;
-			vPlayerMenu(param);
+			vPlayerMenu(param, 0);
 		}
 	}
 }
@@ -474,7 +474,7 @@ public void vVisionMenu(TopMenu topmenu, TopMenuAction action, TopMenuObject obj
 		{
 			g_bVisionMenu[param] = true;
 			g_bAdminMenu[param] = true;
-			vPlayerMenu(param);
+			vPlayerMenu(param, 0);
 		}
 	}
 }
@@ -488,19 +488,19 @@ public void vWarpMenu(TopMenu topmenu, TopMenuAction action, TopMenuObject objec
 		{
 			g_bWarpMenu[param] = true;
 			g_bAdminMenu[param] = true;
-			vPlayerMenu(param);
+			vPlayerMenu(param, 0);
 		}
 	}
 }
 
-void vConfigsMenu(int client)
+void vConfigsMenu(int client, int item)
 {
 	Menu mConfigMenu = new Menu(iConfigsMenuHandler, MENU_ACTIONS_DEFAULT|MenuAction_Display|MenuAction_DisplayItem);
 	mConfigMenu.SetTitle("Choose a configuration mode:");
 	g_bAdminMenu[client] ? (mConfigMenu.ExitBackButton = true) : (mConfigMenu.ExitBackButton = false);
 	mConfigMenu.AddItem("Create", "Create");
 	mConfigMenu.AddItem("Execute", "Execute");
-	mConfigMenu.Display(client, MENU_TIME_FOREVER);
+	mConfigMenu.DisplayAt(client, item, MENU_TIME_FOREVER);
 }
 
 public int iConfigsMenuHandler(Menu menu, MenuAction action, int param1, int param2)
@@ -528,7 +528,7 @@ public int iConfigsMenuHandler(Menu menu, MenuAction action, int param1, int par
 			}
 			if (IsClientInGame(param1) && !IsClientInKickQueue(param1))
 			{
-				vConfigsMenu2(param1);
+				vConfigsMenu2(param1, menu.Selection);
 			}
 		}
 		case MenuAction_Display:
@@ -561,7 +561,7 @@ public int iConfigsMenuHandler(Menu menu, MenuAction action, int param1, int par
 	return 0;
 }
 
-void vConfigsMenu2(int client)
+void vConfigsMenu2(int client, int item)
 {
 	Menu mConfigMenu2 = new Menu(iConfigsMenuHandler2, MENU_ACTIONS_DEFAULT|MenuAction_Display|MenuAction_DisplayItem);
 	mConfigMenu2.SetTitle("Choose a configuration type:");
@@ -571,7 +571,7 @@ void vConfigsMenu2(int client)
 	mConfigMenu2.AddItem("Game mode", "GameMode");
 	mConfigMenu2.AddItem("Daily", "Daily");
 	mConfigMenu2.AddItem("Player count", "PlayerCount");
-	mConfigMenu2.Display(client, MENU_TIME_FOREVER);
+	mConfigMenu2.DisplayAt(client, item, MENU_TIME_FOREVER);
 }
 
 public int iConfigsMenuHandler2(Menu menu, MenuAction action, int param1, int param2)
@@ -579,7 +579,7 @@ public int iConfigsMenuHandler2(Menu menu, MenuAction action, int param1, int pa
 	switch (action)
 	{
 		case MenuAction_End: delete menu;
-		case MenuAction_Cancel: vConfigsMenu(param1);
+		case MenuAction_Cancel: vConfigsMenu(param1, 0);
 		case MenuAction_Select:
 		{
 			menu.GetItem(param2, g_sInfo, sizeof(g_sInfo));
@@ -610,7 +610,7 @@ public int iConfigsMenuHandler2(Menu menu, MenuAction action, int param1, int pa
 			}
 			if (IsClientInGame(param1) && !IsClientInKickQueue(param1))
 			{
-				vConfigsMenu(param1);
+				vConfigsMenu(param1, menu.Selection);
 			}
 		}
 		case MenuAction_Display:
@@ -658,14 +658,14 @@ public int iConfigsMenuHandler2(Menu menu, MenuAction action, int param1, int pa
 	return 0;
 }
 
-void vExileModeMenu(int client)
+void vExileModeMenu(int client, int item)
 {
 	Menu mExileMenu = new Menu(iExileMenuHandler, MENU_ACTIONS_DEFAULT|MenuAction_Display|MenuAction_DisplayItem);
 	mExileMenu.SetTitle("Choose an exile mode:");
 	g_bAdminMenu[client] ? (mExileMenu.ExitBackButton = true) : (mExileMenu.ExitBackButton = false);
 	mExileMenu.AddItem("Kick", "Kick");
 	mExileMenu.AddItem("Banishment", "Ban");
-	mExileMenu.Display(client, MENU_TIME_FOREVER);
+	mExileMenu.DisplayAt(client, item, MENU_TIME_FOREVER);
 }
 
 public int iExileMenuHandler(Menu menu, MenuAction action, int param1, int param2)
@@ -693,7 +693,7 @@ public int iExileMenuHandler(Menu menu, MenuAction action, int param1, int param
 			}
 			if (IsClientInGame(param1) && !IsClientInKickQueue(param1))
 			{
-				vPlayerMenu(param1);
+				vPlayerMenu(param1, menu.Selection);
 			}
 		}
 		case MenuAction_Display:
@@ -726,13 +726,13 @@ public int iExileMenuHandler(Menu menu, MenuAction action, int param1, int param
 	return 0;
 }
 
-void vPlayerMenu(int client)
+void vPlayerMenu(int client, int item)
 {
 	Menu mPlayerMenu = new Menu(iPlayerMenuHandler, MENU_ACTIONS_DEFAULT|MenuAction_Display|MenuAction_DrawItem);
 	mPlayerMenu.SetTitle("Choose a player:");
 	g_bAdminMenu[client] ? (mPlayerMenu.ExitBackButton = true) : (mPlayerMenu.ExitBackButton = false);
 	AddTargetsToMenu(mPlayerMenu, client, true, true);
-	mPlayerMenu.Display(client, MENU_TIME_FOREVER);
+	mPlayerMenu.DisplayAt(client, item, MENU_TIME_FOREVER);
 }
 
 public int iPlayerMenuHandler(Menu menu, MenuAction action, int param1, int param2)
@@ -936,7 +936,7 @@ public int iPlayerMenuHandler(Menu menu, MenuAction action, int param1, int para
 			}
 			if (IsClientInGame(param1) && !IsClientInKickQueue(param1))
 			{
-				vPlayerMenu(param1);
+				vPlayerMenu(param1, menu.Selection);
 			}
 		}
 		case MenuAction_Display:
@@ -952,14 +952,14 @@ public int iPlayerMenuHandler(Menu menu, MenuAction action, int param1, int para
 	return 0;
 }
 
-void vDoorTypeMenu(int client)
+void vDoorTypeMenu(int client, int item)
 {
 	Menu mTypeMenu = new Menu(iTypeMenuHandler, MENU_ACTIONS_DEFAULT|MenuAction_Display|MenuAction_DisplayItem);
 	mTypeMenu.SetTitle("Door type");
 	mTypeMenu.AddItem("Starting door", "StartDoor");
 	mTypeMenu.AddItem("Ending door", "EndDoor");
 	g_bAdminMenu[client] ? (mTypeMenu.ExitBackButton = true) : (mTypeMenu.ExitBackButton = false);
-	mTypeMenu.Display(client, MENU_TIME_FOREVER);
+	mTypeMenu.DisplayAt(client, item, MENU_TIME_FOREVER);
 }
 
 public int iTypeMenuHandler(Menu menu, MenuAction action, int param1, int param2)
@@ -985,7 +985,7 @@ public int iTypeMenuHandler(Menu menu, MenuAction action, int param1, int param2
 				case 0: g_bDoorType[param1] = false;
 				case 1: g_bDoorType[param1] = true;
 			}
-			vDoorControlMenu(param1);
+			vDoorControlMenu(param1, menu.Selection);
 		}
 		case MenuAction_Display:
 		{
@@ -1017,14 +1017,14 @@ public int iTypeMenuHandler(Menu menu, MenuAction action, int param1, int param2
 	return 0;
 }
 
-void vDoorControlMenu(int client)
+void vDoorControlMenu(int client, int item)
 {
 	Menu mDoorMenu = new Menu(iDoorMenuHandler, MENU_ACTIONS_DEFAULT|MenuAction_Display|MenuAction_DisplayItem);
 	mDoorMenu.SetTitle("Lock/Unlock");
 	mDoorMenu.AddItem("Lock", "Lock");
 	mDoorMenu.AddItem("Unlock", "Unlock");
 	mDoorMenu.ExitBackButton = true;
-	mDoorMenu.Display(client, MENU_TIME_FOREVER);
+	mDoorMenu.DisplayAt(client, item, MENU_TIME_FOREVER);
 }
 
 public int iDoorMenuHandler(Menu menu, MenuAction action, int param1, int param2)
@@ -1032,7 +1032,7 @@ public int iDoorMenuHandler(Menu menu, MenuAction action, int param1, int param2
 	switch (action)
 	{
 		case MenuAction_End: delete menu;
-		case MenuAction_Cancel: vDoorTypeMenu(param1);
+		case MenuAction_Cancel: vDoorTypeMenu(param1, 0);
 		case MenuAction_Select:
 		{
 			menu.GetItem(param2, g_sInfo, sizeof(g_sInfo));
@@ -1066,7 +1066,7 @@ public int iDoorMenuHandler(Menu menu, MenuAction action, int param1, int param2
 			}
 			if (IsClientInGame(param1) && !IsClientInKickQueue(param1))
 			{
-				vDoorTypeMenu(param1);
+				vDoorTypeMenu(param1, menu.Selection);
 			}
 		}
 		case MenuAction_Display:
@@ -1099,7 +1099,7 @@ public int iDoorMenuHandler(Menu menu, MenuAction action, int param1, int param2
 	return 0;
 }
 
-void vSaferoomOptionMenu(int client)
+void vSaferoomOptionMenu(int client, int item)
 {
 	Menu mSaferoomMenu = new Menu(iSaferoomMenuHandler, MENU_ACTIONS_DEFAULT|MenuAction_Display|MenuAction_DisplayItem);
 	mSaferoomMenu.SetTitle("Which method of entry do you prefer?");
@@ -1110,7 +1110,7 @@ void vSaferoomOptionMenu(int client)
 	mSaferoomMenu.AddItem("Lockdown", "Lockdown");
 	mSaferoomMenu.AddItem("None", "None");
 	g_bAdminMenu[client] ? (mSaferoomMenu.ExitBackButton = true) : (mSaferoomMenu.ExitBackButton = false);
-	mSaferoomMenu.Display(client, MENU_TIME_FOREVER);
+	mSaferoomMenu.DisplayAt(client, item, MENU_TIME_FOREVER);
 }
 
 public int iSaferoomMenuHandler(Menu menu, MenuAction action, int param1, int param2)
@@ -1236,7 +1236,7 @@ public int iSaferoomMenuHandler(Menu menu, MenuAction action, int param1, int pa
 			}
 			if (IsClientInGame(param1) && !IsClientInKickQueue(param1))
 			{
-				vSaferoomOptionMenu(param1);
+				vSaferoomOptionMenu(param1, menu.Selection);
 			}
 		}
 		case MenuAction_Display:
@@ -1324,7 +1324,7 @@ public int iBFGKLVoteMenuHandler(Menu menu, MenuAction action, int param1, int p
 			if (!g_bBFGKLVoted)
 			{
 				vNobodyVoted(g_iVotes, g_iTotalVotes);
-				vEntryOption();
+				g_cvASSSaferoomEntryMode.BoolValue ? vNoneOption(g_iDoorId2, true) : vEntryCommand();
 			}
 		}
 		case MenuAction_VoteEnd:
@@ -1359,7 +1359,7 @@ public int iBFGKLVoteMenuHandler(Menu menu, MenuAction action, int param1, int p
 							bHasTranslationFile() ? PrintToChat(iPlayer, "%s %t", ASS_PREFIX01, "BossOff") : PrintToChat(iPlayer, "%s Boss disabled.", ASS_PREFIX01);
 						}
 					}
-					vEntryOption();
+					g_cvASSSaferoomEntryMode.BoolValue ? vNoneOption(g_iDoorId2, true) : vEntryCommand();
 				}
 				for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer++)
 				{
@@ -1385,7 +1385,7 @@ public int iBFGKLVoteMenuHandler(Menu menu, MenuAction action, int param1, int p
 							bHasTranslationFile() ? PrintToChat(iPlayer, "%s %t", ASS_PREFIX01, "FilterOff") : PrintToChat(iPlayer, "%s Filter disabled.", ASS_PREFIX01);
 						}
 					}
-					vEntryOption();
+					g_cvASSSaferoomEntryMode.BoolValue ? vNoneOption(g_iDoorId2, true) : vEntryCommand();
 				}
 				for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer++)
 				{
@@ -1411,7 +1411,7 @@ public int iBFGKLVoteMenuHandler(Menu menu, MenuAction action, int param1, int p
 							bHasTranslationFile() ? PrintToChat(iPlayer, "%s %t", ASS_PREFIX01, "GroupOff") : PrintToChat(iPlayer, "%s Group disabled.", ASS_PREFIX01);
 						}
 					}
-					vEntryOption();
+					g_cvASSSaferoomEntryMode.BoolValue ? vNoneOption(g_iDoorId2, true) : vEntryCommand();
 				}
 				for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer++)
 				{
@@ -1437,7 +1437,7 @@ public int iBFGKLVoteMenuHandler(Menu menu, MenuAction action, int param1, int p
 							bHasTranslationFile() ? PrintToChat(iPlayer, "%s %t", ASS_PREFIX01, "KeymanOff") : PrintToChat(iPlayer, "%s Keyman disabled.", ASS_PREFIX01);
 						}
 					}
-					vEntryOption();
+					g_cvASSSaferoomEntryMode.BoolValue ? vNoneOption(g_iDoorId2, true) : vEntryCommand();
 				}
 				for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer++)
 				{
@@ -1463,7 +1463,7 @@ public int iBFGKLVoteMenuHandler(Menu menu, MenuAction action, int param1, int p
 							bHasTranslationFile() ? PrintToChat(iPlayer, "%s %t", ASS_PREFIX01, "LockdownOff") : PrintToChat(iPlayer, "%s Lockdown disabled.", ASS_PREFIX01);
 						}
 					}
-					vEntryOption();
+					g_cvASSSaferoomEntryMode.BoolValue ? vNoneOption(g_iDoorId2, true) : vEntryCommand();
 				}
 				for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer++)
 				{
@@ -1476,7 +1476,7 @@ public int iBFGKLVoteMenuHandler(Menu menu, MenuAction action, int param1, int p
 			else if (StrEqual(g_sInfo, "None"))
 			{
 				g_bBFGKLVoted = true;
-				vEntryOption();
+				g_cvASSSaferoomEntryMode.BoolValue ? vNoneOption(g_iDoorId2, true) : vEntryCommand();
 				for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer++)
 				{
 					if (bIsHumanSurvivor(iPlayer))
@@ -1652,7 +1652,7 @@ public int iLockdownMenuHandler(Menu menu, MenuAction action, int param1, int pa
 	return 0;
 }
 
-void vSelectTargetMenu(int client)
+void vSelectTargetMenu(int client, int item)
 {
 	Menu mSelectTargetMenu = new Menu(iSelectTargetHandler, MENU_ACTIONS_DEFAULT|MenuAction_Display);
 	mSelectTargetMenu.SetTitle("Choose a player:");
@@ -1664,7 +1664,7 @@ void vSelectTargetMenu(int client)
 		Format(sInfo, sizeof(sInfo), "%i", GetClientUserId(g_iTargets[iTarget]));
 		mSelectTargetMenu.AddItem(sInfo, sName);
 	}
-	mSelectTargetMenu.Display(client, MENU_TIME_FOREVER);
+	mSelectTargetMenu.DisplayAt(client, item, MENU_TIME_FOREVER);
 }
 
 bool bSelectTarget(const char[] targetname, int client, int toggle = 0, int cell1 = 0, int cell2 = 0, float value1 = 0.0, float value2 = 0.0, char[] string = "")
@@ -1855,7 +1855,7 @@ bool bSelectTarget(const char[] targetname, int client, int toggle = 0, int cell
 		{
 			g_sString[g_iTargets[0]][iPosition] = string[iPosition];
 		}
-		vSelectTargetMenu(client);
+		vSelectTargetMenu(client, 0);
 	}
 	return true;
 }
@@ -2037,7 +2037,7 @@ public int iSelectTargetHandler(Menu menu, MenuAction action, int param1, int pa
 				}
 				if (IsClientInGame(param1) && !IsClientInKickQueue(param1))
 				{
-					vSelectTargetMenu(param1);
+					vSelectTargetMenu(param1, menu.Selection);
 				}
 			}
 		}

@@ -1,5 +1,18 @@
 # Changelog
 
+## Version 29.39 (June 25, 2018)
+
+Changes:
+
+1. Added the convar ass_gamemodetypes to determine what game mode types to enable/disable the plugin in. (0: All, 1: coop modes only, 2: versus modes only, 4: survival modes only, 8: scavenge modes only.)
+2. Optimized code a bit more.
+
+Files:
+
+1. Updated gamedata file.
+2. Updated include file.
+3. Updated translation file.
+
 ## Version 29.38 (June 21, 2018)
 
 Changes:

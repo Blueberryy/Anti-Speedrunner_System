@@ -41,7 +41,7 @@ public Action cmdASSPuke(int client, int args)
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX, "InGame") : ReplyToCommand(client, "%s This command is to be used only in-game.", ASS_PREFIX);
 		return Plugin_Handled;
 	}
-	if (!bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (!bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes, g_cvASSGameModeTypes))
 	{
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "MapModeNotSupported") : ReplyToCommand(client, "%s Map or game mode not supported.", ASS_PREFIX01);
 		return Plugin_Handled;
@@ -67,7 +67,7 @@ public Action cmdASSPuke(int client, int args)
 		{
 			g_bPukeMenu[client] = true;
 			g_bAdminMenu[client] = false;
-			vPlayerMenu(client);
+			vPlayerMenu(client, 0);
 		}
 		return Plugin_Handled;
 	}
@@ -98,17 +98,6 @@ public Action cmdASSPuke(int client, int args)
 	g_bPukeMenu[client] = true;
 	g_bAdminMenu[client] = false;
 	return Plugin_Handled;
-}
-
-void vPuke(int client)
-{
-	for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer++)
-	{
-		if ((bIsSurvivor(iPlayer) && g_cvASSCountBots.BoolValue) || (bIsHumanSurvivor(iPlayer) && !g_cvASSCountBots.BoolValue) && client != iPlayer)
-		{
-			SDKCall(g_hSDKPukePlayer, client, iPlayer, true);
-		}
-	}
 }
 
 void vPukeSpeedrunners(int target, int client, int toggle, bool log = true, int timer = 0)
@@ -153,7 +142,7 @@ void vPukeSpeedrunners(int target, int client, int toggle, bool log = true, int 
 				{
 					if (timer == 0)
 					{
-						vPuke(target);
+						SDKCall(g_hSDKPukePlayer, target, target, true);
 					}
 					else
 					{
@@ -205,6 +194,6 @@ public Action tTimerPukeSpeedrunners(Handle timer, any userid)
 		vKillPukeTimer(client);
 		return Plugin_Handled;
 	}
-	vPuke(client);
+	SDKCall(g_hSDKPukePlayer, client, client, true);
 	return Plugin_Continue;
 }

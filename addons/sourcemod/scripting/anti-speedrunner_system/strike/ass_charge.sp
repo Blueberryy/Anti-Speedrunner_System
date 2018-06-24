@@ -48,7 +48,7 @@ public Action cmdASSCharge(int client, int args)
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX, "InGame") : ReplyToCommand(client, "%s This command is to be used only in-game.", ASS_PREFIX);
 		return Plugin_Handled;
 	}
-	if (!bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (!bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes, g_cvASSGameModeTypes))
 	{
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "MapModeNotSupported") : ReplyToCommand(client, "%s Map or game mode not supported.", ASS_PREFIX01);
 		return Plugin_Handled;
@@ -74,7 +74,7 @@ public Action cmdASSCharge(int client, int args)
 		{
 			g_bChargeMenu[client] = true;
 			g_bAdminMenu[client] = false;
-			vPlayerMenu(client);
+			vPlayerMenu(client, 0);
 		}
 		return Plugin_Handled;
 	}
@@ -109,29 +109,26 @@ public Action cmdASSCharge(int client, int args)
 
 void vCharge(int client)
 {
-	float flTpos[3];
-	float flSpos[3];
-	float flDistance[3];
-	float flRatio[3];
-	float flAddVel[3];
-	float flTvec[3];
-	for (int iSender = 1; iSender <= MaxClients; iSender++)
+	if (bIsSurvivor(client))
 	{
-		if (bIsSurvivor(client) && bIsSurvivor(iSender))
-		{
-			GetClientAbsOrigin(client, flTpos);
-			GetClientAbsOrigin(iSender, flSpos);
-			flDistance[0] = (flSpos[0] - flTpos[0]);
-			flDistance[1] = (flSpos[1] - flTpos[1]);
-			flDistance[2] = (flSpos[2] - flTpos[2]);
-			GetEntPropVector(client, Prop_Data, "m_vecVelocity", flTvec);
-			flRatio[0] =  FloatDiv(flDistance[0], SquareRoot(flDistance[1] * flDistance[1] + flDistance[0] * flDistance[0]));
-			flRatio[1] =  FloatDiv(flDistance[1], SquareRoot(flDistance[1] * flDistance[1] + flDistance[0] * flDistance[0]));
-			flAddVel[0] = FloatMul(flRatio[0] * -1, 500.0);
-			flAddVel[1] = FloatMul(flRatio[1] * -1, 500.0);
-			flAddVel[2] = 500.0;
-			SDKCall(g_hSDKChargePlayer, client, flAddVel, 76, iSender, 7.0);
-		}
+		float flTpos[3];
+		float flSpos[3];
+		float flDistance[3];
+		float flRatio[3];
+		float flAddVel[3];
+		float flTvec[3];
+		GetClientAbsOrigin(client, flTpos);
+		GetClientAbsOrigin(client, flSpos);
+		flDistance[0] = (flSpos[0] - flTpos[0]);
+		flDistance[1] = (flSpos[1] - flTpos[1]);
+		flDistance[2] = (flSpos[2] - flTpos[2]);
+		GetEntPropVector(client, Prop_Data, "m_vecVelocity", flTvec);
+		flRatio[0] =  FloatDiv(flDistance[0], SquareRoot(flDistance[1] * flDistance[1] + flDistance[0] * flDistance[0]));
+		flRatio[1] =  FloatDiv(flDistance[1], SquareRoot(flDistance[1] * flDistance[1] + flDistance[0] * flDistance[0]));
+		flAddVel[0] = FloatMul(flRatio[0] * -1, 500.0);
+		flAddVel[1] = FloatMul(flRatio[1] * -1, 500.0);
+		flAddVel[2] = 500.0;
+		SDKCall(g_hSDKChargePlayer, client, flAddVel, 76, client, 7.0);
 	}
 }
 

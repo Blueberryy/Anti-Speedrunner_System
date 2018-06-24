@@ -7,12 +7,19 @@ void vAcidSDKCall()
 	if (bHasGameDataFile())
 	{
 		g_hGameData = LoadGameConfigFile("anti-speedrunner_system");
-		StartPrepSDKCall(SDKCall_Entity);
-		PrepSDKCall_SetFromConf(g_hGameData, SDKConf_Signature, "CSpitterProjectile_Detonate");
+		StartPrepSDKCall(SDKCall_Static);
+		PrepSDKCall_SetFromConf(g_hGameData, SDKConf_Signature, "CSpitterProjectile_Create");
+		PrepSDKCall_AddParameter(SDKType_Vector, SDKPass_ByRef);
+		PrepSDKCall_AddParameter(SDKType_Vector, SDKPass_ByRef);
+		PrepSDKCall_AddParameter(SDKType_Vector, SDKPass_ByRef);
+		PrepSDKCall_AddParameter(SDKType_Vector, SDKPass_ByRef);
+		PrepSDKCall_AddParameter(SDKType_CBasePlayer, SDKPass_Pointer);
+		PrepSDKCall_AddParameter(SDKType_Float, SDKPass_Plain);
+		PrepSDKCall_SetReturnInfo(SDKType_CBaseEntity, SDKPass_Pointer);
 		g_hSDKAcidPlayer = EndPrepSDKCall();
 		if (g_hSDKAcidPlayer == null)
 		{
-			bHasTranslationFile() ? PrintToServer("%s %t", ASS_PREFIX, "AcidSignature") : PrintToServer("%s Your \"CSpitterProjectile_Detonate\" signature is outdated.", ASS_PREFIX);
+			bHasTranslationFile() ? PrintToServer("%s %t", ASS_PREFIX, "AcidSignature") : PrintToServer("%s Your \"CSpitterProjectile_Create\" signature is outdated.", ASS_PREFIX);
 		}
 	}
 }
@@ -44,7 +51,7 @@ public Action cmdASSAcid(int client, int args)
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX, "InGame") : ReplyToCommand(client, "%s This command is to be used only in-game.", ASS_PREFIX);
 		return Plugin_Handled;
 	}
-	if (!bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (!bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes, g_cvASSGameModeTypes))
 	{
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "MapModeNotSupported") : ReplyToCommand(client, "%s Map or game mode not supported.", ASS_PREFIX01);
 		return Plugin_Handled;
@@ -70,7 +77,7 @@ public Action cmdASSAcid(int client, int args)
 		{
 			g_bAcidMenu[client] = true;
 			g_bAdminMenu[client] = false;
-			vPlayerMenu(client);
+			vPlayerMenu(client, 0);
 		}
 		return Plugin_Handled;
 	}
@@ -105,24 +112,13 @@ public Action cmdASSAcid(int client, int args)
 
 void vAcid(int client)
 {
-	float flVecPos[3];
 	if ((bIsSurvivor(client) && g_cvASSCountBots.BoolValue) || (bIsHumanSurvivor(client) && !g_cvASSCountBots.BoolValue))
 	{
-		GetClientAbsOrigin(client, flVecPos);
-		flVecPos[2] += 16.0;
-		int iAcid = CreateEntityByName("spitter_projectile");
-		for (int iSender = 1; iSender <= MaxClients; iSender++)
-		{
-			if (IsValidEntity(iAcid) && IsValidEntity(iSender))
-			{
-				DispatchSpawn(iAcid);
-				SetEntPropFloat(iAcid, Prop_Send, "m_DmgRadius", 1024.0);
-				SetEntProp(iAcid, Prop_Send, "m_bIsLive", 1);
-				SetEntPropEnt(iAcid, Prop_Send, "m_hThrower", iSender);
-				TeleportEntity(iAcid, flVecPos, NULL_VECTOR, NULL_VECTOR);
-				SDKCall(g_hSDKAcidPlayer, iAcid);
-			}
-		}
+		float flOrigin[3];
+		float flAngles[3];
+		GetClientAbsOrigin(client, flOrigin);
+		GetClientAbsAngles(client, flAngles);
+		SDKCall(g_hSDKAcidPlayer, flOrigin, flAngles, flAngles, flAngles, client, 2.0);
 	}
 }
 

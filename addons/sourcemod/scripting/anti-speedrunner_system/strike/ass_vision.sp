@@ -24,7 +24,7 @@ public Action cmdASSVision(int client, int args)
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX, "InGame") : ReplyToCommand(client, "%s This command is to be used only in-game.", ASS_PREFIX);
 		return Plugin_Handled;
 	}
-	if (!bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (!bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes, g_cvASSGameModeTypes))
 	{
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "MapModeNotSupported") : ReplyToCommand(client, "%s Map or game mode not supported.", ASS_PREFIX01);
 		return Plugin_Handled;
@@ -53,7 +53,7 @@ public Action cmdASSVision(int client, int args)
 		{
 			g_bVisionMenu[client] = true;
 			g_bAdminMenu[client] = false;
-			vPlayerMenu(client);
+			vPlayerMenu(client, 0);
 		}
 		return Plugin_Handled;
 	}
@@ -90,8 +90,8 @@ void vVision(int client)
 {
 	if (IsValidEntity(client))
 	{
-		SetEntData(client, FindSendPropInfo("CBasePlayer", "m_iFOV"), g_iFov[client], 4, true);
-		SetEntData(client, FindSendPropInfo("CBasePlayer", "m_iDefaultFOV"), g_iFov[client], 4, true);
+		SetEntProp(client, Prop_Send, "m_iFOV", g_iFov[client]);
+		SetEntProp(client, Prop_Send, "m_iDefaultFOV", g_iFov[client]);
 	}
 }
 
@@ -179,8 +179,8 @@ void vKillVisionTimer(int client)
 	{
 		if (IsValidEntity(client))
 		{
-			SetEntData(client, FindSendPropInfo("CBasePlayer", "m_iFOV"), 90, 4, true);
-			SetEntData(client, FindSendPropInfo("CBasePlayer", "m_iDefaultFOV"), 90, 4, true);
+			SetEntProp(client, Prop_Send, "m_iFOV", 90);
+			SetEntProp(client, Prop_Send, "m_iDefaultFOV", 90);
 		}
 		KillTimer(g_hVisionTimers[client]);
 		g_hVisionTimers[client] = null;

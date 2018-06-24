@@ -32,7 +32,7 @@ public Action cmdASSRocket(int client, int args)
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX, "InGame") : ReplyToCommand(client, "%s This command is to be used only in-game.", ASS_PREFIX);
 		return Plugin_Handled;
 	}
-	if (!bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (!bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes, g_cvASSGameModeTypes))
 	{
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "MapModeNotSupported") : ReplyToCommand(client, "%s Map or game mode not supported.", ASS_PREFIX01);
 		return Plugin_Handled;
@@ -58,7 +58,7 @@ public Action cmdASSRocket(int client, int args)
 		{
 			g_bRocketMenu[client] = true;
 			g_bAdminMenu[client] = false;
-			vPlayerMenu(client);
+			vPlayerMenu(client, 0);
 		}
 		return Plugin_Handled;
 	}
@@ -111,41 +111,33 @@ void vRocketSpeedrunners(int target, int client, bool log = true, float launch =
 		}
 		else
 		{
-			char sFlameName[128];
-			char sTargetName[128];
-			Format(sFlameName, sizeof(sFlameName), "RocketFlame%i", target);
 			int iFlame = CreateEntityByName("env_steam");
 			if (IsValidEntity(iFlame))
 			{
 				float flPosition[3];
-				GetEntPropVector(target, Prop_Send, "m_vecOrigin", flPosition);
+				GetEntPropVector(client, Prop_Send, "m_vecOrigin", flPosition);
 				flPosition[2] += 30;
 				float flAngles[3];
 				flAngles[0] = 90.0;
 				flAngles[1] = 0.0;
 				flAngles[2] = 0.0;
-				Format(sTargetName, sizeof(sTargetName), "target%i", target);
-				DispatchKeyValue(target, "targetname", sTargetName);
-				DispatchKeyValue(iFlame,"targetname", sFlameName);
-				DispatchKeyValue(iFlame, "parentname", sTargetName);
-				DispatchKeyValue(iFlame,"SpawnFlags", "1");
-				DispatchKeyValue(iFlame,"Type", "0");
-				DispatchKeyValue(iFlame,"InitialState", "1");
-				DispatchKeyValue(iFlame,"Spreadspeed", "10");
-				DispatchKeyValue(iFlame,"Speed", "800");
-				DispatchKeyValue(iFlame,"Startsize", "10");
-				DispatchKeyValue(iFlame,"EndSize", "250");
-				DispatchKeyValue(iFlame,"Rate", "15");
-				DispatchKeyValue(iFlame,"JetLength", "400");
-				DispatchKeyValue(iFlame,"RenderColor", "180 71 8");
-				DispatchKeyValue(iFlame,"RenderAmt", "180");
+				DispatchKeyValue(iFlame, "spawnflags", "1");
+				DispatchKeyValue(iFlame, "Type", "0");
+				DispatchKeyValue(iFlame, "InitialState", "1");
+				DispatchKeyValue(iFlame, "Spreadspeed", "10");
+				DispatchKeyValue(iFlame, "Speed", "800");
+				DispatchKeyValue(iFlame, "Startsize", "10");
+				DispatchKeyValue(iFlame, "EndSize", "250");
+				DispatchKeyValue(iFlame, "Rate", "15");
+				DispatchKeyValue(iFlame, "JetLength", "400");
+				SetEntityRenderColor(iFlame, 180, 70, 10, 180);
 				TeleportEntity(iFlame, flPosition, flAngles, NULL_VECTOR);
 				DispatchSpawn(iFlame);
-				SetVariantString(sTargetName);
-				AcceptEntityInput(iFlame, "SetParent", iFlame, iFlame, 0);
+				SetVariantString("!activator");
+				AcceptEntityInput(iFlame, "SetParent", client);
 				iFlame = EntIndexToEntRef(iFlame);
 				vDeleteEntity(iFlame, 3.0);
-				g_iRocket[target] = iFlame;
+				g_iRocket[client] = iFlame;
 			}
 			EmitSoundToAll("weapons/rpg/rocketfire1.wav", target, _, _, _, 0.8);
 			launch == 0.0 ? CreateTimer(2.0, tTimerLaunch, GetClientUserId(target)) : CreateTimer(launch, tTimerLaunch, GetClientUserId(target));

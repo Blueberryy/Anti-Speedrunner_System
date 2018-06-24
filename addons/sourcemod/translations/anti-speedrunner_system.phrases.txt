@@ -76,11 +76,11 @@
 	}
 	"AcidSignature"
 	{
-		"en"		"Your \"CSpitterProjectile_Detonate\" signature is outdated."
-		"pt"		"Sua \"CSpitterProjectile_Detonate\" assinatura esta desatualizada."
-		"hu"		"A \"CSpitterProjectile_Detonate\" aláírásod elavult."
-		"es"		"Su firma \"CSpitterProjectile_Detonate\" está desactualizada."
-		"chi"		"你的\"CSpitterProjectile_Detonate\"签名已经过时了。"
+		"en"		"Your \"CSpitterProjectile_Create\" signature is outdated."
+		"pt"		"Sua \"CSpitterProjectile_Create\" assinatura esta desatualizada."
+		"hu"		"A \"CSpitterProjectile_Create\" aláírásod elavult."
+		"es"		"Su firma \"CSpitterProjectile_Create\" está desactualizada."
+		"chi"		"你的\"CSpitterProjectile_Create\"签名已经过时了。"
 	}
 	"AcidInform"
 	{
