@@ -1825,7 +1825,7 @@
 		"#format"	"{1:N},{2:d},{3:d}"
 		"en"		"{1} has {2}/{3} strikes and will be punished!"
 		"pt"		"{1} foi {2}/{3} penalizado e sera punido!"
-		"hu"		"{1} -nak van {2}/{3} csapása és meg lesz büntetve!"
+		"hu"		"{1}-nak van {2}/{3} csapása és meg lesz büntetve!"
 		"es"		"¡{1} tiene {2}/{3} strikes y será castigado!"
 		"chi"		"{1}有{2}/{3}攻击将会受到惩罚！"
 	}
