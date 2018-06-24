@@ -502,7 +502,7 @@
 		"#format"	"{1:N},{2:d},{3:d}"
 		"en"		"{1} has {2}/{3} strikes and opened the saferoom door!"
 		"pt"		"{1} tem {2}/{3} punimentos e abriu a porta da saferoom!"
-		"hu"		"{1} -nak van {2}/{3} csapása és kinyitotta a menedékszoba ajtaját!"
+		"hu"		"{1}-nak van {2}/{3} csapása és kinyitotta a menedékszoba ajtaját!"
 		"es"		"¡{1} tiene {2}/{3} golpes y ¡abrió la puerta!"
 		"chi"		"{1}有{2}/{3}罢工, 并打开了安全的房间门！"
 	}
@@ -628,7 +628,7 @@
 		"#format"	"{1:N}"
 		"en"		"{1} has temporary health!"
 		"pt"		"{1} tem saude temporaria!"
-		"hu"		"{1} -nak ideiglenes életereje van!"
+		"hu"		"{1}-nak ideiglenes életereje van!"
 		"es"		"¡{1} tiene salud temporal!"
 		"chi"		"{1}有临时健康！"
 	}
