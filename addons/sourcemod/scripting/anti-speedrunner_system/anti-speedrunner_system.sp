@@ -380,6 +380,7 @@ public void OnMapStart()
 					SDKHook(iPlayer, SDKHook_TraceAttack, TraceAttack);
 				}
 			}
+			vInitializeDoors();
 		}
 	}
 }
@@ -431,22 +432,7 @@ public void OnConfigsExecuted()
 	g_bRestartValid = false;
 	vCreateConfigFiles();
 	vExecuteConfigs();
-	g_cvASSSaferoomSystemOptions.GetString(g_sSaferoomOption, sizeof(g_sSaferoomOption));
-	g_cvASSLockdownDoorType.GetString(g_sLockdownType, sizeof(g_sLockdownType));
-	if (g_cvASSEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes, g_cvASSGameModeTypes))
-	{
-		if (g_cvASSSaferoomEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes, g_cvASSGameModeTypes) && !bIsFinaleMap() && !bIsBuggedMap())
-		{
-			if (StrContains(g_sSaferoomOption, "l", false) != -1 && StrContains(g_sLockdownType, "1", false) != -1)
-			{
-				vSInitializeDoor();
-			}
-			if (StrContains(g_sSaferoomOption, "b", false) != -1 || StrContains(g_sSaferoomOption, "f", false) != -1 || StrContains(g_sSaferoomOption, "g", false) != -1 || StrContains(g_sSaferoomOption, "k", false) != -1 || (StrContains(g_sSaferoomOption, "l", false) != -1 && StrContains(g_sLockdownType, "2", false) != -1))
-			{
-				vEInitializeDoor();
-			}
-		}
-	}
+	vInitializeDoors();
 }
 
 public void OnMapEnd()
@@ -1110,6 +1096,26 @@ public Action OnPlayerRunCmd(int client, int &buttons, int &impulse, float vel[3
 		}
 	}
 	return Plugin_Continue;
+}
+
+void vInitializeDoors()
+{
+	g_cvASSSaferoomSystemOptions.GetString(g_sSaferoomOption, sizeof(g_sSaferoomOption));
+	g_cvASSLockdownDoorType.GetString(g_sLockdownType, sizeof(g_sLockdownType));
+	if (g_cvASSEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes, g_cvASSGameModeTypes))
+	{
+		if (g_cvASSSaferoomEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes, g_cvASSGameModeTypes) && !bIsFinaleMap() && !bIsBuggedMap())
+		{
+			if (StrContains(g_sSaferoomOption, "l", false) != -1 && StrContains(g_sLockdownType, "1", false) != -1)
+			{
+				vSInitializeDoor();
+			}
+			if (StrContains(g_sSaferoomOption, "b", false) != -1 || StrContains(g_sSaferoomOption, "f", false) != -1 || StrContains(g_sSaferoomOption, "g", false) != -1 || StrContains(g_sSaferoomOption, "k", false) != -1 || (StrContains(g_sSaferoomOption, "l", false) != -1 && StrContains(g_sLockdownType, "2", false) != -1))
+			{
+				vEInitializeDoor();
+			}
+		}
+	}
 }
 
 void vSDoorControl(int entity, bool operation)

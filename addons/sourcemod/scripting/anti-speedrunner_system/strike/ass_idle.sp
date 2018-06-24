@@ -180,9 +180,13 @@ public Action tTimerIdleFix(Handle timer, DataPack pack)
 	pack.Reset();
 	int iSurvivor = GetClientOfUserId(pack.ReadCell());
 	int iBot = GetClientOfUserId(pack.ReadCell());
-	if (!IsClientInGame(iSurvivor) || GetClientTeam(iSurvivor) != 1 || iGetIdleBot(iSurvivor) || IsFakeClient(iSurvivor))
+	if (iSurvivor == 0 || iBot == 0 || !IsClientInGame(iSurvivor) || !IsPlayerAlive(iSurvivor) || !IsClientInGame(iBot) || !IsPlayerAlive(iSurvivor))
 	{
-		g_bAFK[iSurvivor] = false;	
+		return Plugin_Stop;
+	}
+	if (GetClientTeam(iSurvivor) != 1 || iGetIdleBot(iSurvivor) || IsFakeClient(iSurvivor))
+	{
+		g_bAFK[iSurvivor] = false;
 	}
 	if (!bIsBotIdleSurvivor(iBot) || GetClientTeam(iBot) != 2)
 	{
@@ -198,4 +202,5 @@ public Action tTimerIdleFix(Handle timer, DataPack pack)
 		SDKCall(g_hSDKSpecPlayer, iBot, iSurvivor);
 		SetEntProp(iSurvivor, Prop_Send, "m_iObserverMode", 5);
 	}
+	return Plugin_Continue;
 }

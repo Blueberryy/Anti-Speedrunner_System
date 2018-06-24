@@ -2,6 +2,10 @@
 
 ## Version 29.39 (TBA)
 
+Bug fixes:
+
+1. Fixed the invalid client index error for the tTimerIdleFix timer.
+
 Changes:
 
 1. Added the convar ass_gamemodetypes to determine what game mode types to enable/disable the plugin in. (0: All, 1: coop modes only, 2: versus modes only, 4: survival modes only, 8: scavenge modes only.)
