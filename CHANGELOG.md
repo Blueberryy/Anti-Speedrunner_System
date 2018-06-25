@@ -5,6 +5,7 @@
 Bug fixes:
 
 1. Fixed the invalid client index error for the tTimerIdleFix timer.
+2. Fixed the Ammunition option using the wrong ammo offset for weapon_sniper_scout.
 
 Changes:
 
