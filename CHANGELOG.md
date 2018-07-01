@@ -9,8 +9,7 @@ Bug fixes:
 
 Changes:
 
-1. Added the convar ass_gamemodetypes to determine what game mode types to enable/disable the plugin in. (0: All, 1: coop modes only, 2: versus modes only, 4: survival modes only, 8: scavenge modes only.)
-2. Optimized code a bit more.
+1. Optimized code a bit more.
 
 Files:
 

@@ -40,7 +40,6 @@ static char g_sRawFileName[PLATFORM_MAX_PATH];
 static char g_sFolderPath[PLATFORM_MAX_PATH];
 static Handle g_hPluginHandle;
 static int g_iCreateDirectoryMode;
-static int g_iCurrentMode;
 static int g_iLastFindResult;
 static int g_iLastAppendResult;
 
@@ -487,28 +486,11 @@ stock bool bIsSurvivor(int client)
 	return client > 0 && client <= MaxClients && IsClientInGame(client) && GetClientTeam(client) == 2 && IsPlayerAlive(client) && !IsClientInKickQueue(client);
 }
 
-stock bool bIsSystemValid(ConVar convar, ConVar convar2, ConVar convar3, ConVar convar4)
+stock bool bIsSystemValid(ConVar convar, ConVar convar2, ConVar convar3)
 {
 	if (convar == null)
 	{
 		return false;
-	}
-	if (convar4.IntValue != 0)
-	{
-		g_iCurrentMode = 0;
-		int iMode = CreateEntityByName("info_gamemode");
-		DispatchSpawn(iMode);
-		HookSingleEntityOutput(iMode, "OnCoop", vGamemode, true);
-		HookSingleEntityOutput(iMode, "OnSurvival", vGamemode, true);
-		HookSingleEntityOutput(iMode, "OnVersus", vGamemode, true);
-		HookSingleEntityOutput(iMode, "OnScavenge", vGamemode, true);
-		ActivateEntity(iMode);
-		AcceptEntityInput(iMode, "PostSpawnActivate");
-		AcceptEntityInput(iMode, "Kill");
-		if (g_iCurrentMode == 0 || !(convar4.IntValue & g_iCurrentMode))
-		{
-			return false;
-		}
 	}
 	char sGameMode[32];
 	char sConVarModes[32];
@@ -797,26 +779,6 @@ stock void vDeleteExplosion(int entity, float time, char[] input)
 		Format(sVariant, sizeof(sVariant), "OnUser1 !self:kill::%f:1", time);
 		SetVariantString(sVariant);
 		AcceptEntityInput(entity, input);
-	}
-}
-
-public void vGamemode(const char[] output, int caller, int activator, float delay)
-{
-	if (strcmp(output, "OnCoop") == 0)
-	{
-		g_iCurrentMode = 1;
-	}
-	else if (strcmp(output, "OnVersus") == 0)
-	{
-		g_iCurrentMode = 2;
-	}
-	else if (strcmp(output, "OnSurvival") == 0)
-	{
-		g_iCurrentMode = 4;
-	}
-	else if (strcmp(output, "OnScavenge") == 0)
-	{
-		g_iCurrentMode = 8;
 	}
 }
 
