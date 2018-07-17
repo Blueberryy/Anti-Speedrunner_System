@@ -1,10 +1,9 @@
 // Freeze Option
-float g_flVector[3];
 Handle g_hFreezeTimers[MAXPLAYERS + 1];
 
 void vFreezeStart()
 {
-	PrecacheSound("physics/glass/glass_impact_bullet4.wav", true);
+	PrecacheSound(SOUND_GLASS, true);
 }
 
 public Action cmdASSFreeze(int client, int args)
@@ -29,7 +28,7 @@ public Action cmdASSFreeze(int client, int args)
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX, "InGame") : ReplyToCommand(client, "%s This command is to be used only in-game.", ASS_PREFIX);
 		return Plugin_Handled;
 	}
-	if (!bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (!g_bPluginEnabled)
 	{
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "MapModeNotSupported") : ReplyToCommand(client, "%s Map or game mode not supported.", ASS_PREFIX01);
 		return Plugin_Handled;
@@ -159,12 +158,13 @@ void vKillFreezeTimer(int client)
 	g_bFreeze[client] = false;
 	if (g_hFreezeTimers[client] != null)
 	{
-		GetClientEyePosition(client, g_flVector);
+		float flVector[3];
+		GetClientEyePosition(client, flVector);
 		if (GetEntityMoveType(client) == MOVETYPE_NONE)
 		{
 			SetEntityMoveType(client, MOVETYPE_WALK);
 			SetEntityRenderColor(client, 255, 255, 255, 255);
-			EmitAmbientSound("physics/glass/glass_impact_bullet4.wav", g_flVector, client, SNDLEVEL_RAIDSIREN);
+			EmitAmbientSound(SOUND_GLASS, flVector, client, SNDLEVEL_RAIDSIREN);
 		}
 		KillTimer(g_hFreezeTimers[client]);
 		g_hFreezeTimers[client] = null;
@@ -179,12 +179,13 @@ public Action tTimerFreezeSpeedrunners(Handle timer, any userid)
 		vKillFreezeTimer(client);
 		return Plugin_Handled;
 	}
-	GetClientEyePosition(client, g_flVector);
+	float flVector[3];
+	GetClientEyePosition(client, flVector);
 	if (GetEntityMoveType(client) != MOVETYPE_NONE)
 	{
 		SetEntityMoveType(client, MOVETYPE_NONE);
 		SetEntityRenderColor(client, 0, 130, 255, 190);
-		EmitAmbientSound("physics/glass/glass_impact_bullet4.wav", g_flVector, client, SNDLEVEL_RAIDSIREN);
+		EmitAmbientSound(SOUND_GLASS, flVector, client, SNDLEVEL_RAIDSIREN);
 	}
 	return Plugin_Continue;
 }

@@ -1,10 +1,10 @@
 // Explosion Option
 void vExplodeStart()
 {
-	PrecacheSound("ambient/explosions/explode_1.wav", true);
-	PrecacheSound("ambient/explosions/explode_2.wav", true);
-	PrecacheSound("ambient/explosions/explode_3.wav", true);
-	PrecacheSound("animation/van_inside_debris.wav", true);
+	PrecacheSound(SOUND_EXPLOSION, true);
+	PrecacheSound(SOUND_EXPLOSION2, true);
+	PrecacheSound(SOUND_EXPLOSION3, true);
+	PrecacheSound(SOUND_DEBRIS, true);
 }
 
 public Action cmdASSExplode(int client, int args)
@@ -29,7 +29,7 @@ public Action cmdASSExplode(int client, int args)
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX, "InGame") : ReplyToCommand(client, "%s This command is to be used only in-game.", ASS_PREFIX);
 		return Plugin_Handled;
 	}
-	if (!bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (!g_bPluginEnabled)
 	{
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "MapModeNotSupported") : ReplyToCommand(client, "%s Map or game mode not supported.", ASS_PREFIX01);
 		return Plugin_Handled;
@@ -168,11 +168,11 @@ void vCreateExplosion(float pos[3], int entity)
 	DispatchSpawn(iHurt);
 	switch (GetRandomInt(1, 3))
 	{
-		case 1: EmitSoundToAll("ambient/explosions/explode_1.wav", entity);
-		case 2: EmitSoundToAll("ambient/explosions/explode_2.wav", entity);
-		case 3: EmitSoundToAll("ambient/explosions/explode_3.wav", entity);
+		case 1: EmitSoundToAll(SOUND_EXPLOSION, entity);
+		case 2: EmitSoundToAll(SOUND_EXPLOSION2, entity);
+		case 3: EmitSoundToAll(SOUND_EXPLOSION3, entity);
 	}
-	EmitSoundToAll("animation/van_inside_debris.wav", entity);
+	EmitSoundToAll(SOUND_DEBRIS, entity);
 	AcceptEntityInput(iParticle, "Start");
 	AcceptEntityInput(iParticle2, "Start");
 	AcceptEntityInput(iParticle3, "Start");
@@ -188,12 +188,12 @@ void vCreateExplosion(float pos[3], int entity)
 	vDeleteEntity(iParticle3, 16.5);
 	iTrace = EntIndexToEntRef(iTrace);
 	vDeleteEntity(iTrace, 16.5);
-	vDeleteExplosion(iTrace, 15.0, "Stop");
+	vDeleteParticle(iTrace, 15.0, "Stop");
 	iEntity = EntIndexToEntRef(iEntity);
 	vDeleteEntity(iEntity, 16.5);
 	iPhysics = EntIndexToEntRef(iPhysics);
 	vDeleteEntity(iPhysics, 16.5);
 	iHurt = EntIndexToEntRef(iHurt);
 	vDeleteEntity(iHurt, 16.5);
-	vDeleteExplosion(iHurt, 15.0, "TurnOff");
+	vDeleteParticle(iHurt, 15.0, "TurnOff");
 }

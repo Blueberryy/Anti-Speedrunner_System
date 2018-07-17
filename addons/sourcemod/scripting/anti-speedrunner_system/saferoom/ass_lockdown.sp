@@ -51,7 +51,7 @@ void vLockdownSettings()
 
 void vLockdownOption(int client, int entity, bool type)
 {
-	if (bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
+	if (g_bPluginEnabled && g_bPluginEnabled2)
 	{
 		if (!type)
 		{
@@ -80,7 +80,7 @@ void vLockdownOption(int client, int entity, bool type)
 		}
 		if (g_bLockdownStarts || g_bLockdownStarts2)
 		{
-			EmitSoundToAll("doors/latchlocked2.wav", entity);
+			EmitSoundToAll(SOUND_LOCKED, entity);
 			if (bIsHumanSurvivor(client))
 			{
 				bHasTranslationFile() ? PrintToChat(client, "%s %t", ASS_PREFIX01, "WaitLockdown") : PrintToChat(client, "%s Wait for the lockdown to end!", ASS_PREFIX01);
@@ -138,7 +138,7 @@ public Action tTimerLockdownStarts(Handle timer, any entity)
 	{
 		return Plugin_Stop;
 	}
-	EmitSoundToAll("ambient/alarms/klaxon1.wav", entity);
+	EmitSoundToAll(SOUND_DOOR, entity);
 	g_iLockdownCountdown--;
 	vLockdownCountdown(g_iLockdownCountdown);
 	return Plugin_Continue;
@@ -150,7 +150,7 @@ public Action tTimerLockdownStarts2(Handle timer, any entity)
 	{
 		return Plugin_Stop;
 	}
-	EmitSoundToAll("ambient/alarms/klaxon1.wav", entity);
+	EmitSoundToAll(SOUND_DOOR, entity);
 	g_iLockdownCountdown2--;
 	vLockdownCountdown(g_iLockdownCountdown2);
 	return Plugin_Continue;
@@ -164,7 +164,7 @@ public Action tTimerLockdownEnds(Handle timer, any entity)
 	}
 	if (g_hLockdownTimer != null)
 	{
-		EmitSoundToAll("doors/door_squeek1.wav", entity);
+		EmitSoundToAll(SOUND_SQUEEK, entity);
 		vSDoorControl(entity, false);
 		vLockdownEnds();
 		g_iLockdownCountdown = g_cvASSLockdownCountdown.IntValue;

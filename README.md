@@ -400,6 +400,15 @@ ass_enablesystem "1"
 // Maximum: "1.000000"
 ass_failsafe "1"
 
+// Enable the Anti-Speedrunner System in these game mode types.
+// Add numbers up together.
+// (0: All)
+// (1: Co-Op Modes)
+// (2: Versus Modes)
+// (4: Survival Modes)
+// (8: Scavenge Modes)
+ass_gamemodetypes "0" 
+
 // Amount of incapacitated survivors needed to turn the Anti-Speedrunner System off.
 // (0: OFF, keep the Anti-Speedrunner System enabled.)
 // (X: ON, disable the Anti-Speedrunner System after X survivors are incapacitated.)
@@ -924,10 +933,24 @@ The asssaferoom_enabledgamemodes and asssaferoom_disabledgamemodes only apply to
 
 The ass_enabledgamemodes and ass_disabledgamemodes apply to the whole plugin.
 
+You have 2 options:
+
+- Enable/disable in certain game mode types.
+- Enable/disable in specific game modes.
+
+For option 1:
+
+You must add numbers up together in the ass_gamemodetypes KeyValues.
+
+For option 2:
+
+You must specify the game modes in the ass_enabledgamemodes, ass_disabledgamemodes, asssaferoom_enabledgamemodes and asssaferoom_disabledgamemodes KeyValues.
+
 Here are some scenarios and their outcomes:
 
 - Scenario 1
 ```
+ass_gamemodetypes "0" // The plugin itself is enabled in all game mode types.
 ass_enabledgamemodes "" // The plugin itself is enabled in all game modes.
 asssaferoom_enabledgamemodes "coop" // The Saferoom system is only enabled in "coop" mode.
 
@@ -935,6 +958,7 @@ Outcome: The plugin works in every game mode but the Saferoom system will automa
 ```
 - Scenario 2
 ```
+ass_gamemodetypes "4" // The plugin itself is enabled in only Versus game modes.
 ass_enabledgamemodes "versus" // The plugin itself is enabled in only "versus" mode.
 asssaferoom_enabledgamemodes "coop" // The Saferoom system is only enabled in "coop" mode.
 
@@ -942,10 +966,11 @@ Outcome: The plugin works only in "versus" mode.
 ```
 - Scenario 3
 ```
+ass_gamemodetypes "8" // The plugin itself is enabled in only Scavenge game modes.
 ass_enabledgamemodes "coop,versus" // The plugin itself is enabled in only "coop" and "versus" mode.
 asssaferoom_enabledgamemodes "coop" // The Saferoom system is only enabled in "coop" mode.
 
-Outcome: The plugin is only enabled in "coop" and "versus" modes but the Saferoom system will automatically shut off if the game mode isn't "coop" mode.
+Outcome: The plugin is off.
 ```
 
 6. What is the assstrike_distancelimit convar for?

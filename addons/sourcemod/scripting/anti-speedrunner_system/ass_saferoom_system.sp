@@ -1,14 +1,14 @@
 // Saferoom System
 void vSaferoomStart()
 {
-	if (g_cvASSSaferoomEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
+	if (g_cvASSSaferoomEnable.BoolValue && g_bPluginEnabled2)
 	{
-		PrecacheModel("models/props_doors/checkpoint_door_02.mdl", true);
-		PrecacheSound("ambient/alarms/klaxon1.wav", true);
-		PrecacheSound("buttons/blip1.wav", true);
-		PrecacheSound("buttons/button14.wav", true);
-		PrecacheSound("doors/latchlocked2.wav", true);
-		PrecacheSound("doors/door_squeek1.wav", true);
+		PrecacheModel(MODEL_DOOR, true);
+		PrecacheSound(SOUND_DOOR, true);
+		PrecacheSound(SOUND_KEYMAN, true);
+		PrecacheSound(SOUND_ENTRY, true);
+		PrecacheSound(SOUND_LOCKED, true);
+		PrecacheSound(SOUND_SQUEEK, true);
 		g_cvASSSaferoomSystemOptions.GetString(g_sSaferoomOption, sizeof(g_sSaferoomOption));
 		if (StrContains(g_sSaferoomOption, "g", false) != -1)
 		{
@@ -52,7 +52,7 @@ public Action cmdASSDoor(int client, int args)
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX, "InGame") : ReplyToCommand(client, "%s This command is to be used only in-game.", ASS_PREFIX);
 		return Plugin_Handled;
 	}
-	if (bIsFinaleMap() || bIsBuggedMap() || !bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) || !bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
+	if (bIsFinaleMap() || bIsBuggedMap() || !g_bPluginEnabled || !g_bPluginEnabled2)
 	{
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "MapModeNotSupported") : ReplyToCommand(client, "%s Map or game mode not supported.", ASS_PREFIX01);
 		return Plugin_Handled;
@@ -100,7 +100,7 @@ public Action cmdASSEntry(int client, int args)
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX, "InGame") : ReplyToCommand(client, "%s This command is to be used only in-game.", ASS_PREFIX);
 		return Plugin_Handled;
 	}
-	if (bIsFinaleMap() || bIsBuggedMap() || !bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) || !bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
+	if (bIsFinaleMap() || bIsBuggedMap() || !g_bPluginEnabled || !g_bPluginEnabled2)
 	{
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "MapModeNotSupported") : ReplyToCommand(client, "%s Map or game mode not supported.", ASS_PREFIX01);
 		return Plugin_Handled;
@@ -144,7 +144,7 @@ public Action cmdASSSaferoom(int client, int args)
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX, "InGame") : ReplyToCommand(client, "%s This command is to be used only in-game.", ASS_PREFIX);
 		return Plugin_Handled;
 	}
-	if (bIsFinaleMap() || bIsBuggedMap() || !bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) || !bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
+	if (bIsFinaleMap() || bIsBuggedMap() || !g_bPluginEnabled || !g_bPluginEnabled2)
 	{
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "MapModeNotSupported") : ReplyToCommand(client, "%s Map or game mode not supported.", ASS_PREFIX01);
 		return Plugin_Handled;
@@ -325,7 +325,7 @@ void vSaferoomMethods(int client, int toggle)
 
 void vNoneOption(int entity, bool type)
 {
-	EmitSoundToAll("doors/door_squeek1.wav", entity);
+	EmitSoundToAll(SOUND_SQUEEK, entity);
 	type ? vEDoorControl(entity, false) : vSDoorControl(entity, false);
 	for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer++)
 	{
@@ -340,7 +340,7 @@ public void vSaferoomGameModeCvars(ConVar convar, const char[] oldValue, const c
 {
 	g_cvASSSaferoomSystemOptions.GetString(g_sSaferoomOption, sizeof(g_sSaferoomOption));
 	g_cvASSLockdownDoorType.GetString(g_sLockdownType, sizeof(g_sLockdownType));
-	if (!g_cvASSEnable.BoolValue || !g_cvASSSaferoomEnable.BoolValue || !bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) || !bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
+	if (!g_cvASSEnable.BoolValue || !g_cvASSSaferoomEnable.BoolValue || !g_bPluginEnabled || !g_bPluginEnabled2)
 	{
 		if (StrContains(g_sSaferoomOption, "l", false) != -1 && StrContains(g_sLockdownType, "1", false) != -1)
 		{
@@ -353,7 +353,7 @@ public void vSaferoomGameModeCvars(ConVar convar, const char[] oldValue, const c
 			vEDoorControl(g_iDoorId2, false);
 		}
 	}
-	else if (g_cvASSEnable.BoolValue && g_cvASSSaferoomEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
+	else if (g_cvASSEnable.BoolValue && g_cvASSSaferoomEnable.BoolValue && g_bPluginEnabled && g_bPluginEnabled2)
 	{
 		if (StrContains(g_sSaferoomOption, "l", false) != -1 && StrContains(g_sLockdownType, "1", false) != -1)
 		{

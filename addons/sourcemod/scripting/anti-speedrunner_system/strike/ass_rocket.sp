@@ -4,10 +4,10 @@ int g_iExplosionSprite = -1;
 
 void vRocketStart()
 {
-	g_iExplosionSprite = PrecacheModel("sprites/sprite_fire01.vmt", true);
-	PrecacheSound("ambient/explosions/exp2.wav", true);
-	PrecacheSound("npc/env_headcrabcanister/launch.wav", true);
-	PrecacheSound("weapons/rpg/rocketfire1.wav", true);
+	g_iExplosionSprite = PrecacheModel(SPRITE_FIRE, true);
+	PrecacheSound(SOUND_EXPLOSION4, true);
+	PrecacheSound(SOUND_LAUNCH, true);
+	PrecacheSound(SOUND_ROCKET, true);
 }
 
 public Action cmdASSRocket(int client, int args)
@@ -32,7 +32,7 @@ public Action cmdASSRocket(int client, int args)
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX, "InGame") : ReplyToCommand(client, "%s This command is to be used only in-game.", ASS_PREFIX);
 		return Plugin_Handled;
 	}
-	if (!bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (!g_bPluginEnabled)
 	{
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "MapModeNotSupported") : ReplyToCommand(client, "%s Map or game mode not supported.", ASS_PREFIX01);
 		return Plugin_Handled;
@@ -139,7 +139,7 @@ void vRocketSpeedrunners(int target, int client, bool log = true, float launch =
 				vDeleteEntity(iFlame, 3.0);
 				g_iRocket[client] = iFlame;
 			}
-			EmitSoundToAll("weapons/rpg/rocketfire1.wav", target, _, _, _, 0.8);
+			EmitSoundToAll(SOUND_ROCKET, target, _, _, _, 0.8);
 			launch == 0.0 ? CreateTimer(2.0, tTimerLaunch, GetClientUserId(target)) : CreateTimer(launch, tTimerLaunch, GetClientUserId(target));
 			detonation == 0.0 ? CreateTimer(3.5, tTimerDetonate, GetClientUserId(target)) : CreateTimer(detonation, tTimerDetonate, GetClientUserId(target));
 			if (bIsHumanSurvivor(target))
@@ -170,8 +170,8 @@ public Action tTimerLaunch(Handle timer, any userid)
 		flVelocity[0] = 0.0;
 		flVelocity[1] = 0.0;
 		flVelocity[2] = 800.0;
-		EmitSoundToAll("ambient/explosions/exp2.wav", client, _, _, _, 1.0);
-		EmitSoundToAll("npc/env_headcrabcanister/launch.wav", client, _, _, _, 1.0);
+		EmitSoundToAll(SOUND_EXPLOSION4, client, _, _, _, 1.0);
+		EmitSoundToAll(SOUND_LAUNCH, client, _, _, _, 1.0);
 		TeleportEntity(client, NULL_VECTOR, NULL_VECTOR, flVelocity);
 		SetEntityGravity(client, 0.1);
 	}

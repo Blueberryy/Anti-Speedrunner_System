@@ -25,7 +25,6 @@ bool g_bDrug[MAXPLAYERS + 1];
 bool g_bExileMode[MAXPLAYERS + 1];
 bool g_bFire[MAXPLAYERS + 1];
 bool g_bFreeze[MAXPLAYERS + 1];
-bool g_bHeadshot[MAXPLAYERS + 1];
 bool g_bHurt[MAXPLAYERS + 1];
 bool g_bIdle[MAXPLAYERS + 1];
 bool g_bIncap[MAXPLAYERS + 1];
@@ -34,6 +33,8 @@ bool g_bKeyman[MAXPLAYERS + 1];
 bool g_bLateLoad;
 bool g_bMirror[MAXPLAYERS + 1];
 bool g_bNull[MAXPLAYERS + 1];
+bool g_bPluginEnabled;
+bool g_bPluginEnabled2;
 bool g_bPuke[MAXPLAYERS + 1];
 bool g_bRestart[MAXPLAYERS + 1];
 bool g_bShake[MAXPLAYERS + 1];
@@ -90,7 +91,6 @@ char g_sPropName[64];
 char g_sSaferoomOption[21];
 char g_sStrikeOption[53];
 char g_sString[MAXPLAYERS + 1][512];
-char g_sWeapon[32];
 ConVar g_cvASSAdminImmunity;
 ConVar g_cvASSAutoMode;
 ConVar g_cvASSCommandOverride;
@@ -100,6 +100,7 @@ ConVar g_cvASSEnabledGameModes;
 ConVar g_cvASSEnable;
 ConVar g_cvASSFailsafe;
 ConVar g_cvASSGameMode;
+ConVar g_cvASSGameModeTypes;
 ConVar g_cvASSHealIncapCount;
 ConVar g_cvASSIncapacitatedCount;
 ConVar g_cvASSLockdownDoorType;
@@ -239,6 +240,7 @@ public void OnPluginStart()
 	vCreateConVar(g_cvASSEnable, "ass_enablesystem", "1", "Enable the Anti-Speedrunner System?\n(0: OFF)\n(1: ON)", _, true, 0.0, true, 1.0);
 	vCreateConVar(g_cvASSFailsafe, "ass_failsafe", "1", "Disable/re-enable the Anti-Speedrunner System's functions after X survivors are incapacitated/revived?\n(0: OFF)\n(1: ON)", _, true, 0.0, true, 1.0);
 	g_cvASSGameMode = FindConVar("mp_gamemode");
+	vCreateConVar(g_cvASSGameModeTypes, "ass_gamemodetypes", "0", "Enable the Anti-Speedrunner System in these game mode types.\nAdd numbers up together.\n(0: All)\n(1: Co-Op Modes)\n(2: Versus Modes)\n(4: Survival Modes)\n(8: Scavenge Modes)");
 	vCreateConVar(g_cvASSIncapacitatedCount, "ass_incapacitatedcount", "2", "Amount of incapacitated survivors needed to turn the Anti-Speedrunner System off.\n(0: OFF, keep the Anti-Speedrunner System enabled.)\n(X: ON, disable the Anti-Speedrunner System after X survivors are incapacitated.)", _, true, 1.0, true, 66.0);
 	vCreateConVar(g_cvASSLogCommands, "ass_logcommands", "1", "Log command usage?\n(0: OFF)\n(1: ON)", _, true, 0.0, true, 1.0);
 	vCreateConVar(g_cvASSNoFinales, "ass_nofinales", "0", "Automatically disable the Anti-Speedrunner system during finale maps?\n(0: OFF)\n(1: ON)", _, true, 0.0, true, 1.0);
@@ -308,30 +310,6 @@ public void OnPluginStart()
 	g_cvASSSaferoomSystemOptions.AddChangeHook(vASSLockdownEnableCvar);
 	g_cvASSStrikeDelay.AddChangeHook(vStrikeDelayCvar);
 	vHookConfigCvars();
-	HookEvent("player_afk", eEventPlayerAFK, EventHookMode_Pre);
-	HookEvent("player_bot_replace", eEventPlayerBotReplace);
-	HookEvent("player_incapacitated", eEventPlayerIncapacitated);
-	HookEvent("player_ledge_grab", eEventPlayerIncapacitated);
-	HookEvent("player_spawn", eEventPlayerSpawnDeath);
-	HookEvent("player_death", eEventPlayerSpawnDeath);
-	HookEvent("player_death", eEventPlayerDeath, EventHookMode_Pre);
-	HookEvent("player_use", eEventSDPlayerUse);
-	HookEvent("player_use", eEventEDPlayerUse);
-	HookEvent("player_use", eEventSPlayerUse, EventHookMode_Pre);
-	HookEvent("player_use", eEventEPlayerUse, EventHookMode_Pre);
-	HookEvent("player_team", eEventJoinTeam, EventHookMode_Post);
-	HookEvent("player_left_checkpoint", eEventLeftCheckpoint, EventHookMode_Post);
-	HookEvent("round_start", eEventRoundStart, EventHookMode_Post);
-	HookEvent("round_end", eEventServerEnd, EventHookMode_PostNoCopy);
-	HookEvent("round_end", eEventRoundEnd);
-	HookEvent("mission_lost", eEventServerEnd);
-	HookEvent("mission_lost", eEventRoundEnd);
-	HookEvent("map_transition", eEventServerEnd);
-	HookEvent("map_transition", eEventRoundEnd);
-	HookEvent("finale_win", eEventServerEnd);
-	HookEvent("finale_win", eEventRoundEnd);
-	HookEvent("finale_vehicle_ready", eEventServerEnd);
-	HookEvent("finale_vehicle_leaving", eEventServerEnd);
 	g_umFadeUserMsgId = GetUserMessageId("Fade");
 	g_bLeftSaferoom = false;
 	vSetStarted(false);
@@ -354,7 +332,7 @@ public void OnPluginStart()
 
 public void OnMapStart()
 {
-	if (g_cvASSEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (g_cvASSEnable.BoolValue && g_bPluginEnabled)
 	{
 		g_bRestartValid = false;
 		vExplodeStart();
@@ -371,43 +349,35 @@ public void OnMapStart()
 		CreateTimer(1.0, tTimerUpdatePlayerCount, _, TIMER_FLAG_NO_MAPCHANGE|TIMER_REPEAT);
 		if (g_bLateLoad)
 		{
-			for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer++ )
-			{
-				if (bIsValidClient(iPlayer))
-				{
-					SDKHook(iPlayer, SDKHook_TraceAttack, TraceAttack);
-				}
-			}
-			vInitializeDoors();
+			vLateLoad(true);
+			g_bLateLoad = false;
 		}
 	}
 }
 
 public void OnClientPostAdminCheck(int client)
 {
-	SDKHook(client, SDKHook_TraceAttack, TraceAttack);
+	SDKHook(client, SDKHook_OnTakeDamage, OnTakeDamage);
 	vResetPlayerStats(client);
 	g_bAdminMenu[client] = false;
 	g_bAFK[client] = false;
-	g_bHeadshot[client] = false;
 	g_bNull[client] = false;
 	g_iStrikeCount[client] = 0;
 }
 
 public void OnClientDisconnect(int client)
 {
-	SDKUnhook(client, SDKHook_TraceAttack, TraceAttack);
+	SDKUnhook(client, SDKHook_OnTakeDamage, OnTakeDamage);
 	vKillCheckTimer(client);
 	vResetPlayerStats(client);
 	g_bAdminMenu[client] = false;
 	g_bAFK[client] = false;
-	g_bHeadshot[client] = false;
 	g_bNull[client] = false;
 	g_iStrikeCount[client] = 0;
-	if (g_cvASSEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (g_cvASSEnable.BoolValue && g_bPluginEnabled)
 	{
 		g_cvASSSaferoomSystemOptions.GetString(g_sSaferoomOption, sizeof(g_sSaferoomOption));
-		if (g_cvASSSaferoomEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes) && StrContains(g_sSaferoomOption, "k", false) != -1 && bIsHumanSurvivor(client) && !bIsFinaleMap() && !bIsBuggedMap())
+		if (g_cvASSSaferoomEnable.BoolValue && g_bPluginEnabled2 && StrContains(g_sSaferoomOption, "k", false) != -1 && bIsHumanSurvivor(client) && !bIsFinaleMap() && !bIsBuggedMap())
 		{
 			if (g_bKeyman[client])
 			{
@@ -427,6 +397,12 @@ public void OnClientDisconnect(int client)
 
 public void OnConfigsExecuted()
 {
+	char sMapName[128];
+	GetCurrentMap(sMapName, sizeof(sMapName));
+	if (IsMapValid(sMapName))
+	{
+		vIsPluginAllowed();
+	}
 	g_bRestartValid = false;
 	vCreateConfigFiles();
 	vExecuteConfigs();
@@ -452,7 +428,7 @@ public void OnAdminMenuReady(Handle topmenu)
 		return;
 	}
 	g_tmASSMenu = view_as<TopMenu>(topmenu);
-	TopMenuObject ass_commands = g_tmASSMenu.AddCategory("Anti-SpeedrunnerSystem", iAdminMenuHandler);
+	TopMenuObject ass_commands = g_tmASSMenu.AddCategory("Anti-SpeedrunnerSystem", iASSAdminMenuHandler);
 	if (ass_commands != INVALID_TOPMENUOBJECT)
 	{
 		g_tmASSMenu.AddItem("ass_acid", vAcidMenu, ass_commands, "ass_acid", ADMFLAG_KICK);
@@ -492,7 +468,7 @@ public void OnAdminMenuReady(Handle topmenu)
 	}
 }
 
-public int iAdminMenuHandler(TopMenu topmenu, TopMenuAction action, TopMenuObject object_id, int param, char[] buffer, int maxlength)
+public int iASSAdminMenuHandler(TopMenu topmenu, TopMenuAction action, TopMenuObject object_id, int param, char[] buffer, int maxlength)
 {
 	switch (action)
 	{
@@ -502,7 +478,7 @@ public int iAdminMenuHandler(TopMenu topmenu, TopMenuAction action, TopMenuObjec
 
 public void OnLibraryRemoved(const char[] name)
 {
-	if (StrEqual(name, "adminmenu", false))
+	if (strcmp(name, "adminmenu", false) == 0)
 	{
 		g_tmASSMenu = null;
 	}
@@ -533,7 +509,7 @@ public Action eEventPlayerBotReplace(Event event, const char[] name, bool dontBr
 	int iSurvivor = GetClientOfUserId(iSurvivorId);
 	int iBotId = event.GetInt("bot");
 	int iBot = GetClientOfUserId(iBotId);
-	if (g_cvASSEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsIdlePlayer(iBot, iSurvivor)) 
+	if (g_cvASSEnable.BoolValue && g_bPluginEnabled && bIsIdlePlayer(iBot, iSurvivor)) 
 	{
 		DataPack dpDataPack;
 		CreateDataTimer(0.2, tTimerIdleFix, dpDataPack, TIMER_FLAG_NO_MAPCHANGE);
@@ -553,9 +529,9 @@ public Action eEventPlayerIncapacitated(Event event, const char[] name, bool don
 	int iUserId = event.GetInt("userid");
 	int iDisabled = GetClientOfUserId(iUserId);
 	g_cvASSSaferoomSystemOptions.GetString(g_sSaferoomOption, sizeof(g_sSaferoomOption));
-	if (g_cvASSEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (g_cvASSEnable.BoolValue && g_bPluginEnabled)
 	{
-		if (g_cvASSSaferoomEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes) && StrContains(g_sSaferoomOption, "k", false) != -1 && bIsHumanSurvivor(iDisabled) && !bIsFinaleMap() && !bIsBuggedMap())
+		if (g_cvASSSaferoomEnable.BoolValue && g_bPluginEnabled2 && StrContains(g_sSaferoomOption, "k", false) != -1 && bIsHumanSurvivor(iDisabled) && !bIsFinaleMap() && !bIsBuggedMap())
 		{
 			if (g_bKeyman[iDisabled])
 			{
@@ -575,14 +551,12 @@ public Action eEventPlayerIncapacitated(Event event, const char[] name, bool don
 
 public Action eEventPlayerDeath(Event event, const char[] name, bool dontBroadcast)
 {
-	int iAttackerId = event.GetInt("attacker");
-	int iAttacker = GetClientOfUserId(iAttackerId);
 	int iUserId = event.GetInt("userid");
 	int iDead = GetClientOfUserId(iUserId);
-	if (g_cvASSEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (g_cvASSEnable.BoolValue && g_bPluginEnabled)
 	{
 		g_cvASSSaferoomSystemOptions.GetString(g_sSaferoomOption, sizeof(g_sSaferoomOption));
-		if (g_cvASSSaferoomEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes) && StrContains(g_sSaferoomOption, "k", false) != -1 && bIsHumanSurvivor(iDead) && !bIsFinaleMap() && !bIsBuggedMap())
+		if (g_cvASSSaferoomEnable.BoolValue && g_bPluginEnabled2 && StrContains(g_sSaferoomOption, "k", false) != -1 && bIsHumanSurvivor(iDead) && !bIsFinaleMap() && !bIsBuggedMap())
 		{
 			if (g_bKeyman[iDead])
 			{
@@ -596,18 +570,6 @@ public Action eEventPlayerDeath(Event event, const char[] name, bool dontBroadca
 				}
 				CreateTimer(1.0, tTimerChooseKeyman);
 			}
-		}
-		if (g_bMirror[iAttacker] && iDead > 0 && iAttacker != iDead)
-		{
-			event.SetInt("attacker", GetClientOfUserId(iDead));
-			event.SetString("weapon", g_sWeapon);
-			event.SetInt("userid", GetClientOfUserId(iAttacker));
-			if (g_bHeadshot[iAttacker])
-			{
-				event.SetBool("headshot", true);
-			}
-			SetEntProp(iDead, Prop_Data, "m_iFrags", GetClientFrags(iDead) + 1);
-			SetEntProp(iAttacker, Prop_Data, "m_iFrags", GetClientFrags(iAttacker) + 1);
 		}
 	}
 }
@@ -636,9 +598,9 @@ public Action eEventSDPlayerUse(Event event, const char[] name, bool dontBroadca
 	if (((bIsSurvivor(iDoorUser) && g_cvASSCountBots.BoolValue) || (bIsHumanSurvivor(iDoorUser) && !g_cvASSCountBots.BoolValue)) && IsValidEntity(iDoorEntity))
 	{
 		GetEntityClassname(iDoorEntity, g_sPropName, sizeof(g_sPropName));
-		if (StrEqual(g_sPropName, "prop_door_rotating_checkpoint", false) && GetEntProp(iDoorEntity, Prop_Data, "m_eDoorState") == 0)
+		if (strcmp(g_sPropName, "prop_door_rotating_checkpoint", false) == 0 && GetEntProp(iDoorEntity, Prop_Data, "m_eDoorState") == 0)
 		{
-			if (bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+			if (g_bPluginEnabled)
 			{
 				if (!g_cvASSTankAlive.BoolValue)
 				{
@@ -647,12 +609,12 @@ public Action eEventSDPlayerUse(Event event, const char[] name, bool dontBroadca
 						return Plugin_Continue;
 					}
 				}
-				if (g_cvASSEnable.BoolValue && g_cvASSSaferoomEnable.BoolValue && !g_bNull[iDoorUser] && (!g_cvASSAdminImmunity.BoolValue || (g_cvASSAdminImmunity.BoolValue && !bIsAdminAllowed(iDoorUser))) && (!g_cvASSNoFinales.BoolValue || (g_cvASSNoFinales.BoolValue && !bIsFinaleMap())) && StrContains(g_sDoorType, "1", false) != -1 && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
+				if (g_cvASSEnable.BoolValue && g_cvASSSaferoomEnable.BoolValue && !g_bNull[iDoorUser] && (!g_cvASSAdminImmunity.BoolValue || (g_cvASSAdminImmunity.BoolValue && !bIsAdminAllowed(iDoorUser))) && (!g_cvASSNoFinales.BoolValue || (g_cvASSNoFinales.BoolValue && !bIsFinaleMap())) && StrContains(g_sDoorType, "1", false) != -1 && g_bPluginEnabled && g_bPluginEnabled2)
 				{
 					HookSingleEntityOutput(iDoorEntity, "OnFullyOpen", vStartAntiSpamDoor);
 					HookSingleEntityOutput(iDoorEntity, "OnFullyClose", vStartAntiSpamDoor);
 				}
-				else if (!g_cvASSEnable.BoolValue || !g_cvASSSaferoomEnable.BoolValue || g_bNull[iDoorUser] || (g_cvASSAdminImmunity && bIsAdminAllowed(iDoorUser)) || (g_cvASSNoFinales.BoolValue && bIsFinaleMap()) || StrContains(g_sDoorType, "1", false) == -1 || !bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) || !bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
+				else if (!g_cvASSEnable.BoolValue || !g_cvASSSaferoomEnable.BoolValue || g_bNull[iDoorUser] || (g_cvASSAdminImmunity && bIsAdminAllowed(iDoorUser)) || (g_cvASSNoFinales.BoolValue && bIsFinaleMap()) || StrContains(g_sDoorType, "1", false) == -1 || !g_bPluginEnabled || !g_bPluginEnabled2)
 				{
 					UnhookSingleEntityOutput(iDoorEntity, "OnFullyOpen", vStartAntiSpamDoor);
 					UnhookSingleEntityOutput(iDoorEntity, "OnFullyClose", vStartAntiSpamDoor);
@@ -673,9 +635,9 @@ public Action eEventEDPlayerUse(Event event, const char[] name, bool dontBroadca
 	if (((bIsSurvivor(iDoorUser) && g_cvASSCountBots.BoolValue) || (bIsHumanSurvivor(iDoorUser) && !g_cvASSCountBots.BoolValue)) && IsValidEntity(iDoorEntity))
 	{
 		GetEntityClassname(iDoorEntity, g_sPropName, sizeof(g_sPropName));
-		if (StrEqual(g_sPropName, "prop_door_rotating_checkpoint", false) && GetEntProp(iDoorEntity, Prop_Data, "m_hasUnlockSequence") == 0)
+		if (strcmp(g_sPropName, "prop_door_rotating_checkpoint", false) == 0 && GetEntProp(iDoorEntity, Prop_Data, "m_hasUnlockSequence") == 0)
 		{
-			if (bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+			if (g_bPluginEnabled)
 			{
 				if (!g_cvASSTankAlive.BoolValue)
 				{
@@ -684,12 +646,12 @@ public Action eEventEDPlayerUse(Event event, const char[] name, bool dontBroadca
 						return Plugin_Continue;
 					}
 				}
-				if (g_cvASSEnable.BoolValue && g_cvASSSaferoomEnable.BoolValue && !g_bNull[iDoorUser] && (!g_cvASSAdminImmunity.BoolValue || (g_cvASSAdminImmunity.BoolValue && !bIsAdminAllowed(iDoorUser))) && (!g_cvASSNoFinales.BoolValue || (g_cvASSNoFinales.BoolValue && !bIsFinaleMap())) && StrContains(g_sDoorType, "2", false) != -1 && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
+				if (g_cvASSEnable.BoolValue && g_cvASSSaferoomEnable.BoolValue && !g_bNull[iDoorUser] && (!g_cvASSAdminImmunity.BoolValue || (g_cvASSAdminImmunity.BoolValue && !bIsAdminAllowed(iDoorUser))) && (!g_cvASSNoFinales.BoolValue || (g_cvASSNoFinales.BoolValue && !bIsFinaleMap())) && StrContains(g_sDoorType, "2", false) != -1 && g_bPluginEnabled && g_bPluginEnabled2)
 				{
 					HookSingleEntityOutput(iDoorEntity, "OnFullyOpen", vStartAntiSpamDoor);
 					HookSingleEntityOutput(iDoorEntity, "OnFullyClose", vStartAntiSpamDoor);
 				}
-				else if (!g_cvASSEnable.BoolValue || !g_cvASSSaferoomEnable.BoolValue || g_bNull[iDoorUser] || (g_cvASSAdminImmunity && bIsAdminAllowed(iDoorUser)) || (g_cvASSNoFinales.BoolValue && bIsFinaleMap()) || StrContains(g_sDoorType, "2", false) == -1 || !bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) || !bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
+				else if (!g_cvASSEnable.BoolValue || !g_cvASSSaferoomEnable.BoolValue || g_bNull[iDoorUser] || (g_cvASSAdminImmunity && bIsAdminAllowed(iDoorUser)) || (g_cvASSNoFinales.BoolValue && bIsFinaleMap()) || StrContains(g_sDoorType, "2", false) == -1 || !g_bPluginEnabled || !g_bPluginEnabled2)
 				{
 					UnhookSingleEntityOutput(iDoorEntity, "OnFullyOpen", vStartAntiSpamDoor);
 					UnhookSingleEntityOutput(iDoorEntity, "OnFullyClose", vStartAntiSpamDoor);
@@ -717,15 +679,15 @@ public Action eEventSPlayerUse(Event event, const char[] name, bool dontBroadcas
 		if (iDoorEntity != g_iDoorId2)
 		{
 			GetEntityClassname(iDoorEntity, g_sPropName, sizeof(g_sPropName));
-			if (StrEqual(g_sPropName, "prop_door_rotating_checkpoint", false))
+			if (strcmp(g_sPropName, "prop_door_rotating_checkpoint", false) == 0)
 			{
-				if (bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
+				if (g_bPluginEnabled && g_bPluginEnabled2)
 				{
 					if (g_cvASSTankAlive.BoolValue && !g_bBossSpawned)
 					{
 						if (iGetTankCount() > 0)
 						{
-							EmitSoundToAll("doors/latchlocked2.wav", iDoorEntity);
+							EmitSoundToAll(SOUND_LOCKED, iDoorEntity);
 							if (bIsHumanSurvivor(iDoorUser))
 							{
 								bHasTranslationFile() ? PrintHintText(iDoorUser, "%s %t", ASS_PREFIX, "TankAlive") : PrintHintText(iDoorUser, "%s There is a Tank alive.", ASS_PREFIX);
@@ -803,15 +765,15 @@ public Action eEventEPlayerUse(Event event, const char[] name, bool dontBroadcas
 		if (iDoorEntity != g_iDoorId)
 		{
 			GetEntityClassname(iDoorEntity, g_sPropName, sizeof(g_sPropName));
-			if (StrEqual(g_sPropName, "prop_door_rotating_checkpoint", false))
+			if (strcmp(g_sPropName, "prop_door_rotating_checkpoint", false) == 0)
 			{
-				if (bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
+				if (g_bPluginEnabled && g_bPluginEnabled2)
 				{
 					if (g_cvASSTankAlive.BoolValue && !g_bBossSpawned)
 					{
 						if (iGetTankCount() > 0)
 						{
-							EmitSoundToAll("doors/latchlocked2.wav", iDoorEntity);
+							EmitSoundToAll(SOUND_LOCKED, iDoorEntity);
 							if (bIsHumanSurvivor(iDoorUser))
 							{
 								bHasTranslationFile() ? PrintHintText(iDoorUser, "%s %t", ASS_PREFIX, "TankAlive") : PrintHintText(iDoorUser, "%s There is a Tank alive.", ASS_PREFIX);
@@ -933,12 +895,12 @@ public Action eEventEPlayerUse(Event event, const char[] name, bool dontBroadcas
 
 public Action eEventRoundStart(Event event, const char[] name, bool dontBroadcast)
 {
-	if (g_cvASSEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (g_cvASSEnable.BoolValue && g_bPluginEnabled)
 	{
 		vResetVoteCounts();
 		g_cvASSSaferoomSystemOptions.GetString(g_sSaferoomOption, sizeof(g_sSaferoomOption));
 		g_cvASSLockdownDoorType.GetString(g_sLockdownType, sizeof(g_sLockdownType));
-		if (g_cvASSSaferoomEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
+		if (g_cvASSSaferoomEnable.BoolValue && g_bPluginEnabled2)
 		{
 			if (StrContains(g_sSaferoomOption, "l", false) != -1 && StrContains(g_sLockdownType, "1", false) != -1)
 			{
@@ -955,11 +917,8 @@ public Action eEventRoundStart(Event event, const char[] name, bool dontBroadcas
 				}
 			}
 		}
-		g_sWeapon[0] = '\0';
 		for (int iPlayer= 1; iPlayer <= MaxClients; iPlayer++)
 		{
-			g_bHeadshot[iPlayer] = false;
-			g_bMirror[iPlayer] = false;
 			vResetPlayerMenu(iPlayer);
 		}
 		CreateTimer(10.0, tTimerRestartCoordinates);
@@ -968,10 +927,10 @@ public Action eEventRoundStart(Event event, const char[] name, bool dontBroadcas
 
 public Action eEventRoundEnd(Event event, const char[] name, bool dontBroadcast)
 {
-	if (g_cvASSEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (g_cvASSEnable.BoolValue && g_bPluginEnabled)
 	{
 		g_cvASSSaferoomSystemOptions.GetString(g_sSaferoomOption, sizeof(g_sSaferoomOption));
-		if (g_cvASSSaferoomEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes) && !bIsFinaleMap() && !bIsBuggedMap() && StrContains(g_sSaferoomOption, "k", false) != -1)
+		if (g_cvASSSaferoomEnable.BoolValue && g_bPluginEnabled2 && !bIsFinaleMap() && !bIsBuggedMap() && StrContains(g_sSaferoomOption, "k", false) != -1)
 		{
 			vKeymanStats();
 			for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer++)
@@ -1000,7 +959,7 @@ public void eEventLeftCheckpoint(Event event, const char[] name, bool dontBroadc
 	int iUserId = event.GetInt("userid");
 	int iLeaver = GetClientOfUserId(iUserId);
 	g_cvASSSaferoomSystemOptions.GetString(g_sSaferoomOption, sizeof(g_sSaferoomOption));
-	if (g_cvASSEnable.BoolValue && g_cvASSSaferoomEnable.BoolValue && StrContains(g_sSaferoomOption, "k", false) != -1 && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
+	if (g_cvASSEnable.BoolValue && g_cvASSSaferoomEnable.BoolValue && StrContains(g_sSaferoomOption, "k", false) != -1 && g_bPluginEnabled && g_bPluginEnabled2)
 	{
 		if (g_bStarted[iLeaver] && iLeaver > 0 && iDoorEntity == 0 && !g_bLeftSaferoom)
 		{
@@ -1014,9 +973,9 @@ public void eEventJoinTeam(Event event, const char[] name, bool dontBroadcast)
 	int iUserId = event.GetInt("userid");
 	int iPlayer = GetClientOfUserId(iUserId);
 	g_cvASSSaferoomSystemOptions.GetString(g_sSaferoomOption, sizeof(g_sSaferoomOption));
-	if (g_cvASSEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (g_cvASSEnable.BoolValue && g_bPluginEnabled)
 	{
-		if (g_cvASSSaferoomEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes) && StrContains(g_sSaferoomOption, "k", false) != -1 && bIsHumanSurvivor(iPlayer) && !bIsFinaleMap() && !bIsBuggedMap())
+		if (g_cvASSSaferoomEnable.BoolValue && g_bPluginEnabled2 && StrContains(g_sSaferoomOption, "k", false) != -1 && bIsHumanSurvivor(iPlayer) && !bIsFinaleMap() && !bIsBuggedMap())
 		{
 			if (!g_bLeftSaferoom)
 			{
@@ -1040,7 +999,7 @@ public void eEventJoinTeam(Event event, const char[] name, bool dontBroadcast)
 
 public Action OnPlayerRunCmd(int client, int &buttons, int &impulse, float vel[3], float angles[3], int &weapon)
 {
-	if (!g_cvASSEnable.BoolValue || !bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (!g_cvASSEnable.BoolValue || !g_bPluginEnabled)
 	{
 		return Plugin_Continue;
 	}
@@ -1076,7 +1035,7 @@ public Action OnPlayerRunCmd(int client, int &buttons, int &impulse, float vel[3
 		}
 		return Plugin_Changed;
 	}
-	if (g_cvASSSaferoomEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes) && !bIsFinaleMap() && !bIsBuggedMap())
+	if (g_cvASSSaferoomEnable.BoolValue && g_bPluginEnabled2 && !bIsFinaleMap() && !bIsBuggedMap())
 	{
 		if (buttons & IN_MOVELEFT || buttons & IN_BACK || buttons & IN_FORWARD || buttons & IN_MOVERIGHT || buttons & IN_USE)
 		{
@@ -1096,13 +1055,118 @@ public Action OnPlayerRunCmd(int client, int &buttons, int &impulse, float vel[3
 	return Plugin_Continue;
 }
 
+void vIsPluginAllowed()
+{
+	bool bIsPluginAllowed = bIsSystemValid(g_cvASSGameMode, g_cvASSGameModeTypes, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes);
+	bool bIsPluginAllowed2 = bIsSystemValid(g_cvASSGameMode, g_cvASSGameModeTypes, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes);
+	if (g_cvASSEnable.BoolValue)
+	{
+		if (bIsPluginAllowed)
+		{
+			vHookEvents(true);
+			if (bIsPluginAllowed2)
+			{
+				g_bPluginEnabled2 = true;
+			}
+			vLateLoad(true);
+			g_bPluginEnabled = true;
+		}
+		else
+		{
+			vHookEvents(false);
+			if (bIsPluginAllowed2)
+			{
+				g_bPluginEnabled2 = false;
+			}
+			vLateLoad(false);
+			g_bPluginEnabled = false;
+		}
+	}
+}
+
+void vLateLoad(bool late)
+{
+	if (late)
+	{
+		for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer++ )
+		{
+			if (bIsValidClient(iPlayer))
+			{
+				SDKHook(iPlayer, SDKHook_OnTakeDamage, OnTakeDamage);
+			}
+		}
+		vInitializeDoors();
+	}
+}
+
+void vHookEvents(bool hook)
+{
+	static bool hooked;
+	if (hook && !hooked)
+	{
+		HookEvent("player_afk", eEventPlayerAFK, EventHookMode_Pre);
+		HookEvent("player_bot_replace", eEventPlayerBotReplace);
+		HookEvent("player_incapacitated", eEventPlayerIncapacitated);
+		HookEvent("player_ledge_grab", eEventPlayerIncapacitated);
+		HookEvent("player_spawn", eEventPlayerSpawnDeath);
+		HookEvent("player_death", eEventPlayerSpawnDeath);
+		HookEvent("player_death", eEventPlayerDeath, EventHookMode_Pre);
+		HookEvent("player_use", eEventSDPlayerUse);
+		HookEvent("player_use", eEventEDPlayerUse);
+		HookEvent("player_use", eEventSPlayerUse, EventHookMode_Pre);
+		HookEvent("player_use", eEventEPlayerUse, EventHookMode_Pre);
+		HookEvent("player_team", eEventJoinTeam, EventHookMode_Post);
+		HookEvent("player_left_checkpoint", eEventLeftCheckpoint, EventHookMode_Post);
+		HookEvent("round_start", eEventRoundStart, EventHookMode_Post);
+		HookEvent("round_end", eEventServerEnd, EventHookMode_PostNoCopy);
+		HookEvent("round_end", eEventRoundEnd);
+		HookEvent("mission_lost", eEventServerEnd);
+		HookEvent("mission_lost", eEventRoundEnd);
+		HookEvent("map_transition", eEventServerEnd);
+		HookEvent("map_transition", eEventRoundEnd);
+		HookEvent("finale_win", eEventServerEnd);
+		HookEvent("finale_win", eEventRoundEnd);
+		HookEvent("finale_vehicle_ready", eEventServerEnd);
+		HookEvent("finale_vehicle_leaving", eEventServerEnd);
+		hooked = true;
+	}
+	else if (!hook && hooked)
+	{
+		UnhookEvent("player_afk", eEventPlayerAFK);
+		UnhookEvent("player_bot_replace", eEventPlayerBotReplace);
+		UnhookEvent("player_incapacitated", eEventPlayerIncapacitated);
+		UnhookEvent("player_ledge_grab", eEventPlayerIncapacitated);
+		UnhookEvent("player_spawn", eEventPlayerSpawnDeath);
+		UnhookEvent("player_death", eEventPlayerSpawnDeath);
+		UnhookEvent("player_death", eEventPlayerDeath);
+		UnhookEvent("player_use", eEventSDPlayerUse);
+		UnhookEvent("player_use", eEventEDPlayerUse);
+		UnhookEvent("player_use", eEventSPlayerUse);
+		UnhookEvent("player_use", eEventEPlayerUse);
+		UnhookEvent("player_team", eEventJoinTeam);
+		UnhookEvent("player_left_checkpoint", eEventLeftCheckpoint);
+		UnhookEvent("round_start", eEventRoundStart);
+		UnhookEvent("round_end", eEventServerEnd);
+		UnhookEvent("round_end", eEventRoundEnd);
+		UnhookEvent("mission_lost", eEventServerEnd);
+		UnhookEvent("mission_lost", eEventRoundEnd);
+		UnhookEvent("map_transition", eEventServerEnd);
+		UnhookEvent("map_transition", eEventRoundEnd);
+		UnhookEvent("finale_win", eEventServerEnd);
+		UnhookEvent("finale_win", eEventRoundEnd);
+		UnhookEvent("finale_vehicle_ready", eEventServerEnd);
+		UnhookEvent("finale_vehicle_leaving", eEventServerEnd);
+		hooked = false;
+	}
+}
+
 void vInitializeDoors()
 {
 	g_cvASSSaferoomSystemOptions.GetString(g_sSaferoomOption, sizeof(g_sSaferoomOption));
 	g_cvASSLockdownDoorType.GetString(g_sLockdownType, sizeof(g_sLockdownType));
-	if (g_cvASSEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (g_cvASSEnable.BoolValue && g_bPluginEnabled)
 	{
-		if (g_cvASSSaferoomEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes) && !bIsFinaleMap() && !bIsBuggedMap())
+		if (g_cvASSSaferoomEnable.BoolValue && g_bPluginEnabled2 && !bIsFinaleMap() && !bIsBuggedMap())
 		{
 			if (StrContains(g_sSaferoomOption, "l", false) != -1 && StrContains(g_sLockdownType, "1", false) != -1)
 			{
@@ -1166,7 +1230,7 @@ void vEntryMode(int entity)
 {
 	if (g_cvASSSaferoomEntryMode.BoolValue)
 	{
-		EmitSoundToAll("doors/door_squeek1.wav", entity);
+		EmitSoundToAll(SOUND_SQUEEK, entity);
 		vEDoorControl(entity, false);
 	}
 	else
@@ -1182,7 +1246,7 @@ void vEntryMode(int entity)
 		}
 		else
 		{
-			EmitSoundToAll("doors/latchlocked2.wav", entity);
+			EmitSoundToAll(SOUND_LOCKED, entity);
 		}
 	}
 }
@@ -1412,7 +1476,6 @@ void vResetPlayerStats(int client)
 	vKillDrugTimer(client);
 	vKillFireTimer(client);
 	vKillFreezeTimer(client);
-	g_bHeadshot[client] = false;
 	vKillHurtTimer(client);
 	g_bIdle[client] = false;
 	vKillIncapTimer(client);
@@ -1553,7 +1616,7 @@ public void vASSAutoModeCvar(ConVar convar, const char[] oldValue, const char[] 
 public void vGameModeCvars(ConVar convar, const char[] oldValue, const char[] newValue)
 {
 	g_cvASSSaferoomSystemOptions.GetString(g_sSaferoomOption, sizeof(g_sSaferoomOption));
-	if (!g_cvASSEnable.BoolValue || !bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (!g_cvASSEnable.BoolValue || !g_bPluginEnabled)
 	{
 		for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer++)
 		{
@@ -1580,7 +1643,7 @@ public void vGameModeCvars(ConVar convar, const char[] oldValue, const char[] ne
 			}
 		}
 	}
-	else if (g_cvASSEnable.BoolValue && bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	else if (g_cvASSEnable.BoolValue && g_bPluginEnabled)
 	{
 		for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer++)
 		{
@@ -1595,7 +1658,7 @@ public void vGameModeCvars(ConVar convar, const char[] oldValue, const char[] ne
 
 public Action tTimerUpdateIncapCount(Handle timer)
 {
-	if (!g_cvASSEnable.BoolValue || !bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (!g_cvASSEnable.BoolValue || !g_bPluginEnabled)
 	{
 		return Plugin_Continue;
 	}
@@ -1641,7 +1704,7 @@ public Action tTimerLeftSafeArea(Handle timer, any userid)
 {
 	int client = GetClientOfUserId(userid);
 	g_cvASSSaferoomSystemOptions.GetString(g_sSaferoomOption, sizeof(g_sSaferoomOption));
-	if (!g_cvASSEnable.BoolValue || !g_cvASSSaferoomEnable.BoolValue || StrContains(g_sSaferoomOption, "k", false) == -1 || g_bLeftSaferoom || !bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) || !bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes) || bIsFinaleMap() || bIsBuggedMap())
+	if (!g_cvASSEnable.BoolValue || !g_cvASSSaferoomEnable.BoolValue || StrContains(g_sSaferoomOption, "k", false) == -1 || g_bLeftSaferoom || !g_bPluginEnabled || !g_bPluginEnabled2 || bIsFinaleMap() || bIsBuggedMap())
 	{
 		return Plugin_Stop;
 	}
@@ -1679,7 +1742,7 @@ public Action tTimerWarpCountdown(Handle timer, any entity)
 	{
 		return Plugin_Stop;
 	}
-	EmitSoundToAll("buttons/button14.wav", entity);
+	EmitSoundToAll(SOUND_ENTRY, entity);
 	g_iWarpCountdown--;
 	for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer++)
 	{

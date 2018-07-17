@@ -21,7 +21,7 @@ public Action cmdASSMirror(int client, int args)
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX, "InGame") : ReplyToCommand(client, "%s This command is to be used only in-game.", ASS_PREFIX);
 		return Plugin_Handled;
 	}
-	if (!bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (!g_bPluginEnabled)
 	{
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "MapModeNotSupported") : ReplyToCommand(client, "%s Map or game mode not supported.", ASS_PREFIX01);
 		return Plugin_Handled;
@@ -141,44 +141,31 @@ void vMirrorSpeedrunners(int target, int client, int toggle, bool log = true)
 	}
 }
 
-public Action TraceAttack(int victim, int &attacker, int &inflictor, float &damage, int &damagetype, int &ammotype, int hitbox, int hitgroup)
+public Action OnTakeDamage(int victim, int &attacker, int &inflictor, float &damage, int &damagetype)
 {
 	if (bIsSurvivor(attacker))
 	{
-		if (g_bMirror[attacker] && attacker != victim)
+		if (g_bMirror[attacker])
 		{
-			int iDamage = RoundFloat(damage);
-			if (!IsClientConnected(attacker))
+			if (damagetype & DMG_BURN)
 			{
-				iDamage = 0;
-				return Plugin_Changed;
-			}
-			int iHealth = GetClientHealth(attacker);
-			if (iHealth > 0 && iHealth > iDamage)
-			{
-				SetEntityHealth(attacker, iHealth - iDamage);
-				iDamage = 0;
-				return Plugin_Changed;
+				damage = 0.0;
+				return Plugin_Handled;
 			}
 			else
 			{
-				GetEntityClassname(inflictor, g_sWeapon, sizeof(g_sWeapon));
-				if (StrContains(g_sWeapon, "_projectile") > 0)
+				int iHealth = GetClientHealth(attacker);
+				if (damagetype & DMG_BULLET || damagetype & DMG_BLAST || damagetype & DMG_BLAST_SURFACE || damagetype & DMG_AIRBOAT || damagetype & DMG_PLASMA)
 				{
-					ReplaceString(g_sWeapon, sizeof(g_sWeapon), "_projectile", "", false);
-					SetEntityHealth(attacker, 1);
-					iDamage = 0;
-					return Plugin_Changed;
+					damage = damage / 10;
 				}
-				else
+				else if (damagetype & DMG_SLASH || damagetype & DMG_CLUB)
 				{
-					GetClientWeapon(attacker, g_sWeapon, sizeof(g_sWeapon));
-					ReplaceString(g_sWeapon, sizeof(g_sWeapon), "weapon_", "", false);
-					hitgroup == 1 ? (g_bHeadshot[attacker] = true) : (g_bHeadshot[attacker] = false);
-					SetEntityHealth(attacker, 1);
-					iDamage = 0;
-					return Plugin_Changed;
+					damage = damage / 1000;
 				}
+				(iHealth > damage) ? SetEntityHealth(attacker, iHealth - RoundFloat(damage)) : SetEntProp(attacker, Prop_Send, "m_isIncapacitated", 1);
+				damage = 0.0;
+				return Plugin_Changed;
 			}
 		}
 	}

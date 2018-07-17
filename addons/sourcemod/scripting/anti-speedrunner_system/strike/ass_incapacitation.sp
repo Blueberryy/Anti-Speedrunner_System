@@ -7,8 +7,8 @@ int g_iWhiteColor[4] = {255, 255, 255, 255};
 
 void vIncapStart()
 {
-	g_iBeamSprite = PrecacheModel("sprites/laserbeam.vmt", true);
-	g_iHaloSprite = PrecacheModel("sprites/glow01.vmt", true);
+	g_iBeamSprite = PrecacheModel(SPRITE_LASERBEAM, true);
+	g_iHaloSprite = PrecacheModel(SPRITE_GLOW2, true);
 }
 
 public Action cmdASSIncap(int client, int args)
@@ -33,7 +33,7 @@ public Action cmdASSIncap(int client, int args)
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX, "InGame") : ReplyToCommand(client, "%s This command is to be used only in-game.", ASS_PREFIX);
 		return Plugin_Handled;
 	}
-	if (!bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (!g_bPluginEnabled)
 	{
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "MapModeNotSupported") : ReplyToCommand(client, "%s Map or game mode not supported.", ASS_PREFIX01);
 		return Plugin_Handled;

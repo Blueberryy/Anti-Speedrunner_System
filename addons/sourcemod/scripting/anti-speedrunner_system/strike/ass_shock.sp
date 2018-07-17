@@ -3,8 +3,8 @@ int g_iShockSprite = -1;
 
 void vShockStart()
 {
-	PrecacheSound("ambient/explosions/explode_2.wav", true);
-	g_iShockSprite = PrecacheModel("sprites/glow.vmt");
+	PrecacheSound(SOUND_EXPLOSION2, true);
+	g_iShockSprite = PrecacheModel(SPRITE_GLOW, true);
 }
 
 public Action cmdASSShock(int client, int args)
@@ -29,7 +29,7 @@ public Action cmdASSShock(int client, int args)
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX, "InGame") : ReplyToCommand(client, "%s This command is to be used only in-game.", ASS_PREFIX);
 		return Plugin_Handled;
 	}
-	if (!bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes))
+	if (!g_bPluginEnabled)
 	{
 		bHasTranslationFile() ? ReplyToCommand(client, "%s %t", ASS_PREFIX01, "MapModeNotSupported") : ReplyToCommand(client, "%s Map or game mode not supported.", ASS_PREFIX01);
 		return Plugin_Handled;
@@ -117,7 +117,7 @@ void vShockSpeedrunners(int target, int client, bool log = true)
 			TE_SendToAll();
 			TE_SetupEnergySplash(flPosition, flDirection, false);
 			TE_SendToAll();
-			EmitAmbientSound("ambient/explosions/explode_2.wav", flStartPosition, client, SNDLEVEL_RAIDSIREN);
+			EmitAmbientSound(SOUND_EXPLOSION2, flStartPosition, client, SNDLEVEL_RAIDSIREN);
 			ForcePlayerSuicide(client);
 			if (bIsHumanSurvivor(target))
 			{

@@ -31,6 +31,24 @@
 #define ASS_NO_CONFIG 30
 #define ASS_FORMAT_BAD_FILENAME 40
 #define ASS_FORMAT_SUCCESS 41
+#define MODEL_DOOR "models/props_doors/checkpoint_door_02.mdl"
+#define SPRITE_FIRE "sprites/sprite_fire01.vmt"
+#define SPRITE_GLOW "sprites/glow.vmt"
+#define SPRITE_GLOW2 "sprites/glow01.vmt"
+#define SPRITE_LASERBEAM "sprites/laserbeam.vmt"
+#define SOUND_DEBRIS "animation/van_inside_debris.wav"
+#define SOUND_DOOR "ambient/alarms/klaxon1.wav"
+#define SOUND_ENTRY "buttons/button14.wav"
+#define SOUND_EXPLOSION "ambient/explosions/explode_1.wav"
+#define SOUND_EXPLOSION2 "ambient/explosions/explode_2.wav"
+#define SOUND_EXPLOSION3 "ambient/explosions/explode_3.wav"
+#define SOUND_EXPLOSION4 "ambient/explosions/exp2.wav"
+#define SOUND_GLASS "physics/glass/glass_impact_bullet4.wav"
+#define SOUND_KEYMAN "buttons/blip1.wav"
+#define SOUND_LAUNCH "npc/env_headcrabcanister/launch.wav"
+#define SOUND_LOCKED "doors/latchlocked2.wav"
+#define SOUND_ROCKET "weapons/rpg/rocketfire1.wav"
+#define SOUND_SQUEEK "doors/door_squeek1.wav"
 
 // Configs
 static bool g_bCreateDirectory;
@@ -42,6 +60,7 @@ static Handle g_hPluginHandle;
 static int g_iCreateDirectoryMode;
 static int g_iLastFindResult;
 static int g_iLastAppendResult;
+int g_iCurrentMode;
 
 stock int iASS_GetFindResult()
 {
@@ -486,17 +505,34 @@ stock bool bIsSurvivor(int client)
 	return client > 0 && client <= MaxClients && IsClientInGame(client) && GetClientTeam(client) == 2 && IsPlayerAlive(client) && !IsClientInKickQueue(client);
 }
 
-stock bool bIsSystemValid(ConVar convar, ConVar convar2, ConVar convar3)
+stock bool bIsSystemValid(ConVar convar, ConVar convar2, ConVar convar3, ConVar convar4)
 {
 	if (convar == null)
 	{
 		return false;
 	}
+	if (convar2.IntValue != 0)
+	{
+		g_iCurrentMode = 0;
+		int iGameMode = CreateEntityByName("info_gamemode");
+		DispatchSpawn(iGameMode);
+		HookSingleEntityOutput(iGameMode, "OnCoop", vGameMode, true);
+		HookSingleEntityOutput(iGameMode, "OnSurvival", vGameMode, true);
+		HookSingleEntityOutput(iGameMode, "OnVersus", vGameMode, true);
+		HookSingleEntityOutput(iGameMode, "OnScavenge", vGameMode, true);
+		ActivateEntity(iGameMode);
+		AcceptEntityInput(iGameMode, "PostSpawnActivate");
+		AcceptEntityInput(iGameMode, "Kill");
+		if (g_iCurrentMode == 0 || !(convar2.IntValue & g_iCurrentMode))
+		{
+			return false;
+		}
+	}
 	char sGameMode[32];
 	char sConVarModes[32];
 	convar.GetString(sGameMode, sizeof(sGameMode));
 	Format(sGameMode, sizeof(sGameMode), ",%s,", sGameMode);
-	convar2.GetString(sConVarModes, sizeof(sConVarModes));
+	convar3.GetString(sConVarModes, sizeof(sConVarModes));
 	if (strcmp(sConVarModes, ""))
 	{
 		Format(sConVarModes, sizeof(sConVarModes), ",%s,", sConVarModes);
@@ -505,7 +541,7 @@ stock bool bIsSystemValid(ConVar convar, ConVar convar2, ConVar convar3)
 			return false;
 		}
 	}
-	convar3.GetString(sConVarModes, sizeof(sConVarModes));
+	convar4.GetString(sConVarModes, sizeof(sConVarModes));
 	if (strcmp(sConVarModes, ""))
 	{
 		Format(sConVarModes, sizeof(sConVarModes), ",%s,", sConVarModes);
@@ -759,26 +795,48 @@ stock void vCopyVector(float source[3], float target[3])
 	target[2] = source[2];
 }
 
-stock void vDeleteEntity(int entity, float time)
+stock void vDeleteEntity(int entity, float time = 0.1)
 {
 	if (bIsValidEntRef(entity))
 	{
 		char sVariant[64];
 		Format(sVariant, sizeof(sVariant), "OnUser1 !self:kill::%f:1", time);
+		AcceptEntityInput(entity, "ClearParent");
 		SetVariantString(sVariant);
 		AcceptEntityInput(entity, "AddOutput");
 		AcceptEntityInput(entity, "FireUser1");
 	}
 }
 
-stock void vDeleteExplosion(int entity, float time, char[] input)
+stock void vDeleteParticle(int entity, float time, char[] input)
 {
 	if (bIsValidEntRef(entity))
 	{
 		char sVariant[64];
 		Format(sVariant, sizeof(sVariant), "OnUser1 !self:kill::%f:1", time);
+		AcceptEntityInput(entity, "ClearParent");
 		SetVariantString(sVariant);
 		AcceptEntityInput(entity, input);
+	}
+}
+
+public void vGameMode(const char[] output, int caller, int activator, float delay)
+{
+	if (strcmp(output, "OnCoop") == 0)
+	{
+		g_iCurrentMode = 1;
+	}
+	else if (strcmp(output, "OnVersus") == 0)
+	{
+		g_iCurrentMode = 2;
+	}
+	else if (strcmp(output, "OnSurvival") == 0)
+	{
+		g_iCurrentMode = 4;
+	}
+	else if (strcmp(output, "OnScavenge") == 0)
+	{
+		g_iCurrentMode = 8;
 	}
 }
 

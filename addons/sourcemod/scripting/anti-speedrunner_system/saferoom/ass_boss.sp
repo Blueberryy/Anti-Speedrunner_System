@@ -13,7 +13,7 @@ void vBossSettings()
 
 void vBossOption(int client, int entity)
 {
-	if (bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
+	if (g_bPluginEnabled && g_bPluginEnabled2)
 	{
 		if (!g_bBossSpawned)
 		{
@@ -50,7 +50,7 @@ void vBossOption(int client, int entity)
 		}
 		if (!g_bBossDefeated)
 		{
-			EmitSoundToAll("doors/latchlocked2.wav", entity);
+			EmitSoundToAll(SOUND_LOCKED, entity);
 			if (bIsHumanSurvivor(client))
 			{
 				bHasTranslationFile() ? PrintToChat(client, "%s %t", ASS_PREFIX01, "BossRequired") : PrintToChat(client, "%s We need to defeat the boss!", ASS_PREFIX01);

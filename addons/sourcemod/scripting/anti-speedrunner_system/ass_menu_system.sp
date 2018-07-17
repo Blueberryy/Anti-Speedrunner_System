@@ -545,12 +545,12 @@ public int iConfigsMenuHandler(Menu menu, MenuAction action, int param1, int par
 			if (bHasTranslationFile())
 			{
 				menu.GetItem(param2, g_sInfo, sizeof(g_sInfo));
-				if (StrEqual(g_sInfo, "Create"))
+				if (strcmp(g_sInfo, "Create") == 0)
 				{
 					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "Create", param1);
 					return RedrawMenuItem(g_sMenuOption);
 				}
-				if (StrEqual(g_sInfo, "Execute"))
+				if (strcmp(g_sInfo, "Execute") == 0)
 				{
 					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "Execute", param1);
 					return RedrawMenuItem(g_sMenuOption);
@@ -583,27 +583,27 @@ public int iConfigsMenuHandler2(Menu menu, MenuAction action, int param1, int pa
 		case MenuAction_Select:
 		{
 			menu.GetItem(param2, g_sInfo, sizeof(g_sInfo));
-			if (StrEqual(g_sInfo, "Difficulty"))
+			if (strcmp(g_sInfo, "Difficulty") == 0)
 			{
 				g_bConfigMode[param1] ? vManualConfig(param1, 1, 0) : vManualConfig(param1, 0, 0);
 				ShowActivity2(param1, ASS_PREFIX2, "Used \"ass_config\".");
 			}
-			else if (StrEqual(g_sInfo, "Map"))
+			else if (strcmp(g_sInfo, "Map") == 0)
 			{
 				g_bConfigMode[param1] ? vManualConfig(param1, 1, 1) : vManualConfig(param1, 0, 1);
 				ShowActivity2(param1, ASS_PREFIX2, "Used \"ass_config\".");
 			}
-			else if (StrEqual(g_sInfo, "Game mode"))
+			else if (strcmp(g_sInfo, "Game mode") == 0)
 			{
 				g_bConfigMode[param1] ? vManualConfig(param1, 1, 2) : vManualConfig(param1, 0, 2);
 				ShowActivity2(param1, ASS_PREFIX2, "Used \"ass_config\".");
 			}
-			else if (StrEqual(g_sInfo, "Daily"))
+			else if (strcmp(g_sInfo, "Daily") == 0)
 			{
 				g_bConfigMode[param1] ? vManualConfig(param1, 1, 3) : vManualConfig(param1, 0, 3);
 				ShowActivity2(param1, ASS_PREFIX2, "Used \"ass_config\".");
 			}
-			else if (StrEqual(g_sInfo, "Player count"))
+			else if (strcmp(g_sInfo, "Player count") == 0)
 			{
 				g_bConfigMode[param1] ? vManualConfig(param1, 1, 4) : vManualConfig(param1, 0, 4);
 				ShowActivity2(param1, ASS_PREFIX2, "Used \"ass_config\".");
@@ -627,27 +627,27 @@ public int iConfigsMenuHandler2(Menu menu, MenuAction action, int param1, int pa
 			if (bHasTranslationFile())
 			{
 				menu.GetItem(param2, g_sInfo, sizeof(g_sInfo));
-				if (StrEqual(g_sInfo, "Difficulty"))
+				if (strcmp(g_sInfo, "Difficulty") == 0)
 				{
 					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "Difficulty", param1);
 					return RedrawMenuItem(g_sMenuOption);
 				}
-				if (StrEqual(g_sInfo, "Map"))
+				if (strcmp(g_sInfo, "Map") == 0)
 				{
 					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "Map", param1);
 					return RedrawMenuItem(g_sMenuOption);
 				}
-				if (StrEqual(g_sInfo, "Game mode"))
+				if (strcmp(g_sInfo, "Game mode") == 0)
 				{
 					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "GameMode", param1);
 					return RedrawMenuItem(g_sMenuOption);
 				}
-				if (StrEqual(g_sInfo, "Daily"))
+				if (strcmp(g_sInfo, "Daily") == 0)
 				{
 					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "Daily", param1);
 					return RedrawMenuItem(g_sMenuOption);
 				}
-				if (StrEqual(g_sInfo, "Player count"))
+				if (strcmp(g_sInfo, "Player count") == 0)
 				{
 					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "PlayerCount", param1);
 					return RedrawMenuItem(g_sMenuOption);
@@ -710,12 +710,12 @@ public int iExileMenuHandler(Menu menu, MenuAction action, int param1, int param
 			if (bHasTranslationFile())
 			{
 				menu.GetItem(param2, g_sInfo, sizeof(g_sInfo));
-				if (StrEqual(g_sInfo, "Kick"))
+				if (strcmp(g_sInfo, "Kick") == 0)
 				{
 					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "Kick", param1);
 					return RedrawMenuItem(g_sMenuOption);
 				}
-				if (StrEqual(g_sInfo, "Banishment"))
+				if (strcmp(g_sInfo, "Banishment") == 0)
 				{
 					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "Ban", param1);
 					return RedrawMenuItem(g_sMenuOption);
@@ -1001,12 +1001,12 @@ public int iTypeMenuHandler(Menu menu, MenuAction action, int param1, int param2
 			if (bHasTranslationFile())
 			{
 				menu.GetItem(param2, g_sInfo, sizeof(g_sInfo));
-				if (StrEqual(g_sInfo, "Starting door"))
+				if (strcmp(g_sInfo, "Starting door") == 0)
 				{
 					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "StartDoor", param1);
 					return RedrawMenuItem(g_sMenuOption);
 				}
-				if (StrEqual(g_sInfo, "Ending door"))
+				if (strcmp(g_sInfo, "Ending door") == 0)
 				{
 					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "EndDoor", param1);
 					return RedrawMenuItem(g_sMenuOption);
@@ -1036,7 +1036,7 @@ public int iDoorMenuHandler(Menu menu, MenuAction action, int param1, int param2
 		case MenuAction_Select:
 		{
 			menu.GetItem(param2, g_sInfo, sizeof(g_sInfo));
-			if (StrEqual(g_sInfo, "Lock"))
+			if (strcmp(g_sInfo, "Lock") == 0)
 			{
 				bHasTranslationFile() ? PrintToChat(param1, "%s %t", ASS_PREFIX01, "Locked") : PrintToChat(param1, "%s Ending saferoom door forcefully locked.", ASS_PREFIX01);
 				if (g_bDoorType[param1])
@@ -1050,7 +1050,7 @@ public int iDoorMenuHandler(Menu menu, MenuAction action, int param1, int param2
 				}
 				ShowActivity2(param1, ASS_PREFIX2, "Used \"ass_door\".");
 			}
-			else if (StrEqual(g_sInfo, "Unlock"))
+			else if (strcmp(g_sInfo, "Unlock") == 0)
 			{
 				bHasTranslationFile() ? PrintToChat(param1, "%s %t", ASS_PREFIX01, "Unlocked") : PrintToChat(param1, "%s Ending saferoom door forcefully unlocked.", ASS_PREFIX01);
 				if (g_bDoorType[param1])
@@ -1083,12 +1083,12 @@ public int iDoorMenuHandler(Menu menu, MenuAction action, int param1, int param2
 			if (bHasTranslationFile())
 			{
 				menu.GetItem(param2, g_sInfo, sizeof(g_sInfo));
-				if (StrEqual(g_sInfo, "Lock"))
+				if (strcmp(g_sInfo, "Lock") == 0)
 				{
 					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "Lock", param1);
 					return RedrawMenuItem(g_sMenuOption);
 				}
-				if (StrEqual(g_sInfo, "Unlock"))
+				if (strcmp(g_sInfo, "Unlock") == 0)
 				{
 					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "Unlock", param1);
 					return RedrawMenuItem(g_sMenuOption);
@@ -1134,7 +1134,7 @@ public int iSaferoomMenuHandler(Menu menu, MenuAction action, int param1, int pa
 			g_cvASSSaferoomSystemOptions.GetString(g_sSaferoomOption, sizeof(g_sSaferoomOption));
 			g_cvASSLockdownDoorType.GetString(g_sLockdownType, sizeof(g_sLockdownType));
 			menu.GetItem(param2, g_sInfo, sizeof(g_sInfo));
-			if (StrEqual(g_sInfo, "Boss"))
+			if (strcmp(g_sInfo, "Boss") == 0)
 			{
 				if (StrContains(g_sSaferoomOption, "b", false) != -1)
 				{
@@ -1152,7 +1152,7 @@ public int iSaferoomMenuHandler(Menu menu, MenuAction action, int param1, int pa
 				vEntryModeSettings();
 				ShowActivity2(param1, ASS_PREFIX2, "Used \"ass_room\".");
 			}
-			else if (StrEqual(g_sInfo, "Filter"))
+			else if (strcmp(g_sInfo, "Filter") == 0)
 			{
 				if (StrContains(g_sSaferoomOption, "f", false) != -1)
 				{
@@ -1170,7 +1170,7 @@ public int iSaferoomMenuHandler(Menu menu, MenuAction action, int param1, int pa
 				vEntryModeSettings();
 				ShowActivity2(param1, ASS_PREFIX2, "Used \"ass_room\".");
 			}
-			else if (StrEqual(g_sInfo, "Group"))
+			else if (strcmp(g_sInfo, "Group") == 0)
 			{
 				if (StrContains(g_sSaferoomOption, "g", false) != -1)
 				{
@@ -1188,7 +1188,7 @@ public int iSaferoomMenuHandler(Menu menu, MenuAction action, int param1, int pa
 				vEntryModeSettings();
 				ShowActivity2(param1, ASS_PREFIX2, "Used \"ass_room\".");
 			}
-			else if (StrEqual(g_sInfo, "Keyman"))
+			else if (strcmp(g_sInfo, "Keyman") == 0)
 			{
 				if (StrContains(g_sSaferoomOption, "k", false) != -1)
 				{
@@ -1206,7 +1206,7 @@ public int iSaferoomMenuHandler(Menu menu, MenuAction action, int param1, int pa
 				vEntryModeSettings();
 				ShowActivity2(param1, ASS_PREFIX2, "Used \"ass_room\".");
 			}
-			else if (StrEqual(g_sInfo, "Lockdown"))
+			else if (strcmp(g_sInfo, "Lockdown") == 0)
 			{
 				if (StrContains(g_sSaferoomOption, "l", false) != -1 && StrContains(g_sLockdownType, "2", false) != -1)
 				{
@@ -1224,7 +1224,7 @@ public int iSaferoomMenuHandler(Menu menu, MenuAction action, int param1, int pa
 				vEntryModeSettings();
 				ShowActivity2(param1, ASS_PREFIX2, "Used \"ass_room\".");
 			}
-			else if (StrEqual(g_sInfo, "None"))
+			else if (strcmp(g_sInfo, "None") == 0)
 			{
 				vEDoorControl(g_iDoorId2, false);
 				vBossSettings();
@@ -1253,32 +1253,32 @@ public int iSaferoomMenuHandler(Menu menu, MenuAction action, int param1, int pa
 			if (bHasTranslationFile())
 			{
 				menu.GetItem(param2, g_sInfo, sizeof(g_sInfo));
-				if (StrEqual(g_sInfo, "Boss"))
+				if (strcmp(g_sInfo, "Boss") == 0)
 				{
 					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "Boss", param1);
 					return RedrawMenuItem(g_sMenuOption);
 				}
-				if (StrEqual(g_sInfo, "Filter"))
+				if (strcmp(g_sInfo, "Filter") == 0)
 				{
 					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "Filter", param1);
 					return RedrawMenuItem(g_sMenuOption);
 				}
-				if (StrEqual(g_sInfo, "Group"))
+				if (strcmp(g_sInfo, "Group") == 0)
 				{
 					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "Group", param1);
 					return RedrawMenuItem(g_sMenuOption);
 				}
-				if (StrEqual(g_sInfo, "Keyman"))
+				if (strcmp(g_sInfo, "Keyman") == 0)
 				{
 					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "Keyman", param1);
 					return RedrawMenuItem(g_sMenuOption);
 				}
-				if (StrEqual(g_sInfo, "Lockdown"))
+				if (strcmp(g_sInfo, "Lockdown") == 0)
 				{
 					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "Lockdown", param1);
 					return RedrawMenuItem(g_sMenuOption);
 				}
-				if (StrEqual(g_sInfo, "None"))
+				if (strcmp(g_sInfo, "None") == 0)
 				{
 					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "None", param1);
 					return RedrawMenuItem(g_sMenuOption);
@@ -1343,7 +1343,7 @@ public int iBFGKLVoteMenuHandler(Menu menu, MenuAction action, int param1, int p
 				}
 			}
 			menu.GetItem(param1, g_sInfo, sizeof(g_sInfo));
-			if (StrEqual(g_sInfo, "Boss"))
+			if (strcmp(g_sInfo, "Boss") == 0)
 			{
 				g_bBFGKLVoted = true;
 				if (StrContains(g_sSaferoomOption, "b", false) != -1)
@@ -1369,7 +1369,7 @@ public int iBFGKLVoteMenuHandler(Menu menu, MenuAction action, int param1, int p
 					}
 				}
 			}
-			else if (StrEqual(g_sInfo, "Filter"))
+			else if (strcmp(g_sInfo, "Filter") == 0)
 			{
 				g_bBFGKLVoted = true;
 				if (StrContains(g_sSaferoomOption, "f", false) != -1)
@@ -1395,7 +1395,7 @@ public int iBFGKLVoteMenuHandler(Menu menu, MenuAction action, int param1, int p
 					}
 				}
 			}
-			else if (StrEqual(g_sInfo, "Group"))
+			else if (strcmp(g_sInfo, "Group") == 0)
 			{
 				g_bBFGKLVoted = true;
 				if (StrContains(g_sSaferoomOption, "g", false) != -1)
@@ -1421,7 +1421,7 @@ public int iBFGKLVoteMenuHandler(Menu menu, MenuAction action, int param1, int p
 					}
 				}
 			}
-			else if (StrEqual(g_sInfo, "Keyman"))
+			else if (strcmp(g_sInfo, "Keyman") == 0)
 			{
 				g_bBFGKLVoted = true;
 				if (StrContains(g_sSaferoomOption, "k", false) != -1)
@@ -1447,7 +1447,7 @@ public int iBFGKLVoteMenuHandler(Menu menu, MenuAction action, int param1, int p
 					}
 				}
 			}
-			else if (StrEqual(g_sInfo, "Lockdown"))
+			else if (strcmp(g_sInfo, "Lockdown") == 0)
 			{
 				g_bBFGKLVoted = true;
 				if (StrContains(g_sSaferoomOption, "l", false) != -1 && StrContains(g_sLockdownType, "2", false) != -1)
@@ -1473,7 +1473,7 @@ public int iBFGKLVoteMenuHandler(Menu menu, MenuAction action, int param1, int p
 					}
 				}
 			}
-			else if (StrEqual(g_sInfo, "None"))
+			else if (strcmp(g_sInfo, "None") == 0)
 			{
 				g_bBFGKLVoted = true;
 				g_cvASSSaferoomEntryMode.BoolValue ? vNoneOption(g_iDoorId2, true) : vEntryCommand();
@@ -1500,32 +1500,32 @@ public int iBFGKLVoteMenuHandler(Menu menu, MenuAction action, int param1, int p
 			if (bHasTranslationFile())
 			{
 				menu.GetItem(param2, g_sInfo, sizeof(g_sInfo));
-				if (StrEqual(g_sInfo, "Boss"))
+				if (strcmp(g_sInfo, "Boss") == 0)
 				{
 					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "Boss", param1);
 					return RedrawMenuItem(g_sMenuOption);
 				}
-				if (StrEqual(g_sInfo, "Filter"))
+				if (strcmp(g_sInfo, "Filter") == 0)
 				{
 					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "Filter", param1);
 					return RedrawMenuItem(g_sMenuOption);
 				}
-				if (StrEqual(g_sInfo, "Group"))
+				if (strcmp(g_sInfo, "Group") == 0)
 				{
 					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "Group", param1);
 					return RedrawMenuItem(g_sMenuOption);
 				}
-				if (StrEqual(g_sInfo, "Keyman"))
+				if (strcmp(g_sInfo, "Keyman") == 0)
 				{
 					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "Keyman", param1);
 					return RedrawMenuItem(g_sMenuOption);
 				}
-				if (StrEqual(g_sInfo, "Lockdown"))
+				if (strcmp(g_sInfo, "Lockdown") == 0)
 				{
 					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "Lockdown", param1);
 					return RedrawMenuItem(g_sMenuOption);
 				}
-				if (StrEqual(g_sInfo, "None"))
+				if (strcmp(g_sInfo, "None") == 0)
 				{
 					Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "None", param1);
 					return RedrawMenuItem(g_sMenuOption);
@@ -1586,7 +1586,7 @@ public int iLockdownMenuHandler(Menu menu, MenuAction action, int param1, int pa
 				}
 			}
 			menu.GetItem(param1, g_sInfo, sizeof(g_sInfo));
-			if (StrEqual(g_sInfo, "Yes"))
+			if (strcmp(g_sInfo, "Yes") == 0)
 			{
 				g_bLockdownVoted = true;
 				if (StrContains(g_sSaferoomOption, "l", false) != -1 && StrContains(g_sLockdownType, "1", false) != -1)
@@ -1612,7 +1612,7 @@ public int iLockdownMenuHandler(Menu menu, MenuAction action, int param1, int pa
 					}
 				}
 			}
-			else if (StrEqual(g_sInfo, "No"))
+			else if (strcmp(g_sInfo, "No") == 0)
 			{
 				g_bLockdownVoted = true;
 				for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer++)
@@ -1637,12 +1637,12 @@ public int iLockdownMenuHandler(Menu menu, MenuAction action, int param1, int pa
 		case MenuAction_DisplayItem:
 		{
 			menu.GetItem(param2, g_sInfo, sizeof(g_sInfo));
-			if (StrEqual(g_sInfo, "Yes"))
+			if (strcmp(g_sInfo, "Yes") == 0)
 			{
 				Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "Yes", param1);
 				return RedrawMenuItem(g_sMenuOption);
 			}
-			if (StrEqual(g_sInfo, "No"))
+			if (strcmp(g_sInfo, "No") == 0)
 			{
 				Format(g_sMenuOption, sizeof(g_sMenuOption), "%T", "No", param1);
 				return RedrawMenuItem(g_sMenuOption);

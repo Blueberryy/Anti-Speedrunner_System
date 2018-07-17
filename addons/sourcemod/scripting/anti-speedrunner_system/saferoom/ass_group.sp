@@ -30,7 +30,7 @@ void vGroupSettings()
 
 void vGroupOption(int client, int entity)
 {
-	if (bIsSystemValid(g_cvASSGameMode, g_cvASSEnabledGameModes, g_cvASSDisabledGameModes) && bIsSystemValid(g_cvASSGameMode, g_cvASSSaferoomEnabledGameModes, g_cvASSSaferoomDisabledGameModes))
+	if (g_bPluginEnabled && g_bPluginEnabled2)
 	{
 		int iGroup = g_iClosestGroup[client];
 		int iGroupCount = g_cvASSGroupSurvivorCount.IntValue;
@@ -42,7 +42,7 @@ void vGroupOption(int client, int entity)
 		}
 		if (iGroup < iGroupCount)
 		{
-			EmitSoundToAll("doors/latchlocked2.wav", entity);
+			EmitSoundToAll(SOUND_LOCKED, entity);
 			if (bIsHumanSurvivor(client))
 			{
 				bHasTranslationFile() ? PrintToChat(client, "%s %t", ASS_PREFIX01, "GroupRequired", iGroupCount) : PrintToChat(client, "%s We need at least %d nearby survivors to operate the saferoom door!", ASS_PREFIX01, iGroupCount);
