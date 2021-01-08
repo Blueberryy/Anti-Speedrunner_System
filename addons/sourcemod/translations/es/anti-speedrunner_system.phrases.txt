@@ -1,0 +1,903 @@
+﻿"Phrases"
+{
+	"NotL4D2"
+	{
+		"es"		"Disponible solo en Left 4 Dead 2."
+	}
+	"TankAlive"
+	{
+		"es"		"Hay un Tanque vivo."
+	}
+	"CommandOff"
+	{
+		"es"		"Este comando está deshabilitado."
+	}
+	"InGame"
+	{
+		"es"		"Este comando debe usarse solo en el juego."
+	}
+	"MapModeNotSupported"
+	{
+		"es"		"Mapa o modo de juego no admitido."
+	}
+	"WrongTeam"
+	{
+		"es"		"Debe estar en el equipo de sobrevivientes para usar este comando."
+	}
+	"ASSOff"
+	{
+		"es"		"El Sistema Anti-Speedrunner está deshabilitado."
+	}
+	"AdminImmune"
+	{
+		"es"		"{1} es inmune."
+	}
+	"AdminNotImmune"
+	{
+		"es"		"{1} ya no es inmune."
+	}
+	"AcidSignature"
+	{
+		"es"		"Su firma \"CSpitterProjectile_Create\" está desactualizada."
+	}
+	"AcidInform"
+	{
+		"es"		"¡Estás siendo escupido!"
+	}
+	"AcidAnnounce"
+	{
+		"es"		"¡{1} está siendo escupido!"
+	}
+	"AcidNoInform"
+	{
+		"es"		"¡Ya no te escupirán!"
+	}
+	"AcidNoAnnounce"
+	{
+		"es"		"¡{1} ya no se escupió!"
+	}
+	"AmmoInform"
+	{
+		"es"		"¡Estás perdiendo toda tu munición!"
+	}
+	"AmmoAnnounce"
+	{
+		"es"		"{1} está perdiendo toda su munición!"
+	}
+	"AmmoNoInform"
+	{
+		"es"		"¡Ya no estás perdiendo toda tu munición!"
+	}
+	"AmmoNoAnnounce"
+	{
+		"es"		"¡{1} ya no está perdiendo todas sus municiones!"
+	}
+	"BlindInform"
+	{
+		"es"		"¡Estas ciego!"
+	}
+	"BlindAnnounce"
+	{
+		"es"		"{1} está ciego!"
+	}
+	"BlindNoInform"
+	{
+		"es"		"¡Ya no estás ciego!"
+	}
+	"BlindNoAnnounce"
+	{
+		"es"		"¡{1} ya no está ciego!"
+	}
+	"BossOff"
+	{
+		"es"		"Jefe deshabilitado."
+	}
+	"BossRequired"
+	{
+		"es"		"¡Necesitamos derrotar al jefe!"
+	}
+	"BossDefeated"
+	{
+		"es"		"¡El jefe ha sido derrotado!"
+	}
+	"ChargeSignature"
+	{
+		"es"		"Su firma \"CTerrorPlayer_Fling\" está desactualizada."
+	}
+	"ChargeInform"
+	{
+		"es"		"¡Le están cargando!"
+	}
+	"ChargeAnnounce"
+	{
+		"es"		"¡{1} está siendo acusado!"
+	}
+	"ChargeNoInform"
+	{
+		"es"		"¡Ya no te cobraremos!"
+	}
+	"ChargeNoAnnounce"
+	{
+		"es"		"¡{1} ya no se le cobra!"
+	}
+	"ChaseInform"
+	{
+		"es"		"¡A {1} está detrás de ti ahora!"
+	}
+	"ChaseAnnounce"
+	{
+		"es"		"¡{1} está siendo perseguido por un {2}!"
+	}
+	"ConfigHeader"
+	{
+		"es"		"// Este archivo de configuración fue generado automáticamente por el Sistema Anti-Speedrunner v{1} ({2})"
+	}
+	"Difficulty"
+	{
+		"es"		"Dificultad"
+	}
+	"Map"
+	{
+		"es"		"Mapa"
+	}
+	"GameMode"
+	{
+		"es"		"Modo de juego"
+	}
+	"Daily"
+	{
+		"es"		"Diario"
+	}
+	"PlayerCount"
+	{
+		"es"		"Recuento de jugadores"
+	}
+	"Create"
+	{
+		"es"		"Crear"
+	}
+	"Execute"
+	{
+		"es"		"Ejecutar"
+	}
+	"NoDifficulty"
+	{
+		"es"		"No se encontró convar \"z_difficulty\"."
+	}
+	"ConfigSaved"
+	{
+		"es"		"Guardado {1}.cfg en {2}."
+	}
+	"ConfigExists"
+	{
+		"es"		"{1}.cfg ya se encontró en {2}."
+	}
+	"ConfigExecuted"
+	{
+		"es"		"Ejecutado {1}.cfg desde {2}."
+	}
+	"ConfigNotFound"
+	{
+		"es"		"{1}.cfg no encontrado en {2}."
+	}
+	"DisarmInform"
+	{
+		"es"		"¡Estás siendo desarmado!"
+	}
+	"DisarmAnnounce"
+	{
+		"es"		"¡{1} fue desarmado!"
+	}
+	"DisarmNoInform"
+	{
+		"es"		"¡Ya no estás siendo desarmado!"
+	}
+	"DisarmNoAnnounce"
+	{
+		"es"		"¡{1} ya no está siendo desarmado!"
+	}
+	"DrugInform"
+	{
+		"es"		"¡Estás drogado!"
+	}
+	"DrugAnnounce"
+	{
+		"es"		"¡{1} está drogado!"
+	}
+	"DrugNoInform"
+	{
+		"es"		"¡Ya no estás drogado!"
+	}
+	"DrugNoAnnounce"
+	{
+		"es"		"¡{1} ya no está drogado!"
+	}
+	"KickAnnounce"
+	{
+		"es"		"¡{1} fue expulsado del servidor!"
+	}
+	"BanAnnounce"
+	{
+		"es"		"¡{1} fue prohibido durante {2} minutos!"
+	}
+	"ExplodeInform"
+	{
+		"es"		"¡Fuiste atrapado en una explosión!"
+	}
+	"ExplodeAnnounce"
+	{
+		"es"		"¡{1} fue atrapado en una explosión!"
+	}
+	"FilterOff"
+	{
+		"es"		"Filtro deshabilitado."
+	}
+	"FilteredOut"
+	{
+		"es"		"¡Tienes {1}/{2} golpes y no puedes abrir la puerta!"
+	}
+	"NoFilter"
+	{
+		"es"		"¡{1} tiene {2}/{3} golpes y ¡abrió la puerta!"
+	}
+	"FireInform"
+	{
+		"es"		"¡Estás a fuego!"
+	}
+	"FireAnnounce"
+	{
+		"es"		"¡{1} está en fuego!"
+	}
+	"FireNoInform"
+	{
+		"es"		"¡Ya no estás en llamas!"
+	}
+	"FireNoAnnounce"
+	{
+		"es"		"¡{1} ya no está en llamas!"
+	}
+	"FreezeInform"
+	{
+		"es"		"¡Estás congelado!"
+	}
+	"FreezeAnnounce"
+	{
+		"es"		"¡{1} está congelado!"
+	}
+	"FreezeNoInform"
+	{
+		"es"		"¡Ya no estás congelado!"
+	}
+	"FreezeNoAnnounce"
+	{
+		"es"		"¡{1} ya no está congelado!"
+	}
+	"GroupOff"
+	{
+		"es"		"Grupo deshabilitado."
+	}
+	"GroupRequired"
+	{
+		"es"		"¡We need at least{1} nearby survivors to operate the saferoom door!"
+	}
+	"GroupEnough"
+	{
+		"es"		"¡El poder de la amistad abrió la puerta de seguridad!"
+	}
+	"HealSignature"
+	{
+		"es"		"Su firma \"CTerrorPlayer_SetHealthBuffer\" está desactualizada."
+	}
+	"HealSignature2"
+	{
+		"es"		"Su firma \"CTerrorPlayer_OnRevived\" está desactualizada."
+	}
+	"HealInform"
+	{
+		"es"		"¡Tienes salud temporal!"
+	}
+	"HealAnnounce"
+	{
+		"es"		"¡{1} tiene salud temporal!"
+	}
+	"HurtInform"
+	{
+		"es"		"¡Estás perdiendo salud!"
+	}
+	"HurtAnnounce"
+	{
+		"es"		"¡{1} está perdiendo salud!"
+	}
+	"HurtNoInform"
+	{
+		"es"		"¡Ya no estás perdiendo la salud!"
+	}
+	"HurtNoAnnounce"
+	{
+		"es"		"¡{1} ya no está perdiendo la salud!"
+	}
+	"IdleSignature"
+	{
+		"es"		"Su firma \"CTerrorPlayer::GoAwayFromKeyboard\" está desactualizada."
+	}
+	"IdleSignature2"
+	{
+		"es"		"Su firma \"SetHumanSpec\" está desactualizada."
+	}
+	"IdleInform"
+	{
+		"es"		"¡Ahora estás inactivo!"
+	}
+	"IdleAnnounce"
+	{
+		"es"		"{1} ahora está inactivo!"
+	}
+	"IncapInform"
+	{
+		"es"		"¡Estás incapacitado!"
+	}
+	"IncapAnnounce"
+	{
+		"es"		"¡{1} está incapacitado!"
+	}
+	"InvertInform"
+	{
+		"es"		"¡Tus teclas de movimiento están invertidas!"
+	}
+	"InvertAnnounce"
+	{
+		"es"		"¡Las teclas de movimiento de {1} están invertidas!"
+	}
+	"InvertNoInform"
+	{
+		"es"		"¡Tus teclas de movimiento ya no están invertidas!"
+	}
+	"InvertNoAnnounce"
+	{
+		"es"		"¡Las teclas de movimiento de {1} ya no están invertidas!"
+	}
+	"KeymanOff"
+	{
+		"es"		"Hombre Clave deshabilitado."
+	}
+	"PlayerLeftSafeArea"
+	{
+		"es"		"¡El jugador {1} salió de la zona segura!"
+	}
+	"BOTLeftSafeArea"
+	{
+		"es"		"¡El BOT {1} salió de la zona segura!"
+	}
+	"KeymanDisconnected"
+	{
+		"es"		"¡A Hombre Clave desconectado! Seleccionando nuevo Hombre Clave..."
+	}
+	"KeymanIncapacitated"
+	{
+		"es"		"¡A Hombre Clave está incapacitado! Seleccionando nuevo Hombre Clave..."
+	}
+	"KeymanDead"
+	{
+		"es"		"¡A Hombre Clave está muerto! Seleccionando nuevo Hombre Clave..."
+	}
+	"KeymanReset"
+	{
+		"es"		"Restableciendo Hombres Clave..."
+	}
+	"KeymanTeam"
+	{
+		"es"		"¡A Hombre Clave ha cambiado su equipo! Seleccionando nuevo Hombre Clave..."
+	}
+	"KeymanCountdown"
+	{
+		"es"		"Seleccionar nuevo Hombres Clave en {1}."
+	}
+	"KeymanSelect"
+	{
+		"es"		"Seleccionando nuevo Hombres Clave..."
+	}
+	"KeymanChosen"
+	{
+		"es"		"{1} es un Hombre Clave."
+	}
+	"KeymanNotChosen"
+	{
+		"es"		"A Hombre Clave no fue elegido."
+	}
+	"KeymanSame"
+	{
+		"es"		"{1} sigue siendo un Hombre Clave."
+	}
+	"NotKeyman"
+	{
+		"es"		"{1} ya no es un Hombre Clave."
+	}
+	"KeymanEnough"
+	{
+		"es"		"Ya hay {1}/{2} Hombres Clave para este mapa."
+	}
+	"KeymanInvalid"
+	{
+		"es"		"¡Hombre Clave inválido! Seleccionando nuevo Keyman..."
+	}
+	"KeymanDeny"
+	{
+		"es"		"¡Solo Hombres Clave puede abrir la puerta de seguridad!"
+	}
+	"KeymanArrived"
+	{
+		"es"		"El Hombre Clave {1} llegó al saferoom!"
+	}
+	"KeymanInform"
+	{
+		"es"		"¡Eres un Hombre Clave!"
+	}
+	"LockdownOff"
+	{
+		"es"		"Bloqueo deshabilitado."
+	}
+	"WaitLockdown"
+	{
+		"es"		"¡Espere a que finalice el encierro!"
+	}
+	"LockdownEnds"
+	{
+		"es"		"¡El cierre ha terminado y la puerta de saferoom se ha abierto!"
+	}
+	"LockdownCountdown"
+	{
+		"es"		"El bloqueo finaliza en {1}."
+	}
+	"Acid"
+	{
+		"es"		"Acidez"
+	}
+	"Ammo"
+	{
+		"es"		"Munición"
+	}
+	"Ban"
+	{
+		"es"		"Destierro"
+	}
+	"Blind"
+	{
+		"es"		"Ceguera"
+	}
+	"Charge"
+	{
+		"es"		"Cargar"
+	}
+	"Chase"
+	{
+		"es"		"Persecución"
+	}
+	"Check"
+	{
+		"es"		"Comprobar"
+	}
+	"Config"
+	{
+		"es"		"Configuración"
+	}
+	"Disarm"
+	{
+		"es"		"Desarmamiento"
+	}
+	"Door"
+	{
+		"es"		"Puerta"
+	}
+	"Drug"
+	{
+		"es"		"Droga"
+	}
+	"Entry"
+	{
+		"es"		"Entrada"
+	}
+	"Exile"
+	{
+		"es"		"Exilio"
+	}
+	"Explode"
+	{
+		"es"		"Explosión"
+	}
+	"Fire"
+	{
+		"es"		"Fuego"
+	}
+	"Freeze"
+	{
+		"es"		"Congelar"
+	}
+	"Heal"
+	{
+		"es"		"Salud"
+	}
+	"Hurt"
+	{
+		"es"		"Herir"
+	}
+	"Idle"
+	{
+		"es"		"Ocioso"
+	}
+	"Incap"
+	{
+		"es"		"Incapacitación"
+	}
+	"Invert"
+	{
+		"es"		"Inversión"
+	}
+	"Kick"
+	{
+		"es"		"Patada"
+	}
+	"Mirror"
+	{
+		"es"		"Espejo"
+	}
+	"Null"
+	{
+		"es"		"Nulo"
+	}
+	"Puke"
+	{
+		"es"		"Vómito"
+	}
+	"Restart"
+	{
+		"es"		"Reiniciar"
+	}
+	"Rocket"
+	{
+		"es"		"Cohete"
+	}
+	"Saferoom"
+	{
+		"es"		"Cuarto seguro"
+	}
+	"Shake"
+	{
+		"es"		"Sacudir"
+	}
+	"Shock"
+	{
+		"es"		"Choque"
+	}
+	"Shove"
+	{
+		"es"		"Empujón"
+	}
+	"Slow"
+	{
+		"es"		"Lento"
+	}
+	"Strike"
+	{
+		"es"		"Huelga"
+	}
+	"Vision"
+	{
+		"es"		"Visión"
+	}
+	"Warp"
+	{
+		"es"		"Teleportar"
+	}
+	"NobodyVoted"
+	{
+		"es"		"{1}/{2} votado."
+	}
+	"NoVotes"
+	{
+		"es"		"Solo {1}/{2} jugadores votados."
+	}
+	"VotedYes"
+	{
+		"es"		"{1}/{2} votó Sí."
+	}
+	"VotedNo"
+	{
+		"es"		"{1}/{2} votó No."
+	}
+	"VotedBoss"
+	{
+		"es"		"{1}/{2} votado por Jefe."
+	}
+	"VotedFilter"
+	{
+		"es"		"{1}/{2} votado por Filtro."
+	}
+	"VotedGroup"
+	{
+		"es"		"{1}/{2} votado por Grupo."
+	}
+	"VotedKeyman"
+	{
+		"es"		"{1}/{2} votado por Hombre Clave."
+	}
+	"VotedLockdown"
+	{
+		"es"		"{1}/{2} votado por Bloqueo."
+	}
+	"VotedNone"
+	{
+		"es"		"{1}/{2} votaron por Ninguna."
+	}
+	"ChooseConfigMode"
+	{
+		"es"		"Elija un modo de configuración:"
+	}
+	"ChooseConfigType"
+	{
+		"es"		"Elija un tipo de configuración:"
+	}
+	"ChoosePlayer"
+	{
+		"es"		"Elige un jugador:"
+	}
+	"ChooseExileMode"
+	{
+		"es"		"Elige un modo de exilio:"
+	}
+	"ChooseOption"
+	{
+		"es"		"¿Qué método de entrada prefieres?"
+	}
+	"InitiateLockdown"
+	{
+		"es"		"¿Iniciar un encierro?"
+	}
+	"Boss"
+	{
+		"es"		"Jefe"
+	}
+	"Filter"
+	{
+		"es"		"Filtro"
+	}
+	"Group"
+	{
+		"es"		"Grupo"
+	}
+	"Keyman"
+	{
+		"es"		"Hombre Clave"
+	}
+	"Lockdown"
+	{
+		"es"		"Bloqueo"
+	}
+	"None"
+	{
+		"es"		"Ninguna"
+	}
+	"MirrorInform"
+	{
+		"es"		"¡Tu daño está reflejado!"
+	}
+	"MirrorAnnounce"
+	{
+		"es"		"¡El daño de {1} se refleja!"
+	}
+	"MirrorNoInform"
+	{
+		"es"		"¡Tu daño ya no se refleja!"
+	}
+	"MirrorNoAnnounce"
+	{
+		"es"		"¡El daño de {1} ya no se refleja!"
+	}
+	"PukeSignature"
+	{
+		"es"		"Su firma \"CTerrorPlayer_OnVomitedUpon\" está desactualizada."
+	}
+	"PukeInform"
+	{
+		"es"		"¡Estás siendo vomitado!"
+	}
+	"PukeAnnounce"
+	{
+		"es"		"¡{1} está siendo vomitado!"
+	}
+	"PukeNoInform"
+	{
+		"es"		"¡Ya no te vomitan!"
+	}
+	"PukeNoAnnounce"
+	{
+		"es"		"¡{1} ya no se vomita!"
+	}
+	"RestartSignature"
+	{
+		"es"		"Su firma \"RoundRespawn\" está desactualizada."
+	}
+	"RestartInform"
+	{
+		"es"		"¡Reinició en el área segura!"
+	}
+	"RestartAnnounce"
+	{
+		"es"		"¡{1} reiniciado en el área segura!"
+	}
+	"RocketInform"
+	{
+		"es"		"¡Fuiste enviado al espacio!"
+	}
+	"RocketAnnounce"
+	{
+		"es"		"¡{1} fue enviado al espacio!"
+	}
+	"SaferoomOff"
+	{
+		"es"		"Sistema Saferoom deshabilitado."
+	}
+	"DoorOpened"
+	{
+		"es"		"¡La puerta de seguridad ha abierto!"
+	}
+	"Locked"
+	{
+		"es"		"La puerta de seguridad cerrada."
+	}
+	"Unlocked"
+	{
+		"es"		"La puerta de seguridad desbloqueada."
+	}
+	"DoorType"
+	{
+		"es"		"Tipo de puerta"
+	}
+	"StartDoor"
+	{
+		"es"		"Puerta de salida"
+	}
+	"EndDoor"
+	{
+		"es"		"Puerta final"
+	}
+	"ControlDoor"
+	{
+		"es"		"Bloquear/Desbloquear"
+	}
+	"Lock"
+	{
+		"es"		"Bloquear"
+	}
+	"Unlock"
+	{
+		"es"		"Desbloquear"
+	}
+	"EntryCountdown"
+	{
+		"es"		"Teletransportar a los sobrevivientes dentro de {1}."
+	}
+	"EntryInform"
+	{
+		"es"		"Teletransportó a todos los sobrevivientes dentro del saferoom."
+	}
+	"ShakeInform"
+	{
+		"es"		"¡Estás temblando!"
+	}
+	"ShakeAnnounce"
+	{
+		"es"		"¡{1} está temblando!"
+	}
+	"ShakeNoInform"
+	{
+		"es"		"¡Ya no estás temblando!"
+	}
+	"ShakeNoAnnounce"
+	{
+		"es"		"¡{1} ya no está temblando!"
+	}
+	"ShockInform"
+	{
+		"es"		"¡Te sorprendió y murió!"
+	}
+	"ShockAnnounce"
+	{
+		"es"		"¡{1} se sorprendió y murió!"
+	}
+	"ShoveSignature"
+	{
+		"es"		"Su firma \"CTerrorPlayer_OnStaggered\" está desactualizada."
+	}
+	"ShoveInform"
+	{
+		"es"		"¡Estás siendo empujado!"
+	}
+	"ShoveAnnounce"
+	{
+		"es"		"¡{1} está siendo empujado!"
+	}
+	"ShoveNoInform"
+	{
+		"es"		"¡Ya no te están empujando!"
+	}
+	"ShoveNoAnnounce"
+	{
+		"es"		"¡{1} ya no está siendo empujado!"
+	}
+	"SlowInform"
+	{
+		"es"		"¡Estás ralentizado!"
+	}
+	"SlowAnnounce"
+	{
+		"es"		"{1} se ralentiza!"
+	}
+	"SlowNoInform"
+	{
+		"es"		"¡Ya no te ralentizas!"
+	}
+	"SlowNoAnnounce"
+	{
+		"es"		"¡{1} no se ralentiza más!"
+	}
+	"StrikeOff"
+	{
+		"es"		"Sistema de Huelga deshabilitado."
+	}
+	"CheckInform"
+	{
+		"es"		"¡Estás siendo revisado!"
+	}
+	"CheckAnnounce"
+	{
+		"es"		"¡{1} está siendo revisado!"
+	}
+	"CheckNoInform"
+	{
+		"es"		"¡Ya no te están revisando!"
+	}
+	"CheckNoAnnounce"
+	{
+		"es"		"¡{1} ya no se verifica!"
+	}
+	"StrikeInform"
+	{
+		"es"		"Te dieron {1}/{2} golpes. ¡Quédate con tus compañeros de equipo!"
+	}
+	"StrikeAnnounce"
+	{
+		"es"		"¡{1} ha recibido {2}/{3} strikes!"
+	}
+	"Inform"
+	{
+		"es"		"¡Tienes {1}/{2} golpes y te castigarán!"
+	}
+	"Announce"
+	{
+		"es"		"¡{1} tiene {2}/{3} strikes y será castigado!"
+	}
+	"StrikeWarn"
+	{
+		"es"		"¡Quédate con tus compañeros de equipo o te darán un golpe!"
+	}
+	"StrikeWarn2"
+	{
+		"es"		"¡Quédate con tus compañeros de equipo o serás castigado!"
+	}
+	"VisionInform"
+	{
+		"es"		"¡Tu visión ha cambiado!"
+	}
+	"VisionAnnounce"
+	{
+		"es"		"¡La visión de {1} ha cambiado!"
+	}
+	"WarpInform"
+	{
+		"es"		"¡Estabas de vuelta al equipo!"
+	}
+	"WarpAnnounce"
+	{
+		"es"		"¡{1} fue retorcido al equipo!"
+	}
+}

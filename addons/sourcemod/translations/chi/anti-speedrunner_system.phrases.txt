@@ -1,0 +1,903 @@
+﻿"Phrases"
+{
+	"NotL4D2"
+	{
+		"chi"		"只适用于Left4Dead2。"
+	}
+	"TankAlive"
+	{
+		"chi"		"坦克还活着。"
+	}
+	"CommandOff"
+	{
+		"chi"		"本命令被禁用。"
+	}
+	"InGame"
+	{
+		"chi"		"这个命令只能在游戏中使用。"
+	}
+	"MapModeNotSupported"
+	{
+		"chi"		"不支持的地图或游戏模式。"
+	}
+	"WrongTeam"
+	{
+		"chi"		"您必须在幸存者队伍中使用此命令。"
+	}
+	"ASSOff"
+	{
+		"chi"		"该防跑图系统是禁用的。"
+	}
+	"AdminImmune"
+	{
+		"chi"		"{1}是免疫的。"
+	}
+	"AdminNotImmune"
+	{
+		"chi"		"{1}不再是免疫的。"
+	}
+	"AcidSignature"
+	{
+		"chi"		"你的\"CSpitterProjectile_Create\"签名已经过时了。"
+	}
+	"AcidInform"
+	{
+		"chi"		"你正在吐口水！"
+	}
+	"AcidAnnounce"
+	{
+		"chi"		"{1}正在被唾弃！"
+	}
+	"AcidNoInform"
+	{
+		"chi"		"你不再被唾弃了！"
+	}
+	"AcidNoAnnounce"
+	{
+		"chi"		"{1}不再被唾弃！"
+	}
+	"AmmoInform"
+	{
+		"chi"		"你失去了所有的弹药！"
+	}
+	"AmmoAnnounce"
+	{
+		"chi"		"{1}正在失去他们所有的弹药！"
+	}
+	"AmmoNoInform"
+	{
+		"chi"		"你不会失去所有的弹药！"
+	}
+	"AmmoNoAnnounce"
+	{
+		"chi"		"{1}不再失去他们所有的弹药了！"
+	}
+	"BlindInform"
+	{
+		"chi"		"你失明了！"
+	}
+	"BlindAnnounce"
+	{
+		"chi"		"{1}是盲目的！"
+	}
+	"BlindNoInform"
+	{
+		"chi"		"你不再失明了！"
+	}
+	"BlindNoAnnounce"
+	{
+		"chi"		"{1}不再失明！"
+	}
+	"BossOff"
+	{
+		"chi"		"主子已禁用。"
+	}
+	"BossRequired"
+	{
+		"chi"		"我们需要击败主子！"
+	}
+	"BossDefeated"
+	{
+		"chi"		"主子已被击败！"
+	}
+	"ChargeSignature"
+	{
+		"chi"		"你的\"CTerrorPlayer_Fling\"签名已经过时了。"
+	}
+	"ChargeInform"
+	{
+		"chi"		"您正在收费！"
+	}
+	"ChargeAnnounce"
+	{
+		"chi"		"{1}正在收取费用！"
+	}
+	"ChargeNoInform"
+	{
+		"chi"		"你不再被收费！"
+	}
+	"ChargeNoAnnounce"
+	{
+		"chi"		"{1}不再被收取费用！"
+	}
+	"ChaseInform"
+	{
+		"chi"		"一个{1}在您的后面！"
+	}
+	"ChaseAnnounce"
+	{
+		"chi"		"{1}正在被一个{2}追逐！"
+	}
+	"ConfigHeader"
+	{
+		"chi"		"// 此反拉什系统v{1} ({2})自动生成此配置文件"
+	}
+	"Difficulty"
+	{
+		"chi"		"困难"
+	}
+	"Map"
+	{
+		"chi"		"地图"
+	}
+	"GameMode"
+	{
+		"chi"		"游戏模式"
+	}
+	"Daily"
+	{
+		"chi"		"日常"
+	}
+	"PlayerCount"
+	{
+		"chi"		"球员数量"
+	}
+	"Create"
+	{
+		"chi"		"创建"
+	}
+	"Execute"
+	{
+		"chi"		"执行"
+	}
+	"NoDifficulty"
+	{
+		"chi"		"没有发现\"z_difficulty\"convar。"
+	}
+	"ConfigSaved"
+	{
+		"chi"		"已将{1}.cfg保存到{2}。"
+	}
+	"ConfigExists"
+	{
+		"chi"		"{1}.cfg已经在{2}中找到。"
+	}
+	"ConfigExecuted"
+	{
+		"chi"		"从{2}中执行{1}.cfg。"
+	}
+	"ConfigNotFound"
+	{
+		"chi"		"在{2}中找不到{1}.cfg。"
+	}
+	"DisarmInform"
+	{
+		"chi"		"你正在被解除武装！"
+	}
+	"DisarmAnnounce"
+	{
+		"chi"		"{1}正在被解除武装！"
+	}
+	"DisarmNoInform"
+	{
+		"chi"		"你不再被解除武装！"
+	}
+	"DisarmNoAnnounce"
+	{
+		"chi"		"{1}不再被解除武装！"
+	}
+	"DrugInform"
+	{
+		"chi"		"你被麻醉了！"
+	}
+	"DrugAnnounce"
+	{
+		"chi"		"{1}服下麻醉剂！"
+	}
+	"DrugNoInform"
+	{
+		"chi"		"你不再麻醉了！"
+	}
+	"DrugNoAnnounce"
+	{
+		"chi"		"{1}不再被麻醉了！"
+	}
+	"KickAnnounce"
+	{
+		"chi"		"{1}被踢出服务器！"
+	}
+	"BanAnnounce"
+	{
+		"chi"		"{1}被禁止游戏{2}分钟！"
+	}
+	"ExplodeInform"
+	{
+		"chi"		"你在爆炸中被困了！"
+	}
+	"ExplodeAnnounce"
+	{
+		"chi"		"{1}在爆炸中被困了！"
+	}
+	"FilterOff"
+	{
+		"chi"		"过滤器禁用。"
+	}
+	"FilteredOut"
+	{
+		"chi"		"你有{1}/{2}罢工, 不能打开门！"
+	}
+	"NoFilter"
+	{
+		"chi"		"{1}有{2}/{3}罢工, 并打开了安全的房间门！"
+	}
+	"FireInform"
+	{
+		"chi"		"你着火了！"
+	}
+	"FireAnnounce"
+	{
+		"chi"		"{1}已着火！"
+	}
+	"FireNoInform"
+	{
+		"chi"		"你不再起火了！"
+	}
+	"FireNoAnnounce"
+	{
+		"chi"		"{1}不再着火！"
+	}
+	"FreezeInform"
+	{
+		"chi"		"你被冻住了！"
+	}
+	"FreezeAnnounce"
+	{
+		"chi"		"{1}已冻结!！"
+	}
+	"FreezeNoInform"
+	{
+		"chi"		"你不再冻结！"
+	}
+	"FreezeNoAnnounce"
+	{
+		"chi"		"{1}不再被冻结！"
+	}
+	"GroupOff"
+	{
+		"chi"		"团队已禁用。"
+	}
+	"GroupRequired"
+	{
+		"chi"		"我们至少需要附近的{1}个幸存者来操作保险箱的门！"
+	}
+	"GroupEnough"
+	{
+		"chi"		"友谊的力量打开了安全室间门！"
+	}
+	"HealSignature"
+	{
+		"chi"		"你的\"CTerrorPlayer_SetHealthBuffer\"签名已经过时了。"
+	}
+	"HealSignature2"
+	{
+		"chi"		"你的\"CTerrorPlayer_OnRevived\"签名已经过时了。"
+	}
+	"HealInform"
+	{
+		"chi"		"你有临时的健康！"
+	}
+	"HealAnnounce"
+	{
+		"chi"		"{1}有临时健康！"
+	}
+	"HurtInform"
+	{
+		"chi"		"你正在失去健康！"
+	}
+	"HurtAnnounce"
+	{
+		"chi"		"{1}正在失去健康！"
+	}
+	"HurtNoInform"
+	{
+		"chi"		"你不再失去健康！"
+	}
+	"HurtNoAnnounce"
+	{
+		"chi"		"{1}不再失去健康！"
+	}
+	"IdleSignature"
+	{
+		"chi"		"你的\"CTerrorPlayer::GoAwayFromKeyboard\"签名已经过时了。"
+	}
+	"IdleSignature2"
+	{
+		"chi"		"你的\"SetHumanSpec\"签名已经过时了。"
+	}
+	"IdleInform"
+	{
+		"chi"		"你现在闲置！"
+	}
+	"IdleAnnounce"
+	{
+		"chi"		"{1}现在闲置！"
+	}
+	"IncapInform"
+	{
+		"chi"		"你丧失行动能力,已倒地！"
+	}
+	"IncapAnnounce"
+	{
+		"chi"		"{1}丧失能力倒地！"
+	}
+	"InvertInform"
+	{
+		"chi"		"你的移动键被颠倒了！"
+	}
+	"InvertAnnounce"
+	{
+		"chi"		"{1}的移动键被反转了！"
+	}
+	"InvertNoInform"
+	{
+		"chi"		"你的运动钥匙不再倒立！"
+	}
+	"InvertNoAnnounce"
+	{
+		"chi"		"{1}的移动键不会倒转！"
+	}
+	"KeymanOff"
+	{
+		"chi"		"关键人物禁用。"
+	}
+	"PlayerLeftSafeArea"
+	{
+		"chi"		"玩家{1}离开安全区！"
+	}
+	"BOTLeftSafeArea"
+	{
+		"chi"		"BOT{1}离开安全区！"
+	}
+	"KeymanDisconnected"
+	{
+		"chi"		"关键人物断开连接！ 选择新的关键人物。。。"
+	}
+	"KeymanIncapacitated"
+	{
+		"chi"		"关键人物倒地！ 选择新的关键人物。。。"
+	}
+	"KeymanDead"
+	{
+		"chi"		"关键人物死了！ 选择新的关键人物。。。"
+	}
+	"KeymanReset"
+	{
+		"chi"		"重置关键人物。。。"
+	}
+	"KeymanTeam"
+	{
+		"chi"		"关键人物已经改变了他们的队伍！ 选择新的关键人物。。。"
+	}
+	"KeymanCountdown"
+	{
+		"chi"		"选择新的关键人物{1}。"
+	}
+	"KeymanSelect"
+	{
+		"chi"		"选择新的关键人物。。。"
+	}
+	"KeymanChosen"
+	{
+		"chi"		"{1}是一个关键人物。"
+	}
+	"KeymanNotChosen"
+	{
+		"chi"		"关键人物没有被选中。"
+	}
+	"KeymanSame"
+	{
+		"chi"		"{1}仍然是一个关键人物。"
+	}
+	"NotKeyman"
+	{
+		"chi"		"{1}不再是关键人物。"
+	}
+	"KeymanEnough"
+	{
+		"chi"		"此地图已有{1}/{2}个关键人物。"
+	}
+	"KeymanInvalid"
+	{
+		"chi"		"无效的关键人物!选择新的钥匙人物。。。"
+	}
+	"KeymanDeny"
+	{
+		"chi"		"只有关键人物才能打开安全门！"
+	}
+	"KeymanArrived"
+	{
+		"chi"		"关键人物{1}到达了安全室！"
+	}
+	"KeymanInform"
+	{
+		"chi"		"你是关键人物！"
+	}
+	"LockdownOff"
+	{
+		"chi"		"锁定禁用。"
+	}
+	"WaitLockdown"
+	{
+		"chi"		"等待锁定结束！"
+	}
+	"LockdownEnds"
+	{
+		"chi"		"锁定已经结束，安全室的门已经打开了！"
+	}
+	"LockdownCountdown"
+	{
+		"chi"		"锁定在{1}结束。"
+	}
+	"Acid"
+	{
+		"chi"		"酸性"
+	}
+	"Ammo"
+	{
+		"chi"		"弹药"
+	}
+	"Ban"
+	{
+		"chi"		"驱逐"
+	}
+	"Blind"
+	{
+		"chi"		"失明"
+	}
+	"Charge"
+	{
+		"chi"		"冲锋"
+	}
+	"Chase"
+	{
+		"chi"		"追逐"
+	}
+	"Check"
+	{
+		"chi"		"检查"
+	}
+	"Config"
+	{
+		"chi"		"组态"
+	}
+	"Disarm"
+	{
+		"chi"		"解除武装"
+	}
+	"Door"
+	{
+		"chi"		"安全门"
+	}
+	"Drug"
+	{
+		"chi"		"麻醉"
+	}
+	"Entry"
+	{
+		"chi"		"条目"
+	}
+	"Exile"
+	{
+		"chi"		"流亡"
+	}
+	"Explode"
+	{
+		"chi"		"爆炸"
+	}
+	"Fire"
+	{
+		"chi"		"着火"
+	}
+	"Freeze"
+	{
+		"chi"		"冻结"
+	}
+	"Heal"
+	{
+		"chi"		"健康"
+	}
+	"Hurt"
+	{
+		"chi"		"伤害"
+	}
+	"Idle"
+	{
+		"chi"		"闲"
+	}
+	"Incap"
+	{
+		"chi"		"倒地"
+	}
+	"Invert"
+	{
+		"chi"		"倒置"
+	}
+	"Kick"
+	{
+		"chi"		"踢出"
+	}
+	"Mirror"
+	{
+		"chi"		"镜子"
+	}
+	"Null"
+	{
+		"chi"		"无效"
+	}
+	"Puke"
+	{
+		"chi"		"呕吐"
+	}
+	"Restart"
+	{
+		"chi"		"重新开始"
+	}
+	"Rocket"
+	{
+		"chi"		"火箭"
+	}
+	"Saferoom"
+	{
+		"chi"		"安全室"
+	}
+	"Shake"
+	{
+		"chi"		"发抖"
+	}
+	"Shock"
+	{
+		"chi"		"冲击"
+	}
+	"Shove"
+	{
+		"chi"		"推"
+	}
+	"Slow"
+	{
+		"chi"		"慢行"
+	}
+	"Strike"
+	{
+		"chi"		"撞击"
+	}
+	"Vision"
+	{
+		"chi"		"视力"
+	}
+	"Warp"
+	{
+		"chi"		"遣返"
+	}
+	"NobodyVoted"
+	{
+		"chi"		"{1}/{2}投票。"
+	}
+	"NoVotes"
+	{
+		"chi"		"只有{1}/{2}的玩家投票。"
+	}
+	"VotedYes"
+	{
+		"chi"		"{1}/{2}投了赞同票。"
+	}
+	"VotedNo"
+	{
+		"chi"		"{1}/{2}投了反对票。"
+	}
+	"VotedBoss"
+	{
+		"chi"		"{1}/{2}投票给主子。"
+	}
+	"VotedFilter"
+	{
+		"chi"		"{1}/{2}投票支持过滤。"
+	}
+	"VotedGroup"
+	{
+		"chi"		"{1}/{2}投票给队伍。"
+	}
+	"VotedKeyman"
+	{
+		"chi"		"{1}/{2}投票给了关键人物。"
+	}
+	"VotedLockdown"
+	{
+		"chi"		"{1}/{2}投票赞成锁定。"
+	}
+	"VotedNone"
+	{
+		"chi"		"{1}/{2}投给没有。"
+	}
+	"ChooseConfigMode"
+	{
+		"chi"		"选择一种配置模式："
+	}
+	"ChooseConfigType"
+	{
+		"chi"		"选择一种配置类型："
+	}
+	"ChoosePlayer"
+	{
+		"chi"		"选择一个玩家:"
+	}
+	"ChooseExileMode"
+	{
+		"chi"		"选择流放模式："
+	}
+	"ChooseOption"
+	{
+		"chi"		"您喜欢哪种录入方法?"
+	}
+	"InitiateLockdown"
+	{
+		"chi"		"开始锁定？"
+	}
+	"Boss"
+	{
+		"chi"		"主子"
+	}
+	"Filter"
+	{
+		"chi"		"过滤"
+	}
+	"Group"
+	{
+		"chi"		"队伍"
+	}
+	"Keyman"
+	{
+		"chi"		"关键人物"
+	}
+	"Lockdown"
+	{
+		"chi"		"锁定"
+	}
+	"None"
+	{
+		"chi"		"没有"
+	}
+	"MirrorInform"
+	{
+		"chi"		"你的伤害是镜像的！"
+	}
+	"MirrorAnnounce"
+	{
+		"chi"		"{1}的伤害是镜像的！"
+	}
+	"MirrorNoInform"
+	{
+		"chi"		"你的伤害不再被镜像！"
+	}
+	"MirrorNoAnnounce"
+	{
+		"chi"		"{1}的伤害不再被镜像！"
+	}
+	"PukeSignature"
+	{
+		"chi"		"你的\"CTerrorPlayer_OnVomitedUpon\"签名已经过时了。"
+	}
+	"PukeInform"
+	{
+		"chi"		"你正在被呕吐！"
+	}
+	"PukeAnnounce"
+	{
+		"chi"		"{1}正在呕吐！"
+	}
+	"PukeNoInform"
+	{
+		"chi"		"你不再被呕吐了！"
+	}
+	"PukeNoAnnounce"
+	{
+		"chi"		"{1}不再被呕吐！"
+	}
+	"RestartSignature"
+	{
+		"chi"		"你的\"RoundRespawn\"签名已经过时了。"
+	}
+	"RestartInform"
+	{
+		"chi"		"你在安全区域重新开始！"
+	}
+	"RestartAnnounce"
+	{
+		"chi"		"{1}在安全区重新启动！"
+	}
+	"RocketInform"
+	{
+		"chi"		"你被送进了太空！"
+	}
+	"RocketAnnounce"
+	{
+		"chi"		"{1}被送入太空！"
+	}
+	"SaferoomOff"
+	{
+		"chi"		"更新Saferoom系统。"
+	}
+	"DoorOpened"
+	{
+		"chi"		"安全门打开了！"
+	}
+	"Locked"
+	{
+		"chi"		"安全门锁定。"
+	}
+	"Unlocked"
+	{
+		"chi"		"安全门解锁。"
+	}
+	"DoorType"
+	{
+		"chi"		"门类型"
+	}
+	"StartDoor"
+	{
+		"chi"		"开始"
+	}
+	"EndDoor"
+	{
+		"chi"		"结束门"
+	}
+	"ControlDoor"
+	{
+		"chi"		"锁定/解锁"
+	}
+	"Lock"
+	{
+		"chi"		"锁定"
+	}
+	"Unlock"
+	{
+		"chi"		"解锁"
+	}
+	"EntryCountdown"
+	{
+		"chi"		"在{1}中翘曲幸存者。"
+	}
+	"EntryInform"
+	{
+		"chi"		"把所有幸存者都甩在了安全室内。"
+	}
+	"ShakeInform"
+	{
+		"chi"		"你在发抖！"
+	}
+	"ShakeAnnounce"
+	{
+		"chi"		"{1}在颤抖！"
+	}
+	"ShakeNoInform"
+	{
+		"chi"		"你不再动摇了！"
+	}
+	"ShakeNoAnnounce"
+	{
+		"chi"		"{1}不再动摇了！"
+	}
+	"ShockInform"
+	{
+		"chi"		"你被吓死了！"
+	}
+	"ShockAnnounce"
+	{
+		"chi"		"{1}感到害怕和死亡！"
+	}
+	"ShoveSignature"
+	{
+		"chi"		"你的\"CTerrorPlayer_OnStaggered\"签名已经过时了。"
+	}
+	"ShoveInform"
+	{
+		"chi"		"你正在被推！"
+	}
+	"ShoveAnnounce"
+	{
+		"chi"		"{1}正在被推！"
+	}
+	"ShoveNoInform"
+	{
+		"chi"		"你不再被推动！"
+	}
+	"ShoveNoAnnounce"
+	{
+		"chi"		"{1}不再被推动！"
+	}
+	"SlowInform"
+	{
+		"chi"		"你放慢了速度！"
+	}
+	"SlowAnnounce"
+	{
+		"chi"		"{1}放慢速度！"
+	}
+	"SlowNoInform"
+	{
+		"chi"		"你不再减速！"
+	}
+	"SlowNoAnnounce"
+	{
+		"chi"		"{1}不再变慢！"
+	}
+	"StrikeOff"
+	{
+		"chi"		"罢工系统被禁用。"
+	}
+	"CheckInform"
+	{
+		"chi"		"你正在检查！"
+	}
+	"CheckAnnounce"
+	{
+		"chi"		"正在检查{1}！"
+	}
+	"CheckNoInform"
+	{
+		"chi"		"你不再被检查！"
+	}
+	"CheckNoAnnounce"
+	{
+		"chi"		"{1}不再被检查！"
+	}
+	"StrikeInform"
+	{
+		"chi"		"你被{1}/{2}打击。 和你的队友在一起！"
+	}
+	"StrikeAnnounce"
+	{
+		"chi"		"{1}已得到{2}/{3}打击！"
+	}
+	"Inform"
+	{
+		"chi"		"您有{1}/{2}攻击，将会受到惩罚！"
+	}
+	"Announce"
+	{
+		"chi"		"{1}有{2}/{3}攻击将会受到惩罚！"
+	}
+	"StrikeWarn"
+	{
+		"chi"		"和你的队友呆在一起，否则你会受到打击！"
+	}
+	"StrikeWarn2"
+	{
+		"chi"		"和你的队友呆在一起，否则你会受到惩罚！"
+	}
+	"VisionInform"
+	{
+		"chi"		"你的视力已经改变了！"
+	}
+	"VisionAnnounce"
+	{
+		"chi"		"{1}的视力被改变！"
+	}
+	"WarpInform"
+	{
+		"chi"		"你被遣返回到这个队伍！"
+	}
+	"WarpAnnounce"
+	{
+		"chi"		"{1}被遣返回到这个队伍！"
+	}
+}

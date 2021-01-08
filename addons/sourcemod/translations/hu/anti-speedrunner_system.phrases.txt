@@ -1,0 +1,903 @@
+﻿"Phrases"
+{
+	"NotL4D2"
+	{
+		"hu"		"Csak a Left 4 Dead 2-ben érhető el."
+	}
+	"TankAlive"
+	{
+		"hu"		"A Tank még életben van."
+	}
+	"CommandOff"
+	{
+		"hu"		"Ez a parancs le van tiltva."
+	}
+	"InGame"
+	{
+		"hu"		"Ez a parancs csak játékon belül használható."
+	}
+	"MapModeNotSupported"
+	{
+		"hu"		"A térkép vagy játékmód nem támogatott."
+	}
+	"WrongTeam"
+	{
+		"hu"		"A parancs használatához a túlélõk csapatában kell lenned."
+	}
+	"ASSOff"
+	{
+		"hu"		"Az Anti-Speedrunner Rendszer le van tiltva."
+	}
+	"AdminImmune"
+	{
+		"hu"		"{1} immúnis."
+	}
+	"AdminNotImmune"
+	{
+		"hu"		"{1} többé már nem immúnis."
+	}
+	"AcidSignature"
+	{
+		"hu"		"A \"CSpitterProjectile_Create\" aláírásod elavult."
+	}
+	"AcidInform"
+	{
+		"hu"		"Le lettél köpve!"
+	}
+	"AcidAnnounce"
+	{
+		"hu"		"{1} le lett köpve!"
+	}
+	"AcidNoInform"
+	{
+		"hu"		"Nem vagy már leköpve!"
+	}
+	"AcidNoAnnounce"
+	{
+		"hu"		"{1} már nincs leköpve!!"
+	}
+	"AmmoInform"
+	{
+		"hu"		"Elveszíted az összes lőszered!"
+	}
+	"AmmoAnnounce"
+	{
+		"hu"		"{1} elveszíti az összes lőszerét!"
+	}
+	"AmmoNoInform"
+	{
+		"hu"		"Már nem veszíted el az összes lőszeredet!"
+	}
+	"AmmoNoAnnounce"
+	{
+		"hu"		"{1} már nem veszíti el az összes lőszerét!!"
+	}
+	"BlindInform"
+	{
+		"hu"		"Megvakultál!"
+	}
+	"BlindAnnounce"
+	{
+		"hu"		"{1} megvakult!"
+	}
+	"BlindNoInform"
+	{
+		"hu"		"Már nem vagy vak!"
+	}
+	"BlindNoAnnounce"
+	{
+		"hu"		"{1} már nem vak!"
+	}
+	"BossOff"
+	{
+		"hu"		"Főnök tiltva."
+	}
+	"BossRequired"
+	{
+		"hu"		"Le kell gyõznünk a fõnököt!"
+	}
+	"BossDefeated"
+	{
+		"hu"		"A fõnököt legyõzték!"
+	}
+	"ChargeSignature"
+	{
+		"hu"		"A \"CTerrorPlayer_Fling\" aláírásod elavult."
+	}
+	"ChargeInform"
+	{
+		"hu"		"Le lettél rohanva!"
+	}
+	"ChargeAnnounce"
+	{
+		"hu"		"{1} le lett rohanva!"
+	}
+	"ChargeNoInform"
+	{
+		"hu"		"Már nem vagy lerohanva!"
+	}
+	"ChargeNoAnnounce"
+	{
+		"hu"		"{1} már nincs lerohanva!"
+	}
+	"ChaseInform"
+	{
+		"hu"		"Egy {1} üldöz téged!"
+	}
+	"ChaseAnnounce"
+	{
+		"hu"		"{1}-t üldözõbe vette egy {2}!"
+	}
+	"ConfigHeader"
+	{
+		"hu"		"// Ezt a konfig fájlt automatikusan generálta az Anti-Speedrunner Rendszer v{1} ({2})"
+	}
+	"Difficulty"
+	{
+		"hu"		"Nehézség"
+	}
+	"Map"
+	{
+		"hu"		"Térkép"
+	}
+	"GameMode"
+	{
+		"hu"		"Játékmód"
+	}
+	"Daily"
+	{
+		"hu"		"Naponta"
+	}
+	"PlayerCount"
+	{
+		"hu"		"Játékos szám"
+	}
+	"Create"
+	{
+		"hu"		"Létrehoz"
+	}
+	"Execute"
+	{
+		"hu"		"Végrehajt"
+	}
+	"NoDifficulty"
+	{
+		"hu"		"Nem található \"z_difficulty\" konzol változó."
+	}
+	"ConfigSaved"
+	{
+		"hu"		"{1}.cfg mentve {2}-be."
+	}
+	"ConfigExists"
+	{
+		"hu"		"{1}.cfg már megtalálható a {2}-ben."
+	}
+	"ConfigExecuted"
+	{
+		"hu"		"{1}.cfg végrehajtva {2}-ből."
+	}
+	"ConfigNotFound"
+	{
+		"hu"		"{1}.cfg nem található a {2}-ben."
+	}
+	"DisarmInform"
+	{
+		"hu"		"Lefegyvereztek!"
+	}
+	"DisarmAnnounce"
+	{
+		"hu"		"{1}-t lefegyverezték!"
+	}
+	"DisarmNoInform"
+	{
+		"hu"		"Már nem vagy fegyvertelen!"
+	}
+	"DisarmNoAnnounce"
+	{
+		"hu"		"{1} már nem fegyvertelen!"
+	}
+	"DrugInform"
+	{
+		"hu"		"Bedrogoztak!"
+	}
+	"DrugAnnounce"
+	{
+		"hu"		"{1}-t bedrogozták!"
+	}
+	"DrugNoInform"
+	{
+		"hu"		"Már nem vagy bedrogozva!"
+	}
+	"DrugNoAnnounce"
+	{
+		"hu"		"{1} már nincs bedrogozva!"
+	}
+	"KickAnnounce"
+	{
+		"hu"		"{1} ki lett rúgva a szerverrõl!"
+	}
+	"BanAnnounce"
+	{
+		"hu"		"{1} bannolva {2} percre!"
+	}
+	"ExplodeInform"
+	{
+		"hu"		"Eltalált egy robbanás!"
+	}
+	"ExplodeAnnounce"
+	{
+		"hu"		"{1}-t eltalálta egy robbanás!"
+	}
+	"FilterOff"
+	{
+		"hu"		"Szűrő tiltva."
+	}
+	"FilteredOut"
+	{
+		"hu"		"Van {1}/{2} csapásod és nem nyithatod ki az ajtót!"
+	}
+	"NoFilter"
+	{
+		"hu"		"{1}-nak van {2}/{3} csapása és kinyitotta a menedékszoba ajtaját!"
+	}
+	"FireInform"
+	{
+		"hu"		"Fel vagy gyújtva!"
+	}
+	"FireAnnounce"
+	{
+		"hu"		"{1} fel van gyújtva!"
+	}
+	"FireNoInform"
+	{
+		"hu"		"Már nem vagy felgyújtva!"
+	}
+	"FireNoAnnounce"
+	{
+		"hu"		"{1} már nincs felgyújtva!"
+	}
+	"FreezeInform"
+	{
+		"hu"		"Megfagytál!"
+	}
+	"FreezeAnnounce"
+	{
+		"hu"		"{1} megfagyott!"
+	}
+	"FreezeNoInform"
+	{
+		"hu"		"Már nem vagy megfagyva!"
+	}
+	"FreezeNoAnnounce"
+	{
+		"hu"		"{1} többé nincs megfagyva!"
+	}
+	"GroupOff"
+	{
+		"hu"		"Csoport tiltva."
+	}
+	"GroupRequired"
+	{
+		"hu"		"Legalább {1} túlélõnek kell közel lennie hogy mûködjön a menedékszoba ajtaja!"
+	}
+	"GroupEnough"
+	{
+		"hu"		"A barátság ereje kinyította a menedékszoba ajtaját!"
+	}
+	"HealSignature"
+	{
+		"hu"		"A \"CTerrorPlayer_SetHealthBuffer\" aláírásod elavult."
+	}
+	"HealSignature2"
+	{
+		"hu"		"A \"CTerrorPlayer_OnRevived\" aláírásod elavult."
+	}
+	"HealInform"
+	{
+		"hu"		"Ideiglenes életerõd van!"
+	}
+	"HealAnnounce"
+	{
+		"hu"		"{1}-nak ideiglenes életereje van!"
+	}
+	"HurtInform"
+	{
+		"hu"		"Az életerõd csökken!"
+	}
+	"HurtAnnounce"
+	{
+		"hu"		"{1} életereje csökken!"
+	}
+	"HurtNoInform"
+	{
+		"hu"		"Már nem csökken az életerőd!"
+	}
+	"HurtNoAnnounce"
+	{
+		"hu"		"{1} életereje már nem csökken!"
+	}
+	"IdleSignature"
+	{
+		"hu"		"A \"CTerrorPlayer::GoAwayFromKeyboard\" aláírásod elavult."
+	}
+	"IdleSignature2"
+	{
+		"hu"		"A \"SetHumanSpec\" aláírásod elavult."
+	}
+	"IdleInform"
+	{
+		"hu"		"Mostantól tétlen vagy!"
+	}
+	"IdleAnnounce"
+	{
+		"hu"		"{1} mostantól tétlen!"
+	}
+	"IncapInform"
+	{
+		"hu"		"Mozgásképtelen lettél!"
+	}
+	"IncapAnnounce"
+	{
+		"hu"		"{1} mozgásképtelen!"
+	}
+	"InvertInform"
+	{
+		"hu"		"A mozgás billentyűparancsaidat felcseréltük!"
+	}
+	"InvertAnnounce"
+	{
+		"hu"		"{1}'s mozgás billentyűi fel lettek cserélve!"
+	}
+	"InvertNoInform"
+	{
+		"hu"		"A mozgás billentyűid már nincsenek felcserélve!"
+	}
+	"InvertNoAnnounce"
+	{
+		"hu"		"{1} mozgás billentyűi már nincsenek felcserélve!"
+	}
+	"KeymanOff"
+	{
+		"hu"		"Kulcsember tiltva."
+	}
+	"PlayerLeftSafeArea"
+	{
+		"hu"		"A játékos {1} elhagyta a biztonságos területet!"
+	}
+	"BOTLeftSafeArea"
+	{
+		"hu"		"A BOT {1} elhagyta a biztonságos területet!"
+	}
+	"KeymanDisconnected"
+	{
+		"hu"		"Egy Kulcsember kilépett! Új Kulcsember választása..."
+	}
+	"KeymanIncapacitated"
+	{
+		"hu"		"Egy Kulcsember mozgásképtelen! Új Kulcsember választása..."
+	}
+	"KeymanDead"
+	{
+		"hu"		"Egy Kulcsember halott! Új Kulcsember választása..."
+	}
+	"KeymanReset"
+	{
+		"hu"		"Kulcsember újraválasztása..."
+	}
+	"KeymanTeam"
+	{
+		"hu"		"Egy Kulcsember csapatott váltott! Új Kulcsember választása..."
+	}
+	"KeymanCountdown"
+	{
+		"hu"		"Új Kulcsember választása ekkor {1}."
+	}
+	"KeymanSelect"
+	{
+		"hu"		"Új Kulcsember választása..."
+	}
+	"KeymanChosen"
+	{
+		"hu"		"{1} egy Kulcsember."
+	}
+	"KeymanNotChosen"
+	{
+		"hu"		"Nem lett Kulcsember kiválasztva."
+	}
+	"KeymanSame"
+	{
+		"hu"		"{1} még mindig egy Kulcsember."
+	}
+	"NotKeyman"
+	{
+		"hu"		"{1} már nem Kulcsember többé."
+	}
+	"KeymanEnough"
+	{
+		"hu"		"Már van {1}/{2} Kulcsemberünk ehhez a fejezethez."
+	}
+	"KeymanInvalid"
+	{
+		"hu"		"Érvénytelen Kulcsember! Új Kulcsember választása..."
+	}
+	"KeymanDeny"
+	{
+		"hu"		"Csak Kulcsember tudja kinyitni a menedékszoba ajtaját!"
+	}
+	"KeymanArrived"
+	{
+		"hu"		"A Kulcsember {1} elérte a menedékszobát!"
+	}
+	"KeymanInform"
+	{
+		"hu"		"Te vagy a Kulcsember!"
+	}
+	"LockdownOff"
+	{
+		"hu"		"Lezárás tiltva."
+	}
+	"WaitLockdown"
+	{
+		"hu"		"Várd meg a lezárás végét!"
+	}
+	"LockdownEnds"
+	{
+		"hu"		"A lezárás véget ért és a menedékszoba ajtaja kinyílt!"
+	}
+	"LockdownCountdown"
+	{
+		"hu"		"A lezárás véget ér ekkor {1}."
+	}
+	"Acid"
+	{
+		"hu"		"Savasság"
+	}
+	"Ammo"
+	{
+		"hu"		"Lőszer"
+	}
+	"Ban"
+	{
+		"hu"		"Száműzetés"
+	}
+	"Blind"
+	{
+		"hu"		"Vakság"
+	}
+	"Charge"
+	{
+		"hu"		"Lerohanás"
+	}
+	"Chase"
+	{
+		"hu"		"Üldözés"
+	}
+	"Check"
+	{
+		"hu"		"Ellenőriz"
+	}
+	"Config"
+	{
+		"hu"		"Konfiguráció"
+	}
+	"Disarm"
+	{
+		"hu"		"Lefegyverzés"
+	}
+	"Door"
+	{
+		"hu"		"Ajtó"
+	}
+	"Drug"
+	{
+		"hu"		"Drog"
+	}
+	"Entry"
+	{
+		"hu"		"Bejárat"
+	}
+	"Exile"
+	{
+		"hu"		"Száműzetés"
+	}
+	"Explode"
+	{
+		"hu"		"Robbanás"
+	}
+	"Fire"
+	{
+		"hu"		"Tûz"
+	}
+	"Freeze"
+	{
+		"hu"		"Megfagyasztás"
+	}
+	"Heal"
+	{
+		"hu"		"Életerõ"
+	}
+	"Hurt"
+	{
+		"hu"		"Sérült"
+	}
+	"Idle"
+	{
+		"hu"		"Tétlen"
+	}
+	"Incap"
+	{
+		"hu"		"Mozgásképtelenség"
+	}
+	"Invert"
+	{
+		"hu"		"Felfordítás"
+	}
+	"Kick"
+	{
+		"hu"		"Kirúgás"
+	}
+	"Mirror"
+	{
+		"hu"		"Tükrözés"
+	}
+	"Null"
+	{
+		"hu"		"Nulla"
+	}
+	"Puke"
+	{
+		"hu"		"Hányás"
+	}
+	"Restart"
+	{
+		"hu"		"Újraindítás"
+	}
+	"Rocket"
+	{
+		"hu"		"Rakéta"
+	}
+	"Saferoom"
+	{
+		"hu"		"Menedékszoba"
+	}
+	"Shake"
+	{
+		"hu"		"Rázás"
+	}
+	"Shock"
+	{
+		"hu"		"Sokkolás"
+	}
+	"Shove"
+	{
+		"hu"		"Lökés"
+	}
+	"Slow"
+	{
+		"hu"		"Lassú"
+	}
+	"Strike"
+	{
+		"hu"		"Csapás"
+	}
+	"Vision"
+	{
+		"hu"		"Látásmód"
+	}
+	"Warp"
+	{
+		"hu"		"Visszahoz"
+	}
+	"NobodyVoted"
+	{
+		"hu"		"{1}/{2} szavazott."
+	}
+	"NoVotes"
+	{
+		"hu"		"Csak {1}/{2} játékos szavazott."
+	}
+	"VotedYes"
+	{
+		"hu"		"{1}/{2} Igennel szavazott."
+	}
+	"VotedNo"
+	{
+		"hu"		"{1}/{2} Nemmel szavazott."
+	}
+	"VotedBoss"
+	{
+		"hu"		"{1}/{2} szavazott a Fõnökre."
+	}
+	"VotedFilter"
+	{
+		"hu"		"{1}/{2} szavazott a Szűrőre."
+	}
+	"VotedGroup"
+	{
+		"hu"		"{1}/{2} szavazott a Csoportra."
+	}
+	"VotedKeyman"
+	{
+		"hu"		"{1}/{2} szavazott a Kulcsemberre."
+	}
+	"VotedLockdown"
+	{
+		"hu"		"{1}/{2} szavazott a Lezárásra."
+	}
+	"VotedNone"
+	{
+		"hu"		"{1}/{2} szavazott a Semmire."
+	}
+	"ChooseConfigMode"
+	{
+		"hu"		"Válassz egy konfiguráció módot:"
+	}
+	"ChooseConfigType"
+	{
+		"hu"		"Válassz egy konfiguráció típust:"
+	}
+	"ChoosePlayer"
+	{
+		"hu"		"Válassz egy játékost:"
+	}
+	"ChooseExileMode"
+	{
+		"hu"		"Válassz egy száműzetési módot:"
+	}
+	"ChooseOption"
+	{
+		"hu"		"Melyik belépési módot választod?"
+	}
+	"InitiateLockdown"
+	{
+		"hu"		"Elindítsunk egy lezárást?"
+	}
+	"Boss"
+	{
+		"hu"		"Fõnök"
+	}
+	"Filter"
+	{
+		"hu"		"Szűrő"
+	}
+	"Group"
+	{
+		"hu"		"Csoport"
+	}
+	"Keyman"
+	{
+		"hu"		"Kulcsember"
+	}
+	"Lockdown"
+	{
+		"hu"		"Lezárás"
+	}
+	"None"
+	{
+		"hu"		"Egyik sem"
+	}
+	"MirrorInform"
+	{
+		"hu"		"A sebzésed visszatükrözve!"
+	}
+	"MirrorAnnounce"
+	{
+		"hu"		"{1} sebzése visszatükrözve!"
+	}
+	"MirrorNoInform"
+	{
+		"hu"		"A sebzésed már nincs visszatükrözve!"
+	}
+	"MirrorNoAnnounce"
+	{
+		"hu"		"{1} sebzése már nincs visszatükrözve!"
+	}
+	"PukeSignature"
+	{
+		"hu"		"A \"CTerrorPlayer_OnVomitedUpon\" aláírásod elavult."
+	}
+	"PukeInform"
+	{
+		"hu"		"Lehánytak!"
+	}
+	"PukeAnnounce"
+	{
+		"hu"		"{1}-t lehányták!"
+	}
+	"PukeNoInform"
+	{
+		"hu"		"Már nem vagy lehányva!"
+	}
+	"PukeNoAnnounce"
+	{
+		"hu"		"{1} már nincs lehányva!"
+	}
+	"RestartSignature"
+	{
+		"hu"		"A \"RoundRespawn\" aláírásod elavult."
+	}
+	"RestartInform"
+	{
+		"hu"		"Újrakezdted a biztonságos területen!"
+	}
+	"RestartAnnounce"
+	{
+		"hu"		"{1} újrakezdte a biztonságos területen!"
+	}
+	"RocketInform"
+	{
+		"hu"		"Kilőttünk az űrbe!"
+	}
+	"RocketAnnounce"
+	{
+		"hu"		"{1}-t kilőttük az űrbe!"
+	}
+	"SaferoomOff"
+	{
+		"hu"		"Menedékszoba Rendszer tiltva!"
+	}
+	"DoorOpened"
+	{
+		"hu"		"A menedékszoba ajtaja kinyílt!"
+	}
+	"Locked"
+	{
+		"hu"		"A cél menedékszoba ajtaja erõvel bezárva."
+	}
+	"Unlocked"
+	{
+		"hu"		"A cél menedékszoba ajtaja erõvel kinyitva."
+	}
+	"DoorType"
+	{
+		"hu"		"Ajtó típusa"
+	}
+	"StartDoor"
+	{
+		"hu"		"Kezdő ajtó"
+	}
+	"EndDoor"
+	{
+		"hu"		"Cél ajtó"
+	}
+	"ControlDoor"
+	{
+		"hu"		"Zárjuk/Kinyissuk"
+	}
+	"Lock"
+	{
+		"hu"		"Bezár"
+	}
+	"Unlock"
+	{
+		"hu"		"Kinyit"
+	}
+	"EntryCountdown"
+	{
+		"hu"		"Túlélők bekísérése ennyi idő múlva {1}."
+	}
+	"EntryInform"
+	{
+		"hu"		"Az összes túlélőt bekísértük a menedékszobába."
+	}
+	"ShakeInform"
+	{
+		"hu"		"Rázkódsz!"
+	}
+	"ShakeAnnounce"
+	{
+		"hu"		"{1} rázkódik!"
+	}
+	"ShakeNoInform"
+	{
+		"hu"		"Többé nem rázkódsz!"
+	}
+	"ShakeNoAnnounce"
+	{
+		"hu"		"{1} nem rázkódik többé!"
+	}
+	"ShockInform"
+	{
+		"hu"		"Meg lettél sokkolva és meghaltál!"
+	}
+	"ShockAnnounce"
+	{
+		"hu"		"{1} meglett sokkolva és meghalt!"
+	}
+	"ShoveSignature"
+	{
+		"hu"		"A \"CTerrorPlayer_OnStaggered\" aláírásod elavult."
+	}
+	"ShoveInform"
+	{
+		"hu"		"Meg lettél lökve!"
+	}
+	"ShoveAnnounce"
+	{
+		"hu"		"{1} meg lett lökve!"
+	}
+	"ShoveNoInform"
+	{
+		"hu"		"Többé nem lökünk meg!"
+	}
+	"ShoveNoAnnounce"
+	{
+		"hu"		"{1}-t nem lökjük meg többé!"
+	}
+	"SlowInform"
+	{
+		"hu"		"Le lettél lassítva!"
+	}
+	"SlowAnnounce"
+	{
+		"hu"		"{1} le lett lassítva!"
+	}
+	"SlowNoInform"
+	{
+		"hu"		"Már nem vagy lelassítva!"
+	}
+	"SlowNoAnnounce"
+	{
+		"hu"		"{1} már nincs lelassítva"
+	}
+	"StrikeOff"
+	{
+		"hu"		"Csapási Rendszer tiltva."
+	}
+	"CheckInform"
+	{
+		"hu"		"Ellenőrzés alatt állsz!"
+	}
+	"CheckAnnounce"
+	{
+		"hu"		"{1} ellenőrzés alatt áll!"
+	}
+	"CheckNoInform"
+	{
+		"hu"		"Már nem ellenőrzünk téged!"
+	}
+	"CheckNoAnnounce"
+	{
+		"hu"		"{1} már nincs ellenőrizve!"
+	}
+	"StrikeInform"
+	{
+		"hu"		"Kaptál {1}/{2} csapást. Maradj a csapattársaiddal!"
+	}
+	"StrikeAnnounce"
+	{
+		"hu"		"{1} kapott {2}/{3} csapást!"
+	}
+	"Inform"
+	{
+		"hu"		"Van még {1}/{2} csapásod és meg leszel büntetve!"
+	}
+	"Announce"
+	{
+		"hu"		"{1}-nak van {2}/{3} csapása és meg lesz büntetve!"
+	}
+	"StrikeWarn"
+	{
+		"hu"		"Maradj a csapattársaiddal vagy csapást fogsz kapni!"
+	}
+	"StrikeWarn2"
+	{
+		"hu"		"Maradj a csapattársaiddal vagy meg leszel büntetve!"
+	}
+	"VisionInform"
+	{
+		"hu"		"A látásmódod megváltozott!"
+	}
+	"VisionAnnounce"
+	{
+		"hu"		"{1} látásmódja megváltozott!"
+	}
+	"WarpInform"
+	{
+		"hu"		"Visszahoztunk a csapatodhoz!"
+	}
+	"WarpAnnounce"
+	{
+		"hu"		"{1} vissza lett hozva a csapatához!"
+	}
+}

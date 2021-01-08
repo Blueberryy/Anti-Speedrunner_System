@@ -1,0 +1,903 @@
+﻿"Phrases"
+{
+	"NotL4D2"
+	{
+		"pt"		"Disponivel em Left 4 Dead 2 somente."
+	}
+	"TankAlive"
+	{
+		"pt"		"Existe um Tank vivo."
+	}
+	"CommandOff"
+	{
+		"pt"		"Este comando esta desabilitado."
+	}
+	"InGame"
+	{
+		"pt"		"Este comando deve ser usado apenas em jogo."
+	}
+	"MapModeNotSupported"
+	{
+		"pt"		"Mapa ou modo de jogo nao suportado."
+	}
+	"WrongTeam"
+	{
+		"pt"		"Voce deve estar na equipe de sobreviventes para usar este comando."
+	}
+	"ASSOff"
+	{
+		"pt"		"O Sistema Anti-Speedrunner esta desabilitado."
+	}
+	"AdminImmune"
+	{
+		"pt"		"{1} esta imune."
+	}
+	"AdminNotImmune"
+	{
+		"pt"		"{1} nao esta mais imune."
+	}
+	"AcidSignature"
+	{
+		"pt"		"Sua \"CSpitterProjectile_Create\" assinatura esta desatualizada."
+	}
+	"AcidInform"
+	{
+		"pt"		"Voce esta sendo cuspido!"
+	}
+	"AcidAnnounce"
+	{
+		"pt"		"{1} esta sendo cuspido!"
+	}
+	"AcidNoInform"
+	{
+		"pt"		"Voce não esta mais sendo cuspido!"
+	}
+	"AcidNoAnnounce"
+	{
+		"pt"		"{1} nao esta mais sendo cuspido!"
+	}
+	"AmmoInform"
+	{
+		"pt"		"Voce esta perdendo toda sua munição!"
+	}
+	"AmmoAnnounce"
+	{
+		"pt"		"{1} esta perdendo toda munição dele!"
+	}
+	"AmmoNoInform"
+	{
+		"pt"		"Voce nao esta mais perdendo toda sua munição!"
+	}
+	"AmmoNoAnnounce"
+	{
+		"pt"		"{1} nao esta mais perdendo munição!"
+	}
+	"BlindInform"
+	{
+		"pt"		"Voce esta cego!"
+	}
+	"BlindAnnounce"
+	{
+		"pt"		"{1} esta cego!"
+	}
+	"BlindNoInform"
+	{
+		"pt"		"Voce nao esta mais cego!"
+	}
+	"BlindNoAnnounce"
+	{
+		"pt"		"{1} nao esta mais cego!"
+	}
+	"BossOff"
+	{
+		"pt"		"Boss desabilitado."
+	}
+	"BossRequired"
+	{
+		"pt"		"Nos precisamos derrotar o boss!"
+	}
+	"BossDefeated"
+	{
+		"pt"		"O boss foi derrotado!"
+	}
+	"ChargeSignature"
+	{
+		"pt"		"Sua \"CTerrorPlayer_Fling\" assinatura esta desatualizada."
+	}
+	"ChargeInform"
+	{
+		"pt"		"Voce esta sendo carregado!"
+	}
+	"ChargeAnnounce"
+	{
+		"pt"		"{1} esta sendo carregado!"
+	}
+	"ChargeNoInform"
+	{
+		"pt"		"Voce nao esta mais sendo verificado!"
+	}
+	"ChargeNoAnnounce"
+	{
+		"pt"		"{1} nao esta mais sendo verificado!"
+	}
+	"ChaseInform"
+	{
+		"pt"		"Um {1} esta atras de voce agora!"
+	}
+	"ChaseAnnounce"
+	{
+		"pt"		"{1} esta sendo perseguido por um {2}!"
+	}
+	"ConfigHeader"
+	{
+		"pt"		"// Este arquivo de configuração foi gerado automaticamente pelo Anti-Speedrunner System v{1} ({2})"
+	}
+	"Difficulty"
+	{
+		"pt"		"Dificuldade"
+	}
+	"Map"
+	{
+		"pt"		"Mapa"
+	}
+	"GameMode"
+	{
+		"pt"		"Modo de jogo"
+	}
+	"Daily"
+	{
+		"pt"		"Diariamente"
+	}
+	"PlayerCount"
+	{
+		"pt"		"Contagem de jogadores"
+	}
+	"Create"
+	{
+		"pt"		"Criar"
+	}
+	"Execute"
+	{
+		"pt"		"Executar"
+	}
+	"NoDifficulty"
+	{
+		"pt"		"\"z_difficulty\" convar nao encontrado."
+	}
+	"ConfigSaved"
+	{
+		"pt"		"Salvo {1}.cfg para {2}."
+	}
+	"ConfigExists"
+	{
+		"pt"		"{1}.cfg encontrado em {2}."
+	}
+	"ConfigExecuted"
+	{
+		"pt"		"Executou {1}.cfg de {2}."
+	}
+	"ConfigNotFound"
+	{
+		"pt"		"{1}.cfg nao encontrado em {2}."
+	}
+	"DisarmInform"
+	{
+		"pt"		"Voce esta desarmado!"
+	}
+	"DisarmAnnounce"
+	{
+		"pt"		"{1} esta sendo desarmado!"
+	}
+	"DisarmNoInform"
+	{
+		"pt"		"Voce nao esta mais sendo desarmado!"
+	}
+	"DisarmNoAnnounce"
+	{
+		"pt"		"{1} nao esta mais sendo desarmado!"
+	}
+	"DrugInform"
+	{
+		"pt"		"Voce esta drogado!"
+	}
+	"DrugAnnounce"
+	{
+		"pt"		"{1} esta drogado!"
+	}
+	"DrugNoInform"
+	{
+		"pt"		"Voce nao esta mais drogado!"
+	}
+	"DrugNoAnnounce"
+	{
+		"pt"		"{1} nao esta mais drogado!"
+	}
+	"KickAnnounce"
+	{
+		"pt"		"{1} foi expulso do servidor!"
+	}
+	"BanAnnounce"
+	{
+		"pt"		"{1} foi banido por {2} minutos!"
+	}
+	"ExplodeInform"
+	{
+		"pt"		"Voce foi pego por uma explosão!"
+	}
+	"ExplodeAnnounce"
+	{
+		"pt"		"{1} foi pego por uma explosao!"
+	}
+	"FilterOff"
+	{
+		"pt"		"Filtro desabilitado."
+	}
+	"FilteredOut"
+	{
+		"pt"		"Voce tem {1}/{2} punimentos e nao pode abrir a porta!"
+	}
+	"NoFilter"
+	{
+		"pt"		"{1} tem {2}/{3} punimentos e abriu a porta da saferoom!"
+	}
+	"FireInform"
+	{
+		"pt"		"Voce esta queimando!"
+	}
+	"FireAnnounce"
+	{
+		"pt"		"{1} esta queimando!"
+	}
+	"FireNoInform"
+	{
+		"pt"		"Voce nao esta mais em chamas!"
+	}
+	"FireNoAnnounce"
+	{
+		"pt"		"{1} nao esta mais se queimando!"
+	}
+	"FreezeInform"
+	{
+		"pt"		"Voce esta congelado!"
+	}
+	"FreezeAnnounce"
+	{
+		"pt"		"{1} esta congelado!"
+	}
+	"FreezeNoInform"
+	{
+		"pt"		"Voce não esta mais congelado!"
+	}
+	"FreezeNoAnnounce"
+	{
+		"pt"		"{1} nao esta mais congelado!"
+	}
+	"GroupOff"
+	{
+		"pt"		"Grupo desabilitado."
+	}
+	"GroupRequired"
+	{
+		"pt"		"Precisamos de pelo menos {1} sobreviventes para operar a porta da saferoom!"
+	}
+	"GroupEnough"
+	{
+		"pt"		"O poder da amizade abriu a porta da saferoom!"
+	}
+	"HealSignature"
+	{
+		"pt"		"Sua \"CTerrorPlayer_SetHealthBuffer\" assinatura esta desatualizada."
+	}
+	"HealSignature2"
+	{
+		"pt"		"Sua \"CTerrorPlayer_OnRevived\" assinatura esta desatualizada."
+	}
+	"HealInform"
+	{
+		"pt"		"Voce tem saude temporaria!"
+	}
+	"HealAnnounce"
+	{
+		"pt"		"{1} tem saude temporaria!"
+	}
+	"HurtInform"
+	{
+		"pt"		"Voce esta perdendo saude!"
+	}
+	"HurtAnnounce"
+	{
+		"pt"		"{1} esta perdendo saude!"
+	}
+	"HurtNoInform"
+	{
+		"pt"		"Voce nao esta mais perdendo saude!"
+	}
+	"HurtNoAnnounce"
+	{
+		"pt"		"{1} nao esta mais perdendo saude!"
+	}
+	"IdleSignature"
+	{
+		"pt"		"Sua \"CTerrorPlayer::GoAwayFromKeyboard\" assinatura esta desatualizada."
+	}
+	"IdleSignature2"
+	{
+		"pt"		"Sua \"SetHumanSpec\" assinatura esta desatualizada."
+	}
+	"IdleInform"
+	{
+		"pt"		"Voce esta ausente agora!"
+	}
+	"IdleAnnounce"
+	{
+		"pt"		"{1} esta agora ausente!"
+	}
+	"IncapInform"
+	{
+		"pt"		"Voce esta incapacitado!"
+	}
+	"IncapAnnounce"
+	{
+		"pt"		"{1} esta incapacitado!"
+	}
+	"InvertInform"
+	{
+		"pt"		"Suas teclas de movimento estão invertidas!"
+	}
+	"InvertAnnounce"
+	{
+		"pt"		"{1}'s teclas de movimento estão invertidas!"
+	}
+	"InvertNoInform"
+	{
+		"pt"		"Suas teclas nao estão mais invertidas!"
+	}
+	"InvertNoAnnounce"
+	{
+		"pt"		"{1} as teclas de movimento nao estao mais invertidas!"
+	}
+	"KeymanOff"
+	{
+		"pt"		"Homem Chave desabilitado."
+	}
+	"PlayerLeftSafeArea"
+	{
+		"pt"		"O jogador {1} deixou a area segura!"
+	}
+	"BOTLeftSafeArea"
+	{
+		"pt"		"O BOT {1} deixou a area segura!"
+	}
+	"KeymanDisconnected"
+	{
+		"pt"		"Um Homem Chave desconectou! Selecionando novo Homem Chave..."
+	}
+	"KeymanIncapacitated"
+	{
+		"pt"		"Um Homem Chave esta incapacitado! Selecione novo Homem Chave..."
+	}
+	"KeymanDead"
+	{
+		"pt"		"Um Homem Chave esta morto! Selecionando novo Homem Chave..."
+	}
+	"KeymanReset"
+	{
+		"pt"		"Resetando Homens Chave..."
+	}
+	"KeymanTeam"
+	{
+		"pt"		"Um Homem Chave mudou de time! Selecionando novo Homem Chave..."
+	}
+	"KeymanCountdown"
+	{
+		"pt"		"Selecionando novo Homens Chave em {1}."
+	}
+	"KeymanSelect"
+	{
+		"pt"		"Selcionando novo Homens Chave..."
+	}
+	"KeymanChosen"
+	{
+		"pt"		"{1} é um Homem Chave."
+	}
+	"KeymanNotChosen"
+	{
+		"pt"		"Um Homem Chave nao foi escolhido."
+	}
+	"KeymanSame"
+	{
+		"pt"		"{1} ainda é um Homem Chave."
+	}
+	"NotKeyman"
+	{
+		"pt"		"{1} não é um Homem chave mais."
+	}
+	"KeymanEnough"
+	{
+		"pt"		"Ja existe {1}/{2} Homens Chave para este mapa."
+	}
+	"KeymanInvalid"
+	{
+		"pt"		"Homem Chave invalido! Selecionando novo Homem Chave..."
+	}
+	"KeymanDeny"
+	{
+		"pt"		"Somente Homens Chave pode abrir a porta da saferoom!"
+	}
+	"KeymanArrived"
+	{
+		"pt"		"Homem Chave {1} chegou na saferoom!"
+	}
+	"KeymanInform"
+	{
+		"pt"		"Voce e um Homem Chave!"
+	}
+	"LockdownOff"
+	{
+		"pt"		"Bloqueio desabilitado."
+	}
+	"WaitLockdown"
+	{
+		"pt"		"Espere pelo bloqueio terminar!"
+	}
+	"LockdownEnds"
+	{
+		"pt"		"O bloqueio terminou, a porta da saferoom abriu!"
+	}
+	"LockdownCountdown"
+	{
+		"pt"		"Bloqueio termina em {1}."
+	}
+	"Acid"
+	{
+		"pt"		"Acidez"
+	}
+	"Ammo"
+	{
+		"pt"		"Munição"
+	}
+	"Ban"
+	{
+		"pt"		"Banimento"
+	}
+	"Blind"
+	{
+		"pt"		"Cegar"
+	}
+	"Charge"
+	{
+		"pt"		"Carregar"
+	}
+	"Chase"
+	{
+		"pt"		"Perseguição"
+	}
+	"Check"
+	{
+		"pt"		"Verificar"
+	}
+	"Config"
+	{
+		"pt"		"Configuração"
+	}
+	"Disarm"
+	{
+		"pt"		"Desarmamento"
+	}
+	"Door"
+	{
+		"pt"		"Porta"
+	}
+	"Drug"
+	{
+		"pt"		"Drogas"
+	}
+	"Entry"
+	{
+		"pt"		"Entrada"
+	}
+	"Exile"
+	{
+		"pt"		"Exílio"
+	}
+	"Explode"
+	{
+		"pt"		"Explosão"
+	}
+	"Fire"
+	{
+		"pt"		"Queimar"
+	}
+	"Freeze"
+	{
+		"pt"		"Congelamento"
+	}
+	"Heal"
+	{
+		"pt"		"Saude"
+	}
+	"Hurt"
+	{
+		"pt"		"Ferir"
+	}
+	"Idle"
+	{
+		"pt"		"Ausente"
+	}
+	"Incap"
+	{
+		"pt"		"Incapacitação"
+	}
+	"Invert"
+	{
+		"pt"		"Inversão"
+	}
+	"Kick"
+	{
+		"pt"		"Chutar"
+	}
+	"Mirror"
+	{
+		"pt"		"Espelho"
+	}
+	"Null"
+	{
+		"pt"		"Nulo"
+	}
+	"Puke"
+	{
+		"pt"		"Vomito"
+	}
+	"Restart"
+	{
+		"pt"		"Reiniciar"
+	}
+	"Rocket"
+	{
+		"pt"		"Foguete"
+	}
+	"Saferoom"
+	{
+		"pt"		"Saferoom"
+	}
+	"Shake"
+	{
+		"pt"		"Chacoalhar"
+	}
+	"Shock"
+	{
+		"pt"		"Choque"
+	}
+	"Shove"
+	{
+		"pt"		"Empurrao"
+	}
+	"Slow"
+	{
+		"pt"		"Mover-se Lentamente"
+	}
+	"Strike"
+	{
+		"pt"		"Penalidade"
+	}
+	"Vision"
+	{
+		"pt"		"Visão"
+	}
+	"Warp"
+	{
+		"pt"		"Teletransporte"
+	}
+	"NobodyVoted"
+	{
+		"pt"		"{1}/{2} votam."
+	}
+	"NoVotes"
+	{
+		"pt"		"Apenas {1}/{2} jogadores votam."
+	}
+	"VotedYes"
+	{
+		"pt"		"{1}/{2} votado Sim."
+	}
+	"VotedNo"
+	{
+		"pt"		"{1}/{2} votado Não."
+	}
+	"VotedBoss"
+	{
+		"pt"		"{1}/{2} votado para Boss."
+	}
+	"VotedFilter"
+	{
+		"pt"		"{1}/{2} votado para Filtro."
+	}
+	"VotedGroup"
+	{
+		"pt"		"{1}/{2} votado para Grupo."
+	}
+	"VotedKeyman"
+	{
+		"pt"		"{1}/{2} votado para Homem Chave."
+	}
+	"VotedLockdown"
+	{
+		"pt"		"{1}/{2} votado para Bloqueio."
+	}
+	"VotedNone"
+	{
+		"pt"		"{1}/{2} votado Nenhum."
+	}
+	"ChooseConfigMode"
+	{
+		"pt"		"Escolha um modo de configuração:"
+	}
+	"ChooseConfigType"
+	{
+		"pt"		"Escolha um tipo de configuração:"
+	}
+	"ChoosePlayer"
+	{
+		"pt"		"Escolha um jogador:"
+	}
+	"ChooseExileMode"
+	{
+		"pt"		"Escolha um modo para exilado:"
+	}
+	"ChooseOption"
+	{
+		"pt"		"Qual metodo de de entrada voce prefere?"
+	}
+	"InitiateLockdown"
+	{
+		"pt"		"Iniciar um bloqueio?"
+	}
+	"Boss"
+	{
+		"pt"		"Boss"
+	}
+	"Filter"
+	{
+		"pt"		"Filtro"
+	}
+	"Group"
+	{
+		"pt"		"Grupo"
+	}
+	"Keyman"
+	{
+		"pt"		"Homem Chave"
+	}
+	"Lockdown"
+	{
+		"pt"		"Bloqueio"
+	}
+	"None"
+	{
+		"pt"		"Nenhum"
+	}
+	"MirrorInform"
+	{
+		"pt"		"Seu dano esta espelhado!"
+	}
+	"MirrorAnnounce"
+	{
+		"pt"		"{1} esta com dano espelhado!"
+	}
+	"MirrorNoInform"
+	{
+		"pt"		"Seu dano não é mais espelhado!"
+	}
+	"MirrorNoAnnounce"
+	{
+		"pt"		"{1} não esta mais com dano espelhado!"
+	}
+	"PukeSignature"
+	{
+		"pt"		"Sua \"CTerrorPlayer_OnVomitedUpon\" assinatura esta desatualizada."
+	}
+	"PukeInform"
+	{
+		"pt"		"Voce esta sendo vomitado!"
+	}
+	"PukeAnnounce"
+	{
+		"pt"		"{1} esta sendo cuspido!"
+	}
+	"PukeNoInform"
+	{
+		"pt"		"Voce nao esta mais sendo vomitado!"
+	}
+	"PukeNoAnnounce"
+	{
+		"pt"		"{1} nao esta mais sendo vomitado!"
+	}
+	"RestartSignature"
+	{
+		"pt"		"Sua \"RoundRespawn\" assinatura esta desatualizada."
+	}
+	"RestartInform"
+	{
+		"pt"		"Você reiniciou na área segura!"
+	}
+	"RestartAnnounce"
+	{
+		"pt"		"{1} reiniciado na área segura!"
+	}
+	"RocketInform"
+	{
+		"pt"		"Voce foi enviado para o espaço!"
+	}
+	"RocketAnnounce"
+	{
+		"pt"		"{1} foi enviado para espaço!"
+	}
+	"SaferoomOff"
+	{
+		"pt"		"Sistema Saferoom desabilitado."
+	}
+	"DoorOpened"
+	{
+		"pt"		"A porta da saferoom esta aberta!"
+	}
+	"Locked"
+	{
+		"pt"		"Trava da porta da saferoom bloqueada."
+	}
+	"Unlocked"
+	{
+		"pt"		"Trava da porta da saferoom desbloqueada."
+	}
+	"DoorType"
+	{
+		"pt"		"Tipo de porta"
+	}
+	"StartDoor"
+	{
+		"pt"		"Iniciando porta"
+	}
+	"EndDoor"
+	{
+		"pt"		"Finalizando porta"
+	}
+	"ControlDoor"
+	{
+		"pt"		"Bloquear/Desbloquear"
+	}
+	"Lock"
+	{
+		"pt"		"Bloquear"
+	}
+	"Unlock"
+	{
+		"pt"		"Desbloquear"
+	}
+	"EntryCountdown"
+	{
+		"pt"		"Teleportando sobreviventes dentro de {1}."
+	}
+	"EntryInform"
+	{
+		"pt"		"Teleportou todos os sobreviventes para saferoom."
+	}
+	"ShakeInform"
+	{
+		"pt"		"Voce foi chacoalhado!"
+	}
+	"ShakeAnnounce"
+	{
+		"pt"		"{1} esta chacoalhando!"
+	}
+	"ShakeNoInform"
+	{
+		"pt"		"Voce nao esta mais sacudindo!"
+	}
+	"ShakeNoAnnounce"
+	{
+		"pt"		"{1} nao esta mais sacudindo!"
+	}
+	"ShockInform"
+	{
+		"pt"		"Voce levou um Shock e morreu!"
+	}
+	"ShockAnnounce"
+	{
+		"pt"		"{1} levou shock e morreu!"
+	}
+	"ShoveSignature"
+	{
+		"pt"		"Sua \"CTerrorPlayer_OnStaggered\" assinatura esta desatualizada."
+	}
+	"ShoveInform"
+	{
+		"pt"		"Voce esta sendo empurrado!"
+	}
+	"ShoveAnnounce"
+	{
+		"pt"		"{1} esta sendo empurrado!"
+	}
+	"ShoveNoInform"
+	{
+		"pt"		"Voce nao esta mais sendo empurrado!"
+	}
+	"ShoveNoAnnounce"
+	{
+		"pt"		"{1} nao esta mais sendo empurrado!"
+	}
+	"SlowInform"
+	{
+		"pt"		"Voce esta se movendo lentamente!"
+	}
+	"SlowAnnounce"
+	{
+		"pt"		"{1} esta se movendo lentamente!"
+	}
+	"SlowNoInform"
+	{
+		"pt"		"Você nao esta mais se movendo lentamente!"
+	}
+	"SlowNoAnnounce"
+	{
+		"pt"		"{1} nao esta mais se movendo lentamente!"
+	}
+	"StrikeOff"
+	{
+		"pt"		"Sistema de Punição desabilitado."
+	}
+	"CheckInform"
+	{
+		"pt"		"Voce esta sendo verificado!"
+	}
+	"CheckAnnounce"
+	{
+		"pt"		"{1} esta sendo verificado!"
+	}
+	"CheckNoInform"
+	{
+		"pt"		"Voce nao esta mais sendo verificado!"
+	}
+	"CheckNoAnnounce"
+	{
+		"pt"		"{1} nao esta mais sendo verificado!"
+	}
+	"StrikeInform"
+	{
+		"pt"		"Voce recebeu {1}/{2} penalidades. Pare de RUSHAR fique junto ao time!"
+	}
+	"StrikeAnnounce"
+	{
+		"pt"		"{1} recebeu {2}/{3} penalidades por rushar!"
+	}
+	"Inform"
+	{
+		"pt"		"Voce tem {1}/{2} penalidades e sera punido!"
+	}
+	"Announce"
+	{
+		"pt"		"{1} foi {2}/{3} penalizado e sera punido!"
+	}
+	"StrikeWarn"
+	{
+		"pt"		"Nao Rushar, fique junto ao time ou sofrera penalidades!"
+	}
+	"StrikeWarn2"
+	{
+		"pt"		"Nao Rushar, fique junto ao time ou será punido!"
+	}
+	"VisionInform"
+	{
+		"pt"		"Sua visão foi alterada!"
+	}
+	"VisionAnnounce"
+	{
+		"pt"		"{1}'s visão mudou!"
+	}
+	"WarpInform"
+	{
+		"pt"		"Voce sera teleportado de volta ao time!"
+	}
+	"WarpAnnounce"
+	{
+		"pt"		"{1} foi teleportado de volta ao time!"
+	}
+}
